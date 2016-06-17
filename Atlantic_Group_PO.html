@@ -1,0 +1,289 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      .terms-title *, .terms-text * {
+          font-size:6pt !important;
+      }
+      <%= page_size %>
+
+
+.orderby{
+  padding: 10pt 0pt 0pt 35pt;
+  font-size: 11pt;
+}
+.dates-terms{
+    padding: 0pt 35pt 0pt 0pt;
+   /* font-family: "Times New Roman", Times, serif;*/
+    font-size: 11pt;
+}
+.invoice-no{
+  padding: 10pt 0pt 0pt 35pt;
+  text-align: left;
+  font-size: 12pt;
+}
+.invoice-date{
+   padding: 0pt 35pt 0pt 0pt;
+   text-align: right;
+  font-size: 11pt;
+}
+.line-items {
+    padding: 0px 35px 0px 35px;
+    margin-top: 25pt;
+    border-top: 0px solid #e3e3e3; 
+    font-size: 11pt;
+}
+.line-items thead th {
+    color: #000000;
+    text-transform: capitalize;
+    padding: 5pt 5pt;
+    border-top: 0px solid #e3e3e3;
+    border-bottom: 1px solid #000000;
+    font-size: 11pt;
+}
+.line-items .first {
+    padding-left: 0pt;
+    
+}
+.line-items .last {
+    padding-right: 0pt;
+}
+.line-items .first1 {
+    padding-left: 0pt;
+    text-align: center;
+}
+.line-items .name1 {
+    text-align: left;
+}
+
+.line-items .last1 {
+    padding-right: 0pt;
+}
+.footer-bottom-left {
+    width: 100%;
+    float: left;
+    text-align: justify;
+
+}
+.line-items tbody tr td {
+    vertical-align: top;
+    font-size: 14px;
+    padding: 1pt;
+}
+.line-items .description {
+    font-size: 12px;
+    padding: 0 35pt 1pt 5pt;
+}
+
+.section {
+    border-top: 0px solid #e3e3e3;
+    padding: 0 35pt;
+}
+@page :first {
+    @top-left {
+        content: ""
+    }
+}
+
+@page {
+    margin: 70pt 20pt 103pt 20pt;
+      @top {
+    content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/9362e708-eabf-46cf-9d7d-eb958c582ff7/atlantic_header.jpg.png);
+           }
+      @bottom { 
+   content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/73854f9e-e050-4134-8264-f81940c992c0/atlantic_footer.png);
+      }   
+     @bottom-right {
+          content: " ";
+                    }
+
+}
+  </style>
+</head>
+<body>
+<table>
+    <tr>
+    <td class="invoice-no" >
+     <b> <font size="4"> Purchase Order : <%= txn_number_only %> </font> </b> <br><br>
+    </td>
+    </tr>
+  </table>
+
+<table cellpadding="3">
+  <tr>
+    <td  class = "orderby">
+    <% if vendor_contact_name %>
+    <p><b><%= vendor_contact_name %></b></p>
+    <%end%>
+    <p><b><%= sold_to %></b></p>
+    <p><%= vendor_address %></p>
+    </td>
+    <td class="dates-terms" align="right" >
+      <b>Date</b><br>
+      <%= po_date %><br>
+      <% if term_code %>
+      <b>Terms</b><br>
+      <%= term_code %><br>
+      <% end %>
+      <b>Ordered By</b><br>
+      <%= created_by_information[:all] %><br>
+    </td>
+  </tr>
+   <tr>
+    <td class = "orderby" width="60%">
+    <b>
+     <table>
+      <tr><td>Job:</td><td><%= name %></td></tr>
+      <tr><td>Client :</td><td>
+      <% if company_name%>
+       <%= company_name %>
+       <%else%>
+       <% if address_type != 'DropShip' %>
+            <%= store_name %>
+          <% end %>
+       <%end%>
+      </tr>
+      <tr><td>Delivery Required :</td><td><%= expected_delivery_date %></td></tr>
+     </table>
+     </b>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td class = "orderby">
+      <br>
+      Thank you for your quotation, please find our purchase order detailed below:
+    </td>
+  </tr>
+</table>
+
+
+<!-- Items Table -->
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">Item</font></div>
+      </th>
+      <th class="name">Description</font></th>
+      <th class="quantity" colspan="0">Units</font></th>
+      <!-- <th class="quantity" colspan="0">Uom</font></th> -->
+      <th class="money">Unit Price</font></th>
+      <th class="money">
+        <div class="last">Line Value</font></div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class=''>
+    <% items.each_with_index do |item, index| %>
+      <tr class="page-break-after">
+        <td class="position" rowspan="2">
+          <div class="first1">
+            <%= index + 1 %>
+          </div>
+        </td>
+        <td colspan="1">
+          <div class="name">
+            <%= item.name %>
+          </div>
+          <% unless item.part_number.blank? %>
+              <br/><strong>Part#:</strong> <%= item.part_number %>
+          <% end %>
+          <% unless item.item_attr1.blank? %>
+              <strong><%= item.item_attr_name1 %>:</strong> <%= item.item_attr1 %>
+          <% end %>
+          <% unless item.item_attr2.blank? %>
+              <strong><%= item.item_attr_name2 %>:</strong> <%= item.item_attr2 %>
+          <% end %>
+        </td>
+        <td class="quantity"><%= item.quantity %></td>
+        <td class="money"><%= item.unit_price %></td>
+        <td class="money">
+          <div class="last">
+            <%= item.total_price %>
+          </div>
+        </td>
+      </tr>
+      <tr class="no-page-break">
+        <td class="description" colspan="6">
+          <div class="last text--pre-line li-desc-fixed-width">
+            <%= item.description %>
+            <img src="<%= item.product_image %>" class="line-item-description-image">
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Internal Note -->
+<% if internal_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= internal_note_header %></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= internal_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= cover_note_header %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= cover_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section">
+        <div class="footer-bottom-left">
+               <table>
+                <tr>
+                
+                <td>
+                  <%if shipping_information %>
+                  <p><b>Shipping Address :</b><p>
+                  <br>
+                  <p><%= shipping_information %></p><br>
+                  <%end%>
+                </td>
+                <td align="right"><b> <font size="3" >Total &nbsp <%= final_price %></font><br><br></td>
+                </td>
+                </tr>
+                 <tr>
+                  <td colspan="2">
+                   <%= terms_conditions %>  
+                  </td>
+                  </td>
+                </tr>
+               </table>
+            </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</body>
+</html>

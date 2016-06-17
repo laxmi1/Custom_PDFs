@@ -1,0 +1,278 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<style>
+  <%= page_size %>
+.hr {
+    margin-left: 38px;
+    margin-right: 38px;
+    border-bottom: 1px solid #e3e3e3;
+}
+.hrtb {
+    margin-left: 38px;
+    margin-right: 38px;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.hr1 {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.address-logo .store-address {
+    text-align: right;
+    vertical-align: top;  
+    font-size: 10px;
+}
+.address-logo {
+    padding: 5pt 30pt 10pt 30pt;
+    border-bottom: 0px solid #e3e3e3;
+}
+
+.tblfnt{
+   font-size: 10px;
+}
+
+.bg {
+    background: #DEEFD4;  
+}
+.footer-bottom-right {
+    float: right;
+    background: #DEEFD4;
+    padding: 6pt 6pt 5pt 6pt;
+    margin: 10pt 0;
+}
+.footer-bottom-left {
+    width: 55%;
+    float: left;
+    text-align: justify;
+}
+.orderby{
+  padding: 0pt 0pt 0pt 12pt;
+}
+
+.to{
+  vertical-align: top;
+  padding: 0pt 2pt 0pt 0pt;
+}
+
+.sp{
+  padding: 6pt 0pt 6pt 0pt;
+}
+
+.section {
+    border-top: 0px solid #e3e3e3;
+    padding: 0 35pt;
+}
+
+.terms-title *, .terms-text * {
+        font-size:8pt !important;
+}
+
+</style>
+</head>
+<body>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %> 
+</div>
+<font color="#78BE4F">
+<h1 class = "hr" align="center"><b>S A L E S O R D E R</b></h1>
+</font>
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-logo" width="45%" >
+        <img class="logo" src="<%= logo %>" align = "left">
+      </td>
+      <td  width="5%">
+      </td>
+      <td class="store-address" width="45%" >
+       <div align = "left">
+        <%= store_name %><br>
+        <%= store_address_only %><br>
+        <% if store_phone %>
+       <font color="#78BE4F"> Tel: </font><%= store_phone %>
+        <% end %>
+        <% if store_phone && store_fax %>
+        &nbsp
+        <%end%>
+        <% if store_fax %>
+        <font color="#78BE4F"> Email: </font> <%= store_email %>
+        <%end%>
+      </div>
+      </td>
+    </tr>
+  </table>
+<div>
+<br>
+  <table cellpadding="3" >
+    <tr>
+      <td class = "bg" width="45%" height="80" >
+         <table cellpadding="3" ><tr><td class="to" ><p><b> TO:</p></b></td><td class = "orderby"><p><%= sold_to %></p>
+          <p><%= billing_information %></p></td></tr>
+        </table>
+
+      </td>
+      <td  width="5%">
+      </td>
+      <td class = "bg" width="45%" height="80">
+
+        <table cellspacing="1" cellpadding="3">
+         
+         <tr>
+          <td width = "50%"> SO. NO. </td><td> <%= txn_number_only %></td>
+          </tr>
+          <tr>
+          <td width = "50%"> SO. DATE. </td><td> <%= work_order_date %> </td>
+          </tr>
+           <% if term_code %>
+           <tr>
+          <td width = "50%">TERMS.</td><td><%= term_code %></td>
+        </tr>
+           <% end %>
+          <% if po_number %>
+          <tr>
+          <td width = "50%">PO NUMBER.</td><td><%= po_number %></td>
+          </tr>
+           <% end %>
+        </table>
+      </td>
+  
+    </tr>
+     <tr><td width="45%" height="5">
+    </td>
+     </td>
+      <td  width="5%">
+      </td>
+      <td width="45%" height="5">
+      </td>
+    </tr>
+    <tr><td  class = "bg" width="45%" height="10">
+    <table><tr><td width = "50%"><b>ORDERED BY:</b></td><td><%= contact_information %></td></tr></table>
+    </td>
+     </td>
+      <td  width="5%">
+      </td>
+      <td class = "bg" width="45%" height="10">
+        <table><tr>
+          <td width = "50%">SO. DUE DATE.</td><td><%= due_date %></td>
+        </tr></table>
+      </td>
+    </tr>
+  </table>
+
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first"> <font color="#78BE4F">#</div>
+      </th>
+      <th class="name" colspan="2"> <font color="#78BE4F">ITEM DESCRIPTION</font></th>
+      <th class="quantity" colspan="0"> <font color="#78BE4F"><%= qty_header %></font></th>
+      <th class="quantity" colspan="0"> <font color="#78BE4F"><%= uom_header %></font></th>
+      <th class="money"> <font color="#78BE4F"><%= unit_price_header %></font></th>
+      <th class="money">
+        <div class="last"> <font color="#78BE4F"><%= total_excl_header %></font></div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class='bg'>
+    <% items.each_with_index do |item, index| %>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name" colspan="2"><%= item.name %></td>
+          <td class="quantity"><%= item.quantity %></td>
+          <td class="quantity"><%= item.uom %></td>
+          <td class="money"><%= item.unit_price %></td>
+          <td class="money">
+            <div class="last">
+              <%= item.total_price %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="description" colspan="6">
+            <div class="last text--pre-line">
+              <%= item.description %>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+    <div class="hr1"></div>
+</div>
+
+<!-- Signature Note -->
+
+<div class="footer-bottom">
+    <div class="hr"></div>
+    <br>
+    <div class="section">
+            <table class="tblfnt"><tr><td>
+               <table cellspacing="2" cellpadding="3">
+                <tr><td colspan="2"><b>PAYMENT DETAILS</b><!--<img src="/home/laxmikanth/Downloads/vissamaster.jpg" alt="Mountain View" align = "right" style="width:60px;height:20px">--></td></tr>
+                <tr><td colspan="2">CHEQUES PAYABLE TO BALLYPRINT.COM LTD</td></tr>
+                <tr><td>SORT CODE:</td><td>09 01 28</td></tr>
+                <tr><td>ACCOUNT NUMBER:</td><td>4428 3217</td></tr>
+                <tr><td>IBAN:</td><td>GB57ABBY09012844283217</td></tr>
+                <tr><td>BIC:</td><td>ABBYGB2LXXX</td></tr>
+                <tr><td>BANK:</td><td>SANTANDER, BALLYMENA</td></tr>
+               </table>
+         </td>
+         <font size = "10">
+         <td  align = "center">
+          <table class="tblfnt" >
+          <tr><td>Title of goods shall not pass until paid for in full.</td></tr>
+          <tr><td>VAT Registration No. 161 031 264</td></tr>
+          <tr><td>Company Registration No. NI 617794</td></tr>
+         </table> 
+          </td>
+        </font>
+         <td >
+            <table cellpadding="4" class = "bg">
+                <tr >
+                  <td><p>TOTAL NET:</p></td><td> <p><strong><%= sub_total %></strong></p></td>
+                </tr>
+                  <% if show_tax  %>
+                <tr >
+                  <td> <p>TOTAL VAT:</p></td><td><p><strong><%= total_tax %></strong></p></td>
+                </tr>
+                <% end %>
+                <tr >
+                  <td><p>GROSS TOTAL:</p></td><td><strong><%= final_price %></strong></p></td>
+                </tr>
+             
+                <% if has_payments? %>
+            
+              <tr bgcolor="#FFFFFF"><td><br></td><td><br></td></tr>
+                <tr >
+                  <td><p>DEPOSIT:</p></td><td><p><strong><%= total_paid %></strong></p></td>
+                </tr>
+                <tr >
+                  <td> <p>BALANCE:</p></td><td><p><strong><%= balance %></strong></p></td>
+                </tr>
+               
+                 <% end %>
+
+            </table>
+         
+          </td></tr>
+        </table>
+        <div class="clearfix"></div>
+    </div>
+          <font color="#78BE4F">
+           <h1 align = "center" class="hrtb" >Thank you for your business</h1>
+         </font>
+  </div>
+
+</body>
+</html>

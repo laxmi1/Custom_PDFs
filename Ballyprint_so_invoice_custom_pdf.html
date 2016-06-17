@@ -1,0 +1,368 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      .terms-title *, .terms-text * {
+          font-size:6pt !important;
+      }
+      <%= page_size %>
+
+.address-font{
+  font-size: 9pt;
+  color: rgb(151,151,151);
+  vertical-align: top;
+}
+.hr {
+    margin-left: 35px;
+    margin-right: 35px;
+    border-bottom: 1px solid #e3e3e3;
+}
+.address-logo .store-logo .logo {
+    max-height: 54px;
+}
+.address-logo {
+    padding: 40pt 35pt 5pt 35pt;
+    border-bottom: 0px;
+}
+.orderby{
+  padding: 10pt 0pt 0pt 35pt;
+  font-size: 10pt;
+}
+.phone-padding{
+    font-size: 9pt;
+    padding: 0pt 35pt 0pt 0pt;
+}
+.invoice-no{
+  padding: 10pt 0pt 0pt 35pt;
+  text-align: left;
+  font-size: 11pt;
+}
+.invoice-date{
+   padding: 0pt 35pt 0pt 0pt;
+   text-align: right;
+  font-size: 11pt;
+}
+.line-items {
+    padding: 0px 35px 0px 35px;
+    margin-top: 25pt;
+    border-top: 0px solid #e3e3e3; 
+}
+.line-items thead th {
+    font-size: 12px;
+    color: #000000;
+    text-transform: capitalize;
+    padding: 5pt 5pt;
+    border-top: 0px solid #e3e3e3;
+    border-bottom: 2px solid #000000;
+}
+.line-items .first {
+    padding-left: 0pt;
+    
+}
+
+.line-items .last {
+    padding-right: 0pt;
+}
+.line-items .first1 {
+    padding-left: 0pt;
+}
+.line-items .name1 {
+    text-align: left;
+}
+
+.line-items .last1 {
+    padding-right: 0pt;
+}
+
+.line-items .description {
+    font-size: 12px;
+    padding: 0 35pt 5pt 5pt;
+    color: rgb(151,151,151);
+}
+
+
+.li-end{
+  border-bottom: 1px solid #e3e3e3;
+}
+.titals-table{
+    border-collapse: collapse;
+    border: 4px solid;
+    border-collapse: separate;
+    border-spacing: 10px;
+    border-color: #000000;
+}
+.top-bottom{
+  border-top: 2px solid #e3e3e3;
+  border-bottom: 2px solid #e3e3e3;
+  border-color: #000000;
+}
+.footer-bottom-right {
+    float: right;
+    width: 45%;
+    border-left: solid 0px #e3e3e3;
+    background: #ffffff;
+    padding: 6pt 6pt 5pt 6pt;
+    margin: 10pt 0;
+}
+
+.footer-bottom-left {
+    width: 50%;
+    float: left;
+    text-align: justify;
+}
+
+.section {
+    border-top: 0px solid #e3e3e3;
+    padding: 0 35pt;
+}
+.btm-left{
+    font-size: 9pt !important;
+    padding: 12pt 6pt 5pt 6pt;
+    /*padding: 5pt 35pt;*/
+}
+
+.thanks{
+  padding: 0pt 0pt 0pt 40pt;
+  text-align: left;
+}
+
+@page {
+    @bottom-right {
+        content: " ";
+    }
+}
+
+  </style>
+
+</head>
+<body>
+
+<div style="display:none" class="document-footer">
+</div>
+
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-logo" width="45%" >
+        <img class="logo" src="<%= logo %>" align = "left">
+      </td>
+      <td  width="5%">
+      </td>
+      <td class="address-font" width="30%" >
+       <div align = "right">
+        <%= store_name %><br>
+        <% if store_address_street %><%= store_address_street %><br> <%end%>
+        <% if store_address_city %><%= store_address_city %><br> <%end%>
+        <% if store_address_state %><%= store_address_state %><br> <%end%>
+        <% if store_address_zip %><%= store_address_zip %> <br><%end%>
+      </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+  <table cellpadding="3" >
+    <tr>
+      <td width="45%" height="80" >
+         <table cellpadding="3" >
+         <tr><td class = "orderby"><p><b><%= sold_to %></b></p>
+          <p>
+        <% if billing_address_street %><%= billing_address_street %><br> <%end%>
+        <% if billing_address_street1 %><%= billing_address_street1 %><br> <%end%>
+        <% if billing_address_city %><%= billing_address_city %><br> <%end%>
+        <% if billing_address_state %><%= billing_address_state %><br> <%end%>
+        <% if billing_address_zip %><%= billing_address_zip %> <br><%end%>
+          </p>
+          </td>
+          </tr>
+        </table>
+      </td>
+      <td  width="5%">
+      </td>
+      <td class="address-font" width="45%" height="80" align = "right" >
+      <div class="phone-padding">
+       <% if store_phone %>
+       TELEPHONE <br>
+       <%= store_phone %>
+       <br>
+       <% end %>
+        <br>
+        <% if store_email %>EMAIL <br>
+         <%= store_email %>
+        <%end%>
+         <% if store_fax %>
+         FAX <br> 
+         <%= store_fax %>
+        <%end%>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+    <td class="invoice-no" >
+     <b> <font size="4"> Invoice No: <%= txn_number_only %> </font> </b> 
+     <br> 
+    </td>
+    <td class="invoice-date">
+    Ordered By: <b><%= contact_name %></b>
+    </td>
+    </tr>
+  </table>
+
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</font></div>
+      </th>
+      <th class="name" colspan="2">Item(s)</font></th>
+      <th class="quantity" colspan="0">Quantity</font></th>
+      <th class="quantity" colspan="0">Uom</font></th>
+      <th class="money">Unit Price</font></th>
+      <th class="money">
+        <div class="last">Net</font></div>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class=''>
+    <% items.each_with_index do |item, index| %>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first1">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name1" colspan="2"><%= item.name %></td>
+          <td class="quantity"><%= item.quantity %></td>
+          <td class="quantity"><%= item.uom %></td>
+          <td class="money"><%= item.unit_price %></td>
+          <td class="money">
+            <div class="last">
+              <%= item.total_price %>
+            </div>
+          </td>
+        </tr>
+        <tr class="li-end">
+          <td class="description" colspan="1">
+            <% if item.table_view %>
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view %>
+              </div>
+            <% else %>
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+            <% end %>
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <% item.description_hash[:custom_fields].each do |cfv| %>
+                    <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
+                      <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
+                      <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
+                    <% end %>
+              <% end %>
+              <hr class="custom-field-separator">
+            <% end %>
+            <img src="<%= item.product_image %>" class="line-item-description-image">
+          </td>
+        </tr>
+    <% end %>
+   
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <th><%= cover_note_header %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section">
+        <div class="footer-bottom-left">
+            <div class="btm-left">
+               <table>
+                 
+                <tr><td><% if term_code %> <b> Payment terms:</b> <br><%= term_code %> <br><br><%end%> </td></tr>
+                <tr><td><b>Payments accepted:</b></td></tr>
+                <tr><td>Credit/debit cards, direct bank transfer or cheque. Please make chques payable to Ballyprint.com Ltd<br><br></td></tr>
+                <tr><td><b>Sort code:</b> 09 01 28</td></tr>
+                <tr><td><b>Account No:</b> 4428 3217</td></tr>
+                <tr><td><b>Bank:</b> Santander, Ballymena</td></tr>
+               </table>
+            </div>
+        </div>
+        <div class="footer-bottom-right">
+            <table class="titals-table">
+                <tbody>
+
+                <tr><td>Total Net:</td><td align="right"><%= sub_total %></td></tr>
+                <tr><td>VAT (<%= tax_rate %>):</td><td align="right"><%= total_tax %></td></tr>
+                <tr>
+                <td colspan="2">
+                <table><tr class="top-bottom"><td><b> <font size="5">Invoice Total: </font> </b></td><td  align="right"><b> <font size="5"><%= final_price %></font> </b></td></tr></table>
+                </td>
+                </tr>
+                <% if has_payments? %>
+                <tr><td>Payments:</td><td align="right"><%= total_paid %></td></tr>
+                <tr><td>Balance:</td><td align="right"><%= balance %></td></tr>
+                <% end %>
+               <!--  <tr>
+                    <td class="labels first footer-subtotal">
+                        <p><strong><%= subtotal_header %>:</strong></p>
+                        <% if show_tax  %>
+                            <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                        <% end %>
+                        <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                        <% if has_payments? %>
+                            <p>&nbsp;</p>
+                            <p><strong><%= payment_total_header %>:</strong></p>
+                            <p><strong><%= payment_balance_due_header %>:</strong></p>
+                        <% end %>
+                    </td>
+                    <td class="money last footer-subtotal">
+                        <p><strong><%= sub_total %></strong></p>
+                        <% if show_tax  %>
+                            <p><strong><%= total_tax %></strong></p>
+                        <% end %>
+                        <p class="footer-total"><strong><%= final_price %></strong></p>
+                        <% if has_payments? %>
+                            <p>&nbsp;</p>
+                            <p><strong><%= total_paid %></strong></p>
+                            <p class="footer-total"><strong><%= balance %></strong></p>
+                        <% end %>
+                    </td>
+                </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="thanks">
+      <font color="#78BE4F" size="5"><b>We appreciate your business :)</b></font><br>
+        <font size="1"> Registered in N.Ireland No. NI 617794. VAT No. 161 031 264 </font>
+         </div>
+</div>
+</body>
+</html>
