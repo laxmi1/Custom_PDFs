@@ -70,13 +70,21 @@
     padding-top: 10px;
   }
 
+  .bottom-line{
+  border-bottom: 1px solid #000;
+  }
 
-table {
-    width: 100%;
+  .totals td {
+    padding-left: 3px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-
-
+.custom{
+  padding-top: 5px;
+  padding-left: 5px;
+}
 
   </style>
 
@@ -203,7 +211,8 @@ table {
 
 <table border="2">
   <tr>
-  <td width="40%" style="border-left-width: 0px;" valign="top">
+  <td width="40%" id="adjust" style="border-left-width: 0px;" valign="top" rowspan="2">
+  <div class="bottom-line">
 <% stages.each do |stage| %>
         <div class="stage">
           <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
@@ -227,24 +236,24 @@ table {
           </div>
         </div>
     <% end %>
+  </div>
+  <div class="clearfix full-width">
+  <div class="job-attributes">
+    <div class="proof">
+      <div class="head">
+        <%= proof_head %>
+      </div>
+      <div class="image">
+        <img class="proof" src="<%= proof_image(400,300) %>">
+      </div>
+    </div>
+  </div>
+ </td>
+
   </td>
-  <td valign="top" hidden="auto" rowspan="2">
+  <td valign="top">
    
   <div class="info-contact display-table">
- <% if custom_fields %>
-      <div class='details1'>
-        <div class='custom_fields'>
-          <%= custom_fields %>
-        </div>
-      </div>
-  <% end %>
-  <% if order_custom_fields %>
-      <div class='details1'>
-        <div class='custom_fields'>
-          <%= order_custom_fields %>
-        </div>
-      </div>
-  <% end %>
   <% if bom_details && is_form_field_visible?('bom_details') %>
         <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
           <%= bom_details %>
@@ -270,32 +279,39 @@ table {
             <%= shipping_details %>
           </div>
   <% end %> 
-
 </div>
-  
   </td>
   </tr>
   <tr>
-<%if proof_head %>
-<td style="border-left-width: 0px;">
-<div class="clearfix full-width">
-  <div class="job-attributes">
-    <div class="proof">
-      <div class="head">
-        <%= proof_head %>
+  <td>
+  <table>
+  <tr>
+  <td valign="top" width="65%">
+  <div  class="custom">
+ <% if custom_fields %>
+      <div class='details1'>
+        <div class='custom_fields'>
+          <%= custom_fields %>
+        </div>
       </div>
-      <div class="image">
-        <img class="proof" src="<%= proof_image(400,300) %>">
+  <% end %>
+  <% if order_custom_fields %>
+      <div class='details1'>
+        <div class='custom_fields'>
+          <%= order_custom_fields %>
+        </div>
       </div>
-    </div>
+  <% end %>
   </div>
- </td>
- <%end%>
+  </td><td>
+  <table class="totals">
+    <tr> <td rowspan="2" valign="bottom"> <table border="1"><tr><td bgcolor="yellow" align="center"> S.J.C</td></tr><tr><td align="center"><%if @object.line_items%><%=@object.line_items.length%><%end%></td></tr></table></td> <td> <table  border="1"><tr><td bgcolor="lightgrey" align="center">Job Total</td></tr><tr><td>&nbsp</td></tr></table></td></tr>
+    <tr><td><table  border="1"><tr><td bgcolor="yellow" align="center">SO Total</td></tr><tr><td>&nbsp</td></tr></table></td></tr>
+  </table> 
+</td></tr>
+  </table>
+  </td>
   </tr>
 </table>
-
-
-
- 
 </body>
 </html>
