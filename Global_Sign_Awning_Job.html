@@ -92,21 +92,24 @@
 
   <div  class="padding-top-bottom">
   <table cellpadding="4">
+    <tr><td style="white-space: nowrap;"><% if @object.name %><font size="3"> Job Name :</font> <%end%></td><td><% if @object.name %><font size="3"> <%=@object.name%></font> <%end%></td>
+    <td><% if @object.quantity%><font size="3"> Quantity : <%=@object.quantity%> </font><%end%> </td>
+    </tr>
     <tr>
       <td width="17%"  valign="top" ><font size="3">Description:</font></td>
-      <td>
+      <td valign="top">
          <div class="description">
           <% if is_form_field_visible?('description') %>
           <p class="text--pre-line"><%= simple_format(description) %></p>
          <% end %>
     </div>
       </td>
-       <% if contact%>
-       <td width="20" valign="top">
+       <% if contact %>
+       <td width="20" valign="top" align="left">
          <p><b>Customer Contact Info :</b></p>
          <%if @object.contact.name %><p>Name: <%= @object.contact.name %></p><%end%>
          <%if @object.contact.email %><div style="white-space: nowrap;"><p>Email: <%= @object.contact.email %></p></div><%end%>
-         <%if @object.contact.phone %><p>Phone: <%= @object.contact.phone %></p><%end%>
+         <%if @object.contact.phone %><p>Phone: <%= format_phone_pdf(@object.account, @object.contact.phone) %></p><%end%>
        </td>
        <%end%>
      </tr>

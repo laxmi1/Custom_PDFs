@@ -22,29 +22,26 @@
       max-height: 54px;
   }
   .address-logo {
-      padding: 40pt 35pt 5pt 35pt;
+      padding: 0pt 0pt 5pt 0pt;
       border-bottom: 0px;
   }
   .orderby{
-    padding: 10pt 0pt 0pt 35pt;
+    padding: 10pt 0pt 0pt 0pt;
     font-size: 10pt;
   }
   .phone-padding{
       font-size: 9pt;
-      padding: 0pt 35pt 0pt 0pt;
   }
   .invoice-no{
-    padding: 10pt 0pt 0pt 35pt;
+    padding: 10pt 0pt 0pt 0pt;
     text-align: left;
     font-size: 11pt;
   }
   .invoice-date{
-     padding: 0pt 35pt 0pt 0pt;
      text-align: right;
     font-size: 11pt;
   }
   .line-items {
-      padding: 0px 35px 0px 35px;
       margin-top: 25pt;
       border-top: 0px solid #e3e3e3; 
   }
@@ -102,7 +99,7 @@
       width: 50%;
       border-left: solid 0px #e3e3e3;
       background: #ffffff;
-      padding: 6pt 6pt 5pt 6pt;
+      padding: 6pt 0pt 5pt 6pt;
       margin: 10pt 0;
   }
 
@@ -114,16 +111,15 @@
 
   .section {
       border-top: 0px solid #e3e3e3;
-      padding: 0 35pt;
+      padding: 0 0pt;
   }
   .btm-left{
       font-size: 9pt !important;
-      padding: 12pt 6pt 5pt 6pt;
+      padding: 12pt 0pt 5pt 0pt;
       /*padding: 5pt 35pt;*/
   }
 
   .thanks{
-    padding: 0pt 0pt 0pt 40pt;
     text-align: left;
   }
 
@@ -133,7 +129,9 @@
       }
   }
 
-
+  @page{
+    padding: 40pt 35pt 5pt 35pt;
+  }
 
     </style>
   </head>
@@ -166,10 +164,10 @@
 
 
 
-    <table cellpadding="3" >
+    <table >
       <tr>
         <td width="45%" height="80" >
-           <table cellpadding="3" >
+           <table >
            <tr><td class = "orderby"><p><b><%= sold_to %></b></p>
             <p>
           <% if billing_address_street %><%= billing_address_street %><br> <%end%>
@@ -187,12 +185,11 @@
         <td class="address-font" width="45%" height="80" align = "right" >
         <div class="phone-padding">
          <% if store_phone %>
-         TELEPHONE <br>
-         <%= store_phone %>
-         <br>
+         TELEPHONE<br>
+         <%= store_phone%><br>
          <% end %>
           <br>
-          <% if store_email %>EMAIL <br>
+          <% if store_email %>EMAIL<br>
            <%= store_email %>
           <%end%>
            <% if store_fax %>
@@ -206,7 +203,7 @@
     <table>
       <tr>
       <td class="invoice-no" valign="top" >
-       <b> <font size="4"> Sales Order / Invoce: <%= txn_number_only %> </font> </b> 
+       <b> <font size="4"> Sales Order / Invoice: <%= txn_number_only %> </font> </b> 
       </td>
       <td class="invoice-date">
       Sales Order Date: <%= work_order_date %> <br>
