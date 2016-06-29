@@ -1,317 +1,324 @@
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <style>
-    <%= page_size %>
-    .title-logo .title {
-      width: 70%;
-      float: left;
-      text-align: left;
-      border-top: 1px solid #000;
-      border-right: 1px solid #000;
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #010101;
-      padding: 5px;
-    }
-    .title-logo .status {
-      float: left;
-      padding: 5px;
-      margin: 0 5px;
-      color: red;
-    }
-    .info-contact {
-      float: left;
-      padding-bottom: 5px;
-      margin-left: 10px;
-      margin-right: 15px;
-      margin-bottom: 5px;
-      margin-top: 10px;
-      border-bottom: 0px solid #000;
-    }
-    .info-contact div.description {
-      width: 180px;
-      clear: both;
-      border-right: 1px solid #000;
-    }
-    .info-contact div.contact {
-      width: 180px;
-      border-right: 1px solid #000;
-    }
+  <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <style>
+      <%= page_size %>
+      .title-logo .title {
+        width: 70%;
+        float: left;
+        text-align: left;
+        border-top: 1px solid #000;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        border-left: 1px solid #010101;
+        padding: 5px;
+      }
+      .title-logo .status {
+        float: left;
+        padding: 5px;
+        margin: 0 5px;
+        color: red;
+      }
+      .info-contact {
+        float: left;
+        padding-bottom: 5px;
+        margin-left: 10px;
+        margin-right: 15px;
+        margin-bottom: 5px;
+        margin-top: 10px;
+        border-bottom: 0px solid #000;
+      }
+      .info-contact div.description {
+        width: 180px;
+        clear: both;
+        border-right: 1px solid #000;
+      }
+      .info-contact div.contact {
+        width: 180px;
+        border-right: 1px solid #000;
+      }
 
-    .job-addresses {
-      border-bottom: 0px solid #e3e3e3;
-    }
-    .job-addresses .address.left .address-wrapper {
-      border-right: 1px solid #000;
-      border-left: 0px;
-      text-align: left;
-      padding-left: 2pt;
-    }
-    .job-addresses .address.right .address-wrapper {
-      border-right: 0px solid #e3e3e3;
-      text-align: right;
-      padding-right: 2pt;
-    }
-    .spl-info{
-      border-top: 1px solid #000;
-      border-right: 1px solid #000;
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #010101;
-      width: 150px;
-      height: 120px
-    }
-    .bottom-border{
-      width: 100%
-      border-bottom: 1px solid #000;
-      padding-top: 10px;
-    }
-    .bottom-line{
-      border-bottom: 1px solid #000;
-    }
-    .totals td {
-      padding-left: 3px;
-      padding-right: 20px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-    }
-    .custom{
-      padding-top: 5px;
-      padding-left: 5px;
-    }
-    .no-page-break {
-    page-break-inside: avoid;
-    }
-    .page-break-after {
-    page-break-after: avoid;
-    }
-  </style>
+      .job-addresses {
+        border-bottom: 0px solid #e3e3e3;
+      }
+      .job-addresses .address.left .address-wrapper {
+        border-right: 1px solid #000;
+        border-left: 0px;
+        text-align: left;
+        padding-left: 2pt;
+      }
+      .job-addresses .address.right .address-wrapper {
+        border-right: 0px solid #e3e3e3;
+        text-align: right;
+        padding-right: 2pt;
+      }
+      .spl-info{
+        border-top: 1px solid #000;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        border-left: 1px solid #010101;
+        width: 150px;
+        height: 120px
+      }
+      .bottom-border{
+        width: 100%
+        border-bottom: 1px solid #000;
+        padding-top: 10px;
+      }
+      .bottom-line{
+        border-bottom: 1px solid #000;
+      }
+      .totals td {
+        padding-left: 3px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+      .custom{
+        padding-top: 5px;
+        padding-left: 5px;
+      }
+      .no-page-break {
+      page-break-inside: avoid;
+      }
+      .page-break-after {
+      page-break-after: avoid;
+      }
+    </style>
 
-</head>
-<body class="no-page-break">
-<div class="">
-  <!-- Footer Text for Page footter-->
-  <div style="display:none" class="document-footer">
-    <%= footer_text %>
+  </head>
+  <body class="no-page-break">
+  <div class="">
+    <!-- Footer Text for Page footter-->
+    <div style="display:none" class="document-footer">
+      <%= footer_text %>
+    </div>
+
+    <!-- Store Address and Logo -->
+    <div class="title-logo">
+      <div class="title">
+     <!--  <%= title %>
+   --><%if  @object.order_number %> SO# &nbsp;
+   <%= @object.order_number %>,
+   <%end%>
+   <%if @object.name %>
+   <%= @object.name%>,
+   <%end%>
+   <%= @object.company.try(:name) %>,
+   <%if template_name%>
+   <%=template_name%>
+   <%end%>
+   <%if @object.quantity%>
+   <%= @object.quantity%>,
+   <%end%>
+   <%if order_due_date%>
+   <%=order_due_date%>
+   <%end%>
+   <%if  @object.due_date %>
+   <%= I18n.l(@object.due_date) %>,
+   <%end%>
+  </div>
+  <div class="store-logo">
+    <img  src="<%= logo %>" width = "120">
+  </div>
+  <div class="status">
+    <%= status %>
+  </div>
   </div>
 
-  <!-- Store Address and Logo -->
-  <div class="title-logo">
-    <div class="title">
-   <!--  <%= title %>
- --><%if  @object.order_number %>
- <%= @object.order_number %>,
- <%end%>
- <%if @object.name %>
- <%= @object.name%>,
- <%end%>
- <%if @object.quantity%>
- <%= @object.quantity%>,
- <%end%>
- <%if  @object.due_date %>
- <%= I18n.l(@object.due_date) %>,
- <%end%>
-</div>
-<div class="store-logo">
-  <img  src="<%= logo %>" width = "120">
-</div>
-<div class="status">
-  <%= status %>
-</div>
-</div>
+  <div class="bottom-border">
+    <div class="info-contact display-table">
+      <div class="description">
+        <% if project_number.present? %>
+        <p><%= project_number %></p><br/>
+        <% end %>
+        <% if !@object.hard_due_date.nil? && is_form_field_visible?('hard_due_date') %>
+        <p class= 'left'><b><%= hard_due_header %></b>:</p>
+        <p><%= I18n.l(@object.hard_due_date)%></p>
+        <% end %>
+        <% if !@object.in_hand_date.nil? && is_form_field_visible?('in_hand_date') %>
+        <p class= 'left'><b><%= in_hand_date_header %></b>:</p>
+        <p><%= I18n.l(@object.in_hand_date)%></p>
+        <% end %>
+        <% if !@object.shipping_date.nil? && is_form_field_visible?('shipping_date') %>
+        <p class= 'left'><b><%= shipping_date_header %></b>:</p>
+        <p><%= I18n.l(@object.shipping_date)%></p>
+        <% end %>
+        <% if !@object.art_due_date.nil? && is_form_field_visible?('art_due_date') %>
+        <p class= 'left'><b><%= art_due_date_header %></b>:</p>
+        <p><%= I18n.l(@object.art_due_date)%></p>
+        <% end %>
+        <% if !@object.delivery_date.nil? && is_form_field_visible?('delivery_date') %>
+        <p class= 'left'><b><%= delivery_date_header %></b>:</p>
+        <p><%= I18n.l(@object.delivery_date)%></p>
+        <% end %>
+        <% if !@object.picked_date.nil? && is_form_field_visible?('picked_date') %>
+        <p class= 'left'><b><%= picked_date_header %></b>:</p>
+        <p><%= I18n.l(@object.picked_date)%></p>
+        <% end %>
+        <% if !@object.instore_date.nil? && is_form_field_visible?('instore_date') %>
+        <p class= 'left'><b><%= instore_date_header %></b>:</p>
+        <p><%= I18n.l(@object.instore_date)%></p>
+        <% end %>
+        <% if !@object.install_date.nil? && is_form_field_visible?('install_date') %>
+        <p class= 'left'><b><%= install_date_header %></b>:</p>
+        <p><%= I18n.l(@object.install_date)%></p>
+        <% end %>
+        <% if is_form_field_visible?('description') %>
+        <p class='left'><b><%= job_description_header %></b>:</p>
+        <p class="text--pre-line"><%= simple_format(description) %></p>
+        <% end %>
+      </div>
 
-<div class="bottom-border">
-  <div class="info-contact display-table">
-    <div class="description">
-      <% if project_number.present? %>
-      <p><%= project_number %></p><br/>
-      <% end %>
-      <% if !@object.hard_due_date.nil? && is_form_field_visible?('hard_due_date') %>
-      <p class= 'left'><b><%= hard_due_header %></b>:</p>
-      <p><%= I18n.l(@object.hard_due_date)%></p>
-      <% end %>
-      <% if !@object.in_hand_date.nil? && is_form_field_visible?('in_hand_date') %>
-      <p class= 'left'><b><%= in_hand_date_header %></b>:</p>
-      <p><%= I18n.l(@object.in_hand_date)%></p>
-      <% end %>
-      <% if !@object.shipping_date.nil? && is_form_field_visible?('shipping_date') %>
-      <p class= 'left'><b><%= shipping_date_header %></b>:</p>
-      <p><%= I18n.l(@object.shipping_date)%></p>
-      <% end %>
-      <% if !@object.art_due_date.nil? && is_form_field_visible?('art_due_date') %>
-      <p class= 'left'><b><%= art_due_date_header %></b>:</p>
-      <p><%= I18n.l(@object.art_due_date)%></p>
-      <% end %>
-      <% if !@object.delivery_date.nil? && is_form_field_visible?('delivery_date') %>
-      <p class= 'left'><b><%= delivery_date_header %></b>:</p>
-      <p><%= I18n.l(@object.delivery_date)%></p>
-      <% end %>
-      <% if !@object.picked_date.nil? && is_form_field_visible?('picked_date') %>
-      <p class= 'left'><b><%= picked_date_header %></b>:</p>
-      <p><%= I18n.l(@object.picked_date)%></p>
-      <% end %>
-      <% if !@object.instore_date.nil? && is_form_field_visible?('instore_date') %>
-      <p class= 'left'><b><%= instore_date_header %></b>:</p>
-      <p><%= I18n.l(@object.instore_date)%></p>
-      <% end %>
-      <% if !@object.install_date.nil? && is_form_field_visible?('install_date') %>
-      <p class= 'left'><b><%= install_date_header %></b>:</p>
-      <p><%= I18n.l(@object.install_date)%></p>
-      <% end %>
-      <% if is_form_field_visible?('description') %>
-      <p class='left'><b><%= job_description_header %></b>:</p>
-      <p class="text--pre-line"><%= simple_format(description) %></p>
-      <% end %>
+      <div class="contact">
+        <% if contact.present? && is_form_field_visible?('contact_id') %>
+        <%= contact %>
+        <% end %>
+        <% if sales_rep_name.present? && is_form_field_visible?('sales_rep_id') %>
+        <p class='left'><b><%= sales_rep_header %>:</b> <%= sales_rep_name %></p><br/>
+        <% end %>
+        <% if pm_name.present? && is_form_field_visible?('production_manager_id') %>
+        <p class='left'><b><%= pm_header %>:</b> <%= pm_name %></p><br/>
+        <% end %>
+        <% if project_manager_name.present? && is_form_field_visible?('project_manager_id') %>
+        <p class='left'><b><%= project_manager_header %>:</b> <%= project_manager_name %></p>
+        <% end %>
+      </div>
+      <div class="job-addresses">
+        <table>
+          <tr>
+            <% if billing_information.present? && is_form_field_visible?('billing_address_id') %>
+            <td class="address left">
+              <div class="address-wrapper">
+                <p class="title"><%= billing_info_header %></p>
+                <p>
+                  <%= billing_information %>
+                </p>
+              </div>
+            </td>
+            <% end %>
+            <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
+            <td class="address right">
+              <div class="address-wrapper">
+                <p class="title"><%= shipping_information_header %></p>
+                <p>
+                  <%= shipping_information %>
+                </p>
+              </div>
+            </td>
+            <% end %>
+          </tr>
+        </table>
+      </div>
+
+      <div class="spl-info">Special info:
+      </div>
     </div>
 
-    <div class="contact">
-      <% if contact.present? && is_form_field_visible?('contact_id') %>
-      <%= contact %>
-      <% end %>
-      <% if sales_rep_name.present? && is_form_field_visible?('sales_rep_id') %>
-      <p class='left'><b><%= sales_rep_header %>:</b> <%= sales_rep_name %></p><br/>
-      <% end %>
-      <% if pm_name.present? && is_form_field_visible?('production_manager_id') %>
-      <p class='left'><b><%= pm_header %>:</b> <%= pm_name %></p><br/>
-      <% end %>
-      <% if project_manager_name.present? && is_form_field_visible?('project_manager_id') %>
-      <p class='left'><b><%= project_manager_header %>:</b> <%= project_manager_name %></p>
-      <% end %>
-    </div>
-    <div class="job-addresses">
-      <table>
-        <tr>
-          <% if billing_information.present? && is_form_field_visible?('billing_address_id') %>
-          <td class="address left">
-            <div class="address-wrapper">
-              <p class="title"><%= billing_info_header %></p>
-              <p>
-                <%= billing_information %>
-              </p>
-            </div>
-          </td>
-          <% end %>
-          <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
-          <td class="address right">
-            <div class="address-wrapper">
-              <p class="title"><%= shipping_information_header %></p>
-              <p>
-                <%= shipping_information %>
-              </p>
-            </div>
-          </td>
-          <% end %>
-        </tr>
-      </table>
-    </div>
-
-    <div class="spl-info">Special info:
-    </div>
-  </div>
-
-  <table border="1">
-    <tr>
-      <td width="40%" id="adjust" style="border-left-width: 0px;" valign="top" rowspan="2">
-        <div class="bottom-line">
-          <% stages.each do |stage| %>
-          <div class="stage">
-            <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
-            <div class="stage-wrapper clearfix">
-              <% stage.steps.each do |step| %>
-              <% if !step.skip %>
-              <div class="step <%= step.state %>">
-                <div class="step-info clearfix">
-                  <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
-                  <div class="number"><%= step.num_iterations %></div>
+    <table border="1">
+      <tr>
+        <td width="40%" id="adjust" style="border-left-width: 0px;" valign="top" rowspan="2">
+          <div class="bottom-line">
+            <% stages.each do |stage| %>
+            <div class="stage">
+              <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
+              <div class="stage-wrapper clearfix">
+                <% stage.steps.each do |step| %>
+                <% if !step.skip %>
+                <div class="step <%= step.state %>">
+                  <div class="step-info clearfix">
+                    <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
+                    <div class="number"><%= step.num_iterations %></div>
+                  </div>
+                  <% unless step.assigned_to_user_initials.blank? %>
+                  <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
+                  <% end %>
+                  <% unless step.scheduled_machine_name.blank? %>
+                  <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
+                  <% end %>
                 </div>
-                <% unless step.assigned_to_user_initials.blank? %>
-                <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
                 <% end %>
-                <% unless step.scheduled_machine_name.blank? %>
-                <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
                 <% end %>
               </div>
-              <% end %>
-              <% end %>
             </div>
+            <% end %>
           </div>
-          <% end %>
-        </div>
-        <div class="clearfix full-width">
-          <div class="job-attributes">
-            <div class="proof">
-              <div class="head">
-                <%= proof_head %>
-              </div>
-              <div class="image">
-                <img class="proof" src="<%= proof_image(400,300) %>">
+          <div class="clearfix full-width">
+            <div class="job-attributes">
+              <div class="proof">
+                <div class="head">
+                  <%= proof_head %>
+                </div>
+                <div class="image">
+                  <img class="proof" src="<%= proof_image(400,300) %>">
+                </div>
               </div>
             </div>
+          </td>
+
+        </td>
+        <td valign="top">
+
+          <div class="info-contact display-table">
+            <% if bom_details && is_form_field_visible?('bom_details') %>
+            <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
+              <%= bom_details %>
+            </div>
+            <% end %>
+            <% if design_details && is_form_field_visible?('design_details') %>
+            <div class="text--pre-line">
+              <%= design_details %>
+            </div>
+            <% end %>
+
+            <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
+            <div class="text--pre-line">
+              <%= install_details %>
+            </div>
+            <div class="text--pre-line">
+              <%= production_details %>
+            </div>
+            <% end %>
+
+            <% if shipping_details && is_form_field_visible?('shipping_details') %>
+            <div class="text--pre-line">
+              <%= shipping_details %>
+            </div>
+            <% end %> 
           </div>
         </td>
-
-      </td>
-      <td valign="top">
-
-        <div class="info-contact display-table">
-          <% if bom_details && is_form_field_visible?('bom_details') %>
-          <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
-            <%= bom_details %>
-          </div>
-          <% end %>
-          <% if design_details && is_form_field_visible?('design_details') %>
-          <div class="text--pre-line">
-            <%= design_details %>
-          </div>
-          <% end %>
-
-          <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
-          <div class="text--pre-line">
-            <%= install_details %>
-          </div>
-          <div class="text--pre-line">
-            <%= production_details %>
-          </div>
-          <% end %>
-
-          <% if shipping_details && is_form_field_visible?('shipping_details') %>
-          <div class="text--pre-line">
-            <%= shipping_details %>
-          </div>
-          <% end %> 
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="no-page-break">
-          <table>
-           <tr>
-            <td valign="top" width="65%">
-              <div  class="custom">
-                <% if custom_fields %>
+      </tr>
+      <tr>
+        <td class="no-page-break">
+            <table>
+             <tr>
+              <td valign="top" width="65%">
+                <div  class="custom">
+                  <% if custom_fields %>
+                  <div class='details1'>
+                   <div class='custom_fields'>
+                    <%= custom_fields %>
+                  </div>
+                </div>
+                <% end %>
+                <% if order_custom_fields %>
                 <div class='details1'>
-                 <div class='custom_fields'>
-                  <%= custom_fields %>
+                  <div class='custom_fields'>
+                    <%= order_custom_fields %>
+                  </div>
                 </div>
-              </div>
-              <% end %>
-              <% if order_custom_fields %>
-              <div class='details1'>
-                <div class='custom_fields'>
-                  <%= order_custom_fields %>
-                </div>
-              </div>
-              <% end %>
-            </td>
-            <td>
-              <table class="totals">
-                <tr> <td rowspan="2" valign="bottom"> <table border="1"><tr><td bgcolor="yellow" align="center"> S.J.C</td></tr><tr><td align="center"><%if @object.line_items%><%=@object.line_items.length%><%end%></td></tr></table></td> <td> <table  border="1"><tr><td bgcolor="lightgrey" align="center">Job Total</td></tr><tr><td>&nbsp</td></tr></table></td></tr>
-                <tr><td><table  border="1"><tr><td bgcolor="yellow" align="center">SO Total</td></tr><tr><td>&nbsp</td></tr></table></td></tr>
-              </table> 
-            </td></tr>
-          </table>
-      </td>
-    </tr>
-  </table>
-  </div>
-</body>
-</html>
+                <% end %>
+              </td>
+              <td>
+                <table class="totals">
+                  <tr> <td rowspan="2" valign="bottom"> <table border="1"><tr><td bgcolor="yellow" align="center"> S.J.C</td></tr><tr><td align="center"><%if @object.line_items%><%=@object.line_items.length%><%end%></td></tr></table></td> <td> <table  border="1"><tr><td bgcolor="lightgrey" align="center">Job Total</td></tr><tr><td><%=line_items_total%></td></tr></table></td></tr>
+                  <tr><td><table  border="1"><tr><td bgcolor="yellow" align="center">SO Total</td></tr><tr><td><%=order_total%>/td></tr></table></td></tr>
+                </table> 
+              </td></tr>
+            </table>
+        </td>
+      </tr>
+    </table>
+    </div>
+  </body>
+  </html>
