@@ -98,7 +98,7 @@
     <div class="title-logo">
       <div class="title">
      <!--  <%= title %>
-   --><%if  @object.order_number %> SO# &nbsp;
+   --><%if  @object.order_number %> SO#
    <%= @object.order_number %>,
    <%end%>
    <%if @object.name %>
@@ -106,16 +106,16 @@
    <%end%>
    <%= @object.company.try(:name) %>,
    <%if template_name%>
-   <%=template_name%>
+   <%=template_name%>,
    <%end%>
    <%if @object.quantity%>
    <%= @object.quantity%>,
    <%end%>
    <%if order_due_date%>
-   <%=order_due_date%>
+   <%=order_due_date%>,
    <%end%>
    <%if  @object.due_date %>
-   <%= I18n.l(@object.due_date) %>,
+   <%= I18n.l(@object.due_date) %>
    <%end%>
   </div>
   <div class="store-logo">
