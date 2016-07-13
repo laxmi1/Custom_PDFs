@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ShopVOX Contact Form</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+      body {
+        padding-top: 50px;
+      }
+      .wrapper {
+        padding: 40px 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+        <div class="wrapper well">
+        <h1>Get a Quote</h1>
+
+        <form id="contactForm">
+          <input type="hidden" name="on_success" id="on_success" value="http://www.shopvox.com">
+          <input type="hidden" name="pipeline_name" id="pipeline_name" value="Sales Pipeline">
+          <input type="hidden" name="title" id="title" value="Contact form sales lead">
+          <input type="hidden" name="lead_source_name" id="lead_source" value="Contact Form">
+          <input type="hidden" name="details" id="details"> 
+
+          <div class="form-group">
+            <label for="details">Product 1</label>
+            <select class='product-dsc' placeholder="Product1">
+              <option label=""></option>
+              <option value="Marquees" >Marquees</option>
+              <option value="Product1: Wide Format Printing" >Wide Format Printing</option>
+              <option value="Product1: Exhibition Stands" >Exhibition Stands</option>
+              <option value="Product1: Slimline Light Boxes" >Slimline Light Boxes</option>
+              <option value="Product1: 3D illuminated letters" >3D illuminated letters</option>
+              <option value="Product1: 3D Letters" >3D Letters</option>
+              <option value="Product1: Pylon Signs" >Pylon Signs</option>
+              <option value="Product1: Pull Up Banners" >Pull Up Banners</option>
+              <option value="Product1: Real Estate Signs" >Real Estate Signs</option>
+              <option value="Product1: Trade Show Banners" >Trade Show Banners</option>
+              <option value="Product1: Works of Art" >Works of Art</option>
+              <option value="Product1: Banners &#038; Skins" >Banners &#038; Skins</option>
+              <option value="Product1: Posters" >Posters</option>
+              <option value="Product1: Business Cards" >Business Cards</option>
+              <option value="Product1: Stickers" >Stickers</option>
+              <option value="Product1: Tear Drop Banners" >Tear Drop Banners</option>
+              <option value="Product1: General Signage" >General Signage</option>
+              <option value="Product1: A Frames" >A Frames</option>
+              <option value="Product1: Corflutes" >Corflutes</option>
+              <option value="Product1: Vehicle Graphics/Wraps" >Vehicle Graphics/Wraps</option>
+              <option value="Product1: Roadside Signage" >Roadside Signage</option>
+              <option value="Product1: Neon Signs" >Neon Signs</option>
+              <option value="Product1: Programmable LED signs" >Programmable LED signs</option>
+              <option value="Product1: Lightbox" >Lightbox</option>
+              <option value="Product1: Engraving" >Engraving</option>
+              <option value="Product1: Wayfinding Signs" >Wayfinding Signs</option>
+            </select>
+          </div>
+            <div class="form-group">
+            <label for="details">Product 2</label>
+           <select class='product-dsc'  placeholder="Product2">
+              <option label=""></option>
+              <option value="Marquees">Marquees</option>
+              <option value="Product2: Wide Format Printing">Wide Format Printing</option>
+              <option value="Product2: Exhibition Stands">Exhibition Stands</option>
+              <option value="Product2: Slimline Light Boxes">Slimline Light Boxes</option>
+              <option value="Product2: 3D illuminated letters">3D illuminated letters</option>
+              <option value="Product2: 3D Letters">3D Letters</option>
+              <option value="Product2: Pylon Signs">Pylon Signs</option>
+              <option value="Product2: Pull Up Banners">Pull Up Banners</option>
+              <option value="Product2: Real Estate Signs">Real Estate Signs</option>
+              <option value="Product2: Trade Show Banners">Trade Show Banners</option>
+              <option value="Product2: Works of Art">Works of Art</option>
+              <option value="Product2: Banners &#038; Skins">Banners &#038; Skins</option>
+              <option value="Product2: Posters">Posters</option>
+              <option value="Product2: Business Cards">Business Cards</option>
+              <option value="Product2: Stickers">Stickers</option>
+              <option value="Product2: Tear Drop Banners">Tear Drop Banners</option>
+              <option value="Product2: General Signage">General Signage</option>
+              <option value="Product2: A Frames">A Frames</option>
+              <option value="Product2: Corflutes">Corflutes</option>
+              <option value="Product2: Vehicle Graphics/Wraps">Vehicle Graphics/Wraps</option>
+              <option value="Product2: Roadside Signage">Roadside Signage</option>
+              <option value="Product2: Neon Signs">Neon Signs</option>
+              <option value="Product2: Programmable LED signs">Programmable LED signs</option>
+              <option value="Product2: Lightbox">Lightbox</option>
+              <option value="Product2: Engraving">Engraving</option>
+              <option value="Product2: Wayfinding Signs">Wayfinding Signs</option>
+          </select>
+          </div>
+          <div class="form-group">
+          <label for="details">Do you have Artwork ?</label>
+           <select class='product-dsc'>
+              <option label=""></option>
+              <option value="Artwork : Yes">Yes</option>
+              <option value="Artwork : No">No</option>
+          </select>
+          </div>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <div>
+          <input type="name" name="primary_contact_name" class="form-control" id="primary_contact_name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="name">Company Name</label>
+            <input type="name" name="company_name" class="form-control" id="company_name" placeholder="Company Name">
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="phone" name="phone" class="form-control" id="phone" placeholder="Phone">
+          </div>
+          <div class="form-group">
+            <label for="details">Questions or Comments</label>
+            <textarea class="product-dsc" rows="3" placeholder="Please enter your questions or comments"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script>
+      $(function() {
+        // this needs to be replaced with real authtoken
+        var authToken = "uqMSLf0VtNkJ9MYqVQUEMA"
+        // this needs to be replaced with real account ID
+        var accountId = "736e2fca-58a6-4ade-98ec-602f5847eddf"
+
+        $("#contactForm").submit(function(e) {
+            //prevent Default functionality
+            e.preventDefault();
+            var successUrl = $("#contactForm #on_success").attr("value") 
+            var actionUrl = "https://api.shopvox.com/v1/sales_leads.json?authToken="+authToken+"&account_id="+accountId;
+            //do your own request an handle the results
+            $.ajax({
+                    url: actionUrl,
+                    type: 'post',
+                    dataType: 'json',
+                    data: $("#contactForm").serialize(),
+                    success: function(data) {
+                      console.log(data);
+                      if (successUrl) {
+                        window.location = successUrl;
+                      } 
+                    },
+                    error: function(xhr, status, error) {
+                      alert(error);
+                      console.log(xhr, status, error);
+                    }
+            });
+        });
+        $(".product-dsc").change(function() {
+        var arrText= $('.product-dsc').map(function(){
+        return this.value;
+        }).get();
+        $('#details').val(arrText.join(', '));
+        });
+     });
+    </script>
+  </body>
+</html>
