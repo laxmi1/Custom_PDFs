@@ -17,128 +17,133 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <style>
-      body {
-        padding-top: 50px;
-      }
-      .wrapper {
-        padding: 40px 15px;
-      }
-    </style>
+   
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8">
-        <div class="wrapper well">
-        <h1>Get a Quote</h1>
+    
+<form id="contactForm" role="form" method="post" class="" action="/wp-content/themes/ews/mailer/mailer.php">
+<input type="hidden" name="subject" value="Get a Free Quote | expresswaysigns.com.au"/>
+<input type="hidden" value="http://www.expresswaysigns.com.au/thank-you-quote/" name="redirect">
+<input name="hp" type="text" style="display:none;" class="hidden">
 
-        <form id="contactForm">
-          <input type="hidden" name="on_success" id="on_success" value="http://www.shopvox.com">
-          <input type="hidden" name="pipeline_name" id="pipeline_name" value="Sales Pipeline">
-          <input type="hidden" name="title" id="title" value="Contact form sales lead">
-          <input type="hidden" name="lead_source_name" id="lead_source" value="Contact Form">
-          <input type="hidden" name="details" id="details"> 
+ <input type="hidden" name="pipeline_name" id="pipeline_name" value="Sales Pipeline">
+ <input type="hidden" name="title" id="title" value="Contact form sales lead">
+ <input type="hidden" name="lead_source_name" id="lead_source" value="Contact Form">
+ <input type="hidden" name="details" id="details"> 
 
-          <div class="form-group">
-            <label for="details">Product 1</label>
-            <select class='product-dsc' placeholder="Product1">
-              <option label=""></option>
-              <option value="Marquees" >Marquees</option>
-              <option value="Product1: Wide Format Printing" >Wide Format Printing</option>
-              <option value="Product1: Exhibition Stands" >Exhibition Stands</option>
-              <option value="Product1: Slimline Light Boxes" >Slimline Light Boxes</option>
-              <option value="Product1: 3D illuminated letters" >3D illuminated letters</option>
-              <option value="Product1: 3D Letters" >3D Letters</option>
-              <option value="Product1: Pylon Signs" >Pylon Signs</option>
-              <option value="Product1: Pull Up Banners" >Pull Up Banners</option>
-              <option value="Product1: Real Estate Signs" >Real Estate Signs</option>
-              <option value="Product1: Trade Show Banners" >Trade Show Banners</option>
-              <option value="Product1: Works of Art" >Works of Art</option>
-              <option value="Product1: Banners &#038; Skins" >Banners &#038; Skins</option>
-              <option value="Product1: Posters" >Posters</option>
-              <option value="Product1: Business Cards" >Business Cards</option>
-              <option value="Product1: Stickers" >Stickers</option>
-              <option value="Product1: Tear Drop Banners" >Tear Drop Banners</option>
-              <option value="Product1: General Signage" >General Signage</option>
-              <option value="Product1: A Frames" >A Frames</option>
-              <option value="Product1: Corflutes" >Corflutes</option>
-              <option value="Product1: Vehicle Graphics/Wraps" >Vehicle Graphics/Wraps</option>
-              <option value="Product1: Roadside Signage" >Roadside Signage</option>
-              <option value="Product1: Neon Signs" >Neon Signs</option>
-              <option value="Product1: Programmable LED signs" >Programmable LED signs</option>
-              <option value="Product1: Lightbox" >Lightbox</option>
-              <option value="Product1: Engraving" >Engraving</option>
-              <option value="Product1: Wayfinding Signs" >Wayfinding Signs</option>
-            </select>
-          </div>
-            <div class="form-group">
-            <label for="details">Product 2</label>
-           <select class='product-dsc'  placeholder="Product2">
-              <option label=""></option>
-              <option value="Marquees">Marquees</option>
-              <option value="Product2: Wide Format Printing">Wide Format Printing</option>
-              <option value="Product2: Exhibition Stands">Exhibition Stands</option>
-              <option value="Product2: Slimline Light Boxes">Slimline Light Boxes</option>
-              <option value="Product2: 3D illuminated letters">3D illuminated letters</option>
-              <option value="Product2: 3D Letters">3D Letters</option>
-              <option value="Product2: Pylon Signs">Pylon Signs</option>
-              <option value="Product2: Pull Up Banners">Pull Up Banners</option>
-              <option value="Product2: Real Estate Signs">Real Estate Signs</option>
-              <option value="Product2: Trade Show Banners">Trade Show Banners</option>
-              <option value="Product2: Works of Art">Works of Art</option>
-              <option value="Product2: Banners &#038; Skins">Banners &#038; Skins</option>
-              <option value="Product2: Posters">Posters</option>
-              <option value="Product2: Business Cards">Business Cards</option>
-              <option value="Product2: Stickers">Stickers</option>
-              <option value="Product2: Tear Drop Banners">Tear Drop Banners</option>
-              <option value="Product2: General Signage">General Signage</option>
-              <option value="Product2: A Frames">A Frames</option>
-              <option value="Product2: Corflutes">Corflutes</option>
-              <option value="Product2: Vehicle Graphics/Wraps">Vehicle Graphics/Wraps</option>
-              <option value="Product2: Roadside Signage">Roadside Signage</option>
-              <option value="Product2: Neon Signs">Neon Signs</option>
-              <option value="Product2: Programmable LED signs">Programmable LED signs</option>
-              <option value="Product2: Lightbox">Lightbox</option>
-              <option value="Product2: Engraving">Engraving</option>
-              <option value="Product2: Wayfinding Signs">Wayfinding Signs</option>
-          </select>
-          </div>
-          <div class="form-group">
-          <label for="details">Do you have Artwork ?</label>
-           <select class='product-dsc'>
-              <option label=""></option>
-              <option value="Artwork : Yes">Yes</option>
-              <option value="Artwork : No">No</option>
-          </select>
-          </div>
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <div>
-          <input type="name" name="primary_contact_name" class="form-control" id="primary_contact_name" placeholder="Name">
-          </div>
-          <div class="form-group">
-            <label for="name">Company Name</label>
-            <input type="name" name="company_name" class="form-control" id="company_name" placeholder="Company Name">
-          </div>
-          <div class="form-group">
-            <label for="email">Your Email address</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="phone" name="phone" class="form-control" id="phone" placeholder="Phone">
-          </div>
-          <div class="form-group">
-            <label for="details">Questions or Comments</label>
-            <textarea class="product-dsc" rows="3" placeholder="Please enter your questions or comments"></textarea>
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-        </div>
-        </div>
-      </div>
-    </div>
+<div class="col-sm-1">
+<span class="number">
+1
+</span>
+</div>
+<div class="col-sm-3">
+<p>Product:</p>
+<div class="form-group">
+<select name="product_1" id="product_1" class="form-control" required >
+<option value="Product 1: Not Selected">Product 1</option>
+<option value="Product 1: Marquees" >Marquees</option>
+<option value="Product 1: Wide Format Printing" >Wide Format Printing</option>
+<option value="Product 1: Exhibition Stands" >Exhibition Stands</option>
+<option value="Product 1: Slimline Light Boxes" >Slimline Light Boxes</option>
+<option value="Product 1: 3D illuminated letters" >3D illuminated letters</option>
+<option value="Product 1: 3D Letters" >3D Letters</option>
+<option value="Product 1: Pylon Signs" >Pylon Signs</option>
+<option value="Product 1: Pull Up Banners" >Pull Up Banners</option>
+<option value="Product 1: Real Estate Signs" >Real Estate Signs</option>
+<option value="Product 1: Trade Show Banners" >Trade Show Banners</option>
+<option value="Product 1: Works of Art" >Works of Art</option>
+<option value="Product 1: Banners &#038; Skins" >Banners &#038; Skins</option>
+<option value="Product 1: Posters" >Posters</option>
+<option value="Product 1: Business Cards" >Business Cards</option>
+<option value="Product 1: Stickers" >Stickers</option>
+<option value="Product 1: Tear Drop Banners" >Tear Drop Banners</option>
+<option value="Product 1: General Signage" >General Signage</option>
+<option value="Product 1: A Frames" >A Frames</option>
+<option value="Product 1: Corflutes" >Corflutes</option>
+<option value="Product 1: Vehicle Graphics/Wraps" >Vehicle Graphics/Wraps</option>
+<option value="Product 1: Roadside Signage" >Roadside Signage</option>
+<option value="Product 1: Neon Signs" >Neon Signs</option>
+<option value="Product 1: Programmable LED signs" >Programmable LED signs</option>
+<option value="Product 1: Lightbox" >Lightbox</option>
+<option value="Product 1: Engraving" >Engraving</option>
+<option value="Product 1: Wayfinding Signs" >Wayfinding Signs</option>
+</select> 
+</div>
+<div class="form-group">
+<select name="product_2" id="product_2" class="form-control">
+<option value="Product 2: Not Selected">Product 2</option>
+<option value="Product 2: Marquees">Marquees</option>
+<option value="Product 2: Wide Format Printing">Wide Format Printing</option>
+<option value="Product 2: Exhibition Stands">Exhibition Stands</option>
+<option value="Product 2: Slimline Light Boxes">Slimline Light Boxes</option>
+<option value="Product 2: 3D illuminated letters">3D illuminated letters</option>
+<option value="Product 2: 3D Letters">3D Letters</option>
+<option value="Product 2: Pylon Signs">Pylon Signs</option>
+<option value="Product 2: Pull Up Banners">Pull Up Banners</option>
+<option value="Product 2: Real Estate Signs">Real Estate Signs</option>
+<option value="Product 2: Trade Show Banners">Trade Show Banners</option>
+<option value="Product 2: Works of Art">Works of Art</option>
+<option value="Product 2: Banners &#038; Skins">Banners &#038; Skins</option>
+<option value="Product 2: Posters">Posters</option>
+<option value="Product 2: Business Cards">Business Cards</option>
+<option value="Product 2: Stickers">Stickers</option>
+<option value="Product 2: Tear Drop Banners">Tear Drop Banners</option>
+<option value="Product 2: General Signage">General Signage</option>
+<option value="Product 2: A Frames">A Frames</option>
+<option value="Product 2: Corflutes">Corflutes</option>
+<option value="Product 2: Vehicle Graphics/Wraps">Vehicle Graphics/Wraps</option>
+<option value="Product 2: Roadside Signage">Roadside Signage</option>
+<option value="Product 2: Neon Signs">Neon Signs</option>
+<option value="Product 2: Programmable LED signs">Programmable LED signs</option>
+<option value="Product 2: Lightbox">Lightbox</option>
+<option value="Product 2: Engraving">Engraving</option>
+<option value="Product 2: Wayfinding Signs">Wayfinding Signs</option>
+</select>
+</div>
+<div class="form-group">
+<select name="artwork" id="artwork" class="form-control" required>
+<option value="Artwork : Not Selected=">Do you have artwork?</option>
+<option value="Artwork : Yes">Yes</option>
+<option value="Artwork : No">No</option>
+</select>
+</div>
+</div>
+<div class="col-sm-1">
+<span class="number">
+2
+</span>
+</div>
+<div class="col-sm-3">
+<p>Details:</p>
+<div class="form-group">
+<input type="text" placeholder="Name:" name="primary_contact_name" required="" class="form-control" autocomplete="name" required />
+</div>
+<div class="form-group">
+<input type="text" placeholder="Email:" name="email" class="form-control" autocomplete="email" required />
+</div>
+<div class="form-group">
+<input type="text" placeholder="Phone:" name="phone" class="form-control" autocomplete="tel" required />
+</div>
+<div class="form-group">
+<input type="text" placeholder="Company:" name="company_name" class="form-control" required />
+</div>
+</div>
+<div class="col-sm-1">
+<span class="number">
+3
+</span>
+</div>
+<div class="col-sm-3">
+<p>Comments:</p>
+<div class="form-group">
+<textarea name="message" id="" class="form-control" rows="4" placeholder="Questions / Comments / Ideas:"></textarea>
+</div>
+<div class="form-group">
+<button type="submit" class="submit btn btn-default">Get A Quote</button>
+</div>
+</div>
+</form>
+ 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -175,11 +180,11 @@
                     }
             });
         });
-        $(".product-dsc").change(function() {
-        var arrText= $('.product-dsc').map(function(){
+        $("select,textarea").change(function() {
+        var arrText= $('select,textarea').map(function(){
         return this.value;
         }).get();
-        $('#details').val(arrText.join(', '));
+        $('#details').val(arrText.join("\n"));
         });
      });
     </script>
