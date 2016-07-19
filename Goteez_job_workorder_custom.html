@@ -36,16 +36,22 @@
     padding-right: 20pt;
 }
 .proof .image .proof.small{
-    max-width: 250px;
+    max-width: 200px;
 }
 .proof {
     float: left;
-    width: 250px;
+    width: 200px;
     margin: 0;
 }
 .job-attributes {
     float: left;
     width: 30%;
+}
+.line-items .swof, .line-items .proof {
+    padding-right: 20pt;
+}
+.no-li-br{
+  word-wrap: break-word;
 }
   </style>
 </head>
@@ -113,8 +119,8 @@
         <% end %>
 
         <% if due_date %>
-          <p class="title"><%= due_date_header %></p>
-          <p><%= due_date %></p>
+          <p class="title"><font size=3><%= due_date_header %></font></p>
+          <p><font size=3><%= due_date %></font></p>
         <% end %>
          <% if shipping_method %>
           <p class="title"><%= shipping_method_header %></p>
@@ -192,16 +198,11 @@
       <th class="position">#</th>
       <th class="job-name" ><%= item_header %></th>
       <th class="swof" ><%= swof_header %></th>
-      <th class="proof">
-        <div class="last1">
-          <%= proof_header %>
-        </div>
-      </th>
     </tr>
     </thead>
 
     <% items.each_with_index do |item, index| %>
-        <tbody class='no-page-break'>
+        <tbody >
         <tr>
           <td class="position"><%= index + 1 %></td>
 
@@ -386,7 +387,9 @@
                                               <% item.bom_report[item_type][item_sub_type].each do |li| %>
                                                   <li class="bom_report">
                                                     <div class="text--pre-line li-desc-fixed-width">
+                                                    <div class="no-li-br">
                                                       <%= li.insert(0,"&bull;&nbsp;").gsub("\n", "\n&bull; ") %>
+                                                    </div>
                                                     </div>
                                                   </li>
                                               <% end %>
@@ -402,10 +405,9 @@
                   <% end %>
               <% end %>
             </div>
-          </td>
-          <td>
-            <% if item.job.present? %>
-              <div class="last1">
+
+              <% if item.job.present? %>
+              <div class="no-page-break">
                 <div class="job-attributes">
                   <div class="proof">
                     <div class="head">
@@ -416,9 +418,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
             <% end %>
+
           </td>
+         
         </tr>
     </tbody>
     <table class='no-page-break'>
