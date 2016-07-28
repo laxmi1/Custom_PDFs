@@ -3,6 +3,20 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       <%= page_size %>
+.li-header-padding{
+  padding-bottom: 20px;
+}
+
+.line-items tbody td {
+      padding: 8pt 5pt 0pt 5pt;
+}
+.line-items thead th {
+    padding: 0pt 0pt;
+  }
+.line-items .last {
+    padding-right: 35pt;
+    padding-left: 5pt
+}
   </style>
 </head>
 <body>
@@ -21,7 +35,15 @@
   <table>
     <tr>
       <td class="store-address">
-        <%= store_address %>
+         <p><b><%= store_name %></b></p>
+  <%if store_address_street%><p><%= store_address_street %></p><%end%>
+  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%>
+  <% if store_phone%><p>Phone: <%=store_phone%></p><%end%> 
+  <% if store_email%><p>Email: <%=store_email%></p><%end%>
+  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
+  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
       </td>
       <td class="store-logo">
         <img class="logo" src="<%= logo %>">
@@ -48,12 +70,8 @@
       <td class="summ right">
         <div class="summary-wrapper">
           <p class="title"><%= sales_rep_information_header %></p>
-          <p><%= sales_rep %></p>
-          <p><%= @object.primary_sales_rep.try :email%></p>
-          <%if sales_rep_phone %>
-          <p><%= sales_rep_phone %></p>
-          <%end%>
-        </div>
+          <p><%= sales_rep_information %></p>
+         </div>
       </td>
       <%end%>
       <td class="summ right">
@@ -62,7 +80,7 @@
           <p class="title"><%= quote_date_header %></p>
           <p><%= quote_date %></p>
           <% if quote_expiry_date %>
-              <p class="title"><%= quote_expiry_date_header %></p>
+              <p class="title">Quote Exp. Date</p>
               <p><%= quote_expiry_date%></p>
           <% end %>
           <% if term_code %>
@@ -79,7 +97,7 @@
       <td class="summ right">
         <div class="summary-wrapper">
 
-          <% if po_number != "" %>
+          <% if po_number != nil %>
             <p class="title"><%= po_number_header %></p>
             <p><%= po_number %></p>
           <% end %>
@@ -102,10 +120,18 @@
         <div class="address-wrapper">
           <p class="title"><%= ordered_by_header %></p>
 
-          <p>
-            <%= sold_to %><br />
-            <%= billing_information %>
-          </p>
+           <p><%= sold_to %></p>
+           <!--  <%= billing_information %> -->
+           <% if billing_address_name %><p><%=billing_address_name%></p><%end%>
+           <% if billing_address_street %><p><%=billing_address_street%></p><%end%>
+           <% if billing_address_street1 %><p><%=billing_address_street1%></p><%end%>
+           <p><% if billing_address_city %><%=billing_address_city%>,<%end%>
+              <% if billing_address_state %><%=billing_address_state%><%end%>
+              <% if billing_address_zip %><%=billing_address_zip%><%end%>
+              <% if billing_address_country %>,<%=billing_address_country%><%end%>
+            </p>
+            <% if billing_address_attention_to %><p><%=billing_address_attention_to%></p><%end%>
+
         </div>
       </td>
        <td class="address left">
@@ -113,17 +139,24 @@
           <p class="title"><%= contact_information_header %></p>
 
           <p><%= contact_information %></p>
+          <% %>
         </div>
       </td>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><%= shipping_information_header %></p>
+          <p class="title">shipping / installation address</p>
           <p>
             <% if shipping_address_type != 'DropShip' %>
               <%= sold_to %><br />
             <% end %>
-            <%= shipping_information %>
-          </p>
+           <%if check_exist_empty('shipping_address_name') != nil %> <p> <%=check_exist_empty('shipping_address_name')%></p><%end%>
+           <%if check_exist_empty('shipping_address_street') != nil %><p><%=check_exist_empty('shipping_address_street')%></p><%end%>
+        <%if check_exist_empty('shipping_address_street1') != nil %><p><%=check_exist_empty('shipping_address_street1')%></p><%end%>
+         <p><%if check_exist_empty('shipping_address_city') != nil %><%=check_exist_empty('shipping_address_city')%>,<%end%>
+            <%if check_exist_empty('shipping_address_state') != nil %><%=check_exist_empty('shipping_address_state')%><%end%>
+            <%if check_exist_empty('shipping_address_zip') != nil %><%=check_exist_empty('shipping_address_zip')%><%end%>
+         </p>
+         <%if check_exist_empty('shipping_address_attention_to') != nil %><p><%=check_exist_empty('shipping_address_attention_to')%></p><%end%>
         </div>
       </td>
      
@@ -146,7 +179,7 @@
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
   <table>
-    <thead>
+    <thead >
     <tr>
       <th class="position">
         <div class="first">#</div>

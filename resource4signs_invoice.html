@@ -32,6 +32,14 @@
   padding-bottom: 20pt;
 }
 
+.line-items tbody td {
+      padding: 8pt 5pt 0pt 5pt;
+}
+.line-items thead th {
+    padding: 0pt 0pt;
+  }
+  
+
   </style>
 </head>
 <body>
@@ -48,7 +56,15 @@
   <table>
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
-        <%= store_address %>
+            <p><b><%= store_name %></b></p>
+  <%if store_address_street%><p><%= store_address_street %></p><%end%>
+  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%>
+  <% if store_phone%><p>Phone: <%=store_phone%></p><%end%> 
+  <% if store_email%><p>Email: <%=store_email%></p><%end%>
+  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
+  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
@@ -81,11 +97,7 @@
       <td class="summ right">
         <div class="summary-wrapper">
           <p class="title"><%= sales_rep_information_header %></p>
-          <p><%= sales_rep %></p>
-          <p><%= @object.primary_sales_rep.try :email%></p>
-          <%if sales_rep_phone %>
-          <p><%= sales_rep_phone %></p>
-          <%end%>
+           <p><%= sales_rep_information %></p>
         </div>
       </td>
       <%end%>
@@ -110,7 +122,7 @@
               <p class="title"><%= term_code_header %></p>
               <p><%= term_code %></p>
           <% end %>
-          <% if po_number != "" %>
+          <% if po_number != nil %>
               <p class="title"><%= po_number_header %></p>
               <p><%= po_number %></p>
           <% end %>
@@ -134,7 +146,15 @@
           <p class="title"><%= ordered_by_header %></p>
 
           <p><%= sold_to %></p>
-          <p><%= billing_information %></p>
+          <% if billing_address_name %><p><%=billing_address_name%></p><%end%>
+           <% if billing_address_street %><p><%=billing_address_street%></p><%end%>
+           <% if billing_address_street1 %><p><%=billing_address_street1%></p><%end%>
+           <p><% if billing_address_city %><%=billing_address_city%>,<%end%>
+              <% if billing_address_state %><%=billing_address_state%><%end%>
+              <% if billing_address_zip %><%=billing_address_zip%><%end%>
+              <% if billing_address_country %>,<%=billing_address_country%><%end%>
+            </p>
+            <% if billing_address_attention_to %><p><%=billing_address_attention_to%></p><%end%>
         </div>
       </td>
        <td class="address left">
@@ -149,9 +169,16 @@
         <p class="title">shipping / installation address</p>
 
           <% if shipping_address_type != 'DropShip' %>
-            <%= sold_to %><br />
+            <p><%= sold_to %></p>
           <% end %>
-          <%= shipping_information %></p>
+           <%if check_exist_empty('shipping_address_name') != nil %> <p> <%=check_exist_empty('shipping_address_name')%></p><%end%>
+           <%if check_exist_empty('shipping_address_street') != nil %><p><%=check_exist_empty('shipping_address_street')%></p><%end%>
+        <%if check_exist_empty('shipping_address_street1') != nil %><p><%=check_exist_empty('shipping_address_street1')%></p><%end%>
+         <p><%if check_exist_empty('shipping_address_city') != nil %><%=check_exist_empty('shipping_address_city')%>,<%end%>
+            <%if check_exist_empty('shipping_address_state') != nil %><%=check_exist_empty('shipping_address_state')%><%end%>
+            <%if check_exist_empty('shipping_address_zip') != nil %><%=check_exist_empty('shipping_address_zip')%><%end%>
+         </p>
+         <%if check_exist_empty('shipping_address_attention_to') != nil %><p><%=check_exist_empty('shipping_address_attention_to')%></p><%end%>
         </div>
       </td>
      
