@@ -8,12 +8,12 @@
         <%= page_size %>
 
         @page {
-      margin: 105pt 0pt 103pt 0pt;
+      margin: 105pt 0pt 90pt 0pt;
         @top {
-      content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/d93c6293-42fa-417f-b86c-ade8f75ac2b0/header.png);
-             }
+      content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/3c594289-842a-41f3-b48a-0d2a2eed105f/Untitled-1%20copy.jpg);
+                   }
         @bottom { 
-     content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/2a1fcb20-548a-426c-bfab-c79352e1a31a/footer.png);
+     content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/4d7b8739-c5c4-43d7-8603-788e747b67e6/davie_invoice-footer-2016-a4.png);
         }   
        @bottom-right {
             content: " ";
@@ -35,6 +35,9 @@
   .line-items .description {
       padding: 2pt 5pt 5pt 5pt;
   }
+   .line-items .description p {
+    margin-bottom: 0pt;
+}
   .line-items {
       margin: 5pt 30pt 5pt 30pt;
   }
@@ -63,6 +66,9 @@
   .npb{
     page-break-inside: avoid;
   }
+  .no-li-br{
+  white-space: nowrap;
+}
 
   </style>
   </head>
@@ -135,7 +141,9 @@
                 <% end %>
                 <hr class="custom-field-separator">
               <% end %>
+              <%if item.product_image %>
               <img src="<%= item.product_image %>" class="line-item-description-image">
+              <%end%>
             </td>
 
             <td class="money"><%= item.unit_price %></td>
@@ -159,7 +167,7 @@
     <div class="nbp">
     <table>
        <tr><td width="75%"></td></td><td colspan="2" style="border: 1px solid #999999;">Sub Total</td><td style="border: 1px solid #999999;"><%= sub_total %></td></tr>
-       <tr><td width="75%"></td></td><td colspan="2" colspan="2" style="border: 1px solid #999999;" >Tax Sub Total(<%= tax_rate %>)</td><td colspan="2" style="border: 1px solid #999999;"><%= total_tax %></td></tr> 
+       <tr><td width="75%"></td></td><td class="no-li-br" colspan="2" style="border: 1px solid #999999;" >Tax Sub Total(<%= tax_rate %>)</td><td colspan="2" style="border: 1px solid #999999;"><%= total_tax %></td></tr> 
        <tr><td width="75%"></td></td><td colspan="2" colspan="2" style="border: 1px solid #999999;">Invoice Total</td><td colspan="2" style="border: 1px solid #999999;"><%= final_price %></td></tr> 
        <% if has_payments? %>
        <tr><td width="75%"></td></td><td colspan="2" colspan="2" style="border: 1px solid #999999;">Payments Applied</td><td colspan="2" style="border: 1px solid #999999;"><%= total_paid %></td></tr> 
@@ -276,10 +284,12 @@
                     <td><b>Invoice#:</td>
                     <td><%= txn_number_only%></td>
                   </tr>
+                  <% if po_number%>
                   <tr>
                     <td><b>PO#:</b></td>
                     <td><%= po_number %></td>
                   </tr>
+                  <%end%>
                    <tr>
                      <td><b>Total:</b></td>
                        <td><b><%= balance %></b></td>

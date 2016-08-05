@@ -38,7 +38,19 @@
 .line-items thead th {
     padding: 0pt 0pt;
   }
-  
+  .address-logo {
+    padding: 20pt 35pt 5pt 35pt;
+    border-bottom: 2px solid #e3e3e3;
+}
+.li-desc-fixed-width {
+    max-width: 450pt;
+    word-wrap: break-word;
+}
+.summary .summ.right .summary-wrapper {
+    border-right: 0px solid #e3e3e3;
+    text-align: right;
+    padding-right: 10pt;
+}
 
   </style>
 </head>
@@ -72,70 +84,14 @@
         <% end %>
       </td>
       <td class="store-logo">
-        <img class="logo" src="<%= logo %>">
+        <img class="logo" src="<%= logo %>" width = 300>
       </td>
 
     </tr>
   </table>
 </div>
 
-<div class="summary">
-  <table>
-    <tr>
-      <td class="summ left">
-        <div class="summary-wrapper">
-          <h1 class="main-title"><%= invoice_number %> <br/>
-            <small><%= name %></small>
-          </h1>
-          <% if project_number %>
-            <p class="title"><%= project_header %></p>
-            <p><%= project_number %></p>
-          <% end %>
-        </div>
-      </td>
-      <%if sales_rep %>
-      <td class="summ right">
-        <div class="summary-wrapper">
-          <p class="title"><%= sales_rep_information_header %></p>
-           <p><%= sales_rep_information %></p>
-        </div>
-      </td>
-      <%end%>
-      <td class="summ right">
-        <div class="summary-wrapper">
 
-          <p class="title"><%= invoice_date_header %></p>
-          <p><%= invoice_date %></p>
-
-          <p class="title"><%= due_date_header %></p>
-          <p><%= due_date %></p>
-
-          <p class="title"><%= payment_information_header %></p>
-          <p><%= payment_method %></p>
-        </div>
-      </td>
-
-      <td class="summ right">
-        <div class="summary-wrapper">
-
-          <% if term_code %>
-              <p class="title"><%= term_code_header %></p>
-              <p><%= term_code %></p>
-          <% end %>
-          <% if po_number != nil %>
-              <p class="title"><%= po_number_header %></p>
-              <p><%= po_number %></p>
-          <% end %>
-
-          <% if po_date %>
-              <p class="title"><%= po_date_header %></p>
-              <p><%= po_date %></p>
-          <% end %>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
 
 
 <div class="addresses">
@@ -198,9 +154,67 @@
   </table>
 </div>
 
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h2 class="main-title"><%= invoice_number %> <br/>
+            <small><%= name %></small>
+          </h2>
+          <% if project_number %>
+            <p class="title"><%= project_header %></p>
+            <p><%= project_number %></p>
+          <% end %>
+        </div>
+      </td>
+      <%if sales_rep %>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= sales_rep_information_header %></p>
+           <p><%= sales_rep_information %></p>
+        </div>
+      </td>
+      <%end%>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title"><%= invoice_date_header %></p>
+          <p><%= invoice_date %></p>
+
+          <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+          <%if payment_method %>
+          <p class="title"><%= payment_information_header %></p>
+          <p><%= payment_method %></p>
+          <%end%>
+        </div>
+      </td>
+
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+          <% if po_number != "" %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
-<div class="line-items">
+<div class="line-items" >
   <!--<h2 class="title"><%= items_header %></h2>-->
   <table>
     <thead>
@@ -209,7 +223,7 @@
         <div class="first">#</div>
       </th>
       <th class="name" colspan="2"><%= item_header %></th>
-      <th class="quantity" colspan="0"><%= qty_header %></th>
+      <th class="quantity" ><%= qty_header %></th>
       <th class="money"><%= unit_price_header %></th>
       <% if show_discounts && total_discount_price != 0.0 %>
        <th class="quantity"><%= discount_header %> </th>
@@ -261,9 +275,9 @@
         </tr>
         <tr>
           <% if show_discounts && total_discount_price != 0.0 %>
-              <td class="description" colspan="7">
+              <td class="description" colspan="7" >
           <% else %>
-              <td class="description" colspan="5">
+              <td class="description" colspan="5" >
           <% end %>
             <% if item.table_view %>
               <div class="last text--pre-line li-desc-fixed-width">
@@ -284,7 +298,9 @@
               <% end %>
               <hr class="custom-field-separator">
             <% end %>
+            <%if item.product_image %>
             <img src="<%= item.product_image %>" class="line-item-description-image">
+            <%end%>
           </td>
         </tr>
     <% end %>
