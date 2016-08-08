@@ -27,12 +27,20 @@
     padding: 10pt 35pt 5pt 35pt;
     border-bottom: 0px solid #e3e3e3;
 }
+.address-logo .store-address {
+    text-align: left;
+    vertical-align: top;
+    font-size: 12px;
+}
 .addresses {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 5pt 35pt;
     border-bottom: 2px solid #e3e3e3;
     border-top: 2px solid #e3e3e3;   
+}
+.sales_rep{
+  margin-left: 50pt;
 }
 .line-items thead th {
     font-size: 13px;
@@ -160,7 +168,7 @@
     <td valign="top" width="1%">
       <img src="http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/8b9fc299-0923-455f-a5c6-d296bfe8946b/Screenshot%20from%202016.png">
     </td>
-    <td  class="store-address <%= "stamp-container" if is_paid? %>" valign="top" width="50%">
+    <td  class="store-address <%= "stamp-container" if is_paid? %>" valign="top" width="30%">
   <p><%= store_name %></p>
   <%if store_address_street%><p><%= store_address_street %></p><%end%>
   <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
@@ -174,7 +182,7 @@
           </p>
         <% end %>
     </td>
-    <td  align="center">
+    <td  align="left" width="20%">
       <img src="http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/2d28e9bc-b953-4888-ab9c-2afeca342a04/Screenshot%20from%2020162.png">
     </td>
     <td width="35%" class="store-address">
@@ -189,48 +197,50 @@
 </div>
 
 <div class="addresses">
+<div class="sales_rep">
   <table cellpadding="6">
     <tr>
     <%if sales_rep%>
-      <td class="label" align="center">
+      <td class="label" align="left">
         Salesperson
       </td>
     <%end%>
     <%if term_code %>
-       <td class="label" align="center">
+       <td class="label" align="left">
          Terms
       </td>
       <%end%>
-       <td class="label" align="center">
+       <td class="label" align="left">
         Due Date
       </td>
       <%if shipping_method%>
-       <td class="label" align="center">
+       <td class="label" align="left">
         Delivery
       </td>
       <%end%>
     </tr>
     <tr>
       <%if sales_rep%>
-      <td align="center">
+      <td align="left">
         <%= sales_rep%>
       </td>
       <%end%>
        <%if term_code %>
-       <td  align="center">
+       <td  align="left">
          <%= term_code %>
       </td>
       <%end%>
-       <td align="center">
+       <td align="left">
         <%= due_date %>
       </td>
       <%if shipping_method%>
-       <td align="center">
+       <td align="left">
         <%= shipping_method%>
       </td>
       <%end%>
     </tr>
   </table>
+  </div>
 </div>
 
 
