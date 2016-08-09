@@ -31,6 +31,9 @@
 .payments{
   padding-bottom: 20pt;
 }
+.fontsize{
+  font-size: 11px;
+}
 
 .line-items tbody td {
       padding: 8pt 5pt 0pt 5pt;
@@ -41,6 +44,9 @@
   .address-logo {
     padding: 20pt 35pt 5pt 35pt;
     border-bottom: 2px solid #e3e3e3;
+}
+.address-logo .store-logo .logo {
+    max-height: 100px;
 }
 .li-desc-fixed-width {
     max-width: 450pt;
@@ -69,6 +75,7 @@
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
             <p><b><%= store_name %></b></p>
+            <div class="fontsize">
   <%if store_address_street%><p><%= store_address_street %></p><%end%>
   <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
@@ -76,6 +83,7 @@
   <% if store_phone%><p>Phone: <%=store_phone%></p><%end%> 
   <% if store_email%><p>Email: <%=store_email%></p><%end%>
   <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
+  </div>
   <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
         <% if is_paid? %>
           <p class="stamp">
@@ -90,9 +98,6 @@
     </tr>
   </table>
 </div>
-
-
-
 
 <div class="addresses">
   <table>
@@ -156,12 +161,12 @@
 
 <div class="summary">
   <table>
-    <tr>
+    <tr >
       <td class="summ left">
         <div class="summary-wrapper">
-          <h2 class="main-title"><%= invoice_number %> <br/>
+          <h4 class="main-title"><%= invoice_number %> <br/>
             <small><%= name %></small>
-          </h2>
+          </h4>
           <% if project_number %>
             <p class="title"><%= project_header %></p>
             <p><%= project_number %></p>
@@ -198,7 +203,7 @@
               <p class="title"><%= term_code_header %></p>
               <p><%= term_code %></p>
           <% end %>
-          <% if po_number != "" %>
+          <% if po_number != nil %>
               <p class="title"><%= po_number_header %></p>
               <p><%= po_number %></p>
           <% end %>
@@ -224,7 +229,7 @@
       </th>
       <th class="name" colspan="2"><%= item_header %></th>
       <th class="quantity" ><%= qty_header %></th>
-      <th class="money"><%= unit_price_header %></th>
+      <th class="money" align="left"><%= unit_price_header %> &nbsp</th>
       <% if show_discounts && total_discount_price != 0.0 %>
        <th class="quantity"><%= discount_header %> </th>
        <th class="quantity"><%= discount_price_header %> </th>
@@ -246,7 +251,7 @@
 
     <tbody class=''>
     <% items.each_with_index do |item, index| %>
-        <tr>
+        <tr class="page-break-after">
           <td class="position" rowspan="2">
             <div class="first">
               <%= index + 1 %>
@@ -273,7 +278,7 @@
               </td>
           <% end %>
         </tr>
-        <tr>
+        <tr class="no-page-break">
           <% if show_discounts && total_discount_price != 0.0 %>
               <td class="description" colspan="7" >
           <% else %>

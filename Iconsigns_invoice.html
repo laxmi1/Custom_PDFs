@@ -156,7 +156,15 @@
 <table class="invoice">
   <tr><td align="left">
    <h2 class="black-bar">Invoice</h2>
-   </td><td align="right">
+   </td>
+   <td class="store-address <%= "stamp-container" if is_paid? %>" valign="top">
+      <% if is_paid? %>
+          <p class="stamp">
+            <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
+          </p>
+        <% end %>
+   </td>
+   <td align="right">
      <h3>#<%=txn_number_only%></h3>
      <h4><%= invoice_date %></h4>
    </td></tr>
@@ -168,7 +176,7 @@
     <td valign="top" width="1%">
       <img src="http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/8b9fc299-0923-455f-a5c6-d296bfe8946b/Screenshot%20from%202016.png">
     </td>
-    <td  class="store-address <%= "stamp-container" if is_paid? %>" valign="top" width="30%">
+    <td  class="store-address" valign="top" width="30%">
   <p><%= store_name %></p>
   <%if store_address_street%><p><%= store_address_street %></p><%end%>
   <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
@@ -176,11 +184,7 @@
   <%if store_address_zip %> <%= store_address_zip%><%end%>
   <% if store_phone%><p><%=store_phone%></p><%end%> 
   <% if store_email%><p><%=store_email%></p><%end%>
-        <% if is_paid? %>
-          <p class="stamp">
-            <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
-          </p>
-        <% end %>
+       
     </td>
     <td  align="left" width="20%">
       <img src="http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/2d28e9bc-b953-4888-ab9c-2afeca342a04/Screenshot%20from%2020162.png">
