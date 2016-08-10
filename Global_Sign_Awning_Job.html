@@ -153,7 +153,7 @@
   </div>
 
   <% if design_details  || production_details || install_details %>
-  <table border="1" width="100%">
+  <table border="1" width="100%" cellpadding="6">
     <tr>
     <th><font size="3">Design Details:</font></th>
     <th><font size="3">Production Details:</font></th>
@@ -197,7 +197,7 @@
   </table>
   <%end %>
 
-   <h3>Work Flow Stages</h3>
+   <h3>Work Flow Stages  <%if template_name%> : <%=template_name%><%end%></h3>
     <div class="stages1">
       <% stages.each do |stage| %>
           <div class="stage">
