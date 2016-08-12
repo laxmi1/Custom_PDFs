@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       .terms-title *, .terms-text * {
-          font-size:6pt !important;
+          font-size: 8pt !important;
       }
       <%= page_size %>
       .footer-bottom {
@@ -36,10 +36,10 @@
 }
 
 .line-items tbody td {
-      padding: 8pt 5pt 0pt 5pt;
+      padding: 2pt 5pt 0pt 5pt;
 }
 .line-items thead th {
-    padding: 0pt 0pt;
+    padding: 5pt 0pt;
   }
   .address-logo {
     padding: 20pt 35pt 5pt 35pt;
@@ -52,22 +52,21 @@
     max-width: 450pt;
     word-wrap: break-word;
 }
+.summary {
+    padding: 5pt 20pt;
+}
 .summary .summ.right .summary-wrapper {
     border-right: 0px solid #e3e3e3;
     text-align: right;
-    padding-right: 10pt;
+    padding-right: 0pt;
 }
 
   </style>
 </head>
 <body>
 
-<div style="display:none" class="document-header">
-  <%= header_text %>
-</div>
-
 <div style="display:none" class="document-footer">
-  <%= footer_text %>
+  <%= footer_text %>,  <%= header_text %>
 </div>
 
 <div class="address-logo">
@@ -106,7 +105,7 @@
         <div class="address-wrapper">
           <p class="title"><%= ordered_by_header %></p>
 
-          <p><%= sold_to %></p>
+          <p><b><%= sold_to %></b></p>
           <% if billing_address_name %><p><%=billing_address_name%></p><%end%>
            <% if billing_address_street %><p><%=billing_address_street%></p><%end%>
            <% if billing_address_street1 %><p><%=billing_address_street1%></p><%end%>

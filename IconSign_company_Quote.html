@@ -155,7 +155,7 @@
 
 <table class="invoice">
   <tr><td align="left">
-   <h2 class="black-bar">Quote</h2>
+   <h2 class="black-bar">Estimate</h2>
    </td>
    <td align="right">
      <h3>#<%=txn_number_only%></h3>
@@ -215,6 +215,11 @@
         Delivery
       </td>
       <%end%>
+      <% if po_number != nil %>
+      <td class="label" align="left">
+      Customer PO
+      </td>
+      <%end%>
     </tr>
     <tr>
       <%if sales_rep%>
@@ -237,6 +242,11 @@
         <%= shipping_method%>
       </td>
       <%end%>
+      <% if po_number != nil %>
+      <td align="left">
+      <%= po_number %>
+      </td>
+       <% end %>
     </tr>
   </table>
   </div>

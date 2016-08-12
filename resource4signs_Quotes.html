@@ -3,16 +3,20 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       <%= page_size %>
-.li-header-padding{
-  padding-bottom: 20px;
-}
+
+            .terms-title *, .terms-text * {
+          font-size:8pt !important;
+      }
 
 .line-items tbody td {
-      padding: 8pt 5pt 0pt 5pt;
+      padding: 2pt 5pt 0pt 5pt;
 }
 .line-items thead th {
-    padding: 0pt 0pt;
+    padding: 5pt 0pt;
   }
+  .summary {
+    padding: 5pt 20pt;
+}
 .line-items .last {
     padding-right: 35pt;
     padding-left: 5pt
@@ -34,7 +38,7 @@
 .summary .summ.right .summary-wrapper {
     border-right: 0px solid #e3e3e3;
     text-align: right;
-    padding-right: 10pt;
+    padding-right: 0pt;
 }
 .line-items .description p {
     margin-bottom: 0pt;
@@ -44,13 +48,9 @@
 </head>
 <body>
 
-<div style="display:none" class="document-header">
-  <%= header_text %>
-</div>
-
 <!-- Footer Text for Page footter-->
 <div style="display:none" class="document-footer">
-  <%= footer_text %>
+  <%= footer_text %>,  <%= header_text %>
 </div>
 
 <!-- Store Address and Logo -->
@@ -86,7 +86,7 @@
         <div class="address-wrapper">
           <p class="title"><%= ordered_by_header %></p>
 
-           <p><%= sold_to %></p>
+           <p><b><%= sold_to %></b></p>
            <!--  <%= billing_information %> -->
            <% if billing_address_name %><p><%=billing_address_name%></p><%end%>
            <% if billing_address_street %><p><%=billing_address_street%></p><%end%>

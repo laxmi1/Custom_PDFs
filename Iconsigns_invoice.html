@@ -222,6 +222,11 @@
         Delivery
       </td>
       <%end%>
+       <% if po_number != nil %>
+      <td class="label" align="left">
+      Customer PO
+      </td>
+       <% end %>
     </tr>
     <tr>
       <%if sales_rep%>
@@ -242,6 +247,11 @@
         <%= shipping_method%>
       </td>
       <%end%>
+      <% if po_number != nil %>
+      <td align="left">
+      <%= po_number %>
+      </td>
+       <% end %>
     </tr>
   </table>
   </div>
