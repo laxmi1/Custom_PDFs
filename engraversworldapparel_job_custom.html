@@ -1,0 +1,239 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      <%= page_size %>
+
+      .black-bar {
+      background: black;
+      color: white;
+      display: inline-block;
+      padding: 15px 25px;
+      font-weight: 700;
+    }
+    .rcorners {
+    border-radius: 10px !important;
+    border: 1px solid black;
+    padding: 20px;
+    width: 300px;
+    height: 70px;
+    }
+      .proof-border {
+        margin-top: 20px;
+    border-radius: 25px;
+    border: 1px solid black;
+    padding: 20px;
+    width: 683px;
+    height: 200px;
+    }
+
+    .info-contact {
+    float: center;
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 0px solid #000;
+    margin-bottom: 5px;
+   }
+
+  .header{
+    margin-left: 0pt;
+    margin-right: 30pt;
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    font-size: 20px;
+    }
+
+    #pad{
+      padding: 2px 10px;
+      font-weight: bold;
+    }
+
+    #headers{
+      font-weight: bold;
+    }
+    
+
+.info-contact div.details1 {
+    display: table;
+    border-right: 0px solid #000 !important;
+}
+
+    @page {
+      size: A4;
+      margin: 10pt 10pt 10pt 10pt;
+      }
+
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+<!-- Footer Text for Page footter-->
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<table class="header">
+  <tr><td id = "pad">Work order: <%if @object.order_number%> <%=@object.order_number%><%end%></td><td id="pad" align="right"><%= template_name%></td></tr>
+</table>
+
+<table cellpadding="6">
+  <tr><td id="headers" valign="top">Job Description:</td><td colspan="2">
+    <div class="description">
+    <% if project_number.present? %>
+        <p><%= project_number %></p><br/>
+    <% end %>
+    <% if !@object.hard_due_date.nil? && is_form_field_visible?('hard_due_date') %>
+        <p class= 'left'><b><%= hard_due_header %></b>:</p>
+        <p><%= I18n.l(@object.hard_due_date)%></p>
+    <% end %>
+    <% if !@object.in_hand_date.nil? && is_form_field_visible?('in_hand_date') %>
+        <p class= 'left'><b><%= in_hand_date_header %></b>:</p>
+        <p><%= I18n.l(@object.in_hand_date)%></p>
+    <% end %>
+    <% if !@object.shipping_date.nil? && is_form_field_visible?('shipping_date') %>
+        <p class= 'left'><b><%= shipping_date_header %></b>:</p>
+        <p><%= I18n.l(@object.shipping_date)%></p>
+    <% end %>
+    <% if !@object.art_due_date.nil? && is_form_field_visible?('art_due_date') %>
+        <p class= 'left'><b><%= art_due_date_header %></b>:</p>
+        <p><%= I18n.l(@object.art_due_date)%></p>
+    <% end %>
+    <% if !@object.delivery_date.nil? && is_form_field_visible?('delivery_date') %>
+        <p class= 'left'><b><%= delivery_date_header %></b>:</p>
+        <p><%= I18n.l(@object.delivery_date)%></p>
+    <% end %>
+    <% if !@object.picked_date.nil? && is_form_field_visible?('picked_date') %>
+        <p class= 'left'><b><%= picked_date_header %></b>:</p>
+        <p><%= I18n.l(@object.picked_date)%></p>
+    <% end %>
+    <% if !@object.instore_date.nil? && is_form_field_visible?('instore_date') %>
+        <p class= 'left'><b><%= instore_date_header %></b>:</p>
+        <p><%= I18n.l(@object.instore_date)%></p>
+    <% end %>
+    <% if !@object.install_date.nil? && is_form_field_visible?('install_date') %>
+        <p class= 'left'><b><%= install_date_header %></b>:</p>
+        <p><%= I18n.l(@object.install_date)%></p>
+    <% end %>
+    <% if is_form_field_visible?('description') %>
+        <p class="text--pre-line"><%= simple_format(description) %></p>
+    <% end %>
+  </div>
+  </td></tr>
+  <tr>
+  <%if order_due_date%><td><span id = "headers">Order Date:</span> <%=order_due_date%></td><%end%>
+  <% if @object.due_date %><td><span id = "headers">Due Date:</span> <%= @object.due_date%></td> <%end%>
+  <td><span id = "headers">Delivery Method:</span> <%=@object.shipping_method.try(:name)%></td></tr>
+  <tr><td><span id = "headers">Customer PO:</span> 0000TT</td><td><span id = "headers">Sales Rep: </span><%=sales_rep_name%></td></tr>
+</table>
+
+  
+
+<table>
+  <tr>
+    <td>
+       <% if billing_information.present? && is_form_field_visible?('billing_address_id') %>
+        <div class="rcorners"> 
+              <p><b>Bill To </b></p>
+              <p><%=@object.company.try(:name) %></p>
+              <p><%= billing_information %></p>
+        </div>
+        <% end %>
+    </td>
+    <td>
+     
+        <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
+         <div class="rcorners">
+               <p><b>Shop To </b></p>
+              <p><%=@object.company.try(:name) %></p>
+              <p><%= shipping_information %></p>
+         </div>
+        <% end %>
+      
+    </td>
+  </tr>
+</table>
+
+
+<div class="proof-border">
+  <table>
+    <tr>
+      <td align="center"> 
+      <div class="head">
+        <%= proof_head %>
+      </div>
+      <div class="image">
+        <img  src="<%= proof_image(350,200) %>">
+      </div>
+       </td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="info-contact display-table">
+
+  <% if bom_details && is_form_field_visible?('bom_details') %>
+      <div class='details1'>
+        <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
+          <%= bom_details %>
+        </div>
+      </div>
+  <% end %>
+  <% if design_details && is_form_field_visible?('design_details') %>
+      <div class='details'>
+        <div class='design_details1'>
+          <div class="text--pre-line">
+            <%= design_details %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+  <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
+      <div class='half_details'>
+        <div class='install_details'>
+          <div class="text--pre-line">
+            <%= install_details %>
+          </div>
+        </div>
+        <div class='production_details'>
+          <div class="text--pre-line">
+            <%= production_details %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+  <% if shipping_details && is_form_field_visible?('shipping_details') %>
+      <div class='details'>
+        <div class='shipping_details'>
+          <div class="text--pre-line">
+            <%= shipping_details %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+</div>
+
+ <% if custom_fields %>
+      <div class='details1'>
+        <div class='custom_fields'>
+          <%= custom_fields %>
+        </div>
+      </div>
+  <% end %>
+  <% if order_custom_fields %>
+      <div class='details1'>
+        <div class='custom_fields'>
+          <%= order_custom_fields %>
+        </div>
+      </div>
+  <% end %>
+
+
+</body>
+</html>

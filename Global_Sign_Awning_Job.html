@@ -113,8 +113,9 @@
        </td>
        <%end%>
      </tr>
-    <tr>
-      <td style="white-space: nowrap;"><font size="3">Installation address:</font></td><td>
+     <tr>
+     <% if billing_information.present? %>
+      <td style="white-space: nowrap;" valign="top"><font size="3">Billing address:</font></td><td>
         <table>
         <tr>
           <% if billing_information.present? && is_form_field_visible?('billing_address_id') %>
@@ -124,6 +125,16 @@
               </div>
             </td>
           <% end %>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <%end%>
+    <%if shipping_information.present?%>
+    <tr>
+      <td style="white-space: nowrap;" valign="top"><font size="3">Installation address:</font></td><td>
+        <table>
+        <tr>
           <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
             <td class="address left">
               <div class="address-wrapper">
@@ -135,6 +146,8 @@
       </table>
       </td>
     </tr>
+    <%end%>
+    <% if pm_name.present? %>
     <tr>
       <td><font size="3">PM:</font></td><td>
           <% if pm_name.present? && is_form_field_visible?('production_manager_id') %>
@@ -142,6 +155,7 @@
       <% end %>
       </td>
     </tr>
+    <%end%>
     <tr>
       <td><font size="3">Sales Rep:</font></td><td>
          <% if sales_rep_name.present? && is_form_field_visible?('sales_rep_id') %>
@@ -196,6 +210,21 @@
     </tr> 
   </table>
   <%end %>
+
+  <% if custom_fields %>
+      <div class='details'>
+        <div class='custom_fields'>
+          <%= custom_fields %>
+        </div>
+      </div>
+  <% end %>
+  <% if order_custom_fields %>
+      <div class='details'>
+        <div class='custom_fields'>
+          <%= order_custom_fields %>
+        </div>
+      </div>
+  <% end %>
 
    <h3>Work Flow Stages  <%if template_name%> : <%=template_name%><%end%></h3>
     <div class="stages1">

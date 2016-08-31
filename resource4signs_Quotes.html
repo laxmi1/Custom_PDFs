@@ -24,13 +24,34 @@
 .fontsize{
   font-size: 11px;
 }
-  .address-logo {
-    padding: 20pt 35pt 5pt 35pt;
+.address-logo {
+    padding: 20pt 20pt 5pt 20pt;
     border-bottom: 2px solid #e3e3e3;
+}
+.addresses {
+    padding: 5pt 20pt;
+    border-bottom: 2px solid #e3e3e3;
+}
+.line-items tbody tr td {
+    font-size: 12px;
+}
+.line-items .description {
+    font-size: 11px;
+}
+
+.line-items .first {
+    padding-left: 20pt;
+}
+.line-items .last {
+    padding-right: 20pt;
+}
+.section {
+    padding: 0 20pt;
 }
 .address-logo .store-logo .logo {
     max-height: 100px;
 }
+
 .li-desc-fixed-width {
     max-width: 450pt;
     word-wrap: break-word;
@@ -147,7 +168,7 @@
       <td class="summ left">
         <div class="summary-wrapper">
           <h4 class="main-title"><%= quote_number %> <br/>
-            <small><%= name %></small>
+              <p><%= name %></p>
           </h4>
           <% if project_number %>
               <p class="title"><%= project_header %></p>
@@ -186,7 +207,7 @@
       <td class="summ right">
         <div class="summary-wrapper">
 
-          <% if po_number != "" %>
+          <% if po_number != nil %>
             <p class="title"><%= po_number_header %></p>
             <p><%= po_number %></p>
           <% end %>
@@ -261,9 +282,9 @@
           </tr>
           <tr class="no-page-break">
             <% if show_discounts && total_discount_price != 0.0 %>
-                <td class="description" colspan="7">
+                <td class="description" colspan="4">
             <% else %>
-                <td class="description" colspan="5">
+                <td class="description" colspan="4">
             <% end %>
 
               <div>

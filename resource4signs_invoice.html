@@ -13,7 +13,30 @@
     .footer-bottom1 {
       page-break-inside: avoid;
 }
+.address-logo {
+    padding: 20pt 20pt 5pt 20pt;
+    border-bottom: 2px solid #e3e3e3;
+}
+.addresses {
+    padding: 5pt 20pt;
+    border-bottom: 2px solid #e3e3e3;
+}
+.line-items tbody tr td {
+    font-size: 12px;
+}
+.line-items .description {
+    font-size: 11px;
+}
 
+.line-items .first {
+    padding-left: 20pt;
+}
+.line-items .last {
+    padding-right: 20pt;
+}
+.section {
+    padding: 0 20pt;
+}
 .footer-bottom-left1 {
     width: 65%;
     float: left;
@@ -41,10 +64,7 @@
 .line-items thead th {
     padding: 5pt 0pt;
   }
-  .address-logo {
-    padding: 20pt 35pt 5pt 35pt;
-    border-bottom: 2px solid #e3e3e3;
-}
+
 .address-logo .store-logo .logo {
     max-height: 100px;
 }
@@ -60,6 +80,7 @@
     text-align: right;
     padding-right: 0pt;
 }
+
 
   </style>
 </head>
@@ -164,7 +185,7 @@
       <td class="summ left">
         <div class="summary-wrapper">
           <h4 class="main-title"><%= invoice_number %> <br/>
-            <small><%= name %></small>
+            <p><%= name %></p>
           </h4>
           <% if project_number %>
             <p class="title"><%= project_header %></p>
@@ -279,9 +300,9 @@
         </tr>
         <tr class="no-page-break">
           <% if show_discounts && total_discount_price != 0.0 %>
-              <td class="description" colspan="7" >
+              <td class="description" colspan="4" >
           <% else %>
-              <td class="description" colspan="5" >
+              <td class="description" colspan="4" >
           <% end %>
             <% if item.table_view %>
               <div class="last text--pre-line li-desc-fixed-width">
