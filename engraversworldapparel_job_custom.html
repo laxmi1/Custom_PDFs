@@ -25,12 +25,13 @@
     width: 683px;
     height: 200px;
     }
+
     .work-order-info {
-      margin-top: 20px;
+    margin-top: 20px;
     border: 1px solid black;
-    padding: 20px;
+    padding: 15px;
     width: 683px;
-    height: 50px;
+    height: auto;;
     }
 
     .info-contact {
@@ -123,16 +124,13 @@
         <p class= 'left'><b><%= install_date_header %></b>:</p>
         <p><%= I18n.l(@object.install_date)%></p>
     <% end %>
-    <% if is_form_field_visible?('description') %>
-        <p class="text--pre-line"><%= simple_format(description) %></p>
-    <% end %>
   </div>
   </td></tr>
   <tr>
   <%if order_due_date%><td><span id = "headers">Order Date:</span> <%=order_due_date%></td><%end%>
   <% if @object.due_date %><td><span id = "headers">Due Date:</span> <%= @object.due_date%></td> <%end%>
   <td><span id = "headers">Delivery Method:</span> <%=@object.shipping_method.try(:name)%></td></tr>
-  <tr><td><span id = "headers">Customer PO:</span> 0000TT</td><td><span id = "headers">Sales Rep: </span><%=sales_rep_name%></td></tr>
+  <tr><td><span id = "headers">Customer PO:</span><%=@object.po_number%></td><td><span id = "headers">Sales Rep: </span><%=sales_rep_name%></td></tr>
 </table>
 
   
@@ -178,7 +176,7 @@
   </table>
 </div>
 
-
+<br>
 <div class="info-contact display-table">
 
   <% if bom_details && is_form_field_visible?('bom_details') %>
@@ -188,44 +186,26 @@
         </div>
       </div>
   <% end %>
-  <% if design_details && is_form_field_visible?('design_details') %>
-      <div class='details'>
-        <div class='design_details1'>
-          <div class="text--pre-line">
-            <%= design_details %>
-          </div>
-        </div>
-      </div>
-  <% end %>
 
-  <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
-      <div class='half_details'>
-        <div class='install_details'>
-          <div class="text--pre-line">
-            <%= install_details %>
-          </div>
-        </div>
-        <div class='production_details'>
-          <div class="text--pre-line">
-            <%= production_details %>
-          </div>
-        </div>
-      </div>
+   <% if design_details && is_form_field_visible?('design_details') %>
+            <%= design_details %>
+  <% end %>
+    <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
+           <p> <%= install_details %></p>
+            <p><%= production_details %></p>
   <% end %>
 
   <% if shipping_details && is_form_field_visible?('shipping_details') %>
-      <div class='details'>
-        <div class='shipping_details'>
-          <div class="text--pre-line">
-            <%= shipping_details %>
-          </div>
-        </div>
-      </div>
+        <%if @object.shipping_details %>   <b> Shipping Details: </b> <br><%end%><%= @object.shipping_details %>
   <% end %>
 
 </div>
 
- <% if custom_fields %>
+<div class="clearfix"></div>
+
+
+  <div class="work-order-info">
+   <% if custom_fields %>
       <div class='details1'>
         <div class='custom_fields'>
           <%= custom_fields %>
@@ -239,9 +219,6 @@
         </div>
       </div>
   <% end %>
-
-  <div class="work-order-info">
-    Work Order Info: Not sure what we need to show here ?
   </div>
 
 
