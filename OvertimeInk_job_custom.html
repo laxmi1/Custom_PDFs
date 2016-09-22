@@ -1,0 +1,160 @@
+<htm11l>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      <%= page_size %>
+      body {
+        padding:15px;       
+      }
+      .entire_page{
+        width:90%;
+        margin: auto;
+        padding:5px;
+        border: solid 3px #ccc;
+      }
+      #page table td {
+        border:solid 1px #999;
+        padding: 5px;
+      }
+      #in_tble table  {
+      
+      padding: 0px !important;
+      }
+       #in_tble table td {
+      
+      border: none !important;
+      }
+      #qr table td {
+        padding: 0px !important;
+        border:none !important;
+
+      } 
+      #page table {
+        margin-bottom: 5px;
+      } 
+  </style>
+</head>
+<body>
+<div class="entire_page">
+  <div style="display:none" class="document-header">
+    <%= header_text %>
+    
+  </div>
+<!-- Footer Text for Page footter-->
+  <div style="display:none" class="document-footer">
+    <%= footer_text %>
+  </div>
+  <div id="page">
+   <table>
+    <tr>
+      <td ><b>Due Date </b><br> <% if @object.due_date %><%= @object.due_date%><%end%></td> 
+      <td colspan="2"><b style="font-size:16px;"><%= title %></b></td>
+      
+    </tr>
+    <tr>
+      <td><span style="color:red;font-size:18px;"><b>RUSH</b></span></td>
+      <td><span style="font-size:18px;">Workorder # <%if @object.order_number%> <%=@object.order_number%><%end%></span></td>
+      <td rowspan="3" valign="midle">
+       <div class="image">
+          <img class="proof" src="<%= proof_image(800,600) %>">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><b>Customer</b><br>
+         <%= @object.company.try(:name) %> <br>
+        </td>
+      <td>
+       <b>Customer Contact</b><br>
+       <div style="border-bottom: 2px solid #ccc;padding:5px;">
+            <% if contact.present? && is_form_field_visible?('contact_id') %>
+              <%= contact %>
+            <% end %>
+        </div>
+        <div style="padding:5px;">
+            <b>Customer Po</b><br>
+            999
+        </div>
+      </td> 
+    </tr>
+    <tr>
+      <td> 
+       <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
+        
+        <b>Shipping Address</b>
+        <br>
+        <%= shipping_information %><br>
+         <% end %>
+          <div class="qr"  id="qr" style="margin-top:10px;">
+      <table>
+        <% qr_code.modules.each_index do |x| %>
+            <tr>
+              <% @qr_code.modules.each_index do |y| %>
+                  <% if @qr_code.dark?(x, y) %>
+                      <td class="black"/>
+                  <% else %>
+                      <td class="white"/>
+                  <% end %>
+              <% end %>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+      </td>
+      <td valign="top"><b>Sales Person</b><br><%=sales_rep_name%></td>
+    </tr>
+  </table>
+  </div>
+
+<!-- Store Address and Logo -->
+  <div class="info-contact display-table">
+    <% if custom_fields %>
+        <div class='details'>
+          <div class='custom_fields'>
+            <%= custom_fields %>
+          </div>
+        </div>
+    <% end %>
+    <% if order_custom_fields %>
+        <div class='details'>
+          <div class='custom_fields'>
+            <%= order_custom_fields %>
+          </div>
+        </div>
+    <% end %>
+    <% if bom_details && is_form_field_visible?('bom_details') %>
+        <div class='details'>
+          <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
+            <%= bom_details %>
+          </div>
+        </div>
+    <% end %>
+    <% if design_details && is_form_field_visible?('design_details') %>
+        <div class='details'>
+          <div class='design_details'>
+            <div class="text--pre-line">
+              <%= design_details %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
+        <div class='half_details'>
+          <div class='install_details'>
+            <div class="text--pre-line">
+              <%= install_details %>
+            </div>
+          </div>
+          <div class='production_details'>
+            <div class="text--pre-line">
+              <%= production_details %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+</body>
+</html>
