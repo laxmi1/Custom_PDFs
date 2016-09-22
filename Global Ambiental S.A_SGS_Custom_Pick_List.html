@@ -1,0 +1,342 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    <%= page_size %>
+    .address-logo {
+    padding: 15pt 35pt 5pt 35pt;
+    border-bottom: 2px solid #e3e3e3;
+      }
+
+  </style>
+</head>
+<body>
+
+
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-address <%= "stamp-container" if is_paid? %>" width="60%">
+            <p><b><%= store_name %></b></p>
+  <%if store_address_street%><p><%= store_address_street %></p><%end%>
+  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+  <%if @object.account.settings.addresses.where(address_type: 'Primary').first.suburb %>
+  <p>
+  <%= @object.account.settings.addresses.where(address_type: 'Primary').first.suburb %> </p><%end%>
+  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%>
+  <% if store_email%><p><%=store_email%></p><%end%>
+  <% if store_phone%><p>TEL: <%=store_phone%></p><%end%> 
+        <% if is_paid? %>
+          <p class="stamp">
+            <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
+          </p>
+        <% end %>
+      </td>
+      <td class="store-logo">
+        <img class="logo" src="<%= logo %>" width = 250>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title">Lista Empaque No.<%= txn_number_only %> <br/>
+            <small><%= name %></small>
+          </h1>
+          <% if project_number %>
+            <p class="title"><%= project_header %></p>
+            <p><%= project_number %></p>
+          <% end %>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title">Fecha de embarque</p>
+          <p><%= pick_list_date %></p>
+
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <% if ship_date %>
+          <p class="title">Fecha de envío</p>
+          <p><%= ship_date %></p>
+        <% end %>
+
+        <% if due_date %>
+          <p class="title">Fecha de vencimiento</p>
+          <p><%= due_date %></p>
+        <% end %>
+         <% if shipping_method %>
+          <p class="title"><%= shipping_method_header %></p>
+          <p><%= shipping_method %></p>
+        <% end %>
+
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <% if po_date %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+        </div>
+        <br/>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="addresses">
+  <table>
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_by_header %></p>
+
+          <p><%= sold_to %></p>
+          <%= billing_information %>
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= shipping_information_header %></p>
+
+          <% if shipping_address_type != 'DropShip' %>
+            <%= sold_to %><br />
+          <% end %>
+          <%= shipping_information %></p>
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= contact_information_header %></p>
+
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+    </tr>
+    <% if show_about_this_desc and description.present? %>
+      <tr>
+        <td class="address left" colspan="3">
+          <div class="address-wrapper">
+            <p class="title"><%= about_this_wo_header %></p>
+            <p>
+              <%= description %>
+            </p>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="state"><%= state_header %></th>
+      <th class="quantity"><%= qty_header %></th>
+      <th class="quantity">
+        <div class="last"><%= uom_header %></div>
+      </th>
+    </tr>
+    </thead>
+
+    <% items.each_with_index do |item, index| %>
+        <tbody class='no-page-break'>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name"><%= item.name %></td>
+          <td class="state"><%= item.state %></td>
+          <td class="quantity"><%= item.quantity %></td>
+          <td class="quantity">
+            <div class="last"><%= item.uom %></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="description" colspan="1">
+            <div class="last">
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+              <% if item.table_view %>
+                  <% if item.has_bom? %>
+                      <ul class="bom_report bom_report_detail">
+                        <% item.bom_hash.keys.each do |item_type| %>
+                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                              <% if item.bom_hash[item_type].size > 0 %>
+                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                    <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
+                                        <li class="bom_report"><%= item_sub_type %></li>
+                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                          <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
+                                              <li class="bom_report">
+                                                <% if li.is_a?(Hash) %>
+                                                  <%= li[:category] if li[:category] %>
+                                                  <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br>" %>
+                                                  <% if li[:sub_items] %>
+                                                    <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                                        <table class='li-table-view-container'>
+                                                          <tr>
+                                                            <td class='li-table-view-name'>
+                                                              <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                                            </td>
+                                                            <td>
+                                                              <table class='li-table-view'>
+                                                                <tr>
+                                                                  <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                                </tr>
+                                                                <tr>
+                                                                  <%= sub_item[1].map{|col| "<td>#{col[:quantity].to_i}</td>"}.join %>
+                                                                </tr>
+                                                              </table>
+                                                            </td>
+                                                            <td class='li-table-view-total'>
+                                                              <table class='li-table-view'>
+                                                                <tr>
+                                                                  <th>Total pcs</th>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td>
+                                                                    <%= sub_item[1].inject(0){|sum,e| sum += e[:quantity]}.to_i.to_s %>
+                                                                  </td>
+                                                                </tr>
+                                                              </table>
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                    <% end %>
+                                                  <% end %>
+                                                <% else %>
+                                                    <%= li %>
+                                                <% end %>
+                                              </li>
+                                          <% end %>
+                                        </ul>
+                                    <% end %>
+
+                                  </ul>
+                              <% end %>
+                            </li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% else %>
+                  <% if item.has_bom? %>
+                      <ul class="bom_report bom_report_detail">
+                        <% item.bom_report.keys.each do |item_type| %>
+                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                              <% if item.bom_report[item_type].size > 0 %>
+                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                    <% item.bom_report[item_type].keys.each do |item_sub_type| %>
+                                        <li class="bom_report"><%= item_sub_type %></li>
+                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                          <% item.bom_report[item_type][item_sub_type].each do |li| %>
+                                              <li class="bom_report"><%= li %></li>
+                                          <% end %>
+                                        </ul>
+                                    <% end %>
+
+                                  </ul>
+                              <% end %>
+                            </li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% end %>
+              <%= item.custom_fields %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            </div>
+          </td>
+        </tr>
+        </tbody>
+    <% end %>
+
+    <tfoot class="no-page-break">
+    </tfoot>
+  </table>
+</div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td>Customer Note:</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<% if internal_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= internal_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= internal_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<% if cover_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= cover_note_header %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+</body>
+</html>

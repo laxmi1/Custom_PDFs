@@ -10,7 +10,7 @@
       }
 
     @page {
-      margin-top: 38mm;
+      margin-top: 90mm;
     }
 
     @page {
@@ -40,10 +40,6 @@
 </head>
 <body>
 
-<!-- Footer Text for Page footter-->
-<div style="display:none" class="document-footer">
-  <%= footer_text %>, <%= header_text %>
-</div>
 
 <!-- Store Address and Logo -->
 
@@ -69,7 +65,6 @@
     </tr>
   </table>
 </div>
-</div>
 
 
 <div class="summary">
@@ -77,7 +72,7 @@
     <tr>
       <td class="summ left">
         <div class="summary-wrapper">
-          <h1 class="main-title">COTIZACION. <%= txn_number_only %> <br/>
+          <h1 class="main-title">COTIZACION No.<%= txn_number_only %> <br/>
             <small><%= name %></small>
           </h1>
           <% if project_number %>
@@ -179,6 +174,9 @@
     <% end %>
   </table>
 </div>
+
+</div>
+
 
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
@@ -326,9 +324,9 @@
                 <tr>
                     <td class="labels first footer-subtotal">
                         <p><strong><%= subtotal_header %>:</strong></p>
-                         <% if total_discount_percentage != 0.0%>
+                        
                         <p class="no-li-br"><strong>DESCUENTO (<%= total_discount_percentage %>%):</strong></p>
-                        <%end%>
+                       
                         <% if show_tax  %>
                             <% if use_tax_codes? %>
                               <p class="no-li-br"><strong><%= total_tax_header %>:</strong></p>
@@ -340,9 +338,9 @@
                     </td>
                     <td class="money last footer-subtotal">
                         <p><strong><%= sub_total %></strong></p>
-                         <% if total_discount_percentage != 0.0 %>
+                       
                         <p><strong><%= total_discount %></strong></p>
-                         <%end%>
+                       
                         <% if show_tax  %>
                             <p><strong><%= total_tax %></strong></p>
                         <% end %>

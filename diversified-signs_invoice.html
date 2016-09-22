@@ -6,60 +6,38 @@
           font-size:6pt !important;
       }
       <%= page_size %>
-      .line-items .description {
-    font-size: 12px;
-    padding: 0 35pt 0pt 5pt;
-      }
-
-    @page {
-      margin-top: 90mm;
-    }
-
-    @page {
-    @top { content: flow(header) }
-          }
-    div.header { flow: static(header) }
 
     .address-logo {
-    padding: 15pt 35pt 5pt 35pt;
+    padding: 20pt 35pt 5pt 35pt;
     border-bottom: 2px solid #e3e3e3;
-      }
-  
-  @page {
-    @top-left {
-        content: string(doc_header);
-        padding-left: 0pt;
-        font-size: 8px;
-        text-transform: uppercase;
-        font-weight: normal;
-    }
-
-}
-.no-li-br{
-  white-space: nowrap;
-}
+  }
 
   </style>
 </head>
 <body>
 
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
 
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
 
-<div class="header">
 <div class="address-logo">
   <table>
     <tr>
-      <td class="store-address <%= "stamp-container" if is_paid? %>" width="60%">
+      <td class="store-address <%= "stamp-container" if is_paid? %>">
             <p><b><%= store_name %></b></p>
-  <%if store_address_street%><p><%= store_address_street %></p><%end%>
+            <div class="fontsize">
+<!--   <%if store_address_street%><p><%= store_address_street %></p><%end%> -->
   <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
-  <%if @object.account.settings.addresses.where(address_type: 'Primary').first.suburb %>
-  <p>
-  <%= @object.account.settings.addresses.where(address_type: 'Primary').first.suburb %> </p><%end%>
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
   <%if store_address_zip %> <%= store_address_zip%><%end%>
-  <% if store_email%><p><%=store_email%></p><%end%>
-  <% if store_phone%><p>TEL: <%=store_phone%></p><%end%> 
+  <% if store_phone%><p><%=store_phone%></p><%end%> 
+  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
+  </div>
+  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
@@ -67,68 +45,9 @@
         <% end %>
       </td>
       <td class="store-logo">
-        <img class="logo" src="<%= logo %>" width = 250>
-      </td>
-    </tr>
-  </table>
-</div>
-
-
-<div class="summary">
-  <table>
-    <tr>
-      <td class="summ left">
-        <div class="summary-wrapper">
-          <h1 class="main-title">FACTURA No. <%= txn_number_only %> <br/>
-            <small><%= name %></small>
-          </h1>
-          <% if project_number %>
-            <p class="title"><%= project_header %></p>
-            <p><%= project_number %></p>
-          <% end %>
-        </div>
-      </td>
-      <%if sales_rep%>
-      <td class="summ right">
-        <div class="summary-wrapper">
-          <p class="title"><%= sales_rep_information_header %></p>
-          <p><%= sales_rep_information %></p>
-        </div>
-      </td>
-      <%end%>
-      <td class="summ right">
-        <div class="summary-wrapper">
-
-          <p class="title"><%= invoice_date_header %></p>
-          <p><%= invoice_date %></p>
-
-          <p class="title"><%= due_date_header %></p>
-          <p><%= due_date %></p>
-          <%if payment_method %>
-          <p class="title"><%= payment_information_header %></p>
-          <p><%= payment_method %></p>
-          <% end %>
-        </div>
+        <img class="logo" src="<%= logo %>">
       </td>
 
-      <td class="summ right">
-        <div class="summary-wrapper">
-
-          <% if term_code %>
-              <p class="title"><%= term_code_header %></p>
-              <p><%= term_code %></p>
-          <% end %>
-          <% if po_number %>
-              <p class="title"><%= po_number_header %></p>
-              <p><%= po_number %></p>
-          <% end %>
-
-          <% if po_date %>
-              <p class="title"><%= po_date_header %></p>
-              <p><%= po_date %></p>
-          <% end %>
-        </div>
-      </td>
     </tr>
   </table>
 </div>
@@ -155,13 +74,13 @@
           <%= shipping_information %></p>
         </div>
       </td>
-      <td class="address left">
+     <!--  <td class="address left">
         <div class="address-wrapper">
           <p class="title"><%= contact_information_header %></p>
 
           <p><%= contact_information %></p>
         </div>
-      </td>
+      </td> -->
     </tr>
     <% if show_about_this_desc and description.present? %>
       <tr>
@@ -177,7 +96,65 @@
     <% end %>
   </table>
 </div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title"><%= invoice_number %> <br/>
+            <small><%= name %></small>
+          </h1>
+          <% if project_number %>
+            <p class="title"><%= project_header %></p>
+            <p><%= project_number %></p>
+          <% end %>
+        </div>
+      </td>
+      <%if sales_rep%>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
+        </div>
+      </td>
+      <%end%>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title"><%= invoice_date_header %></p>
+          <p><%= invoice_date %></p>
+
+          <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+
+          <p class="title"><%= payment_information_header %></p>
+          <p><%= payment_method %></p>
+        </div>
+      </td>
+
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+          <% if po_number %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>
+
 
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
@@ -198,12 +175,21 @@
       <th class="money">
         <div class="last"><%= total_excl_header %></div>
       </th>
+      <% if use_tax_codes? %>
+          <th class="money">
+            <div class="last"><%= tax_header %></div>
+          </th>
+          <th class="money">
+            <div class="last"><%= tax_rate_header %></div>
+          </th>
+      <% end %>
+
     </tr>
     </thead>
 
     <tbody class=''>
     <% items.each_with_index do |item, index| %>
-        <tr class="page-break-after">
+        <tr>
           <td class="position" rowspan="2">
             <div class="first">
               <%= index + 1 %>
@@ -222,8 +208,16 @@
               <%= item.total_price %>
             </div>
           </td>
+          <% if use_tax_codes? %>
+              <td class="money">
+                <div class="last"><%= item.total_tax %></div>
+              </td>
+              <td class="money">
+                <div class="last"><%= item.tax_rate %></div>
+              </td>
+          <% end %>
         </tr>
-        <tr class="no-page-break">
+        <tr>
           <% if show_discounts && total_discount_price != 0.0 %>
               <td class="description" colspan="7">
           <% else %>
@@ -257,6 +251,7 @@
     </tbody>
   </table>
 </div>
+
 
 <% if has_payments? %>
     <div class="line-items">
@@ -404,38 +399,56 @@
                 <tbody>
                 <tr>
                     <td class="labels first footer-subtotal">
-                        <p><strong><%= subtotal_header %>:</strong></p>
-                       
-                        <p class="no-li-br"><strong>DESCUENTO (<%= total_discount_percentage %>%):</strong></p>
-                        
-                        <% if show_tax  %>
-                          <% if use_tax_codes? %>
-                              <p><strong><%= total_tax_header %>:</strong></p>
-                          <% else %>
-                              <p class="no-li-br"><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
-                          <% end %>
+                      <% if has_setup_charges? %>
+                          <p><strong><%= setup_charges_header %>:</strong></p>
+                      <% end %>
+                      <% if has_shipping_charges? %>
+                          <p><strong><%= shipping_charges_header %>:</strong></p>
+                      <% end %>
+                      <% if has_finance_charges? %>
+                          <p><strong><%= finance_charges_header %>:</strong></p>
+                      <% end %>
+                      <% if has_misc_charges? %>
+                          <p><strong><%= misc_charges_header %>:</strong></p>
+                      <% end %>
+                      <p><strong><%= subtotal_header %>:</strong></p>
+                      <% if show_tax  %>
+                        <% if use_tax_codes? %>
+                            <p><strong><%= total_tax_header %>:</strong></p>
+                        <% else %>
+                            <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
                         <% end %>
-                        <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
-                        <% if has_payments? %>
-                            <p>&nbsp;</p>
-                            <p><strong><%= payment_total_header %>:</strong></p>
-                            <p><strong><%= payment_balance_due_header %>:</strong></p>
-                        <% end %>
+                      <% end %>
+                      <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                      <% if has_payments? %>
+                          <p>&nbsp;</p>
+                          <p><strong><%= payment_total_header %>:</strong></p>
+                          <p><strong><%= payment_balance_due_header %>:</strong></p>
+                      <% end %>
                     </td>
                     <td class="money last footer-subtotal">
-                        <p><strong><%= sub_total %></strong></p>
-                        
-                        <p><strong><%= total_discount %></strong></p>
-                        
-                        <% if show_tax  %>
-                            <p><strong><%= total_tax %></strong></p>
-                        <% end %>
-                        <p class="footer-total"><strong><%= final_price %></strong></p>
-                        <% if has_payments? %>
-                            <p>&nbsp;</p>
-                            <p><strong><%= total_paid %></strong></p>
-                            <p class="footer-total"><strong><%= balance %></strong></p>
-                        <% end %>
+                      <% if has_setup_charges? %>
+                          <p><strong><%= setup_charges %></strong></p>
+                      <% end %>
+                      <% if has_shipping_charges? %>
+                          <p><strong><%= shipping_charges %></strong></p>
+                      <% end %>
+                      <% if has_finance_charges? %>
+                          <p><strong><%= finance_charges %></strong></p>
+                      <% end %>
+                      <% if has_misc_charges? %>
+                          <p><strong><%= misc_charges %></strong></p>
+                      <% end %>
+                      <p><strong><%= sub_total %></strong></p>
+                      <% if show_tax  %>
+                          <p><strong><%= total_tax %></strong></p>
+                      <% end %>
+                      <p class="footer-total"><strong><%= final_price %></strong></p>
+                      <% if has_payments? %>
+                          <p>&nbsp;</p>
+                          <p><strong><%= total_paid %></strong></p>
+                          <p class="footer-total"><strong><%= balance %></strong></p>
+                      <% end %>
                     </td>
                 </tr>
                 </tbody>
@@ -443,5 +456,81 @@
         </div>
         <div class="clearfix"></div>
     </div>
+    <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
+        <div class="split-tax">
+          <h4>Split Taxes</h4>
+          <table class="split-tax-table">
+            <tbody>
+            <tr>
+              <% tax_split.each do |name, rate| %>
+                  <th><%= name %>(<%= rate %>%)</th>
+                  <td><%= tax_subtotal(rate.to_f) %></td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+    <% if use_tax_codes? %>
+        <div class="split-tax">
+          <h4>Tax Totals</h4>
+          <table class="split-tax-table">
+            <tbody>
+            <tr>
+              <% tax_totals_table.each do |k, value| %>
+                  <th><%= value[:name] %>(<%= value[:rate] %>%)</th>
+                  <td><%= to_pdf_dollars(value[:total]) %></td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+ <% if show_discounts %>
+   <div>
+      <table class="split-tax-table">
+        <tbody>
+         <tr>
+          <% if show_range_volume_discounts %>
+             <% if total_range_discount >0 || total_volume_discount >0  %>
+                <th><b>Total Discount</b></th>
+                <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
+              <%end%>
+             <% if total_range_discount >0 %>
+                <th><b>Range Disc.</b></th>
+                <td><%= total_range_discount_in_dollars %></td>
+             <%end%>
+             <% if total_volume_discount >0 %>
+                <th><b>Volume Disc.</b></th>
+                <td><%= total_volume_discount_in_dollars %></td>
+             <%end%>
+             <% if total_discount_price != 0.0%>
+              <th><b>Customer Discount</b></th>
+              <td><%= total_discount_price_in_dollars %></td>
+             <%end%>
+           <%else%>
+             <% if total_discount_price != 0.0%>
+               <th><b>Customer Discount</b></th>
+               <td><%= total_discount_price_in_dollars %></td>
+             <%end%>
+           <%end%>
+         </tr>
+        </tbody>
+     </table>
+    </div>
+  <% end %>
+
+  <div class="section section--border-bottom">
+        <div class="signature terms">
+            <table>
+                <tbody>
+                <tr>
+                    <td >Direct billing inquiries to: Beth@Diversified-Signs.com</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
