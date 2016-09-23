@@ -113,16 +113,15 @@
         <% end %>
       </td>
       <td>
-        <%= sales_rep_information %>
+        <%= sales_rep%>
       </td> 
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%=shipping_method%></td>
+      <td> What need to Print here ?</td>
+      <td>  What need to Print here ?</td>
       <td>
       <% if project_number %>
-            <p class="title"><%= project_header %></p>
-            <p><%= project_number %></p>
-          <% end %>
+        <%= project_number %>
+      <% end %>
       </td>
     </tr>
 
@@ -140,20 +139,37 @@
     </tr>
     <% items.each_with_index do |item, index| %>
       <tr>
-        <td><%= item.quantity %></td>
-        <td><%= item.name %></td>
-        <td> <%= item.description %></td>
-        <td><%= item.unit_price %></td>
-        <td> <%= item.total_price %></td>
+        <td valign="top"><%= item.quantity %></td>
+        <td valign="top"><%= item.name %></td>
+        <td>
+        <% if item.table_view %>
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view %>
+              </div>
+            <% else %>
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+            <% end %>
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <% item.description_hash[:custom_fields].each do |cfv| %>
+                    <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
+                      <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
+                      <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
+                    <% end %>
+              <% end %>
+              <hr class="custom-field-separator">
+            <% end %>
+            <%if item.product_image %>
+            <img src="<%= item.product_image %>" class="line-item-description-image">
+            <%end%>
+        </td>
+        <td valign="top"><%= item.unit_price %></td>
+        <td valign="top"> <%= item.total_price %></td>
       </tr>
     <% end %>
-     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
+   
     <tr>
       <td colspan="3"> Thak you for your Business</td>
       <td colspan="2"><b>Total:</b>   <%= final_price %></td>
