@@ -4,22 +4,20 @@
   <style>
       <%= page_size %>
 
-  @page {
-      margin: 105pt 0pt 90pt 0pt;
+  
+        @page {
+      margin: 105pt 0pt 35pt 0pt;
         @top {
       content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/93662296-6c06-4fcc-b074-43114049759c/Invoice%20Header%202016%20Pixels.jpg);
                    }
-        @bottom { 
-     content: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/4d7b8739-c5c4-43d7-8603-788e747b67e6/davie_invoice-footer-2016-a4.png);
-        }   
-       @bottom-right {
-            content: " ";
-                      }
                }
   </style>
 </head>
 <body>
 
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
 
 <!-- Store Address and Logo -->
 <div class="summary">
