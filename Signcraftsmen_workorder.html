@@ -167,7 +167,7 @@
         <div class="address-wrapper">
           <p class="title"><%= ordered_by_header %></p>
 
-          <p><%= sold_to %></p>
+          <p><%= @company.name %></p>
           <%= billing_information %>
         </div>
       </td>
@@ -176,7 +176,7 @@
           <p class="title"><%= shipping_information_header %></p>
 
           <% if shipping_address_type != 'DropShip' %>
-              <%= sold_to %><br />
+              <%= @company.name %><br />
           <% end %>
           <%= shipping_information %></p>
         </div>
