@@ -53,7 +53,7 @@
    <table>
     <tr>
       <td><b>Due Date </b><br> <% if @object.due_date %><%= @object.due_date%><%end%></td> 
-      <td colspan="2"><b style="font-size:16px;"><%= title %></b></td> 
+      <td colspan="3"><b style="font-size:16px;"><%= title_header %></b></td> 
     </tr>
 
     <tr>
@@ -63,18 +63,16 @@
       <%else%>
       <td colspan="2"><span style="font-size:18px;">Workorder # <%if @object.order_number%> <%=@object.order_number%><%end%></span></td>
       <%end%>
-      <%if is_proof_approved? %>
-      <td rowspan="4" valign="midle" width="50%">
-      <div align="center"> 
-      <div class="head">
-        <%= proof_head %>
-      </div>
-      <div class="image">
-        <img  src="<%= proof_image() %>" width = 80%>
-      </div>
-       </div>
-      </td>
-      <%end%>
+       <%if @object.shipping_method%>
+           <td colspan="2"> <b>Shipping Method:</b><%=shipping_method%>
+            <% end %>
+            <br>
+
+             <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
+        </td>
+        
+
+     
     </tr>
 
     <tr>
@@ -86,83 +84,87 @@
       <b>Customer</b><br>
          <%= @object.company.try(:name) %> <br>
         </td>
-      <td>
+      <td  valign="top">
        <b>Customer Contact</b><br>
             <% if contact.present? && is_form_field_visible?('contact_id') %>
               <%= contact %>
             <% end %>
         </div>
     
-      </td> 
-    </tr>
-     <%if @object.po_number%>
-    <tr>
-      <td>
-        <div style="padding:5px;">
-            <% if @object.po_number%><b>Customer Po : </b><%=@object.po_number%> <%end%>
-        </div>
       </td>
-    </tr>
-    <%end%>
-    <tr>
-      <td width="20%"> 
-       <% if shipping_information.present? && is_form_field_visible?('shipping_address_id') %>
-        
-        <b>Shipping Address</b>
+      <td>
+           <b>Shipping Address</b>
         <br>
         <%= shipping_information %><br>
          <% end %>
+      </td> 
+      <td>
           <div class="qr"  id="qr" style="margin-top:10px;">
-      <table>
-        <% qr_code.modules.each_index do |x| %>
-            <tr>
-              <% @qr_code.modules.each_index do |y| %>
-                  <% if @qr_code.dark?(x, y) %>
-                      <td class="black"/>
-                  <% else %>
-                      <td class="white"/>
+          <table>
+            <% qr_code.modules.each_index do |x| %>
+                <tr>
+                  <% @qr_code.modules.each_index do |y| %>
+                      <% if @qr_code.dark?(x, y) %>
+                          <td class="black"/>
+                      <% else %>
+                          <td class="white"/>
+                      <% end %>
                   <% end %>
-              <% end %>
-            </tr>
-        <% end %>
-      </table>
-    </div>
-      </td>
-      <td valign="top">
-      <%if @object.sales_rep%>
-      <b>Sales Person:</b><br><%=sales_rep_name%> <br>
-      <%end%>
-     <%if is_proof_approved? %>
-      <p><b>Approver Name : </b></p>
-     <%=@proof.approver_name%>
-      <%end%>
+                </tr>
+            <% end %>
+          </table>
+        </div>
+        </td>
+    </tr>
+     
+    <tr>
+      <td>
+        <%if @object.po_number%>
+        <div style="padding:5px;">
+            <% if @object.po_number%><b>Customer Po : </b><%=@object.po_number%> <%end%>
+        </div>
 
       </td>
+       <%end%>
+      <td valign="top" colspan="2">
+      <%if @object.sales_rep%>
+      <b>Sales Person: </b><%= sales_rep_name%> <br>
+      <%end%>
+      </td>
+
+    </tr>
+   
+    <tr>
+       <%if is_proof_approved? %>
+      <td colspan="4" valign="midle" width="100%">
+      <div align="center"> 
+      <div class="head" style="margin-bottom:6px">
+        <%= proof_head %>
+      </div>
+      <div class="image" style="width:100%;">
+        <img  src="<%= proof_image() %>" style="width:500px; height:200px;">
+      </div>
+       </div>
+        <%if is_proof_approved? %>
+          <div align="center" class="head">
+          <b>Approver Name : </b>
+          <%=@proof.approver_name%>
+        </div>
+        <%end%>
+      </td>
+      <%end%>  
     </tr>
   </table>
   </div>
 
 <!-- Store Address and Logo -->
-  <table cellpadding="5">
+  <table  cellpadding="5">
     <tr>
-      <td valign="top">
-         <% if is_form_field_visible?('description') %>
-        <p class='left'><b><%= job_description_header %></b>:</p>
-        <p class="text--pre-line"><%= simple_format(description) %></p>
-    <% end %>
-      </td>
-      <td valign="top">
-        <% if custom_fields %>
-            <%= custom_fields %>
-        <% end %>
-        <% if order_custom_fields %>
-            <%= order_custom_fields %>
-        <% end %>
-      </td>
+
       <td valign="top">
         <% if bom_details && is_form_field_visible?('bom_details') %>
           <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
-            <%if  bom_details %><p><b>BOM Details :</b></p><%= bom_details %><%end%>
+            <%if  bom_details %><p><b>BOM Details :</b></p><%= bom_details  %><%end%>
           </div>
     <% end %>
     <% if design_details && is_form_field_visible?('design_details') %>
@@ -183,6 +185,17 @@
     <% end %>
       </td>
     </tr>
+    <tr style="border-top:1px  solid #ccc;">
+      <td valign="top">
+        <% if custom_fields %>
+            <%= custom_fields %>
+        <% end %>
+        <% if order_custom_fields %>
+            <%= order_custom_fields %>
+        <% end %>
+      </td>
+    </tr>
+
   </table>
  
   
