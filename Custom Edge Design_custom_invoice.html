@@ -25,6 +25,11 @@
 .line-items table th{
 color:black;
 }
+
+.address-logo {
+    padding: 30pt 35pt 5pt 35pt;
+    border-bottom: 2px solid #e3e3e3;
+}
       <%= page_size %>
   </style>
 </head>
@@ -41,9 +46,18 @@ color:black;
 <div class="address-logo">
   <table>
     <tr>
-      <td class="store-address <%= "stamp-container" if is_paid? %>">
-         <p class="marbot"><img class="logo" src="<%= logo %>"></p>
-        <%= store_address %>
+      <td class="store-address">
+         <p class="marbot"><img class="logo" src="<%= logo %>"  width = 300></p>
+         <p><%if store_address_street%><%= store_address_street %>,<%end%>
+         <%if store_address_street1%><%= store_address_street1 %>.<%end%></p>
+        <p><%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%>.<%end%></p>
+        <p><%if store_address_zip %> <%= store_address_zip%><%end%></p>
+        <% if store_phone%><p><%=store_phone%></p><%end%> 
+        <% if store_email%><p  style="padding-top: 5px"><%=store_email%></p><%end%>
+        <% if @object.account.website.present?%><p><%=@object.account.website%></p><%end%>
+        <% if tax_code_number_text(@object.account) %> <p <p style="padding-top: 5px"> GST # <%= tax_code_number_text(@object.account) %></p><%end%>
+      </td>
+      <td class="store-address <%= "stamp-container" if is_paid? %>" valign="top">
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
@@ -154,7 +168,7 @@ color:black;
     <tbody class=''>
     <% items.each_with_index do |item, index| %>
         <tr>
-          <td class="position" rowspan="2">
+          <td class="position" rowspan="1">
             <div class="first">
              &nbsp;
             </div>
@@ -180,7 +194,7 @@ color:black;
               </td>
           <% end %>
         </tr>
-        <tr>
+        <!-- <tr>
           <% if show_discounts && total_discount_price != 0.0 %>
               <td class="description" colspan="7">
           <% else %>
@@ -209,7 +223,7 @@ color:black;
             <img src="<%= item.product_image %>" class="line-item-description-image">
           </div>
           </td>
-        </tr>
+        </tr> -->
     <% end %>
     </tbody>
   </table>
