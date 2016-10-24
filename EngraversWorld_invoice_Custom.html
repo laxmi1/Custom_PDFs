@@ -97,9 +97,7 @@
       <td><b>Terms</b></td>
       <td><b>Rep</b></td>
       <td><b>Ship</b></b></td>
-      <td><b>Via</b></b></b></td>
-      <td><b>F.O.B</b></td>
-      <td><b>Project</b></td>
+     
     </tr>
     <tr>
       <td>
@@ -116,13 +114,6 @@
         <%= sales_rep%>
       </td> 
       <td><%=shipping_method%></td>
-      <td> What need to Print here ?</td>
-      <td>  What need to Print here ?</td>
-      <td>
-      <% if project_number %>
-        <%= project_number %>
-      <% end %>
-      </td>
     </tr>
 
   </table>
@@ -150,16 +141,6 @@
               <div class="last text--pre-line li-desc-fixed-width">
                 <%= item.description %>
               </div>
-            <% end %>
-            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
-              <hr class="custom-field-separator">
-              <% item.description_hash[:custom_fields].each do |cfv| %>
-                    <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
-                      <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
-                      <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
-                    <% end %>
-              <% end %>
-              <hr class="custom-field-separator">
             <% end %>
             <%if item.product_image %>
             <img src="<%= item.product_image %>" class="line-item-description-image">

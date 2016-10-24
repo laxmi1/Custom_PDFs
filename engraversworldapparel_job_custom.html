@@ -83,56 +83,16 @@
 </div>
 
 <table class="header">
-  <tr><td id = "pad">Work order: <%if @object.order_number%> <%=@object.order_number%><%end%></td><td id="pad" align="right"><%= template_name%></td></tr>
+  <tr><td id = "pad">Work order: <%if @object.order_number%> <%=@object.order_number%><%end%> &nbsp; LI#:<%=@object.line_number%></td><td id="pad" align="right"><%= template_name%></td></tr>
 </table>
-
+<font>
 <table cellpadding="6">
-  <tr><td id="headers" valign="top">Job Description:</td><td colspan="2">
-    <div class="description">
-    <% if project_number.present? %>
-        <p><%= project_number %></p><br/>
-    <% end %>
-    <% if !@object.hard_due_date.nil? && is_form_field_visible?('hard_due_date') %>
-        <p class= 'left'><b><%= hard_due_header %></b>:</p>
-        <p><%= I18n.l(@object.hard_due_date)%></p>
-    <% end %>
-    <% if !@object.in_hand_date.nil? && is_form_field_visible?('in_hand_date') %>
-        <p class= 'left'><b><%= in_hand_date_header %></b>:</p>
-        <p><%= I18n.l(@object.in_hand_date)%></p>
-    <% end %>
-    <% if !@object.shipping_date.nil? && is_form_field_visible?('shipping_date') %>
-        <p class= 'left'><b><%= shipping_date_header %></b>:</p>
-        <p><%= I18n.l(@object.shipping_date)%></p>
-    <% end %>
-    <% if !@object.art_due_date.nil? && is_form_field_visible?('art_due_date') %>
-        <p class= 'left'><b><%= art_due_date_header %></b>:</p>
-        <p><%= I18n.l(@object.art_due_date)%></p>
-    <% end %>
-    <% if !@object.delivery_date.nil? && is_form_field_visible?('delivery_date') %>
-        <p class= 'left'><b><%= delivery_date_header %></b>:</p>
-        <p><%= I18n.l(@object.delivery_date)%></p>
-    <% end %>
-    <% if !@object.picked_date.nil? && is_form_field_visible?('picked_date') %>
-        <p class= 'left'><b><%= picked_date_header %></b>:</p>
-        <p><%= I18n.l(@object.picked_date)%></p>
-    <% end %>
-    <% if !@object.instore_date.nil? && is_form_field_visible?('instore_date') %>
-        <p class= 'left'><b><%= instore_date_header %></b>:</p>
-        <p><%= I18n.l(@object.instore_date)%></p>
-    <% end %>
-    <% if !@object.install_date.nil? && is_form_field_visible?('install_date') %>
-        <p class= 'left'><b><%= install_date_header %></b>:</p>
-        <p><%= I18n.l(@object.install_date)%></p>
-    <% end %>
-  </div>
-  </td></tr>
-  <tr>
   <%if order_due_date%><td><span id = "headers">Order Date:</span> <%=order_due_date%></td><%end%>
   <% if @object.due_date %><td><span id = "headers">Due Date:</span> <%= @object.due_date%></td> <%end%>
   <td><span id = "headers">Delivery Method:</span> <%=@object.shipping_method.try(:name)%></td></tr>
   <tr><td><span id = "headers">Customer PO:</span><%=@object.po_number%></td><td><span id = "headers">Sales Rep: </span><%=sales_rep_name%></td></tr>
 </table>
-
+</font>
   
 
 <table>
@@ -185,18 +145,6 @@
           <%= bom_details %>
         </div>
       </div>
-  <% end %>
-
-   <% if design_details && is_form_field_visible?('design_details') %>
-            <%= design_details %>
-  <% end %>
-    <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
-           <p> <%= install_details %></p>
-            <p><%= production_details %></p>
-  <% end %>
-
-  <% if shipping_details && is_form_field_visible?('shipping_details') %>
-        <%if @object.shipping_details %>   <b> Shipping Details: </b> <br><%end%><%= @object.shipping_details %>
   <% end %>
 
 </div>
