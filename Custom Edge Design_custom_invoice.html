@@ -49,13 +49,13 @@ color:black;
       <td class="store-address">
          <p class="marbot"><img class="logo" src="<%= logo %>"  width = 300></p>
          <p><%if store_address_street%><%= store_address_street %>,<%end%>
-         <%if store_address_street1%><%= store_address_street1 %>.<%end%></p>
+         <%if store_address_street1%><%= store_address_street1 %><%end%></p>
         <p><%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%>.<%end%></p>
         <p><%if store_address_zip %> <%= store_address_zip%><%end%></p>
         <% if store_phone%><p><%=store_phone%></p><%end%> 
         <% if store_email%><p  style="padding-top: 5px"><%=store_email%></p><%end%>
         <% if @object.account.website.present?%><p><%=@object.account.website%></p><%end%>
-        <% if tax_code_number_text(@object.account) %> <p <p style="padding-top: 5px"> GST # <%= tax_code_number_text(@object.account) %></p><%end%>
+        <% if tax_code_number_text(@object.account) %> <p <p style="padding-top: 5px"><%= tax_code_number_text(@object.account) %></p><%end%>
       </td>
       <td class="store-address <%= "stamp-container" if is_paid? %>" valign="top">
         <% if is_paid? %>
@@ -126,7 +126,7 @@ color:black;
     <tr>
       <td class="address left">
         <div class="address-wrapper">
-            <p class="title" style="font-size:13px;"><span style="font-weight:bold;"><%= po_number_header %>:</span> <%= po_number %></p> 
+            <p class="title" style="font-size:13px;"><span style="font-weight:bold;">CUSTOMER PO#:</span> <%= po_number %></p> 
       </td>
     </tr>
   </table>
@@ -174,7 +174,7 @@ color:black;
             </div>
           </td>
           <td class="name" colspan="1"><%= item.name %></td>
-          <td class="quantity"><%= item.quantity %></td>
+          <td class="quantity"><%= item.quantity.to_s.split(".").first %></td>
           <td class="money"><%= item.unit_price %></td>
           <% if show_discounts && total_discount_price != 0.0 %>
               <td class="quantity"><%= item.discount_percentage %> </td>
