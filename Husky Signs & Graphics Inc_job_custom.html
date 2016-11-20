@@ -1,0 +1,214 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      <%= page_size %>
+    body {
+      border:solid 1px #ccc;
+
+    }
+    .btop{
+      border: solid 1px #ccc;
+      float: left;
+     
+    }
+    table {
+    border-collapse: collapse;
+    width:450px;
+}
+
+table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+    
+}
+table p {
+  line-height: 40px;
+}
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<table class="" style="width:97%;">
+ 
+ <tr>
+  <td style="width:25%;"><strong>JOB INFO:</strong> 
+
+</td>
+  <td rowspan="2"  style="width:35%;">
+  <div class="">
+    <% stages.each do |stage| %>
+        <div class="stage">
+          <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
+          <div class="stage-wrapper clearfix">
+            <% stage.steps.each do |step| %>
+                <% if !step.skip %>
+                    <div class="step <%= step.state %>">
+                      <div class="step-info clearfix">
+                        <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
+                        <div class="number"><%= step.num_iterations %></div>
+                      </div>
+                      <% unless step.assigned_to_user_initials.blank? %>
+                          <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
+                      <% end %>
+                      <% unless step.scheduled_machine_name.blank? %>
+                          <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
+                      <% end %>
+                    </div>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+
+  <div style="border-top:1px #000 solid;">
+    <p>
+    <% if bom_details && is_form_field_visible?('bom_details') %>
+      <div class='details'>
+        <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
+          <%= bom_details %>
+        </div>
+      </div>
+  <% end %></p>
+    
+
+  </div>
+  </td>
+  <td>
+    <strong>JOB DETAILS:</strong>
+  </td> 
+ </tr>
+ <tr>
+  <td valign="top">
+    <p><b>Client:</b> <%= client_name %></p>
+    <p><b>Project:</b> <br>
+    <p><b>Job Name:</b> <%= job_name  %></p>
+    <p><b>S/O:</b>  <%= so_number %></p>
+    <p><b>Qty:</b></b> <%=qty_number  %></p>
+    <p><b>Due Date:</b> <%= due_date  %> </p>
+    <p><b>Status:</b><span class="status" style="color:red;font-size:20px;">
+    <%= status %>
+  </span></p>
+  </td> 
+     <td valign="top" style="width:40%;"><% if design_details && is_form_field_visible?('design_details') %>
+      <div class='details'>
+        <div class='design_details'>
+          <div class="text--pre-line">
+            <%= design_details %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+  <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
+      <div class='half_details'>
+        <div class='install_details'>
+          <div class="text--pre-line">
+            <%= install_details %>
+          </div>
+        </div>
+        <div class='production_details'>
+          <div class="text--pre-line">
+            <%= production_details %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+  <% if shipping_details && is_form_field_visible?('shipping_details') %>
+      <div class='details'>
+        <div class='shipping_details'>
+          <div class="text--pre-line">
+            <%= shipping_details %>
+          </div>
+        </div>
+      </div>
+  <% end %></td>
+
+
+ </tr>
+ <tr>
+ <td colspan="2"><strong>Proof </td>
+ <td valign="middle"><div class="store-logo" style="float:left;">
+    <img class="" src="<%= logo %>">
+  </div></td>
+ 
+ 
+ </tr>
+ <tr>
+  <td colspan="2"> <div class="clearfix full-width">
+  <div class="job-attributes">
+    <div class="proof">
+      <div class="head">
+        <%= proof_head %>
+      </div>
+      <div class="image">
+        <img class="proof" src="<%= proof_image(500,300) %>">
+      </div>
+    </div>
+  </div>
+</td>
+<td>
+ <div class="qr">
+    <table>
+      <% qr_code.modules.each_index do |x| %>
+          <tr>
+            <% @qr_code.modules.each_index do |y| %>
+                <% if @qr_code.dark?(x, y) %>
+                    <td class="black"/>
+                <% else %>
+                    <td class="white"/>
+                <% end %>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+  </div>
+</div></td>
+ </tr>
+ <tr>
+  <td> <strong>Description:</strong></td>
+  <td colspan="2" rowspan="2" valign="top">  <div class="contact">
+  <div style="width:32%;float:left;" >
+    <% if contact.present? && is_form_field_visible?('contact_id') %>
+        <%= contact %>
+    <% end %><br><br><br>
+    <% if sales_rep_name.present? && is_form_field_visible?('sales_rep_id') %>
+        <span class='left'><b><%= sales_rep_header %>:</b> <%= sales_rep_name %></span><br/><br><br><br>
+    <% end %>
+    <% if pm_name.present? && is_form_field_visible?('production_manager_id') %>
+        <span class='left'><b><%= pm_header %>:</b> <%= pm_name %></span><br/><br><br><br>
+    <% end %>
+    <% if project_manager_name.present? && is_form_field_visible?('project_manager_id') %>
+      <span class='left'><b><%= project_manager_header %>:</b> <%= project_manager_name %></span>
+    <% end %>
+  </div>
+  </td>
+ </tr>
+ <tr>
+  <td valign="top"> <% if is_form_field_visible?('description') %>
+       
+        <p class="text--pre-line"><%= simple_format(description) %></p>
+    <% end %></td>
+ 
+ </tr>
+
+</table>
+
+<!-- Footer Text for Page footter-->
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<!-- Store Address and Logo -->
+
+</div>
+
+</div>
+
+</body>
+</html>
