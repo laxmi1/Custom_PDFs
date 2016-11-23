@@ -5,12 +5,10 @@
       <%= page_size %>
     body {
       border:solid 1px #ccc;
-
     }
     .btop{
       border: solid 1px #ccc;
       float: left;
-     
     }
     table {
     border-collapse: collapse;
@@ -84,12 +82,12 @@ table p {
  </tr>
  <tr>
   <td valign="top">
-    <p><b>Client:</b> <%= client_name %></p>
+    <p><b>Client:</b> <%= @object.company.try(:name) %></p>
     <p><b>Project:</b> <br>
-    <p><b>Job Name:</b> <%= job_name  %></p>
-    <p><b>S/O:</b>  <%= so_number %></p>
-    <p><b>Qty:</b></b> <%=qty_number  %></p>
-    <p><b>Due Date:</b> <%= due_date  %> </p>
+    <p><b>Job Name:</b> <%= @object.name  %></p>
+    <p><b>S/O:</b>  <%= @object.order_number %></p>
+    <p><b>Qty:</b></b> <%= @object.quantity  %></p>
+    <p><b>Due Date:</b> <%= I18n.l(@object.due_date) %> </p>
     <p><b>Status:</b><span class="status" style="color:red;font-size:20px;">
     <%= status %>
   </span></p>
@@ -207,8 +205,6 @@ table p {
 <!-- Store Address and Logo -->
 
 </div>
-
 </div>
-
 </body>
 </html>
