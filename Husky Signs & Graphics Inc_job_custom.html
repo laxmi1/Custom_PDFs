@@ -6,19 +6,25 @@
     body {
       border:solid 1px #ccc;
     }
+    
+
     .btop{
       border: solid 1px #ccc;
       float: left;
     }
-    table {
-    border-collapse: collapse;
-    width:450px;
-}
 
-table, td, th {
-    border: 1px solid black;
-    padding: 5px;
-    
+        #qr td {
+      border:none !important;
+      padding:0px !important;
+
+}
+    .main td {
+      border:solid 1px #000;
+      padding:3px;
+
+    }
+#tqr table, #tqr td {
+  border:none;
 }
 table p {
   line-height: 40px;
@@ -30,13 +36,13 @@ table p {
   <%= header_text %>
 </div>
 
-<table class="" style="width:97%;">
+<table class="main" style="width:97%; border:solid 1px black;">
  
  <tr>
   <td style="width:25%;"><strong>JOB INFO:</strong> 
 
 </td>
-  <td rowspan="2"  style="width:35%;">
+  <td rowspan="2"  style="width:30%;">
   <div class="">
     <% stages.each do |stage| %>
         <div class="stage">
@@ -131,9 +137,7 @@ table p {
  </tr>
  <tr>
  <td colspan="2"><strong>Proof </td>
- <td valign="middle"><div class="store-logo" style="float:left;">
-    <img class="" src="<%= logo %>">
-  </div></td>
+ <td valign="middle"></td>
  
  
  </tr>
@@ -151,49 +155,61 @@ table p {
   </div>
 </td>
 <td>
- <div class="qr">
-    <table>
-      <% qr_code.modules.each_index do |x| %>
-          <tr>
-            <% @qr_code.modules.each_index do |y| %>
-                <% if @qr_code.dark?(x, y) %>
-                    <td class="black"/>
-                <% else %>
-                    <td class="white"/>
-                <% end %>
-            <% end %>
-          </tr>
-      <% end %>
-    </table>
-  </div>
+ 
 </div></td>
  </tr>
  <tr>
-  <td> <strong>Description:</strong></td>
-  <td colspan="2" rowspan="2" valign="top">  <div class="contact">
-  <div style="width:32%;float:left;" >
+  <td valign="top"> <strong>Description:</strong><br>
+    <% if is_form_field_visible?('description') %>
+       
+        <p class="text--pre-line"><%= simple_format(description) %></p>
+    <% end %>
+  </td>
+  <td colspan="" rowspan="2" valign="top" >  <div class="contact">
+  <div style="width:50%;float:left;" >
     <% if contact.present? && is_form_field_visible?('contact_id') %>
         <%= contact %>
-    <% end %><br><br><br>
+    <% end %><br>
     <% if sales_rep_name.present? && is_form_field_visible?('sales_rep_id') %>
-        <span class='left'><b><%= sales_rep_header %>:</b> <%= sales_rep_name %></span><br/><br><br><br>
+        <span class='left'><b><%= sales_rep_header %>:</b> <%= sales_rep_name %></span><br/><br>
     <% end %>
     <% if pm_name.present? && is_form_field_visible?('production_manager_id') %>
-        <span class='left'><b><%= pm_header %>:</b> <%= pm_name %></span><br/><br><br><br>
+        <span class='left'><b><%= pm_header %>:</b> <%= pm_name %></span><br/><br>
     <% end %>
     <% if project_manager_name.present? && is_form_field_visible?('project_manager_id') %>
       <span class='left'><b><%= project_manager_header %>:</b> <%= project_manager_name %></span>
     <% end %>
   </div>
+</td>
+<td id="tqr">
+  <table  style="border:none;" valign="middle">
+    <tr>
+      <td style="width:50%;"><div class="store-logo" style="float:left;">
+    <img class="logo" src="<%= logo %>">
+  </div></td>
+      <td valign="middle" >
+    <div class="qr">
+        <table id="qr" style="border:none;">
+          <% qr_code.modules.each_index do |x| %>
+              <tr>
+                <% @qr_code.modules.each_index do |y| %>
+                    <% if @qr_code.dark?(x, y) %>
+                        <td class="black" style="border"/>
+                    <% else %>
+                        <td class="white"/>
+                    <% end %>
+                <% end %>
+              </tr>
+          <% end %>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
   </td>
+  
  </tr>
- <tr>
-  <td valign="top"> <% if is_form_field_visible?('description') %>
-       
-        <p class="text--pre-line"><%= simple_format(description) %></p>
-    <% end %></td>
  
- </tr>
 
 </table>
 
