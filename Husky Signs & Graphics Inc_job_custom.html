@@ -3,51 +3,29 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       <%= page_size %>
-    body {
-      border:solid 1px #ccc;
+
+  .no-li-br{
+   page-break-inside: avoid;
     }
-    
-
-    .btop{
-      border: solid 1px #ccc;
-      float: left;
-    }
-
-        #qr td {
-      border:none !important;
-      padding:0px !important;
-
-}
-    .main td {
-      border:solid 1px #000;
-      padding:3px;
-
-    }
-#tqr table, #tqr td {
-  border:none;
-}
-table p {
-  line-height: 40px;
-}
   </style>
 </head>
 <body>
-<div style="display:none" class="document-header">
-  <%= header_text %>
-</div>
 
-<table class="main" style="width:97%; border:solid 1px black;">
+
+<table class="main" style="width:97%;" border="1" cellpadding="6">
  
  <tr>
-  <td style="width:25%;"><strong>JOB INFO:</strong> 
+  <td style="width:30%;"><strong>JOB INFO:</strong> 
 
 </td>
-  <td rowspan="2"  style="width:30%;">
+  <td rowspan="2"  style="width:35%;" valign="top">
   <div class="">
     <% stages.each do |stage| %>
         <div class="stage">
+        <% if stage.steps.count !=0 %>
           <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
           <div class="stage-wrapper clearfix">
+          <%end%>
             <% stage.steps.each do |step| %>
                 <% if !step.skip %>
                     <div class="step <%= step.state %>">
@@ -68,17 +46,7 @@ table p {
         </div>
     <% end %>
   </div>
-
-  <div style="border-top:1px #000 solid;">
-    <p>
-    <% if bom_details && is_form_field_visible?('bom_details') %>
-      <div class='details'>
-        <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
-          <%= bom_details %>
-        </div>
-      </div>
-  <% end %></p>
-    
+ 
 
   </div>
   </td>
@@ -88,17 +56,38 @@ table p {
  </tr>
  <tr>
   <td valign="top">
-    <p><b>Client:</b> <%= @object.company.try(:name) %></p>
-    <p><b>Project:</b> <br>
-    <p><b>Job Name:</b> <%= @object.name  %></p>
-    <p><b>S/O:</b>  <%= @object.order_number %></p>
-    <p><b>Qty:</b></b> <%= @object.quantity  %></p>
-    <p><b>Due Date:</b> <%= I18n.l(@object.due_date) %> </p>
-    <p><b>Status:</b><span class="status" style="color:red;font-size:20px;">
+    <table cellpadding="4">
+      <tr>
+        <td valign="top"><b>Client:</b></td><td> <%= @object.company.try(:name) %></td>
+      </tr>
+       <tr>
+        <td><b>Project:</b></td><td> <%= @object.project.try(:name) %></td>
+      </tr>
+       <tr>
+        <td><b>Job Name:</b></td><td> <%= @object.name  %></td>
+      </tr>
+       <tr>
+        <td><b>S/O:</b></td><td>  <%= @object.order_number %></td>
+      </tr>
+       <tr>
+        <td><b>Qty:</b></td><td>  <%= @object.quantity  %></td>
+      </tr>
+      <tr>
+        <td><b>Due Date:</b></td><td>  <%= I18n.l(@object.due_date) %></td>
+      </tr>
+      <tr>
+        <td><b>Status:</b></td><td> </b><span class="status" style="color:red;font-size:20px;">
     <%= status %>
-  </span></p>
+  </span></td>
+      </tr>
+    </table>
   </td> 
-     <td valign="top" style="width:40%;"><% if design_details && is_form_field_visible?('design_details') %>
+    <%if proof_image%>
+     <td valign="top" style="width:40%;" rowspan="2">
+     <%else%>
+     <td valign="top" style="width:40%;" rowspan="1">
+     <%end%>
+     <% if design_details && is_form_field_visible?('design_details') %>
       <div class='details'>
         <div class='design_details'>
           <div class="text--pre-line">
@@ -131,42 +120,50 @@ table p {
           </div>
         </div>
       </div>
-  <% end %></td>
+  <% end %>
 
+   <div style="border-top:1px #000 solid;">
+    <p>
+    <% if bom_details && is_form_field_visible?('bom_details') %>
+      <div class='details'>
+        <div class='bom <%= 'table-view' if @account.pos_settings.display_description_in_grid_format %>'>
+          <%= bom_details %>
+        </div>
+      </div>
+  <% end %>
+  </p>
 
+  </td>
  </tr>
+
+ <%if proof_image%>
  <tr>
- <td colspan="2"><strong>Proof </td>
- <td valign="middle"></td>
- 
- 
- </tr>
- <tr>
-  <td colspan="2"> <div class="clearfix full-width">
-  <div class="job-attributes">
+  <td colspan="2" class="no-li-br">
     <div class="proof">
       <div class="head">
+        <b> <u>Proof :</u></b><br>
         <%= proof_head %>
       </div>
       <div class="image">
-        <img class="proof" src="<%= proof_image(500,300) %>">
+        <img  src="<%= proof_image(350,350) %>">
       </div>
     </div>
-  </div>
 </td>
-<td>
- 
-</div></td>
  </tr>
+ <%end%>
+
  <tr>
-  <td valign="top"> <strong>Description:</strong><br>
+  <td valign="top" style="width:35%;"> <strong><u>Description:</u></strong><br>
     <% if is_form_field_visible?('description') %>
-       
         <p class="text--pre-line"><%= simple_format(description) %></p>
     <% end %>
   </td>
-  <td colspan="" rowspan="2" valign="top" >  <div class="contact">
-  <div style="width:50%;float:left;" >
+
+  <td valign="top" colspan ="2"> 
+  <table>
+    <tr>
+      <td style="width:50%;">
+         <div class="contact">
     <% if contact.present? && is_form_field_visible?('contact_id') %>
         <%= contact %>
     <% end %><br>
@@ -180,32 +177,38 @@ table p {
       <span class='left'><b><%= project_manager_header %>:</b> <%= project_manager_name %></span>
     <% end %>
   </div>
-</td>
-<td id="tqr">
-  <table  style="border:none;" valign="middle">
+
+      </td>
+      <td>
+          <table cellspacing="6" valign="middle">
     <tr>
-      <td style="width:50%;"><div class="store-logo" style="float:left;">
-    <img class="logo" src="<%= logo %>">
+      <td><div class="store-logo" style="float:left;">
+    <img class="logo" src="<%= logo %>" width = 200>
   </div></td>
       <td valign="middle" >
-    <div class="qr">
-        <table id="qr" style="border:none;">
-          <% qr_code.modules.each_index do |x| %>
-              <tr>
-                <% @qr_code.modules.each_index do |y| %>
-                    <% if @qr_code.dark?(x, y) %>
-                        <td class="black" style="border"/>
-                    <% else %>
-                        <td class="white"/>
-                    <% end %>
+        <div class="qr">
+          <table id="qr" style="border:none;">
+            <% qr_code.modules.each_index do |x| %>
+            <tr>
+              <% @qr_code.modules.each_index do |y| %>
+                  <% if @qr_code.dark?(x, y) %>
+                      <td class="black" style="border"/>
+                  <% else %>
+                      <td class="white"/>
+                  <% end %>
                 <% end %>
               </tr>
-          <% end %>
-        </table>
-      </div>
+              <% end %>
+          </table>
+        </div>
     </td>
   </tr>
 </table>
+      </td>
+    </tr>
+  </table>
+ 
+
   </td>
   
  </tr>
@@ -213,14 +216,5 @@ table p {
 
 </table>
 
-<!-- Footer Text for Page footter-->
-<div style="display:none" class="document-footer">
-  <%= footer_text %>
-</div>
-
-<!-- Store Address and Logo -->
-
-</div>
-</div>
 </body>
 </html>
