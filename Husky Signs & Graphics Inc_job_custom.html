@@ -14,18 +14,25 @@
 
 <table class="main" style="width:97%;" border="1" cellpadding="6">
  
- <tr>
-  <td style="width:30%;"><strong>JOB INFO:</strong> 
+  <tr>
+    <td ><strong>JOB INFO:</strong> 
+    </td>
 
-</td>
-  <td rowspan="2"  style="width:35%;" valign="top">
-  <div class="">
-    <% stages.each do |stage| %>
+    <%if proof_image%>
+     <td rowspan="2" style="width:10%;" valign="top">
+     <%else%>
+     <td rowspan="2" style="width:30%;" valign="top">
+     <%end%>
+
+    
+    <div class="">
+      <% stages.each do |stage| %>
         <div class="stage">
-        <% if stage.steps.count !=0 %>
-          <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
-          <div class="stage-wrapper clearfix">
-          <%end%>
+          <% if stage.steps.count !=0 %>
+            <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %>
+            </div>
+            <div class="stage-wrapper clearfix">
+            <%end%>
             <% stage.steps.each do |step| %>
                 <% if !step.skip %>
                     <div class="step <%= step.state %>">
@@ -41,18 +48,16 @@
                       <% end %>
                     </div>
                 <% end %>
-            <% end %>
-          </div>
+              <% end %>
+            </div>
         </div>
-    <% end %>
-  </div>
- 
+      <% end %>
+    </div>
+    </td>
 
-  </div>
-  </td>
-  <td>
+    <td width="40">
     <strong>JOB DETAILS:</strong>
-  </td> 
+    </td> 
  </tr>
  <tr>
   <td valign="top">
@@ -61,7 +66,7 @@
         <td valign="top"><b>Client:</b></td><td> <%= @object.company.try(:name) %></td>
       </tr>
        <tr>
-        <td><b>Project:</b></td><td> <%= @object.project.try(:name) %></td>
+        <td><b>Project:</b></td><td> <%= @object.order.try(:title) %> </td>
       </tr>
        <tr>
         <td><b>Job Name:</b></td><td> <%= @object.name  %></td>
@@ -76,16 +81,16 @@
         <td><b>Due Date:</b></td><td>  <%= I18n.l(@object.due_date) %></td>
       </tr>
       <tr>
-        <td><b>Status:</b></td><td> </b><span class="status" style="color:red;font-size:20px;">
-    <%= status %>
-  </span></td>
+        <td><b>Status:</b></td><td> </b><span class="status" style="color:red;font-size:15px;">
+      <%= status %></span>
+      </td>
       </tr>
     </table>
   </td> 
     <%if proof_image%>
-     <td valign="top" style="width:40%;" rowspan="2">
+     <td valign="top" width="40" rowspan="2">
      <%else%>
-     <td valign="top" style="width:40%;" rowspan="1">
+     <td valign="top" rowspan="1">
      <%end%>
      <% if design_details && is_form_field_visible?('design_details') %>
       <div class='details'>
@@ -138,14 +143,14 @@
 
  <%if proof_image%>
  <tr>
-  <td colspan="2" class="no-li-br">
+  <td colspan="2" class="no-li-br" align="center">
     <div class="proof">
       <div class="head">
         <b> <u>Proof :</u></b><br>
         <%= proof_head %>
       </div>
       <div class="image">
-        <img  src="<%= proof_image(350,350) %>">
+        <img  src="<%= proof_image(350,350) %>" width="350" height="300">
       </div>
     </div>
 </td>

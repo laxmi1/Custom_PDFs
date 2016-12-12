@@ -87,10 +87,38 @@
 </table>
 <font>
 <table cellpadding="6">
-  <%if order_due_date%><td><span id = "headers">Order Date:</span> <%=order_due_date%></td><%end%>
-  <% if @object.due_date %><td><span id = "headers">Due Date:</span> <%= @object.due_date%></td> <%end%>
-  <td><span id = "headers">Delivery Method:</span> <%=@object.shipping_method.try(:name)%></td></tr>
-  <tr><td><span id = "headers">Customer PO:</span><%=@object.po_number%></td><td><span id = "headers">Sales Rep: </span><%=sales_rep_name%></td></tr>
+  <tr>
+  
+  <td><span id = "headers">Order Date:</span> <%=order_due_date%></td>
+
+ 
+  <td><span id = "headers">Due Date:</span> <%= @object.due_date%></td>
+
+  <td align="left" valign="top" rowspan="3">
+    <div class="qr" >
+      <table>
+        <% qr_code.modules.each_index do |x| %>
+            <tr>
+              <% @qr_code.modules.each_index do |y| %>
+                  <% if @qr_code.dark?(x, y) %>
+                      <td class="black"/>
+                  <% else %>
+                      <td class="white"/>
+                  <% end %>
+              <% end %>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+  </td>
+  </tr>
+  <tr>
+  <td><span id = "headers">Customer PO:</span><%=@object.po_number%></td>
+  <td><span id = "headers">Sales Rep: </span><%=sales_rep_name%></td>
+  </tr>
+  <tr>
+  <td><span id = "headers">Delivery Method:</span> <%=@object.shipping_method.try(:name)%></td>
+  </tr>
 </table>
 </font>
   
@@ -125,13 +153,16 @@
   <table>
     <tr>
       <td align="center"> 
-      <div class="head">
-        <%= proof_head %>
-      </div>
+        <b>
+        FRONT IMPRINT
+        </b>
       <div class="image">
-        <img  src="<%= proof_image(350,200) %>">
+        <img  src="<%= proof_image(350,200) %>" width="200" height="200">
       </div>
        </td>
+       <td style="width:25%;" align="center" valign="top"><b> BACK IMPRINT</b> </td>
+       <td style="width:25%;" align="center" valign="top"><b> CUSTOM LOCATION-1</b></td>
+       <td style="width:25%;" align="center" valign="top"><b> CUSTOM LOCATION-2</b></td>
     </tr>
   </table>
 </div>
