@@ -221,7 +221,9 @@
                   <% end %>
                   <hr class="custom-field-separator">
                 <% end %>
+                <%if item.product_image %>
                 <img src="<%= item.product_image %>" class="line-item-description-image">
+                <%end%>
               </div>
             </td>
           </tr>
@@ -302,34 +304,19 @@
                         <% if has_setup_charges? %>
                           <p><strong><%= setup_charges_header %>:</strong></p>
                         <% end %>
-                        <% if has_shipping_charges? %>
-                          <p><strong><%= shipping_charges_header %>:</strong></p>
-                        <% end %>
                         <% if has_finance_charges? %>
                           <p><strong><%= finance_charges_header %>:</strong></p>
                         <% end %>
-                        <% if has_misc_charges? %>
-                          <p><strong><%= misc_charges_header %>:</strong></p>
-                        <% end %>
-                        <p><strong><%= subtotal_header %>:</strong></p>
-                        
-                        <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                        <p class="footer-total"><strong><%= subtotal_header %>:</strong></p>
                     </td>
                     <td class="money last footer-subtotal">
                       <% if has_setup_charges? %>
                         <p><strong><%= setup_charges %></strong></p>
                       <% end %>
-                      <% if has_shipping_charges? %>
-                          <p><strong><%= shipping_charges %></strong></p>
-                      <% end %>
                       <% if has_finance_charges? %>
                         <p><strong><%= finance_charges %></strong></p>
                       <% end %>
-                      <% if has_misc_charges? %>
-                          <p><strong><%= misc_charges %></strong></p>
-                      <% end %>
-                      <p><strong><%= sub_total %></strong></p>
-                      <p class="footer-total"><strong><%= final_price %></strong></p>
+                      <p class="footer-total"><strong><%= sub_total %></strong></p>
                     </td>
                 </tr>
                 </tbody>
