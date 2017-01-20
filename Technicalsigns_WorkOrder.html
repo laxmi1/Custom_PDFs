@@ -27,7 +27,13 @@
     padding: 5pt 0pt;
     border-bottom: 0px solid #e3e3e3;
 }
-  </style>
+.pag_tit 
+{
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+</style>
 </head>
 <body>
 
@@ -63,6 +69,8 @@
       <td align="center">Fitters</td>
     </tr>
   </table>
+  <div ><sup>*</sup> Type of Job- Tick as appropriate</div>
+  
 </div>
 
 <div class="summary">
@@ -87,14 +95,19 @@
         <div class="address-wrapper">
         <p class="title">Customer Name</p>
         <p><%= sold_to %></p>
+        <br>
           <p class="title"><%= contact_information_header %></p>
           <p><%= contact_information %></p>
         </div>
       </td>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><%= production_manager_header %></p>
-             <p><%= production_manager_name %></p>
+          <p class="title"><%= project_manager_header %></p>
+             <p><%= project_manager_name %></p>
+             <br>
+             <p class="title">DESIGNER</p>
+             <p>Bharath</p>
+             <br>
               <% if project_number %>
               <p class="title"><%= project_header %></p>
               <p><%= project_number %></p>
@@ -103,42 +116,83 @@
         </td>
         <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><%= project_manager_header %></p>
+          <p class="title"><%= work_order_date_header %></p>
 
-          <p><%= project_manager_name %></p>
+          <p><%= work_order_date %></p>
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= shipping_date_header %></p>
+
+          <p><%= shipping_date %></p>
+          <br>
+          <p class="title">PC DATE</p>
+
+          <p><%= due_date %></p>
+          <br>
+             <p class="title">HANDOVER DATE</p>
+
+          <p>09/12/2018</p>
+         
+
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+           <% if po_number %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
         </div>
       </td>
     </tr>
-    <% if show_about_this_desc and description.present? %>
-        <tr>
-          <td class="address left" colspan="3">
-            <div class="address-wrapper">
-              <p class="title"><%= about_this_wo_header %></p>
-              <p>
-                <%= description %>
-              </p>
-            </div>
-          </td>
-        </tr>
-    <% end %>
   </table>
 </div>
 </div>
+<div class="pag_tit" style="width: 96%; margin-left:2%;">Site Contacts</div>
+<div style="border:solid 1px #ccc; min-height: 25px;width:96%;margin-left:2%;padding:5px;">
+<p>Ready to Shipping</p>
+</div>
 
 <div class="line-items">
-  <!--<h2 class="title"><%= items_header %></h2>-->
-  <table>
+ <div class="pag_tit" style="width: 96%; margin-left: 2%;"> Description of works</div>
+  <table style="width: 96%; margin-left:2%;">
+    <thead>
+    <tr>
+      <th class="position">
+        <div>Item No</div>
+      </th>
+      <th class="name">Artfile/Designworks/local/system/</th>
+      
+    </tr>
+    </thead>
+    <% items.each_with_index do |item, index| %>
+        <tbody class='no-page-break'>
+          <tr>
+            <td class="position">
+              <div class="first">
+                <%= index + 1 %>
+              </div>
+            </td>
+            <td class="name"><%= item.name %></td>
+          </tr>
+        </tbody>
+    <% end %>
+  </table>
+</div>
+<div class="line-items">
+  <div class="pag_tit" style="width: 96%; margin-left: 2%;">Manufacturing job Details</div>
+  <table style="width: 96%; margin-left: 2%;">
     <thead>
     <tr>
       <th class="position">
         <div class="first">#</div>
       </th>
       <th class="name"><%= item_header %></th>
-      <th class="state"><%= state_header %></th>
-      <th class="quantity"><%= qty_header %></th>
       <th class="quantity">
-        <div class="last"><%= uom_header %></div>
-      </th>
+      <div class="last"><%= qty_header %></div></th>
     </tr>
     </thead>
 
@@ -151,11 +205,9 @@
             </div>
           </td>
           <td class="name"><%= item.name %></td>
-          <td class="state"><%= item.state %></td>
-          <td class="quantity"><%= item.quantity %></td>
+         
           <td class="quantity">
-            <div class="last"><%= item.uom %></div>
-          </td>
+          <div class="last"><%= item.quantity %></div></td>
         </tr>
         <tr>
           <td class="description">
@@ -262,27 +314,6 @@
               <% end %>
             </div>
             <div>
-              <div class='design_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.design_details )%>
-                </div>
-              </div>
-              <div class='production_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.production_details) %>
-                </div>
-              </div>
-              <div class='shipping_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.shipping_details) %>
-                </div>
-              </div>
-              <div class='install_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.install_details) %>
-                </div>
-              </div>
-            </div>
             <img src="<%= item.product_image %>" class="line-item-description-image">
           </td>
           <td colspan="3">
@@ -338,6 +369,32 @@
     <tfoot class="no-page-break">
     </tfoot>
   </table>
+          <div class="pag_tit" style="width: 96%; margin-left: 2%;"> DETAILS /NOTES</div>
+           <% items.each_with_index do |item, index| %>
+           <div style="width: 96%; margin-left: 2%;">
+            <div class='design_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.design_details )%>
+                </div>
+              </div>
+              <div class='production_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.production_details) %>
+                </div>
+              </div>
+              <div class='shipping_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.shipping_details) %>
+                </div>
+              </div>
+              <div class='install_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.install_details) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
 </div>
 
 <% if customer_note.present? %>
