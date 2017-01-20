@@ -17,11 +17,25 @@
   .address-logo .store-address {
     text-align: left;
     vertical-align: top;
-    font-size: 20px;
-    color: red;
+    font-size: 23px;
+    color: darkred;
   }
+  .addresses .address.left .address-wrapper {
+    padding-left: 3pt;
+    border-left: 3px solid #e3e3e3;
+    text-align: left;
+    padding-right: 10pt;
+    font-size: 13px;
+}
+.summary {
+    margin: 0pt;
+    padding: 5pt 12pt;
+    border-bottom: 2px solid #e3e3e3;
+    background: #f7f7f7;
+}
   .tbl{
     padding-top: 5px;
+    font-size: 15px;
   }
   .addresses {
     padding: 5pt 0pt;
@@ -50,7 +64,7 @@
     <tr>
       <td class="store-address">
       <!-- <%= store_address(show_tax_id: false) %> -->
-       <%= work_order_number %> - <%= name %>
+       <%= work_order_number %> - <b><%= name %></b>
       </td>
       <td class="store-logo">
         <img class="logo" src="<%= logo %>">
@@ -102,12 +116,11 @@
       </td>
       <td class="address left">
         <div class="address-wrapper">
+        <%if project_manager_name %>
           <p class="title"><%= project_manager_header %></p>
              <p><%= project_manager_name %></p>
              <br>
-             <p class="title">DESIGNER</p>
-             <p>Bharath</p>
-             <br>
+          <%end%>
               <% if project_number %>
               <p class="title"><%= project_header %></p>
               <p><%= project_number %></p>
@@ -128,12 +141,7 @@
           <p><%= shipping_date %></p>
           <br>
           <p class="title">PC DATE</p>
-
           <p><%= due_date %></p>
-          <br>
-             <p class="title">HANDOVER DATE</p>
-
-          <p>09/12/2018</p>
          
 
         </div>
@@ -141,7 +149,7 @@
       <td class="address left">
         <div class="address-wrapper">
            <% if po_number %>
-              <p class="title"><%= po_number_header %></p>
+              <p class="title">Cust. Po#</p>
               <p><%= po_number %></p>
           <% end %>
 
@@ -153,7 +161,7 @@
 </div>
 <div class="pag_tit" style="width: 96%; margin-left:2%;">Site Contacts</div>
 <div style="border:solid 1px #ccc; min-height: 25px;width:96%;margin-left:2%;padding:5px;">
-<p>Ready to Shipping</p>
+<p>What we need to show here ?</p>
 </div>
 
 <div class="line-items">
