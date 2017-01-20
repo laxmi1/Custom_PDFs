@@ -47,6 +47,9 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+.li-desc-fixed-width{
+  max-width: 450pt
+}
 </style>
 </head>
 <body>
@@ -83,7 +86,7 @@
       <td align="center">Fitters</td>
     </tr>
   </table>
-  <div ><sup>*</sup> Type of Job- Tick as appropriate</div>
+  <div ><sup>*</sup> Type of Job - Tick as appropriate</div>
   
 </div>
 
@@ -172,7 +175,7 @@
       <th class="position">
         <div>Item No</div>
       </th>
-      <th class="name">Artfile/Designworks/local/system/</th>
+      <th class="name"></th>
       
     </tr>
     </thead>
@@ -321,7 +324,30 @@
                   <% end %>
               <% end %>
             </div>
+            <br>
             <div>
+            <div>
+              <div class='design_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.design_details )%>
+                </div>
+              </div>
+              <div class='production_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.production_details) %>
+                </div>
+              </div>
+              <div class='shipping_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.shipping_details) %>
+                </div>
+              </div>
+              <div class='install_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.install_details) %>
+                </div>
+              </div>
+            </div>
             <img src="<%= item.product_image %>" class="line-item-description-image">
           </td>
           <td colspan="3">
@@ -377,32 +403,6 @@
     <tfoot class="no-page-break">
     </tfoot>
   </table>
-          <div class="pag_tit" style="width: 96%; margin-left: 2%;"> DETAILS /NOTES</div>
-           <% items.each_with_index do |item, index| %>
-           <div style="width: 96%; margin-left: 2%;">
-            <div class='design_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.design_details )%>
-                </div>
-              </div>
-              <div class='production_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.production_details) %>
-                </div>
-              </div>
-              <div class='shipping_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.shipping_details) %>
-                </div>
-              </div>
-              <div class='install_details'>
-                <div class="text--pre-line">
-                  <%= simple_format(item.install_details) %>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
 </div>
 
 <% if customer_note.present? %>
