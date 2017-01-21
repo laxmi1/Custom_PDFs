@@ -50,6 +50,11 @@
 .li-desc-fixed-width{
   max-width: 450pt
 }
+.detailstable{
+width: 96%;
+margin-left:2%; 
+border: none;
+}
 </style>
 </head>
 <body>
@@ -164,7 +169,9 @@
 </div>
 <div class="pag_tit" style="width: 96%; margin-left:2%;">Site Contacts</div>
 <div style="border:solid 1px #ccc; min-height: 25px;width:96%;margin-left:2%;padding:5px;">
-<p>What we need to show here ?</p>
+<% items.each_with_index do |item, index| %>
+<p><%=simple_format(item.shipping_details).split('Shipping Details:')[1]%></p>
+<%end%>
 </div>
 
 <div class="line-items">
@@ -326,10 +333,10 @@
             </div>
             <br>
             <div>
-            <div>
+         <!--    <div>
               <div class='design_details'>
                 <div class="text--pre-line">
-                  <%= simple_format(item.design_details )%>
+                  <%=simple_format(item.design_details )%>
                 </div>
               </div>
               <div class='production_details'>
@@ -347,7 +354,7 @@
                   <%= simple_format(item.install_details) %>
                 </div>
               </div>
-            </div>
+            </div> -->
             <img src="<%= item.product_image %>" class="line-item-description-image">
           </td>
           <td colspan="3">
@@ -399,11 +406,46 @@
         <% end %>
         </tbody>
     <% end %>
-
     <tfoot class="no-page-break">
     </tfoot>
   </table>
+ 
 </div>
+
+ <table class="detailstable" border=0  cellspacing="4">
+  <caption align="left"><h4>DETAILS /NOTES</h4></caption>
+    <tr>
+    <% items.each_with_index do |item, index| %>
+    <% if item.design_details != nil || item.production_details != nil || item.shipping_details != nil || item.install_details != nil%>
+      <td>
+            <div>
+              <div class='design_details'>
+                <div class="text--pre-line">
+                  <%=simple_format(item.design_details )%>
+                </div>
+              </div>
+              <div class='production_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.production_details) %>
+                </div>
+              </div>
+<!--               <div class='shipping_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.shipping_details) %>
+                </div>
+              </div> -->
+              <div class='install_details'>
+                <div class="text--pre-line">
+                  <%= simple_format(item.install_details) %>
+                </div>
+              </div>
+            </div>
+            <br>
+      </td>
+    </tr>
+  <%end%>
+  <% end %>
+  </table>
 
 <% if customer_note.present? %>
     <div class="note">
