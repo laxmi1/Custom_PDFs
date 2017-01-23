@@ -48,12 +48,24 @@
   margin-bottom: 5px;
 }
 .li-desc-fixed-width{
-  max-width: 450pt
+  max-width: 475pt
 }
 .detailstable{
 width: 96%;
 margin-left:2%; 
 border: none;
+}
+.line-items thead th {
+    font-size: 11px;
+}
+.line-items tbody tr td {
+    font-size: 15px;
+}
+.line-items .first {
+    padding-left: 15pt;
+}
+.line-items .last {
+    padding-right: 15pt;
 }
 </style>
 </head>
@@ -167,13 +179,21 @@ border: none;
   </table>
 </div>
 </div>
-<div class="pag_tit" style="width: 96%; margin-left:2%;">Site Contacts</div>
-<div style="border:solid 1px #ccc; min-height: 25px;width:96%;margin-left:2%;padding:5px;">
 <% items.each_with_index do |item, index| %>
-<p><%=simple_format(item.shipping_details).split('Shipping Details:')[1]%></p>
-<%end%>
+<%if simple_format(item.shipping_details).split('Shipping Details:')[1] != nil%>
+<div class="line-items">
+<div class="pag_tit" style="width: 96%; margin-left:2%;">Site Contacts</div>
+<table style="width: 96%; margin-left:2%;"">
+  <tr>
+  <td>
+   
+    <p><%=simple_format(item.shipping_details).split('Shipping Details:')[1]%></p>
+    
+  </tr>
+</table>
 </div>
-
+<%end%>
+<%end%>
 <div class="line-items">
  <div class="pag_tit" style="width: 96%; margin-left: 2%;"> Description of works</div>
   <table style="width: 96%; margin-left:2%;">
@@ -201,8 +221,8 @@ border: none;
   </table>
 </div>
 <div class="line-items">
-  <div class="pag_tit" style="width: 96%; margin-left: 2%;">Manufacturing job Details</div>
   <table style="width: 96%; margin-left: 2%;">
+  <caption align="left"><h5>Manufacturing job Details</h5></caption>
     <thead>
     <tr>
       <th class="position">
@@ -355,7 +375,9 @@ border: none;
                 </div>
               </div>
             </div> -->
+            <%if item.product_image %>
             <img src="<%= item.product_image %>" class="line-item-description-image">
+            <%end%>
           </td>
           <td colspan="3">
             <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
@@ -411,12 +433,12 @@ border: none;
   </table>
  
 </div>
-
- <table class="detailstable" border=0  cellspacing="4">
-  <caption align="left"><h4>DETAILS /NOTES</h4></caption>
-    <tr>
     <% items.each_with_index do |item, index| %>
-    <% if item.design_details != nil || item.production_details != nil || item.shipping_details != nil || item.install_details != nil%>
+    <% if simple_format(item.design_details ).split('Design Details:')[1] != nil || simple_format(item.production_details).split('Production Details:')[1] != nil || simple_format(item.install_details).split('Install Details:')[1] != nil%>
+ <table class="detailstable" border=0  cellspacing="4">
+  <caption align="left"><h5>DETAILS/NOTES</h5></caption>
+
+    <tr>
       <td>
             <div>
               <div class='design_details'>
@@ -443,9 +465,10 @@ border: none;
             <br>
       </td>
     </tr>
-  <%end%>
-  <% end %>
+ 
   </table>
+   <%end%>
+  <% end %>
 
 <% if customer_note.present? %>
     <div class="note">
