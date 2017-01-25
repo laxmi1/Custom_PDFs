@@ -151,7 +151,6 @@ border: none;
         <td class="address left">
         <div class="address-wrapper">
           <p class="title"><%= work_order_date_header %></p>
-
           <p><%= work_order_date %></p>
         </div>
       </td>
@@ -163,8 +162,6 @@ border: none;
           <br>
           <p class="title">PC DATE</p>
           <p><%= due_date %></p>
-         
-
         </div>
       </td>
       <td class="address left">
@@ -172,12 +169,15 @@ border: none;
            <% if po_number %>
               <p class="title">Cust. Po#</p>
               <p><%= po_number %></p>
-          <% end %>
+         <% end %>
 
+           
         </div>
       </td>
     </tr>
   </table>
+  <p class="title" style="text-align:left;font-weight:bold"><%= sales_rep_information_header %></p>
+  <p><%= sales_rep_information %></p>
 </div>
 </div>
 <% items.each_with_index do |item, index| %>
