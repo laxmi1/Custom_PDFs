@@ -152,6 +152,9 @@ border: none;
         <div class="address-wrapper">
           <p class="title"><%= work_order_date_header %></p>
           <p><%= work_order_date %></p>
+          <p class="title"><% if @object.primary_sales_rep%> Sales rep <br></p>
+          <p><%=@object.primary_sales_rep.try(:name)%></p>
+         <%end%>
         </div>
       </td>
       <td class="address left">
@@ -169,15 +172,7 @@ border: none;
            <% if po_number %>
               <p class="title">Cust. Po#</p>
               <p><%= po_number %></p>
-                 <br>
-        <td class="address left">
-        <div class="address-wrapper">     
-        <p class="title"><% if @object.primary_sales_rep%> Sales rep <br></p>
-        <%=@object.primary_sales_rep.try(:name)%> 
-         <%end%>
-         <% end %>
- 
-        </div>
+             <% end %>
       </td>
     </tr>
   </table>
