@@ -143,13 +143,13 @@
                     </td>
                     <td class="address left">
                         <div class="address-wrapper">
-                            <p class="title">Customer Name</p>
-                            <p>
+                            <p class="title" style="font-size: 20px;">Customer Name</p>
+                            <p style="font-size: 20px;">
                                 <%= @object.company.try(:name) %>
                             </p>
                             <br>
                             <% if contact.present? && is_form_field_visible?('contact_id') %>
-                                <p class="title">
+                                <p>
                                     <%= contact %>
                                 </p>
                                 <% end %>
