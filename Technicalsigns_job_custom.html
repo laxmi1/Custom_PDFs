@@ -75,9 +75,18 @@
             margin-bottom: 10px;
         }
         
-        .images {
-            padding: 0 15px 0 15px;
-            white-space: nowrap;
+        
+        .Asset {
+            border-bottom: 2px solid #e3e3e3;
+            margin-top: 5pt;
+            margin-left: 15px padding-top: 5px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 40px;
+            font-size: 18px;
+        }
+        .page-break-after {
+         page-break-after: avoid;
         }
     </style>
 </head>
@@ -182,7 +191,7 @@
         </div>
 
         <div style="width:95%;float:left;" class="description">
-            <div class="description">
+            
                 <% if is_form_field_visible?('description') %>
                     <p class='left'><b>INSTRUCTIONS</b>:</p>
                     <br>
@@ -190,7 +199,7 @@
                         <%= simple_format(description) %>
                     </p>
                     <% end %>
-            </div>
+            
         </div>
     </div>
 
@@ -201,11 +210,25 @@
                     <%= proof_head %>
                 </div>
                 <div style="width:45%;float:left;margin-top:10px;margin-left:30px" class="image">
-                    <img class="proof" src="<%= proof_image(500,300) %>">
+                    <img  style="padding-bottom:10pt"class="proof" src="<%= proof_image(300,300) %>">
+                  
                 </div>
             </div>
         </div>
     </div>
+
+     <div style="width:92%;float:left;" class="Asset">
+             <p class= "page-break-after"><b>ASSETS</b></p>
+        </div>
+
+    
+           <% assets_images(400,300).each do |image| %>
+            <div class="image">
+                <img class="proof" src="<%= image %>" style="height:240px;width:42%;margin:33px;">
+            </div>
+            <% end %>
+       
+      
 </body>
 
 </html>
