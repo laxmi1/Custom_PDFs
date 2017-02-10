@@ -217,18 +217,16 @@
         </div>
     </div>
 
+    <%if assets_images.count != 0%>
      <div style="width:92%;float:left;" class="Asset">
              <p class= "page-break-after"><b>ASSETS</b></p>
-        </div>
-
-    
-           <% assets_images(400,300).each do |image| %>
-            <div class="image">
-                <img class="proof" src="<%= image %>" style="height:240px;width:42%;margin:33px;">
-            </div>
-            <% end %>
-       
-      
+     </div>
+     <% assets_images(400,300).each do |image| %>
+     <div class="image">
+         <img class="proof" src="<%= image %>" style="height:240px;width:42%;margin:33px;">
+     </div>
+     <% end %>      
+     <%end%>
 </body>
 
 </html>
