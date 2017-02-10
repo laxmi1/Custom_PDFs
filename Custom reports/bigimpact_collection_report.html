@@ -1,0 +1,413 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    <%= page_size_portrait %>
+  </style>
+</head>
+<body>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-address">
+        <%= store_address %>
+      </td>
+      <td class="store-logo">
+        <img class="logo" src="<%= logo %>">
+      </td>
+    </tr>
+  </table>
+</div>
+
+ <div class="pdf_title">
+     <%= statement_header %> 
+  </div>
+  <div class="padder line-items">
+    <h2><%= @object.name %></h2>
+     <table class="table table-hover table-striped table-bordered">
+       <thead>
+        <tr>
+          <th class="name">Inv #</th>
+          <th class="name"> Title</th>
+          <th class="name">Invoice Date</th>
+          <th class="name">Invoice Due Date</th>
+          <th class="name"> Contact</th>
+          <th class="name">Term Code</th>
+          <th class="name">Days Past Due</th>
+          <th class="money">Payments</th>
+          <th class="money">Balance</th>
+        </tr>
+        </thead>
+        <tbody class="line-items">
+         <% all_invoices.map do |invoice|%>
+          <tr>
+            <td>
+              <%= invoice.txn_number %>
+            </td>
+            <td>
+              <%= invoice.title %>
+            </td>
+            <td>
+              <%=  format_date(invoice.txn_date) %>
+            </td>
+            <td>
+              <%= invoice.due_date ? format_date(invoice.due_date.to_date) : "" %>
+            </td>
+            <td>
+              <%=  invoice.primary_contact.try(:name) %>
+            </td>
+            <td>
+              <%= invoice.term_code.try(:name) %>
+            </td>
+            <td>
+              <%= invoice.due_date ? (Time.zone.today - invoice.due_date.to_date).to_i : 0 %>
+            </td>
+            <td class="money">
+              <%= int_cents_to_money(invoice.total_payments_in_cents) %>
+            </td>
+            <td class="money">
+              <%= int_cents_to_money(invoice.balance_in_cents) %>
+            </td>
+          </tr>
+        <% end %>
+        <tr class="total">
+          <td colspan="7">
+             Total
+          </td>
+          <td class="money">
+             <%= int_cents_to_money(all_invoices.sum(:total_payments_in_cents)) %>
+          </td>
+          <td class="money">
+             <%= int_cents_to_money(all_invoices.sum(:balance_in_cents)) %>
+          </td>
+        </tr>
+      </tbody>
+     </table>
+     <br><br>
+     <p>
+     Please email remittance advice to accounts@bigimpact.co.nz. Post your cheques to 134 Gorge Road, Queenstown, 9300 or pay by direct debit to ANZ 06 - 0949 - 0256766 - 00. Thank you for your business
+     </p>
+    </div>
+<% invoices.map do |invoice|%>
+  <div class="page-break-before">
+    <table class="table table-hover table-striped table-bordered"><tr><th style="background:'FFBFE0';font-size: 16px"><%= invoice.invoice_statement_past_due %> (<%= invoice.due_date %>)</th></tr></table>
+  </div>
+  <div class="summary">
+    <table>
+      <tr>
+        <td class="summ left">
+          <div class="summary-wrapper">
+            <h1 class="main-title"><%= invoice.invoice_number %> <br/>
+              <small><%= invoice.name %></small>
+            </h1>
+            <% if invoice.project_number %>
+              <p class="title"><%= project_header %></p>
+              <p><%= invoice.project_number %></p>
+            <% end %>
+          </div>
+        </td>
+        <td class="summ right">
+          <div class="summary-wrapper">
+            <p class="title"><%= invoice.sales_rep_information_header %></p>
+            <p><%= invoice.sales_rep_information %></p>
+          </div>
+        </td>
+        <td class="summ right">
+          <div class="summary-wrapper">
+
+            <p class="title"><%= invoice.invoice_date_header %></p>
+            <p><%= invoice.invoice_date %></p>
+
+            <p class="title"><%= invoice.due_date_header %></p>
+            <p><%= invoice.due_date %></p>
+
+            <p class="title"><%= invoice.payment_information_header %></p>
+            <p><%= invoice.payment_method %></p>
+          </div>
+        </td>
+
+        <td class="summ right">
+          <div class="summary-wrapper">
+
+            <% if invoice.term_code %>
+                <p class="title"><%= term_code_header %></p>
+                <p><%= invoice.term_code %></p>
+            <% end %>
+            <% if invoice.po_number %>
+                <p class="title"><%= po_number_header %></p>
+                <p><%= invoice.po_number %></p>
+            <% end %>
+
+            <% if invoice.po_date %>
+                <p class="title"><%= po_date_header %></p>
+                <p><%= invoice.po_date %></p>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+   <div class="addresses">
+      <table>
+        <tr>
+          <td class="address left" width="60%">
+            <div class="address-wrapper">
+              <p class="title"><%= ordered_by_header %></p>
+              <% if mail_pdf == "true" %>
+                <p><%= invoice.sold_to_for_mail_pdf %></p>
+              <% else %>
+                <p><%= invoice.sold_to %></p>
+              <% end %>
+              <p><%= invoice.billing_information %></p>
+            </div>
+          </td>
+          <td class="address left" width="26%">
+            <div class="address-wrapper">
+              <p class="title"><%= shipping_information_header %></p>
+
+              <% if invoice.shipping_address_type != 'DropShip' %>
+                <%=  invoice.sold_to %><br />
+              <% end %>
+              <%= invoice.shipping_information %></p>
+            </div>
+          </td>
+          <td class="address left">
+            <div class="address-wrapper" width="26%">
+              <p class="title"><%= contact_information_header %></p>
+
+              <p><%= invoice.contact_information %></p>
+            </div>
+          </td>
+        </tr>
+        <% if show_about_this_desc and invoice.description.present? %>
+          <tr>
+            <td class="address left" colspan="3">
+              <div class="address-wrapper">
+                <p class="title"><%= invoice.about_this_invoice_header %></p>
+                <p>
+                  <%= invoice.description %>
+                </p>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+     <% invoice.related_transactions.each do |txn|%> 
+     <% if txn.txn_type == 'Quote' %>
+      <div class="summary">
+        <table>
+          <tr>
+            <td class="summ left">
+              <div class="summary-wrapper">
+                <h1 class="title">Quote <%= txn.txn_number%> <br/>
+                  <small><%= txn.title %></small>
+                </h1>
+              </div>
+            </td>
+            <td class="summ right">
+              <div class="summary-wrapper">
+                <p class="title"><%= invoice.sales_rep_information_header %></p>
+                <p><%= txn.primary_sales_rep.try(:name) %></p>
+              </div>
+            </td>
+            <td class="summ right">
+              <div class="summary-wrapper">
+
+                <p class="title">Quote Date</p>
+                <p><%= txn.txn_date %></p>
+                <% if txn.term_code %>
+                  <p class="title">Terms</p>
+                  <p><%= txn.term_code.try(:name) %></p>
+                <% end %>
+              </div>
+            </td>
+
+            <td class="summ right">
+              <div class="summary-wrapper">
+
+                <% if txn.customer_po_number %>
+                    <p class="title"><%= po_number_header %></p>
+                    <p><%= txn.customer_po_number %></p>
+                <% end %>
+
+                <% if txn.customer_po_date %>
+                    <p class="title"><%= invoice.po_date_header %></p>
+                    <p><%= txn.customer_po_date %></p>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    <% end %>
+   <% end %>
+  <div class="line-items">
+    <table>
+      <thead>
+      <tr>
+        <th class="position">
+          <div class="first">#</div>
+        </th>
+        <th class="name" colspan="2"><%= item_header %></th>
+        <th class="quantity" colspan="0"><%= qty_header %></th>
+        <th class="quantity" colspan="0"><%= uom_header %></th>
+        <th class="money"><%= unit_price_header %></th>
+        <th class="money">
+          <div class="last"><%= total_excl_header %></div>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody class=''>
+      <% invoice.items.each_with_index do |item, index| %>
+          <tr>
+            <td class="position" rowspan="2">
+              <div class="first">
+                <%= index + 1 %>
+              </div>
+            </td>
+            <td class="name" colspan="2"><%= item.name %></td>
+            <td class="quantity"><%= item.quantity %></td>
+            <td class="quantity"><%= item.uom %></td>
+            <td class="money"><%= item.unit_price %></td>
+            <td class="money">
+              <div class="last">
+                <%= item.total_price %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="description" colspan="6">
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+                <img src="<%= item.product_image %>" class="line-item-description-image">
+              </div>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% if invoice.has_payments? %>
+     <div class="line-items">
+        <!--<h2 class="title"><%= invoice.payments_header %></h2>-->
+        <table>
+          <thead>
+          <tr>
+            <th class="position" colspan="2">
+              <div class="first">#</div>
+            </th>
+            <th class="name" colspan="2"><%= invoice.paid_on_header %></th>
+            <th class="state"><%= invoice.payment_method_header %></th>
+            <th class="money">
+              <div class="last"><%= invoice.payment_amount_header %></div>
+            </th>
+          </tr>
+          </thead>
+
+          <tbody class='no-page-break'>
+          <% invoice.payments.each_with_index do |payment, index| %>
+              <tr>
+                <td class="position" colspan="2">
+                  <div class="first">
+                    <%= index + 1 %>
+                  </div>
+                </td>
+                <td class="name" colspan="2"><%= payment.paid_on %></td>
+                <td class="state"><%= payment.payment_method %></td>
+                <td class="money">
+                  <div class="last">
+                    <%= payment.amount %>
+                  </div>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+  <% end %>
+
+  <!-- Cover Note -->
+  <% if cover_note.present? %>
+      <div class="note">
+        <table class="no-page-break">
+          <thead>
+          <tr>
+            <th><%= cover_note_header %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= cover_note %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+  <% end %>
+
+  <!-- Signature Note -->
+  <div class=>
+      <div class="section">
+          <div class="footer-bottom-left">
+              <div class="terms-text">
+                  <%= invoice.terms_conditions %>
+              </div>
+          </div>
+          <div class="footer-bottom-right">
+              <table>
+                  <tbody>
+                  <tr>
+                      <td class="labels first footer-subtotal">
+                          <p><strong><%= subtotal_header %>:</strong></p>
+                          <% if show_tax  %>
+                              <p><strong><%= total_tax_header %> (<%= invoice.tax_rate %>):</strong></p>
+                          <% end %>
+                          <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                          <% if invoice.has_payments? %>
+                              <p>&nbsp;</p>
+                              <p><strong><%= invoice.payment_total_header %>:</strong></p>
+                              <p><strong><%= invoice.payment_balance_due_header %>:</strong></p>
+                          <% end %>
+                      </td>
+                      <td class="money last footer-subtotal">
+                          <p><strong><%= invoice.sub_total %></strong></p>
+                          <% if show_tax  %>
+                              <p><strong><%= invoice.total_tax %></strong></p>
+                          <% end %>
+                          <p class="footer-total"><strong><%= invoice.final_price %></strong></p>
+                          <% if invoice.has_payments? %>
+                              <p>&nbsp;</p>
+                              <p><strong><%= invoice.total_paid %></strong></p>
+                              <p class="footer-total"><strong><%= invoice.balance %></strong></p>
+                          <% end %>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="clearfix"></div>
+      </div>
+      <div class="section section--border-bottom">
+          <div class="signature terms">
+              <table>
+                  <tbody>
+                  <tr>
+                      <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
+                      <td class="date text--up text--bold"><%= date_header %>:</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+ </div>
+<% end %>
+</body>
+</html>
