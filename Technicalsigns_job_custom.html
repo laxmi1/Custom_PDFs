@@ -62,7 +62,7 @@
             padding-bottom: 30px;
             padding-left: 10px;
             margin-bottom: 10px;
-            font-size: 17px;
+            font-size: 18px;
         }
         
         .description {
@@ -141,13 +141,13 @@
                                 <% end %>
                         </div>
                     </td>
-                    <td class="address left">
+                    <td class="address left" style="font-size: 20px;">
                         <div class="address-wrapper">
                             <p class="title" style="font-size: 20px;">Customer Name</p>
                             <p style="font-size: 20px;">
                                 <%= @object.company.try(:name) %>
                             </p>
-                            <br>
+                            <br>                            
                             <% if contact.present? && is_form_field_visible?('contact_id') %>
                                 <p>
                                     <%= contact %>
@@ -229,4 +229,4 @@
      <%end%>
 </body>
 
-</html>
+</html> 
