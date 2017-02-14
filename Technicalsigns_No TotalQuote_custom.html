@@ -11,6 +11,19 @@
     font-size: 13px;
     font-weight: bold;
    }
+   .Asset {
+            border-bottom: 2px solid #e3e3e3;
+            margin-top: 5pt;
+            margin-left: 15px padding-top: 5px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 40px;
+            font-size: 18px;
+        }
+        .page-break-after {
+         page-break-after: avoid;
+        }
+
   </style>
 </head>
 <body>
@@ -239,6 +252,16 @@
       </tbody>
   </table>
 </div>
+  <%if assets_images.count != 0%>
+    <div style="width:92%;text-align:center;" class="Asset">
+         <p class= "page-break-after"><b>ASSETS</b></p>
+     </div>
+        <% assets_images(400,300).each do |asset| %>
+     <div class="image">
+        <img src="<%= asset %>" style="height:200px;width:41%;margin:34px;float:left;">
+     </div>
+    <% end %>
+    <% end %>
 
 <% if customer_note.present? %>
     <div class="note">
