@@ -6,20 +6,14 @@
 
       .main-titles {
             position: absolute;
-            top: 40px;
-            right: 45px;
+            top: 10px;
+            right: 70px;
             border-top: 2px solid;
             border-bottom: 2px solid;
             font-size: 20px;
             font-style: italic;
         }
-        body {
-          width:96%;
-          margin: auto;
-          margin:25px 25px 25px 25px;
-          border: solid 1px black;
-
-        }
+        
         .title{
          font-size: 12px; 
          font-weight: bold;
@@ -47,7 +41,7 @@
       </td>
       <td class="summ left">
         <div class="summary-wrapper">
-            <h1 class="main-titles"><font color="#2176B2"><b>Quote #<%= txn_number_only %></b></font> <br/>
+            <h1 class="main-titles"><font color="#2989CC"><b>Quote #<%= txn_number_only %></b></font> <br/>
             </h1>
           <div class="summary"  style="background:#fff; border-bottom: none; margin-right: 0px;">
               <table>
@@ -111,11 +105,11 @@
 
 <!-- Sold To, Contact Info and Shipping Address -->
 
-<div  style="padding:6px; border: solid 1px #000; background: #2989CC;width:92%; margin-left:4%;">
+<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:93%; margin-left:3%;">
   <small style="font-size:12px;"><b><%= name %></b></small>
 </div>
 <div class="addresses" style="border-bottom:none;margin-bottom:-12px; margin-top:-5px;">
-  <table style="background-color: #ccc; padding:3px; width:104%;margin-left:-2%;">
+  <table style="background-color: #ccc; padding:3px; width:103.7%;margin-left:-3%;">
     <tr>
 
       <td class="address left">
@@ -170,29 +164,29 @@
 
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
-  <table style="width:97.5%; margin-left:4%;">
+  <table style="width:97.6%; margin-left:3%;">
     <thead>
-    <tr style="border: solid 1px #000; background: #2989CC;">
+    <tr style="border: solid 1.5px #000; background: #2989CC;">
       <th class="position" style="font-size: 12px;color:black;">
         <div class="first">#</div>
       </th>
-      <th class="name" style="font-size: 13px;color:black;"><%= item_header %></th>
-      <th class="quantity" style="font-size: 13px;color:black;"><%= qty_header %></th>
-      <th class="quantity" style="font-size: 13px;color:black;"><%= uom_header %></th>
-      <th class="money" style="font-size: 13px;color:black;"><%= unit_price_header %></th>
+      <th class="name" style="font-size: 12px;color:black;"><%= item_header %></th>
+      <th class="quantity" style="font-size: 12px;color:black;"><%= qty_header %></th>
+      <th class="quantity" style="font-size: 12px;color:black;"><%= uom_header %></th>
+      <th class="money" style="font-size: 12px;color:black;"><%= unit_price_header %></th>
       <% if show_discounts && total_discount_price != 0.0 %>
-       <th class="quantity" style="font-size: 13px;color:black;"><%= discount_header %> </th>
-       <th class="quantity" style="font-size: 13px;color:black;"><%= discount_price_header %> </th>
+       <th class="quantity" style="font-size: 12px;color:black;"><%= discount_header %> </th>
+       <th class="quantity" style="font-size: 12px;color:black;"><%= discount_price_header %> </th>
       <% end %>
       <th class="money">
-        <div class="last" style="font-size: 13px;color:black;"><%= total_excl_header %></div>
+        <div class="last" style="font-size: 12px;color:black;"><%= total_excl_header %></div>
       </th>
       <% if use_tax_codes? %>
           <th class="money">
-            <div class="last" style="font-size: 13px;color:black;"><%= tax_header %></div>
+            <div class="last" style="font-size: 12px;color:black;"><%= tax_header %></div>
           </th>
           <th class="money">
-            <div class="last" style="font-size: 13px;color:black;"><%= tax_rate_header %></div>
+            <div class="last" style="font-size: 12px;color:black;"><%= tax_rate_header %></div>
           </th>
       <% end %>
     </tr>
