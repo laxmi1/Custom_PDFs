@@ -1,0 +1,314 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      .terms-title *, .terms-text * {
+          font-size:6pt !important;
+      }
+      <%= page_size %>
+      .main-titles {
+            position: absolute;
+            top: 10px;
+            right: 70px;
+            border-top: 2px solid;
+            border-bottom: 2px solid;
+            font-size: 20px;
+            font-style: italic;
+        }
+        .title{
+         font-size: 12px; 
+         font-weight: bold;
+        }
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+<!-- Footer Text for Page footter-->
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<!-- Store Address and Logo -->
+<div class="address-logo" style="background:#fff;  border-bottom:none; margin-right: 0px; width:98%">
+  <table>
+    <tr>
+      <td class="store-address">
+        <p class="logo" style="margin-top:-40px;"><img class="logo" src="<%= logo %>"  width = 240></p>
+        <%= store_address %>
+      </td>
+      <td class="summ left">
+        <div class="summary-wrapper">
+            <h1 class="main-titles"><font color="#2989CC"><b>Purchase Order #<%= txn_number_only %></b></font> <br/>
+            </h1>
+            <div class="summary" style="background:#fff; border-bottom: none; margin-right: 0px;">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title">
+            <% if has_project? %>
+              <small><%= purchase_order_project_number%></small>
+              <br>
+            <% end %>
+          </h1>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= expected_delivery_date_header %></p>
+          <p><%= expected_delivery_date %></p>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= ship_date_header %></p>
+          <p><%= ship_date %></p>
+          <% if shipping_method %>
+              <p class="title"><%= shipping_method_header %></p>
+              <p><%= shipping_method %></p>
+          <% end %>
+
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= po_date_header %></p>
+          <p><%= po_date %></p>
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+          <% if payment_method %>
+              <p class="title"><%= payment_method_header %></p>
+              <p><%= payment_method %></p>
+          <% end %>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+    </tr>
+  </table>
+</div>
+
+
+<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:93%; margin-left:3%;">
+  <small style="font-size:12px;"><b><%= name %></b></small>
+</div>
+<div class="addresses" style="border-bottom:none;margin-bottom:-12px; margin-top:-5px;">
+  <table style="background-color: #ccc; padding:3px; width:103.7%;margin-left:-3%;">
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_from_header %></p>
+
+          <p><%= sold_to %></p>
+          <p><%= vendor_address %></p>
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= shipping_information_header %></p>
+          <% if address_type != 'DropShip' %>
+            <p><%= store_name %></p>
+          <% end %>
+          <p><%= shipping_information %></p>
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= contact_information_header %></p>
+
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+    </tr>
+    <% if show_about_this_desc and description.present? %>
+      <tr>
+        <td class="address left" colspan="3">
+          <div class="address-wrapper" style="border-top:2px solid #01090F;margin-top:6px;">
+            <p class="title" style="padding-top:5px;padding-bottom:4px;"><%= about_this_po_header %></p>
+            <p>
+              <%= description %>
+            </p>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<!-- Items Table -->
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table style="width:97.6%; margin-left:3%;">
+    <thead>
+    <tr style="border: solid 1.5px #000; background: #2989CC;">
+      <th class="position" style="font-size: 12px;color:black;">
+        <div class="first">#</div>
+      </th>
+      <th class="name" colspan="2" style="font-size: 12px;color:black;"><%= item_header %></th>
+      <th class="quantity" colspan="0" style="font-size: 12px;color:black;"><%= qty_header %></th>
+      <th class="quantity" colspan="0" style="font-size: 12px;color:black;"><%= uom_header %></th>
+      <th class="money" style="font-size: 12px;color:black;"><%= unit_price_header %></th>
+      <th class="money" style="font-size: 12px;color:black;">
+        <div class="last" style="font-size: 12px;color:black;"><%= total_excl_header %></div>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class=''>
+    <% items.each_with_index do |item, index| %>
+      <tr>
+        <td class="position" rowspan="2">
+          <div class="first">
+            <%= index + 1 %>
+          </div>
+        </td>
+        <td colspan="2">
+          <div class="name">
+            <%= item.name %>
+          </div>
+          <% unless item.part_number.blank? %>
+              <br/><strong>Part#:</strong> <%= item.part_number %>
+          <% end %>
+          <% unless item.item_attr1.blank? %>
+              <strong><%= item.item_attr_name1 %>:</strong> <%= item.item_attr1 %>
+          <% end %>
+          <% unless item.item_attr2.blank? %>
+              <strong><%= item.item_attr_name2 %>:</strong> <%= item.item_attr2 %>
+          <% end %>
+        </td>
+        <td class="quantity"><%= item.quantity %></td>
+        <td class="quantity"><%= item.uom %></td>
+        <td class="money"><%= item.unit_price %></td>
+        <td class="money">
+          <div class="last">
+            <%= item.total_price %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="description" colspan="6">
+          <div class="last text--pre-line li-desc-fixed-width">
+            <%= item.description %>
+            <img src="<%= item.product_image %>" class="line-item-description-image">
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+
+    <!--<tfoot class="no-page-break tfoot-one">-->
+    <!--<tr>-->
+      <!--<td colspan="6" class="labels first">-->
+        <!--<p><%= subtotal_header %></p>-->
+
+        <!--<% if show_tax  %>-->
+          <!--<p><%= total_tax_header %></p>-->
+        <!--<% end %>-->
+
+        <!--<p><%= final_price_header %></p>-->
+      <!--</td>-->
+      <!--<td class="money last">-->
+        <!--<p><%= sub_total %></p>-->
+
+        <!--<% if show_tax  %>-->
+          <!--<p><%= total_tax %></p>-->
+        <!--<% end %>-->
+       <!---->
+        <!--<p><%= final_price %></p>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--</tfoot>-->
+  </table>
+</div>
+
+
+<!-- Internal Note -->
+<% if internal_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= internal_note_header %></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= internal_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= cover_note_header %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= cover_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section">
+        <div class="footer-bottom-left">
+            <div class="terms-text" >
+                <%= terms_conditions %>
+            </div>
+        </div>
+        <div class="footer-bottom-right">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="labels first footer-subtotal">
+                        <p><strong><%= subtotal_header %>:</strong></p>
+                        <% if show_tax  %>
+                            <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                        <% end %>
+                        <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                    </td>
+                    <td class="money last footer-subtotal">
+                        <p><strong><%= sub_total %></strong></p>
+                        <% if show_tax  %>
+                            <p><strong><%= total_tax %></strong></p>
+                        <% end %>
+                        <p class="footer-total"><strong><%= final_price %></strong></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="section section--border-bottom">
+        <div class="signature terms">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
+                    <td class="date text--up text--bold"><%= date_header %>:</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
