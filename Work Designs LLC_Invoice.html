@@ -37,7 +37,16 @@
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
         <p class="logo" style="margin-top:-40px;"><img class="logo" src="<%= logo %>"  width = 240></p>
-        <p><%= store_address %></p>
+        <p><b><%= store_name %></b></p>
+  <%if store_address_street%><p><%= store_address_street %></p><%end%>
+  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%>
+  <% if store_email%><p><%=store_email%></p><%end%>
+  <% if store_phone%><p><%=store_phone%></p><%end%>  
+  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
+  <% if business_number_text(@object.account) %> <p><%= business_number_text(@object.account) %></p><%end%>
+  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
