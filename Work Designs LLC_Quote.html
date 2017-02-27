@@ -45,7 +45,6 @@
   <% if store_email%><p><%=store_email%></p><%end%>
   <% if store_phone%><p><%=store_phone%></p><%end%>  
   <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
-  <% if business_number_text(@object.account) %> <p><%= business_number_text(@object.account) %></p><%end%>
   <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
       </td>
       <td class="summ left">
@@ -78,14 +77,7 @@
                           <p class="title"><%= quote_expiry_date_header %></p>
                           <p><%= quote_expiry_date%></p>
                       <% end %>
-                      <% if term_code %>
-                          <p class="title"><%= term_code_header %></p>
-                          <p><%= term_code %></p>
-                      <% end %>
-
-                      <p class="title"><%= payment_information_header %></p>
-                      <p><%= payment_method %></p>
-                    </div>
+                      <br>
                   </td>
 
                   <td class="summ right">
@@ -100,8 +92,16 @@
                           <p class="title"><%= po_date_header %></p>
                           <p><%= po_date %></p>
                       <% end %>
+                      <br>
                     </div>
                   </td>
+                </tr>
+                 <tr>
+                  <td></td>
+                  <td></td>
+                  <td colspan ="2" style= "border:2px solid#ccc;">
+                  <p class="footer-total"><strong>TOTAL OF QUOTE: <%= final_price %></strong></p>
+                </td>
                 </tr>
               </table>
           </div>
