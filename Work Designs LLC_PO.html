@@ -44,7 +44,6 @@
   <% if store_email%><p><%=store_email%></p><%end%>
   <% if store_phone%><p><%=store_phone%></p><%end%>  
   <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
-  <% if business_number_text(@object.account) %> <p><%= business_number_text(@object.account) %></p><%end%>
   <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
       </td>
       <td class="summ left">
@@ -78,7 +77,7 @@
               <p class="title"><%= shipping_method_header %></p>
               <p><%= shipping_method %></p>
           <% end %>
-
+          <br>
         </div>
       </td>
       <td class="summ right">
@@ -89,12 +88,15 @@
               <p class="title"><%= term_code_header %></p>
               <p><%= term_code %></p>
           <% end %>
-          <% if payment_method %>
-              <p class="title"><%= payment_method_header %></p>
-              <p><%= payment_method %></p>
-          <% end %>
-
-        </div>
+          <br>
+          </div>
+      </td>
+    </tr>
+    <tr>
+     <td></td>
+     <td></td>
+      <td colspan ="2" style= "border:2px solid#ccc;">
+       <p class="footer-total"><strong>TOTAL OF PO: <%= final_price %></strong></p>
       </td>
     </tr>
   </table>
