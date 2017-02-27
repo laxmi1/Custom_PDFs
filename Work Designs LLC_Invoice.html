@@ -45,7 +45,6 @@
   <% if store_email%><p><%=store_email%></p><%end%>
   <% if store_phone%><p><%=store_phone%></p><%end%>  
   <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
-  <% if business_number_text(@object.account) %> <p><%= business_number_text(@object.account) %></p><%end%>
   <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
         <% if is_paid? %>
           <p class="stamp">
@@ -74,22 +73,7 @@
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
-
-          <p class="title"><%= invoice_date_header %></p>
-          <p><%= invoice_date %></p>
-
-          <p class="title"><%= due_date_header %></p>
-          <p><%= due_date %></p>
-
-          <p class="title"><%= payment_information_header %></p>
-          <p><%= payment_method %></p>
-        </div>
-      </td>
-
-      <td class="summ right">
-        <div class="summary-wrapper">
-
-          <% if term_code %>
+           <% if term_code %>
               <p class="title"><%= term_code_header %></p>
               <p><%= term_code %></p>
           <% end %>
@@ -98,17 +82,38 @@
               <p><%= po_number %></p>
           <% end %>
 
-          <% if po_date %>
-              <p class="title"><%= po_date_header %></p>
-              <p><%= po_date %></p>
-          <% end %>
           <% if shipping_method %>
               <p class="title"><%= shipping_method_header %></p>
               <p><%= shipping_method %></p>
           <% end %>
+
+
+        </div>
+      </td>
+
+      <td class="summ right">
+        <div class="summary-wrapper">
+       
+          <p class="title"><%= invoice_date_header %></p>
+          <p><%= invoice_date %></p>
+
+          <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+         
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+          <br>
         </div>
       </td>
     </tr>
+    <tr>
+      <td></td>
+      <td colspan ="2" style= "border:2px solid#ccc;">
+         <p class="footer-total"><strong>TOTAL OF INVOICE: <%= final_price %></strong></p>
+      </td>
+   </tr>
   </table>
 </div>
     </tr>
