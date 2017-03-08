@@ -185,12 +185,6 @@
       <th class="money">
         <div class="last"><%= total_excl_header %></div>
       </th>
-          <th class="money">
-            <div class="last"><%= tax_header %></div>
-          </th>
-          <th class="money">
-            <div class="last"><%= tax_rate_header %></div>
-          </th>
 
     </tr>
     </thead>
@@ -216,12 +210,6 @@
                 <%= item.total_price %>
               </div>
             </td>
-                <td class="money">
-                  <div class="last"><%= item.total_tax %></div>
-                </td>
-                <td class="money">
-                  <div class="last"><%= item.tax_rate %></div>
-                </td>
           </tr>
           <tr>
             <% if show_discounts && total_discount_price != 0.0 %>
@@ -268,7 +256,7 @@
      </div>
         <% assets_images(400,300).each do |asset| %>
      <div class="image">
-        <img src="<%= asset %>" style="height:200px;width:41%;margin:34px;float:left;">
+      <img src="<%= asset %>" style="height:260px;width:44.2%;margin:22px;float:left;">
      </div>
     <% end %>
     <% end %>
