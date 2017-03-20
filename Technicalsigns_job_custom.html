@@ -115,7 +115,7 @@
         <!-- Store Address and Logo -->
         <div class="title-logo">
             <div class="titles">
-                Sales Order # <%if @object.order_number%> <%=@object.order_number%><%end%>
+                <%if @object.order_number%>Sales Order # <%=@object.order_number%>, <%end%>
                 <%= @object.name  %>
             </div>
         </div>
