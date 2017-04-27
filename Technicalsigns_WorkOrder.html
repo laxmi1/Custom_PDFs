@@ -11,7 +11,7 @@
     @top-left { content: none }
   }
   .address-logo {
-    padding: 15pt 35pt 5pt 35pt;
+    padding: 15pt 35pt 5pt 15pt;
     border-bottom: 2px solid #e3e3e3;
   }
   .address-logo .store-address {
@@ -85,7 +85,7 @@ border: none;
     <tr>
       <td class="store-address">
       <!-- <%= store_address(show_tax_id: false) %> -->
-       <%= work_order_number %> - <b><%= name %></b>
+       Order# <%= txn_number_only %> - <b><%= name %> - <%= sold_to %></b>
       </td>
       <td class="store-logo">
         <img class="logo" src="<%= logo %>">
