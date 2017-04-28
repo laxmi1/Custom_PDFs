@@ -44,7 +44,7 @@
         </tr>
         </thead>
         <tbody class="line-items">
-         <% all_invoices.map do |invoice|%>
+         <% total_invoices.map do |invoice|%>
           <tr>
             <td>
               <%= invoice.txn_number %>
@@ -76,17 +76,19 @@
             </td>
           </tr>
         <% end %>
-        <tr class="total">
-          <td colspan="7">
-             Total
-          </td>
-          <td class="money">
-             <%= int_cents_to_money(all_invoices.sum(:total_payments_in_cents)) %>
-          </td>
-          <td class="money">
-             <%= int_cents_to_money(all_invoices.sum(:balance_in_cents)) %>
-          </td>
-        </tr>
+        <% if total_invoices.size > 0 %>
+           <tr class="total">
+             <td colspan="7">
+                Total
+             </td>
+             <td class="money">
+                <%= int_cents_to_money(total_invoices.sum(:total_payments_in_cents)) %>
+             </td>
+             <td class="money">
+                <%= int_cents_to_money(total_invoices.sum(:balance_in_cents)) %>
+             </td>
+           </tr>
+         <% end %>
       </tbody>
      </table>
      <br><br>
@@ -161,11 +163,7 @@
           <td class="address left" width="60%">
             <div class="address-wrapper">
               <p class="title"><%= ordered_by_header %></p>
-              <% if mail_pdf == "true" %>
-                <p><%= invoice.sold_to_for_mail_pdf %></p>
-              <% else %>
                 <p><%= invoice.sold_to %></p>
-              <% end %>
               <p><%= invoice.billing_information %></p>
             </div>
           </td>
