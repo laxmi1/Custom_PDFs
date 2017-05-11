@@ -173,12 +173,29 @@ border: none;
            <% if po_number %>
               <p class="title">Cust. Po#</p>
               <p><%= po_number %></p>
-             <% end %>
+            <% end %>
       </td>
     </tr>
   </table>
 </div>
 </div>
+<div class="summary">
+<div class="addresses">
+<% if show_about_this_desc and description.present? %>
+        <tr>
+          <td class="address left" colspan="3">
+            <div class="address-wrapper">
+              <div class="pag_tit" style="width: 96%; margin-left: 2%;margin-top: -5px;font-size: 15px;"><b>ABOUT</b>
+              <p>
+                <%= description %>
+              </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+  </div>
+  </div>
 <% items.each_with_index do |item, index| %>
 <%if simple_format(item.shipping_details).split('Shipping Details:')[1] != nil%>
 <div class="line-items">
