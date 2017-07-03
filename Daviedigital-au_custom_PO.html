@@ -84,8 +84,10 @@
       <td class="address left">
         <div class="address-wrapper">
           <p class="title"><%= shipping_information_header %></p>
-          <% if address_type != 'DropShip' %>
-            <p><%= store_name %></p>
+          <% if drop_ship_to.present? %>
+           <%= drop_ship_to %>
+          <% else %>
+          <p><%= store_name %></p>
           <% end %>
           <p><%= shipping_information %></p>
         </div>

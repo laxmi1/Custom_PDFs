@@ -215,7 +215,10 @@
     </td>
     <td class="invoice-date">
     Invoice Date: <%= invoice_date %> <br>
-    Ordered By: <b><%= contact_name %></b>
+    Ordered By: <b><%= contact_name %></b><br>
+    <% if po_number != nil %>
+    Po Number: <b><%= po_number %></b>
+    <% end %>
     </td>
     </tr>
   </table>
