@@ -155,8 +155,8 @@
       </div>
    </div>
     <div class="heading" style="float:left;">
-       <div style="float:left;width:30%;">Item:</div> 
-       <div style="float:right;width:20%;">QTY:</div> 
+       <div style="float:left;width:30%;"><b>Item: </b><%= item.name %></div> 
+       <div style="float:right;width:20%;"><b>QTY: </b><%= item.quantity %></div> 
        <div style="clear:both;"></div>
     </div>
     <div class="">
@@ -182,15 +182,15 @@
             <%= simple_format(item.install_details) %>
           </div>
       </div>
-      <div  style="width:48%; float:right; margin-right: 10px;">
+      <div  style="width:48%; float:right; margin-right: 5px;">
           <div class="contactbox4" style="align: center;">
              <% items.each_with_index do |item, index| %>
               
              <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
                 <% @proofs_job_ids << item.job.id %>
                 <div class="job-attributes">
-                  <div class="proof">
-                    <div class="head">
+                  <div class="proof" style="text-align: center;">
+                    <div class="head" >
                       <%= item.job.proof_head %>
                     </div>
                     <div class="image">
@@ -207,7 +207,10 @@
     <div class="">
       <div  style="width:50%; float:left; margin-right: 5px;">
         <div class="contactbox3" style="min-height:240px;">            
-        </div>
+        <td class="name"><b>Name: </b><%= item.name %></td><br>
+        <td class="quantity"><b>QTY: </b><%= item.quantity %></td><br>
+         <b>Description:</b><%= item.description %>
+        </div>        
       </div>
       <div  style="width:48%; float:right;margin-right: 5px;">
         <div class="contactbox3" style="min-height: 50px;">
