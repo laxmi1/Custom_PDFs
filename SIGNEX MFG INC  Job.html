@@ -22,7 +22,7 @@
           <p>Due: <strong><%= due_date %></strong></p>
         </div>
         <div class="col-2">
-          <p style="font-size: 20px;"><strong>SO# <%= order_number %></strong></p>
+          <p style="font-size: 18px;"><strong>SO# <%= order_number %></strong></p>
         </div>
         <div class="col-1">
           <p class="text--right">1 of <strong>2</strong></p>
@@ -358,8 +358,12 @@
               <div class="job-pdf__workflows">
                 <% stages.each do |stage| %>
                 <div class="job-pdf__workflow job-pdf__workflow--default">
-                  <div class="job-pdf__workflow-title">
-                    <p><strong><%= stage.name %></strong></p>
+                  <div class="job-pdf__workflow-title" style="background-color: white; border: thin solid black;">
+                   <% if stage.stage_color.present? %>
+                    <p><strong><font color="#<%=stage.stage_color %>" ><%= stage.name %></font></strong></p>
+                   <% else %>
+                     <p><strong><span style="color: 'black'"><%= stage.name %></span></strong></p>
+                   <% end %>
                   </div>
                   <div class="job-pdf__workflow-content">
                     <ol>
