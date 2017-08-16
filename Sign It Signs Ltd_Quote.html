@@ -26,8 +26,8 @@
         <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
         <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
         <%if store_address_zip %> <%= store_address_zip%><%end%>
-        <% if store_email%><p><%=store_email%></p><%end%>
-        <% if store_phone%><p><%=store_phone%></p><%end%>  
+        <% if store_email%><p>Email: <%=store_email%></p><%end%>
+        <% if store_phone%><p>Phone: <%=store_phone%></p><%end%>  
         <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
         <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
       </td>
@@ -187,10 +187,11 @@
               <div>
                 <% if item.table_view %>
                   <div class="text--pre-line li-desc-fixed-width">
-                    
+                    <%= item.li_grid_html_view %>
                   </div>
                 <% else %>
                   <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.description %>
                   </div>
                 <% end %>
                 <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
