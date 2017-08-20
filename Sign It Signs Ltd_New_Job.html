@@ -1,358 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Job PDF</title>
-  <style>
-    <%= page_size %>
-    .border {
-       width: 96%;
-       margin: auto;
-       border: 1px #ccc solid;
-       clear:both;
-       padding: 5px;
-    }
-    .border-bottm{
-      border-bottom: 1px #ccc solid;
-      padding: 5px;
-      margin-top: 5px;
-    }
-    .border-bottm .span {
-      float: left;
-
-    }
-    .cus {
-  
-        float: left;
-        width: 40%;
-    }
-    .sales{
-         float: left;
-         width: 30%;
-    }
-    .so {
-         float: left;
-         width: 20%;
-    }
-    .phone {
-      width: 38%;
-      float: left;
-    }
-    .date{ width: 20%;
-      float: left;}
-      .email {
-        width: 70%;
-        float: left;
-      }
-      .media {
-        width: 12%;
-        float: left;
-      }
-      .box-check {
-         border: 1px black solid;
-         height: 20px;
-         width: 20px;
-         float: left;
-         border-right: 3px black solid; 
-      }
-      .text {
-        float: left;
-        margin: 5px;
-        width: 33px;
-        font-size: 8px;
-      }
-      .jobDes {
-        width:48%;
-        float: left;
-        padding: 5px;
-        min-height: 150px;
-      }
-      .heading{
-        background: black;
-        color: #fff;
-        padding: 5px;
-
-      }
-      .boxpanel {
-        border: solid #ccc 1px;
-        min-height: 150px
-      }
-       .boxpanelshipping {
-        border: solid #ccc 1px;
-        min-height: 80px;
-        padding : 5px;
-        margin-top: 2px;
-      }
-
-      
-/*
- styles paste here*/
-  </style>
-</head>
-<body>
-<div class="border">
-  <div class="border-bottm">
-    <div class="cus">
-       <p><b>CUSTOMER: </b><strong><%= company_name %></strong></p>
-     </div>
-      <div class="sales">
-       <p><b>SALES REP: </b><strong><%= sales_rep_name %></strong></p>
-     </div>
-      <div class="so">
-         <p><strong><b>SO#: </b><%= order_number %></strong></p>
-     </div>
-     <div style="clear:both;"></div>
-  </div>
-   <div class="border-bottm">
-     <div class="cus">
-      <%if @object.contact.name %>
-       <p><b>NAME: </b><strong><%= @object.contact.name %></strong></p>
-      <%end%>
-     </div>
-      <div class="sales">
-       <%if @object.contact.phone %>
-        <b>PH: </b><%= format_phone_pdf(@object.account, @object.contact.phone) %>
-      <%end%>
-    </div>
-    <div class="so">
-        <p><b>DATE: </b><strong><%= due_date %></strong></p>
-    </div>
-        <div style="clear:both;"></div>
-  </div>
-
-   <div class="border-bottm">
-      <div class="cus">
-       <%if @object.contact.email %>
-          <b>EMAIL: </b><%= @object.contact.email %>
-      <%end%>
-    </div>
-      <div class="sales">
-        <p><b>DUE DATE: </b><strong><%= due_date %></strong></p>
-    </div>
-    <div style="clear:both;"></div>
-       
-  </div>
-   <div class="border-bottm">
-       <p><b>ARTWORK FILES:</b> <%= custom_field_table %></p>
-       
-  </div>
-
-   <div class="border-bottm">
-      <div class="media">
-            <b>MEDIA</b>
-      </div>
-      <div  class="box-check">
-      </div>
-      <div  class="text">3162 REMOVE</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> 3164</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> 3651</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> CAST</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> PVC</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> TRANS ADHES</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> BACKLIT FILM</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> XIGN</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> CV</div>
-    
-    <div style="clear: both"></div>
-  </div>
-  <div class="border-bottm">
-      <div class="media">
-           <b> LAMINATE</b>
-      </div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> 3164G</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> 3164 MATTE</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> 210 SATIN</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> 215 GLOSS</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> CAST</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> NIL</div>
-    
-    <div style="clear: both"></div>
-  </div>
-  <div class="border-bottm">
-      <div class="media">
-            <b>SUBSTRATE</b>
-      </div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> CORF LUTE</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> CELUKA</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> ACM</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> ACR YLIC</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> VEHICLE</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> PAY LITE</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> TIMBER/PLY</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> CORETEN/STEEL</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> SUP</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> RTA</div>
-    
-    <div style="clear: both"></div>
-  </div>
-  <div class="border-bottm">
-      <div class="media">
-            <b>OUT SIDE WORK</b>
-      </div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> ROUTER CUT</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> LASER ETCH</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> WATER JET</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> LIGHT BOX</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> LED/LIGHTS</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> HERTZOG</div>
-       <div  class="box-check">
-      </div>
-      <div  class="text"> AXIS</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> ELITE</div>
-      <div  class="box-check">
-      </div>
-      <div  class="text"> OTHER</div>
-    
-    <div style="clear: both"></div>
-  </div>
-
-
-
- <div class="border-bottm">
-
-    <div class="jobDes">
-       <div class="box box--white box--border">
-            <div class="box__title"  style ="font-size:13px;"><b>JOB DESCRIPTION:</b></div>
-            <div class="box__content" style="min-height: 130px";>
-              <p style ="font-size:10px;">
-                <p><b>JOB TITLE: </b><%= title %></p><br>
-                <%= description %>
-              </p>
-            </div>
-          </div>
-    </div>
-    <div class="jobDes" style="float:right">
-        <div class="heading" style ="font-size:18px;"><b>VISUAL MUST BE ATTACHED</b></div>
-        <div class="boxpanel" style ="font-size:12px;">
-          <% if pa_items.size > 0 %>
-            <div class="">
-              <div class="box__title" style="border-bottom: 2px #ccc solid;"><b>ITEM ATTTRIBUTES</b></div>
-              <div class="box__content">
-                <table class="table table--no-border table--no-padding">
-                  <tbody>
-                    <%= pa_table %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          <% end %>
-
-        </div>
-    </div>
-    <div style="clear:both;"></div>
- </div>
-
-
-<!-- paste here -->
-
-<!-- end here -->
- <div>
-
-    <div class="jobDes">
-       <p style ="font-size:20px;border-bottom: 2px #ccc solid;"><b>INVOICE  </b><span style ="font-size:10px;"><b>INSTRUCTIONS/DESCRIPTION:</b></span></p>
-       <div style="min-height:100px"></div>
-       <div class="border-bottm" style="border-top: 1px solid #ccc;">
-          <table style="width: 100%">
-
-            <tr>
-              <td><b>ORDER NO: <%= order_number %> </b></td>
-              <td></td>
-              <td><b>DATE: </b></td>
-              <td></td>
-            </tr>
-          </table>
-       </div>
-    </div>
-    <div class="jobDes" style="float:right">
+    <meta charset="utf-8">
+    <title>Job PDF</title>
+    <style>
+        <%=page_size %> .border {
+            width: 96%;
+            margin: auto;
+            border: 1px #ccc solid;
+            clear: both;
+            padding: 5px;
+        }
         
-        <div class="boxpanelshipping">
-          <p style="border-bottom: 2px #ccc solid;"><b>SHIPPING ADDRESS: </b></p>
-          <%= shipping_information %>
+        .border-bottm {
+            border-bottom: 1px #ccc solid;
+            padding: 5px;
+            margin-top: 5px;
+        }
+        
+        .border-bottm .span {
+            float: left;
+        }
+        
+        .cus {
+            float: left;
+            width: 40%;
+        }
+        
+        .sales {
+            float: left;
+            width: 30%;
+        }
+        
+        .so {
+            float: left;
+            width: 20%;
+        }
+        
+        .phone {
+            width: 38%;
+            float: left;
+        }
+        
+        .date {
+            width: 20%;
+            float: left;
+        }
+        
+        .email {
+            width: 70%;
+            float: left;
+        }
+        
+        .media {
+            width: 12%;
+            float: left;
+        }
+        
+        .box-check {
+            border: 1px black solid;
+            height: 20px;
+            width: 20px;
+            float: left;
+            border-right: 3px black solid;
+        }
+        
+        .text {
+            float: left;
+            margin: 5px;
+            width: 33px;
+            font-size: 8px;
+        }
+        
+        .jobDes {
+            width: 48%;
+            float: left;
+            padding: 5px;
+            min-height: 150px;
+        }
+        
+        .heading {
+            background: black;
+            color: #fff;
+            padding: 5px;
+        }
+        
+        .boxpanel {
+            border: solid #ccc 1px;
+            min-height: 150px
+        }
+        
+        .boxpanelshipping {
+            border: solid #ccc 1px;
+            min-height: 80px;
+            padding: 5px;
+            margin-top: 2px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table tr,
+        table td {
+            border-top: 1px black solid;
+            border-bottom: 1px black solid;
+            border-left: 1px black solid;
+        }
+        /*styles paste here*/
+    </style>
+</head>
+
+<body>
+    <div class="border">
+        <div class="border-bottm">
+            <div class="cus">
+                <p><b>CUSTOMER: </b>
+                    <%= company_name %>
+                </p>
+            </div>
+            <div class="sales">
+                <p><b>SALES REP: </b>
+                    <%= sales_rep_name %>
+                </p>
+            </div>
+            <div class="so">
+                <p><b>SO#: </b>
+                    <%= order_number %>
+                </p>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="border-bottm">
+            <div class="cus">
+                <%if @object.contact.name %>
+                    <p><b>NAME: </b>
+                        <%= @object.contact.name %>
+                    </p>
+                    <%end%>
+            </div>
+            <div class="sales">
+                <%if @object.contact.phone %>
+                    <b>PH: </b>
+                    <%= format_phone_pdf(@object.account, @object.contact.phone) %>
+                        <%end%>
+            </div>
+            <div class="so">
+                <p><b>DATE: </b>
+                    <%= due_date %>
+                </p>
+            </div>
+            <div style="clear:both;"></div>
         </div>
 
-        <div class="boxpanelshipping" style="margin-bottom: 10px;min-height:20px;">
-          <p style="font-size: 15px; color: #ccc;font-weight:bold;">INVOICE PRICE</p>
+        <div class="border-bottm">
+            <div class="cus">
+                <%if @object.contact.email %>
+                    <b>EMAIL: </b>
+                    <%= @object.contact.email %>
+                        <%end%>
+            </div>
+            <div class="sales">
+                <p><b>DUE DATE: </b>
+                    <%= due_date %>
+                </p>
+            </div>
+            <div style="clear:both;"></div>
 
         </div>
-         
-       <div  class="box-check" style="margin-left: 140px;">
-      </div>
-      <div  class="text"> QUOTED</div>
-       
-       <div  class="box-check">
-      </div>
-      <div  class="text"> TO BE PRICED</div>
-       
-       <div  class="box-check">
-      </div>
-      <div  class="text"> ESTIMATED</div>
+        <div class="border-bottm">
+            <p><b>ARTWORK FILES:</b>
+                <%= custom_field_table %>
+            </p>
 
+        </div>
+
+        <div class="border-bottm">
+            <div class="media">
+                <b>MEDIA</b>
+            </div>
+            <div class="box-check">
+            </div>
+            <div class="text">3162 REMOVE</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> 3164</div>
+            <div class="box-check">
+            </div>
+            <div class="text" style="width: 95px;"> 3651</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> CAST</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> PVC</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> TRANS ADHES</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> BACKLIT FILM</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> XIGN</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> CV</div>
+
+            <div style="clear: both"></div>
+        </div>
+        <div class="border-bottm">
+            <div class="media">
+                <b> LAMINATE</b>
+            </div>
+            <div class="box-check">
+            </div>
+            <div class="text"> 3164G</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> 3164 MATTE</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> 210 SATIN</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> 215 GLOSS</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> CAST</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> NIL</div>
+
+            <div style="clear: both"></div>
+        </div>
+        <div class="border-bottm">
+            <div class="media">
+                <b>SUBSTRATE</b>
+            </div>
+            <div class="box-check">
+            </div>
+            <div class="text"> CORF LUTE</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> CELUKA</div>
+            <div class="box-check">
+            </div>
+            <div class="text" style="width: 30px;"> ACM</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> ACR YLIC</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> VEHICLE</div>
+            <div class="box-check">
+            </div>
+            <div class="text" style="width: 30px;"> PAY LITE</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> TIMBER/PLY</div>
+            <div class="box-check">
+            </div>
+            <div class="text" style="width: 40px;"> CORETEN/STEEL</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> SUP</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> RTA</div>
+
+            <div style="clear: both"></div>
+        </div>
+        <div class="border-bottm">
+            <div class="media">
+                <b>OUT SIDE WORK</b>
+            </div>
+            <div class="box-check">
+            </div>
+            <div class="text"> ROUTER CUT</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> LASER ETCH</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> WATER JET</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> LIGHT BOX</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> LED/LIGHTS</div>
+            <div class="box-check">
+            </div>
+            <div class="text" style="width: 40px;"> HERTZOG</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> AXIS</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> ELITE</div>
+            <div class="box-check">
+            </div>
+            <div class="text"> OTHER</div>
+
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="border-bottm">
+
+            <div class="jobDes">
+                <div class="box box--white box--border">
+                    <div class="box__title" style="font-size:13px;"><b>JOB DESCRIPTION:</b></div>
+                    <div class="box__content" style="min-height: 130px" ;>
+                        <p style="font-size:10px;">
+                            <p><b>JOB TITLE: </b>
+                                <%= title %>
+                            </p>
+                            <br>
+                            <%= description %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="jobDes" style="float:right">
+                <div class="heading" style="font-size:18px;"><b>VISUAL MUST BE ATTACHED</b></div>
+                <div class="boxpanel" style="font-size:12px;">
+                    <% if pa_items.size > 0 %>
+                        <div class="">
+                            <div class="box__title" style="border-bottom: 2px #ccc solid;"><b>ITEM ATTTRIBUTES</b></div>
+                            <div class="box__content">
+                                <table class="table table--no-border table--no-padding">
+                                    <tbody>
+                                        <%= pa_table %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <% end %>
+
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+
+        <div class="">
+            <table class="table">
+                <tr>
+                    <td style="width: 130px;"><b>STOCK ORDERED</b></td>
+                    <td style="width: 240px;"></td>
+                    <td style="width: 60px;"><b>FROM</b></td>
+                    <td></td>
+                    <td style="width: 60px;"><b>DATE</b></td>
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 70px; background: black;color: white;"><b>SAFETY</b></td>
+
+                    <td style="width: 150px;"><b>WEAR HI-VIS ON ALL SITES</b></td>
+
+                    <td>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 60px;"> SIGN IN</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 60px;"> INDUCTION</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 60px;"> LADDERS</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 60px;"> HAZARD IDENTIFY</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 60px;"> JOBMANAGEMENT PLAN</div>
+
+                    </td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 200px;"><b>SITE SPECIFIC HAZARDS</b></td>
+
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 130px;"><b>DESIGN</b></td>
+
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 130px;"><b>PRINT MEDIA</b></td>
+
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 130px;"><b>CUT VINYL</b></td>
+
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 130px;"><b>PRODUCE/APPLY</b></td>
+
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td style="width: 130px;"><b>INSTALL</b></td>
+
+                    <td></td>
+
+                </tr>
+            </table>
+            <table class="table" style="border: none; ">
+                <tr style="border: none; border-bottom: 4px black solid; ">
+                    <td style="border: none;width:80%;float:left;">
+                        <div style="float:left;font-weight:bold;width:110px;">COMPLETION: </div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 35px;"> FREIGHT / COST</div>
+                        <div style="width: 65px; border-bottom: 1px #ccc solid;margin-bottom: 2px;float:left;">&nbsp;</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 30px;"> PICKUP</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 35px;"> DELIVER</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 35px;"> INSTALL OFFSITE</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 45px;"> APPLY WORKSHOP</div>
+                        <div class="box-check">
+                        </div>
+                        <div class="text" style="width: 35px;"> CONTACT</div>
+                    </td>
+                    <div style="clear:both;"></div>
+                    <td style="border: 4px solid black; width: 65px;height:42px; float: right">
+                    </td>
+                    <td style=" border: none;width: 72px;font-size:9px; float: right"><b>PRODUCTION TOTAL</b></td>
+
+                </tr>
+            </table>
+        </div>
+
+        <div>
+
+            <div class="jobDes">
+                <p style="font-size:20px;border-bottom: 2px #ccc solid;"><b>INVOICE  </b><span style="font-size:10px;"><b>INSTRUCTIONS/DESCRIPTION:</b></span></p>
+                <div style="min-height:100px"></div>
+                <div class="border-bottm" style="border-top: 1px solid #ccc;">
+                    <table style="width: 90%;border:none;">
+
+                        <tr style="border:none;">
+                            <td style="border:none;"><b>ORDER NO: <%= order_number %> </b></td>
+                            <td style="border:none;"></td>
+                            <td style="border:none;"><b>DATE: </b></td>
+                            <td style="border:none;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="jobDes" style="float:right">
+
+                <div class="boxpanelshipping">
+                    <p style="border-bottom: 2px #ccc solid;"><b>SHIPPING ADDRESS: </b></p>
+                    <%= shipping_information %>
+                </div>
+
+                <div class="boxpanelshipping" style="margin-bottom: 10px;min-height:20px;">
+                    <p style="font-size: 15px; color: #ccc;font-weight:bold;">INVOICE PRICE</p>
+
+                </div>
+
+                <div class="box-check" style="margin-left: 140px;">
+                </div>
+                <div class="text"> QUOTED</div>
+
+                <div class="box-check">
+                </div>
+                <div class="text"> TO BE PRICED</div>
+
+                <div class="box-check">
+                </div>
+                <div class="text"> ESTIMATED</div>
+
+            </div>
+            <div style="clear:both;"></div>
+        </div>
     </div>
-    <div style="clear:both;"></div>
- </div>
+</body>
 
-</div>
-
-
+</html>
