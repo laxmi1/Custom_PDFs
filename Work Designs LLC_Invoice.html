@@ -37,15 +37,14 @@
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
         <p class="logo" style="margin-top:-40px;"><img class="logo" src="<%= logo %>"  width = 240></p>
-        <p><b><%= store_name %></b></p>
-  <%if store_address_street%><p><%= store_address_street %></p><%end%>
-  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+  <span style="text-align:center;"><p><%if store_address_street%><%= store_address_street %><%end%>
+  <%if store_address_street1%><%= store_address_street1 %><%end%>
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
-  <%if store_address_zip %> <%= store_address_zip%><%end%>
-  <% if store_email%><p><%=store_email%></p><%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%></p>  
   <% if store_phone%><p><%=store_phone%></p><%end%>  
   <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
   <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
+  <% if store_email%><p><%=store_email%></p><%end%></span>
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
@@ -129,16 +128,17 @@
   <table style="background-color: #ccc; padding:3px; width:103.7%;margin-left:-3%;">
     <tr>
       <td class="address left">
-        <div class="address-wrapper">
-          <p class="title"><%= ordered_by_header %></p>
+        <div class="address-wrapper" style="padding-top:8px;padding-left:50px;">
+          <p class="title" style="border-bottom:4px;"><span style="text-decoration:underline;">BILLING / INVOICE &nbsp;</span></p>
 
           <p><%= sold_to %></p>
           <p><%= billing_information %></p>
         </div>
       </td>
-      <td class="address left"> 
-         <div class="address-wrapper">
-         <p class="title"><%= shipping_information_header %></p>
+      
+      <td class="address left">
+        <div class="address-wrapper" style="padding-top:8px;">
+         <p class="title"><span style="text-decoration:underline;"><%= shipping_information_header %></span></p>
           <% if shipping_address_type != 'DropShip' %>
             <%= sold_to %><br />
           <% end %>
@@ -149,10 +149,8 @@
            <%= shipping_tracking %>
           <% end %>
         </div>
-      </td>
-      <td class="address left">
-        <div class="address-wrapper">
-          <p class="title"><%= contact_information_header %></p>
+        <div class="address-wrapper" style="padding-top:10px;">
+          <p class="title"><span style="text-decoration:underline;"><%= contact_information_header %></span></p>
 
           <p><%= contact_information %></p>
         </div>
