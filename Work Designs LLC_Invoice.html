@@ -32,13 +32,13 @@
   <%= footer_text %>
 </div>
 
-<div class="address-logo">
+<div class="address-logo" style="border-bottom:none;">
   <table>
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
-        <p class="logo" style="margin-top:-40px;"><img class="logo" src="<%= logo %>"  width = 240></p>
-  <span style="text-align:center;"><p><%if store_address_street%><%= store_address_street %><%end%>
-  <%if store_address_street1%><%= store_address_street1 %><%end%>
+        <p class="logo" style="margin-top:-30px;"><img class="logo" src="<%= logo %>"  width = 240></p>
+  <span style="text-align:center;margin-top:-10px;"><p><%if store_address_street%><%= store_address_street %><%end%>
+  <%if store_address_street1%><%= store_address_street1 %><%end%>-
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
   <%if store_address_zip %> <%= store_address_zip%><%end%></p>  
   <% if store_phone%><p><%=store_phone%></p><%end%>  
@@ -68,8 +68,10 @@
         <div class="summary-wrapper">
           <p class="title"><%= sales_rep_information_header %></p>
           <p><%= sales_rep_information %></p>
+      
         </div>
       </td>
+
       <td class="summ right">
         <div class="summary-wrapper">
            <% if term_code %>
@@ -104,6 +106,7 @@
               <p><%= po_date %></p>
           <% end %>
           <br>
+
         </div>
       </td>
     </tr>
@@ -119,16 +122,16 @@
   </table>
 </div>
 
-<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:93%; margin-left:3%;">
+<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:92.75%; margin-left:3.1%;">
   <small style="font-size:12px;"><b><%= name %></b></small>
 </div>
 
 
-<div class="addresses" style="border-bottom: none;margin-bottom:-12px; margin-top:-5px;">
-  <table style="background-color: #ccc; padding:3px; width:103.7%;margin-left:-3%;">
+<div class="addresses" style="border-bottom: none;margin-bottom:-12px; margin-top:-5.5px;margin-bottom:-13px;">
+  <table style="background-color: #A9A9A9; padding:3px; width:103.7%;margin-left:-3%;">
     <tr>
       <td class="address left">
-        <div class="address-wrapper" style="padding-top:8px;padding-left:50px;">
+        <div style="padding-top:8px;padding-left:80px;">
           <p class="title" style="border-bottom:4px;"><span style="text-decoration:underline;">BILLING / INVOICE &nbsp;</span></p>
 
           <p><%= sold_to %></p>
@@ -136,7 +139,7 @@
         </div>
       </td>
       
-      <td class="address left">
+      <td class="address left" style="padding-left:200px;">
         <div class="address-wrapper" style="padding-top:8px;">
          <p class="title"><span style="text-decoration:underline;"><%= shipping_information_header %></span></p>
           <% if shipping_address_type != 'DropShip' %>
@@ -175,7 +178,7 @@
 
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
-  <table style="width:97.6%; margin-left:3%;">
+  <table style="width:97.6%; margin-left:3.1%;">
     <thead>
     <tr style="border: solid 1.5px #000; background: #2989CC;">
       <th class="position" style="font-size: 12px;color:black;">
