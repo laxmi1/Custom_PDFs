@@ -36,8 +36,8 @@
   <table>
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
-        <p class="logo" style="margin-top:-30px;"><img class="logo" src="<%= logo %>"  width = 240></p>
-  <span style="text-align:center;margin-top:-10px;"><p><%if store_address_street%><%= store_address_street %><%end%>
+        <p class="logo" style="margin-top:-30px;margin-left:10px;"><img class="logo" src="<%= logo %>"  width = 270></p>
+  <span style="text-align:center;margin-top:-15px;"><p><%if store_address_street%><%= store_address_street %><%end%>
   <%if store_address_street1%><%= store_address_street1 %><%end%>-
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
   <%if store_address_zip %> <%= store_address_zip%><%end%></p>  
@@ -107,13 +107,14 @@
           <% end %>
           <br>
 
+
         </div>
       </td>
     </tr>
     <tr>
       <td></td>
       <td colspan ="2" style= "border:2px solid#ccc;">
-         <p class="footer-total"><strong>TOTAL OF INVOICE: <%= final_price %></strong></p>
+         <p class="footer-total" style="padding-left:5px;"><strong>TOTAL OF INVOICE: <%= final_price %></strong></p>
       </td>
    </tr>
   </table>
@@ -122,7 +123,7 @@
   </table>
 </div>
 
-<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:92.75%; margin-left:3.1%;">
+<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:92.75%; margin-left:3%;">
   <small style="font-size:12px;"><b><%= name %></b></small>
 </div>
 
