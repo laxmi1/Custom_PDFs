@@ -7,19 +7,28 @@
   .no-li-br{
    page-break-inside: avoid;
     }
+    @page {
+  size: 11in 8.5in;
+  }
   </style>
 </head>
 <body>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<table>
+</tabble>
 
-
-<table class="main" style="width:97%;" border="1" cellpadding="6">
+<table style="width:97%;" border="1" cellpadding="6">
  
   <tr>
-    <td ><strong>JOB INFO:</strong> 
+    <td style="width:10%;"><strong>JOB INFO:</strong> 
     </td>
 
     <%if proof_image%>
-     <td rowspan="2" style="width:10%;" valign="top">
+     <td rowspan="2" style="width:8%;" valign="top">
      <%else%>
      <td rowspan="2" style="width:30%;" valign="top">
      <%end%>
@@ -55,13 +64,13 @@
     </div>
     </td>
 
-    <td width="40">
+    <td>
     <strong>JOB DETAILS:</strong>
     </td> 
  </tr>
- <tr>
+ 
   <td valign="top">
-    <table cellpadding="4">
+    <table cellpadding="3">
       <tr>
         <td valign="top"><b>Client:</b></td><td> <%= @object.company.try(:name) %></td>
       </tr>
@@ -88,7 +97,7 @@
     </table>
   </td> 
     <%if proof_image%>
-     <td valign="top" width="40" rowspan="2">
+     <td valign="top" width="185" rowspan="2">
      <%else%>
      <td valign="top" rowspan="1">
      <%end%>
