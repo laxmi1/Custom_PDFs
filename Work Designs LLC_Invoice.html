@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       .terms-title *, .terms-text * {
           font-size:6pt !important;
@@ -9,7 +9,7 @@
       .main-titles {
             position: absolute;
             top: 10px;
-            right: 70px;
+            right: 75px;
             border-top: 2px solid;
             border-bottom: 2px solid;
             font-size: 20px;
@@ -36,15 +36,14 @@
   <table>
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
-        <p class="logo" style="margin-top:-30px;margin-left:10px;"><img class="logo" src="<%= logo %>"  width = 270></p>
+        <p class="logo" style="margin-top:-60px;"><img class="logo" src="<%= logo %>"  width = 260></p>
   <span style="text-align:center;margin-top:-15px;"><p><%if store_address_street%><%= store_address_street %><%end%>
   <%if store_address_street1%><%= store_address_street1 %><%end%>-
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
   <%if store_address_zip %> <%= store_address_zip%><%end%></p>  
   <% if store_phone%><p><%=store_phone%></p><%end%>  
   <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
-  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
-  <% if store_email%><p><%=store_email%></p><%end%></span>
+  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%></span>
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
@@ -55,9 +54,11 @@
         <div class="summary-wrapper">
             <h1 class="main-titles"><font color="#2989CC"><b>Invoice #<%= txn_number_only %></b></font> <br/>
             </h1>
-            <div class="summary" style="background:#fff; border-bottom: none; margin-right: -60px;">
+            <div class="summary" style="background:#fff; border-bottom: none; margin-right: -72px;">
   <table>
     <tr>
+      <td class="summ right">
+        <div class="summary-wrapper">
           <% if project_number %>
             <p class="title"><%= project_header %></p>
             <p><%= project_number %></p>
@@ -68,7 +69,6 @@
         <div class="summary-wrapper">
           <p class="title"><%= sales_rep_information_header %></p>
           <p><%= sales_rep_information %></p>
-      
         </div>
       </td>
 
@@ -87,8 +87,6 @@
               <p class="title"><%= shipping_method_header %></p>
               <p><%= shipping_method %></p>
           <% end %>
-
-
         </div>
       </td>
 
@@ -100,21 +98,16 @@
 
           <p class="title"><%= due_date_header %></p>
           <p><%= due_date %></p>
-         
-          <% if po_date %>
-              <p class="title"><%= po_date_header %></p>
-              <p><%= po_date %></p>
-          <% end %>
-          <br>
-
 
         </div>
       </td>
     </tr>
-    <tr>
+    <tr><td><br></td></tr>
+    <tr style="padding-top:5px;">
       <td></td>
-      <td colspan ="2" style= "border:2px solid#ccc;">
-         <p class="footer-total" style="padding-left:5px;"><strong>TOTAL OF INVOICE: <%= final_price %></strong></p>
+      <td></td>
+      <td colspan ="3" style= "border:2px solid#ccc;">
+        <p class="footer-total" style="padding-left:5px;"><strong>TOTAL OF INVOICE: <%= final_price %></strong></p>
       </td>
    </tr>
   </table>
@@ -123,7 +116,7 @@
   </table>
 </div>
 
-<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:92.75%; margin-left:3%;">
+<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:92.8%; margin-left:3%;">
   <small style="font-size:12px;"><b><%= name %></b></small>
 </div>
 
