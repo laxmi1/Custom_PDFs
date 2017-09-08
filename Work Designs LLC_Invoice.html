@@ -36,14 +36,14 @@
   <table>
     <tr>
       <td class="store-address <%= "stamp-container" if is_paid? %>">
-        <p class="logo" style="margin-top:-60px;"><img class="logo" src="<%= logo %>"  width = 260></p>
-  <span style="text-align:center;margin-top:-15px;"><p><%if store_address_street%><%= store_address_street %><%end%>
+        <p class="logo" style="margin-top:-40px;width:260px;"><img class="logo" src="<%= logo %>"></p>
+  <span style="text-align:center;margin-top:-5px;"><p style="margin-left:-55px;"><%if store_address_street%><%= store_address_street %><%end%>
   <%if store_address_street1%><%= store_address_street1 %><%end%>-
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
   <%if store_address_zip %> <%= store_address_zip%><%end%></p>  
-  <% if store_phone%><p><%=store_phone%></p><%end%>  
-  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
-  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%></span>
+  <% if store_phone%><p style="margin-left:-55px;"><%=store_phone%></p><%end%>  
+  <% if license_number_text(@object.account) %> <p style="margin-left:-55px;"><%= license_number_text(@object.account) %></p><%end%>
+  <% if @object.account.website %> <p style="margin-left:-55px;"><%= @object.account.website %></p><%end%></span>
         <% if is_paid? %>
           <p class="stamp">
             <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
@@ -116,13 +116,13 @@
   </table>
 </div>
 
-<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:92.8%; margin-left:3%;">
+<div  style="padding:6px; border: solid 1.5px #000; background: #009bdb;width:92.8%; margin-left:3%;">
   <small style="font-size:12px;"><b><%= name %></b></small>
 </div>
 
 
 <div class="addresses" style="border-bottom: none;margin-bottom:-12px; margin-top:-5.5px;margin-bottom:-13px;">
-  <table style="background-color: #A9A9A9; padding:3px; width:103.7%;margin-left:-3%;">
+  <table style="background-color: #bdbdbd; padding:3px; width:103.7%;margin-left:-3%;">
     <tr>
       <td class="address left">
         <div style="padding-top:8px;padding-left:80px;">
@@ -174,7 +174,7 @@
   <!--<h2 class="title"><%= items_header %></h2>-->
   <table style="width:97.6%; margin-left:3.1%;">
     <thead>
-    <tr style="border: solid 1.5px #000; background: #2989CC;">
+    <tr style="border: solid 1.5px #000; background: #009bdb;">
       <th class="position" style="font-size: 12px;color:black;">
         <div class="first">#</div>
       </th>
