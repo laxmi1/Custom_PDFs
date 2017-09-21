@@ -50,39 +50,8 @@
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
-
           <p class="title">Delivery Note Date</p>
-          <p><%= pick_list_date %></p>
-
         </div>
-      </td>
-      <td class="summ right">
-        <div class="summary-wrapper">
-
-          <% if ship_date %>
-          <p class="title"><%= shipping_date_header %></p>
-          <p><%= ship_date %></p>
-        <% end %>
-         <% if shipping_method %>
-          <p class="title"><%= shipping_method_header %></p>
-          <p><%= shipping_method %></p>
-        <% end %>
-
-        </div>
-      </td>
-      <td class="summ right">
-        <div class="summary-wrapper">
-          <% if po_date %>
-              <p class="title"><%= po_number_header %></p>
-              <p><%= po_number %></p>
-          <% end %>
-
-          <% if po_date %>
-              <p class="title"><%= po_date_header %></p>
-              <p><%= po_date %></p>
-          <% end %>
-        </div>
-        <br/>
       </td>
     </tr>
   </table>
@@ -347,3 +316,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>
