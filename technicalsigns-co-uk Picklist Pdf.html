@@ -323,24 +323,27 @@
     </div>
 <% end %>
 
-<div class="section section--border-bottom">
-   <div class="signature terms" style="font-size:14px;">
-      Please sign below to accept the good have been delivered to your satisfaction. All goods remain the property of The Technical Sign Company Ltd until full payment is received.
-    </div>
-</div>
-      
-<div class="section section--border-bottom">
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section" style="font-size:15px;">
+        <div>
+            <div class="terms-text">
+                <p style="font-size:13px;">Please sign below to accept the good have been delivered to your satisfaction. All goods remain the property of The Technical Sign Company Ltd until full payment is received.</p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div> 
+    <div class="section section--border-bottom">
         <div class="signature terms">
             <table>
                 <tbody>
-                  <tr>
-                   <td class="handwriting text--up text--bold">Client Name:</td>
-                   <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
-                   <td class="date text--up text--bold"><%= date_header %>:</td>
-                  </tr>
+                <tr>
+                    <td class="handwriting text--up text--bold">Client Name:</td>
+                    <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
+                    <td class="date text--up text--bold"><%= date_header %>:</td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</body>
-</html>
+</div>
