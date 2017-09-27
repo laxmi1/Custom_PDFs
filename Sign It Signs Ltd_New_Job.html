@@ -137,14 +137,14 @@
         </div>
         <div class="border-bottm">
             <div class="cus">
-                <%if @object.contact.name %>
+                <%if @object.contact.try(:name)%>
                     <p><b>NAME: </b>
                         <%= @object.contact.name %>
                     </p>
                     <%end%>
             </div>
             <div class="sales">
-                <%if @object.contact.phone %>
+                <%if @object.contact.try(:phone) %>
                     <b>PH: </b>
                     <%= format_phone_pdf(@object.account, @object.contact.phone) %>
                         <%end%>
@@ -159,7 +159,7 @@
 
         <div class="border-bottm">
             <div class="cus">
-                <%if @object.contact.email %>
+                <%if @object.contact.try(:email) %>
                     <b>EMAIL: </b>
                     <%= @object.contact.email %>
                 <%end%>
