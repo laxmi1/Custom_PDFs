@@ -13,9 +13,7 @@
          width: 100%;
          content: url(https://content.screencast.com/users/Bharath99/folders/Default/media/095da6ec-6581-439f-b10a-3b9421dc4d5c/gg_bank_detailsnew.jpg);
          }   
-         @bottom-right {
-         content: " ";
-         }
+         
          }
          .stars {
          padding: 5px;
@@ -73,7 +71,7 @@
                   <th class="quantity" style="color: red;"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
-                     <div class="last" style="color: red;"><%= total_excl_header %></div>
+                     <div class="last" style="color: red;">TOTAL (EXCL.VAT)</div>
                   </th>
                   <% if use_tax_codes? %>
                   <th class="money">
@@ -179,7 +177,7 @@
                            <% if use_tax_codes? %>
                            <p><strong><%= total_tax_header %>:</strong></p>
                            <% else %>
-                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <p><strong>Total VAT (<%= tax_rate %>):</strong></p>
                            <% end %>
                            <% end %>
                            <p class="footer-total"><strong>Final Price:</strong></p>
