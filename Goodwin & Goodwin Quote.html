@@ -9,11 +9,11 @@
          content: url(https://content.screencast.com/users/Bharath99/folders/Default/media/5fb8eff5-38d9-4c0e-a601-b2d28e8d92a3/gg_headernew.jpg);     
          }
          @bottom { 
-         border-top:2px solid #D3D3D3;
+         border-top:1px solid #E9E9EA;
          width: 100%;
          content: url(https://content.screencast.com/users/Bharath99/folders/Default/media/095da6ec-6581-439f-b10a-3b9421dc4d5c/gg_bank_detailsnew.jpg);
          }   
-         
+
          }
          .stars {
          padding: 5px;
@@ -30,9 +30,9 @@
       </div>
       <!-- Footer Text for Page footter-->
       <div style="width: 100%; float: left; margin-top: -20px; border-bottom: none;" class="address-logo">
-         <div style="color: red; width: auto; float:left; width: 27%; padding: 5px; font-size: 35px;margin-left:-8px;" ><%= quote_number %> 
+         <div style="color: #EE3A24; width: auto; float:left; width: 27%; padding: 5px; font-size: 35px;margin-left:-8px;" ><%= quote_number %> 
          </div>
-         <div class="stars" style="margin-top:17px;">
+         <div class="stars" style="margin-top:23px;">
             <img src="https://content.screencast.com/users/Bharath99/folders/Default/media/ada5eac5-dbb5-4f23-9c8f-9dacf55399a4/gg_starsnew.jpg" >
          </div>
       </div>
@@ -48,6 +48,8 @@
                <td>
                   <div>
                      <p><b>Quote Date: </b><%= quote_date %></p>
+                     <p><b>Valid For: </b>30 Days</p>
+
                   </div>
                </td>
             </tr>
@@ -58,27 +60,27 @@
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
-               <tr style="border-bottom:2px solid #D3D3D3;border-top:2px solid #D3D3D3">
+               <tr style="border-bottom:1px solid #E9E9EA;border-top:1px solid #E9E9EA">
                   <th class="position">
-                     <div class="first" style="color: red;">#</div>
+                     <div class="first" style="color: #EE3A24;">#</div>
                   </th>
-                  <th class="name" style="color: red;"><%= item_header %></th>
-                  <th class="quantity" style="color: red;"><%= qty_header %></th>
-                  <th class="quantity" style="color: red;"><%= uom_header %></th>
-                  <th class="money" style="color: red;"><%= unit_price_header %></th>
+                  <th class="name" style="color: #EE3A24;"><%= item_header %></th>
+                  <th class="quantity" style="color: #EE3A24;"><%= qty_header %></th>
+                  <th class="quantity" style="color: #EE3A24;"><%= uom_header %></th>
+                  <th class="money" style="color: #EE3A24;"><%= unit_price_header %></th>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity" style="color: red;"><%= discount_header %> </th>
-                  <th class="quantity" style="color: red;"><%= discount_price_header %> </th>
+                  <th class="quantity" style="color: #EE3A24;"><%= discount_header %> </th>
+                  <th class="quantity" style="color: #EE3A24;"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
-                     <div class="last" style="color: red;">TOTAL (EXCL.VAT)</div>
+                     <div class="last" style="color: #EE3A24;">TOTAL (EXCL.VAT)</div>
                   </th>
                   <% if use_tax_codes? %>
                   <th class="money">
-                     <div class="last" style="color: red;"><%= tax_header %></div>
+                     <div class="last" style="color: #EE3A24;"><%= tax_header %></div>
                   </th>
                   <th class="money">
-                     <div class="last" style="color: red;"><%= tax_rate_header %></div>
+                     <div class="last" style="color: #EE3A24;"><%= tax_rate_header %></div>
                   </th>
                   <% end %>
                </tr>
@@ -113,7 +115,7 @@
                   </td>
                   <% end %>
                </tr>
-               <tr style="border-bottom:2px solid #D3D3D3">
+               <tr style="border-bottom:1px solid #E9E9EA">
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="description" colspan="7">
                      <% else %>
@@ -158,7 +160,7 @@
       <!-- Cover Note -->
       <!-- Signature Note -->
       <div class="footer-bottom" >
-         <div class="section" style="border-top:2px solid #D3D3D3">
+         <div class="section" style="border-top:1px solid #E9E9EA">
             <div class="footer-bottom-left" >
                <div class="terms-text"  style="margin-left:290px;">
                   <img src="https://content.screencast.com/users/Bharath99/folders/Default/media/b9ef3d48-1ae3-48a3-9bfc-df8f79fa3870/gg_price_matchnew.jpg">
@@ -172,7 +174,7 @@
                            <% if has_misc_charges? %>
                            <p><strong><%= misc_charges_header %>:</strong></p>
                            <% end %>
-                           <p style="color: red;"><strong><%= subtotal_header %>:</strong></p>
+                           <p style="color: #EE3A24;"><strong><%= subtotal_header %>:</strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
                            <p><strong><%= total_tax_header %>:</strong></p>
@@ -186,7 +188,7 @@
                            <% if has_misc_charges? %>
                            <p><strong><%= misc_charges %></strong></p>
                            <% end %>
-                           <p style="color: red;"><strong><%= sub_total %></strong></p>
+                           <p style="color: #EE3A24;"><strong><%= sub_total %></strong></p>
                            <% if show_tax  %>
                            <p><strong><%= total_tax %></strong></p>
                            <% end %>
