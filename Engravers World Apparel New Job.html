@@ -211,10 +211,20 @@
                      </div>
                   </div>
                </div>
-            </div>
-         </div>
-      </div>
-      <% end %> 
+               <% if custom_field_items.size > 0 %>
+               <div class="col-6">
+                  <div class="box box--white box--border">
+                     <div class="box__title">Custom fields:</div>
+                     <div class="box__content">
+                        <table class="table table--no-border table--no-padding">
+                           <tbody>
+                              <%= custom_field_table %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <% end %>
           <div class="col-2">
           <div class="box box--default box--border">
             <div class="box__content">
@@ -232,7 +242,32 @@
               </div>
             </div>
           </div>
-        </div>                                 
+        </div>
+            </div>
+         </div>
+      </div>
+      <% else %>
+      <% if custom_field_items.size > 0 %>
+      <div class="job-section">
+         <div class="container">
+            <div class="row">
+               <div class="col-12">
+                  <div class="box box--white box--border">
+                     <div class="box__title">Custom fields:</div>
+                     <div class="box__content">
+                        <table class="table table--no-border table--no-padding table--th-text-right">
+                           <tbody>
+                              <%= custom_field_table %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <% end %>
+      <% end %>                                  
       <div class="workorderinfo" style="font-size:15px;">Work order Info:<%=order_special_info%>
       </div>
    </body>
