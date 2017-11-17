@@ -41,7 +41,12 @@
 
           <div class="form-group">
             <label for="name">Your Name</label>
-            <input type="name" name="primary_contact_name" class="form-control" id="primary_contact_name" placeholder="Name">
+            <input type="name" name="primaryContactName" class="form-control" id="primary_contact_name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label for="name">Phone</label>
+            <!-- <input type="phone" name="phone_number" class="form-control" id="primaryPhone" placeholder="number"> -->
+            <input type="tel" name="phone_number" id="primaryPhone" placeholder="(xxx) xxx-xxxx">
           </div>
           <div class="form-group">
             <label for="name">Company Name</label>
@@ -70,9 +75,9 @@
     <script>
       $(function() {
         // this needs to be replaced with real authtoken
-        var authToken = "AUTH_TOKEN"
+        var authToken = "lZ082cE1OJKOkMNWWsUrpQ"
         // this needs to be replaced with real account ID
-        var accountId = "ACCOUNT_ID"
+        var accountId = "736e2fca-58a6-4ade-98ec-602f5847eddf"
 
 
         $("#contactForm").submit(function(e) {
