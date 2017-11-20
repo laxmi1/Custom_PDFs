@@ -71,7 +71,7 @@
                   <td><strong><%= install_date %></strong></td>
                 </tr>
                 <tr>
-                  <td>Hard Due Date:</td>
+                  <td>Hard Due:</td>
                   <td><strong><%= hard_due_date %></strong></td>
                 </tr>
                 <tr>
@@ -92,9 +92,11 @@
                   <td>Due:</td>
                   <td><strong><%= due_date %></strong></td>
                 </tr>  
-              <% if job_rush %>
-               <p class="job-rush"><%= job_rush_text %></p>
-              <% end %>
+                <% if job_rush %>
+                  <p style="margin-left:5px;"> RUSH:   <b style="margin-left:6px;">YES</b></p>
+                <% else %>
+                  <p style="margin-left:5px;">RUSH:    <b style="margin-left:6px;">NO</b></p>
+                <% end %>
                 </tbody>
               </table>
             </div>
@@ -147,7 +149,7 @@
               </div>
             </div>
             <div class="box__title">
-              <%= proof_footer %>
+              <b>PROOF</b> <%= proof_footer %>
             </div>
           </div>
         </div>
