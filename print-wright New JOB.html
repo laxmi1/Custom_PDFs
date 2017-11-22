@@ -88,14 +88,14 @@
             <div class="box__content">
               <table class="">
                 <tbody>
-                <tr style="font-size:17px;">
-                  <td>Due:</td>
+                <tr style="font-size:16px;">
+                  <td>Due    :</td>
                   <td><strong><%= due_date %></strong></td>
                 </tr>  
                 <% if job_rush %>
-                  <p style="margin-left:5px;"> RUSH:   <b style="margin-left:6px;">YES</b></p>
+                <tr style="font-size:16px;"><td> Rush:</td><td><strong>YES</strong></td></tr>
                 <% else %>
-                  <p style="margin-left:5px;">RUSH:    <b style="margin-left:6px;">NO</b></p>
+                <tr style="font-size:16px;"><td>Rush: </td><td><strong>NO</strong></td></tr>
                 <% end %>
                 </tbody>
               </table>
@@ -126,13 +126,13 @@
                 <div class="col-6">
                   <table class="table table--list">
                     <tbody>
-                    <tr>
-                      <td style="font-size:11px;">Ship Method:</td>
-                      <td style="font-size:11px;"><strong><%= shipping_method %></strong></td>
+                    <tr style="font-size:12px;">
+                      <td>Ship Method:</td>
+                      <td><strong><%= shipping_method %></strong></td>
                     </tr>
-                    <tr>
-                      <td style="font-size:11px;">Ship Date:</td>
-                      <td style="font-size:11px;"><strong><%= shipping_date %></strong></td>
+                    <tr style="font-size:12px;">
+                      <td>Ship Date:</td>
+                      <td><strong><%= shipping_date %></strong></td>
                     </tr>
                     </tbody>
                   </table>
