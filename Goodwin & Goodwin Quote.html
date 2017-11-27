@@ -3,25 +3,22 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          <%= page_size %>
+         <%= body_font_family %>
          @page {
          margin: 170pt 0pt 80pt 0pt;
-         font-family: "Arvo";
          @top {
-         content: url(https://content.screencast.com/users/Bharath99/folders/Default/media/5fb8eff5-38d9-4c0e-a601-b2d28e8d92a3/gg_headernew.jpg);     
+         content: url(https://cdn.filepicker.io/api/file/66TsFHeVRS6rj4vncyka);     
          }
          @bottom { 
          border-top:1px solid #E9E9EA;
          width: 100%;
-         content: url(https://content.screencast.com/users/Bharath99/folders/Default/media/095da6ec-6581-439f-b10a-3b9421dc4d5c/gg_bank_detailsnew.jpg);
-         }   
+         content: url(https://cdn.filepicker.io/api/file/KRlBfksQLShps0HDIzyl);
+         } 
 
          }
          .stars {
          padding: 5px;
          float: left;
-         }
-         body {
-         font-family: "“Arvo";
          }
       </style>
    </head>
@@ -34,7 +31,7 @@
          <div style="color: #EE3A24; width: auto; float:left; width: 27%; padding: 5px; font-size: 35px;margin-left:-8px;" ><%= quote_number %> 
          </div>
          <div class="stars" style="margin-top:23px;">
-            <img src="https://content.screencast.com/users/Bharath99/folders/Default/media/ada5eac5-dbb5-4f23-9c8f-9dacf55399a4/gg_starsnew.jpg" >
+         <img src="https://cdn.filepicker.io/api/file/2DeS1YODT0KFyKUaRGJW" >
          </div>
       </div>
       <!-- Store Address and Logo -->
@@ -49,7 +46,7 @@
                <td>
                   <div>
                      <p><b>Quote Date: </b><%= quote_date %></p>
-                     <p><b>Valid For: </b>30 Days</p>
+                     <p><b>   Valid For: </b>30 Days</p>
 
                   </div>
                </td>
@@ -164,7 +161,7 @@
          <div class="section" style="border-top:1px solid #E9E9EA">
             <div class="footer-bottom-left" >
                <div class="terms-text"  style="margin-left:290px;">
-                  <img src="https://content.screencast.com/users/Bharath99/folders/Default/media/b9ef3d48-1ae3-48a3-9bfc-df8f79fa3870/gg_price_matchnew.jpg">
+                  <img src="https://cdn.filepicker.io/api/file/0PIDNUv4TTkW2JVm76A7">
                </div>
             </div>
             <div class="footer-bottom-right" style="background-color: transparent;">
@@ -225,39 +222,6 @@
                      <th><%= value[:name] %>(<%= value[:rate] %>%)</th>
                      <td><%= to_pdf_dollars(value[:total]) %></td>
                      <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <% if show_discounts %>
-         <div>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% if show_range_volume_discounts %>
-                     <% if total_range_discount >0 || total_volume_discount >0  %>
-                     <th><b>Total Discount</b></th>
-                     <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
-                     <%end%>
-                     <% if total_range_discount >0 %>
-                     <th><b>Range Disc.</b></th>
-                     <td><%= total_range_discount_in_dollars %></td>
-                     <%end%>
-                     <% if total_volume_discount >0 %>
-                     <th><b>Volume Disc.</b></th>
-                     <td><%= total_volume_discount_in_dollars %></td>
-                     <%end%>
-                     <% if total_discount_price != 0.0%>
-                     <th><b>Customer Discount</b></th>
-                     <td><%= total_discount_price_in_dollars %></td>
-                     <%end%>
-                     <%else%>
-                     <% if total_discount_price != 0.0%>
-                     <th><b>Customer Discount</b></th>
-                     <td><%= total_discount_price_in_dollars %></td>
-                     <%end%>
-                     <%end%>
                   </tr>
                </tbody>
             </table>
