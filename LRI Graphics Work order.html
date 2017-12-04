@@ -156,7 +156,7 @@
     <tr>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><b>CUSTOMER</b></p>
+          <p class="title" style="margin-bottom: 10px;"><b>CUSTOMER</b></p>
 
           <p><%= sold_to %></p>
           <%= billing_information %>
@@ -164,7 +164,7 @@
       </td>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><b>SHIPPING & DELIVERY INSTRUCTIONS</b></p>
+          <p class="title" style="margin-bottom: 10px;"><b>SHIPPING & DELIVERY INSTRUCTIONS</b></p>
 
           <% if shipping_address_type != 'DropShip' %>
               <%= sold_to(show_company_name = false) %>
@@ -175,7 +175,7 @@
       </td>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><b>SHIPPING NOTES</b></p>
+          <p class="title" style="margin-bottom: 10px;"><b>SHIPPING NOTES</b></p>
           <% if shipping_method %>
               <p>Ship by:<%= shipping_method %></p>
           <% end %>
