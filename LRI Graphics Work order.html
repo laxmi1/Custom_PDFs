@@ -241,6 +241,7 @@
                   <% if item.has_bom? %>
                       <ul class="bom_report bom_report_detail">
                         <% item.bom_hash.keys.each do |item_type| %>
+                        <% if item_type != "LaborRate"  && item_type != "MachineRate" %>
                             <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
                               <% if item.bom_hash[item_type].size > 0 %>
                                   <ul class="bom_report bom_report_detail bom_report_detail_level">
@@ -301,6 +302,7 @@
                                               </li>
                                           <% end %>
                                         </ul>
+                                    <% end %>
                                     <% end %>
 
                                   </ul>
@@ -381,37 +383,6 @@
             <% end %>
           </td>
         </tr>
-        <% if item.job.present? and show_workflow_steps? %>
-            <tr>
-              <td colspan="5">
-                <div class="stages">
-                  <% item.job.stages.each do |stage| %>
-                      <div class="stage">
-                        <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
-                        <div class="stage-wrapper clearfix">
-                          <% stage.steps.each do |step| %>
-                              <% if !step.skip %>
-                                  <div class="step <%= step.state %>">
-                                    <div class="step-info clearfix">
-                                      <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
-                                      <div class="number"><%= step.num_iterations %></div>
-                                    </div>
-                                    <% unless step.assigned_to_user_initials.blank? %>
-                                        <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
-                                    <% end %>
-                                    <% unless step.scheduled_machine_name.blank? %>
-                                        <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
-                                    <% end %>
-                                  </div>
-                              <% end %>
-                          <% end %>
-                        </div>
-                      </div>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
-        <% end %>
         </tbody>
     <% end %>
 
@@ -419,56 +390,5 @@
     </tfoot>
   </table>
 </div>
-
-<% if customer_note.present? %>
-    <div class="note">
-      <table class="no-page-break">
-        <thead>
-        <tr>
-          <td>Customer Note:</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><%= customer_note %></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-<% end %>
-
-<% if internal_note.present? %>
-    <div class="note">
-      <table class="no-page-break">
-        <thead>
-        <tr>
-          <td><%= internal_note_header %></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><%= internal_note %></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-<% end %>
-
-<% if cover_note.present? %>
-    <div class="note">
-      <table class="no-page-break">
-        <thead>
-        <tr>
-          <td><%= cover_note_header %></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><%= cover_note %></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-<% end %>
 </body>
 </html>
