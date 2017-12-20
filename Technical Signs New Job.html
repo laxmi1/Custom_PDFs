@@ -187,7 +187,7 @@
             <div class="box__title">Additional Info:</div>
             <div class="box__content">
               <p>
-                <%=order_special_info%>
+                <%= @object.order.try(:description) %>
               </p>
             </div>
           </div>
