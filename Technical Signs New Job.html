@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Job PDF</title>
-  <style>
-    <%= page_size %>
-    .tbl{
-    padding-top: 5px;
-    font-size: 15px;
-  }
-  </style>
+    <meta charset="utf-8">
+    <title>Job PDF</title>
+    <style>
+        <%=page_size %> .tbl {
+            padding-top: 5px;
+            font-size: 15px;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="job-pdf">
+    <div class="job-pdf">
 
-  <!-- INFO -->
-  <div class="col-12">
-         <div class="box box--default box--border">
-            <div class="box__title" style="margin-bottom: 10px;font-size:20px;">
-                <% if txn_title.present? %>
-                <p><%= txn_title %></p>
-                 <% end %>
-               </p>
+        <!-- INFO -->
+        <div class="col-12">
+            <div class="box box--default box--border">
+                <div class="box__title" style="margin-bottom: 10px;font-size:20px;">
+                    <% if txn_title.present? %>
+                        <p>
+                            <%= txn_title %>
+                        </p>
+                        <% end %>
+                            </p>
+                </div>
             </div>
-         </div>
-      </div>
-
-  <!-- RUSH -->
-  <% if job_rush %>
-    <div class="job-section job-section--mb-none">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <p class="job-rush"><%= job_rush_text %></p>
-          </div>
         </div>
-      </div>
-    </div>
-  <% end %>
 
+        <!-- RUSH -->
+        <% if job_rush %>
+            <div class="job-section job-section--mb-none">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="job-rush">
+                                <%= job_rush_text %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% end %>
 
-  <table class = "tbl" border="1" style="margin-left:10px;margin-right:10px; border: solid #ccc;">
-    <tr>
-      <td align="center"><b>Laser</td>
+                <table class="tbl" border="1" style="margin-left:10px;margin-right:10px; border: solid #ccc;">
+                    <tr>
+                        <td align="center"><b>Laser</td>
       <td align="center"><b>Router</td>
       <td align="center"><b>Metal</td>
       <td align="center"><b>Assembly & Paint</td>
@@ -53,7 +57,6 @@
       <td align="center"><b>Fitters</td>
     </tr>
   </table>
-
 
   <!-- COMPANY -->
   <div class="job-section job-pdf__company">
@@ -126,7 +129,6 @@
     </div>
   </div>
 
-
   <!-- SHIPPING -->
   <div class="job-section job-pdf__shipping">
     <div class="container">
@@ -177,31 +179,29 @@
     </div>
   </div>
 
-
   <!-- DETAILS -->
   <div class="job-section job-pdf__details">
     <div class="container">
       <div class="row">
         <div class="col-12">
+        <%if @object.order.try(:description) != "" %>
           <div class="box box--white box--border box--margin-top">
-          <%if @object.order.try(:description) != "" %>
+
             <div class="box__title">Additional Info:</div>
              <div class="box__content">
               <p>
                 <%= @object.order.try(:description) %>
               </p>
-            </div>
-            <% end %>
+            </div>            
           </div>
+        <% end %>
       </div>
     </div>
   </div>
 
-
   <!-- BOM -->
-  
-  <!-- BOM - OTHERS -->
 
+  <!-- BOM - OTHERS -->
 
   <!-- LINE ITEMS - DESCRIPTION -->
   <% if combined_job? %>
@@ -384,7 +384,6 @@
       </div>
     </div>
   <% end %>
-
 
   <!-- WORKFLOW -->
 </div>
