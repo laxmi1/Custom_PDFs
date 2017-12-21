@@ -14,6 +14,13 @@
   .li-desc-fixed-width {
     max-width: 500pt;
 }
+  .li-table-view-name {
+  padding-right: 0pt;
+  padding-left: 0;
+}
+  .line-items .last {
+    padding-right: 0pt;
+}
   </style>
 </head>
 <body>
@@ -32,7 +39,7 @@
       <td class="summ left">
         <div class="summary-wrapper">
           <h1 class="main-title"><%= txn_number_only %> <br/>
-            <small style="font-size: 20px;"><%= name %></small>
+            
           </h1>
         </div>
       </td>
@@ -51,7 +58,7 @@
 
           <% if due_date %>
               <p class="title" style="font-size: 15px;"><%= due_date_header %></p>
-              <p style="font-size: 15px;"><%= due_date %></p>
+              <p style="font-size: 20px;"><%= due_date %></p>
           <% end %>
 
         </div>
@@ -60,14 +67,16 @@
         <div class="summary-wrapper">
           <% if ship_date %>
               <p class="title" style="font-size: 15px;"><%= shipping_date_header %></p>
-              <p style="font-size: 15px;"><%= ship_date %></p>
+              <p style="font-size: 20px;"><%= ship_date %></p>
           <% end %>
 
         </div>
         <br/>
       </td>
     </tr>
+    
   </table>
+  <small style="font-size: 20px;"><%= name %></small>
 </div>
 <div class="addresses">
   <table>
@@ -128,7 +137,7 @@
       </th>
       <th class="name"><%= item_header %></th>
       <th class="quantity">
-        <div class="last"><%= qty_header %></div>
+        <div class="last" style="margin-left:-90px;"><%= qty_header %></div>
       </th>
     </tr>
     </thead>
@@ -143,7 +152,7 @@
           </td>
           <td class="name"><%= item.name %></td>
           <td class="quantity">
-            <div class="last"><%= item.quantity %></div>
+            <div class="last" style="margin-left:-90px;"><%= item.quantity %></div>
           </td>
         </tr>
         <tr>
@@ -152,7 +161,7 @@
               <div class="text--pre-line li-desc-fixed-width">
                 <%= item.description %>
               </div>
-              <% if item.table_view %>
+              <!--<% if item.table_view %>
                   <% if item.has_bom? %>
                       <ul class="bom_report bom_report_detail">
                         <% item.bom_hash.keys.each do |item_type| %>
@@ -254,7 +263,7 @@
                         <% end %>
                       </ul>
                   <% end %>
-              <% end %>
+              <% end %>-->
             </div>
             <div>
               <div class='design_details'>
