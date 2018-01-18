@@ -38,7 +38,7 @@
          <%= header_text %>
       </div>
       <div style="width: 100%; float: left; margin-top: -20px; border-bottom: none;" class="address-logo">
-         <div style="color: red; width: auto; float:left; width: 27%; padding: 5px; font-size: 32px;margin-left:-8px;" ><%= invoice_number %> 
+         <div style="color: red; width: auto; float:left; width: 27%; padding: 5px; font-size: 32px;margin-left:-8px;" >Vat Invoice <%= txn_number_only %> 
          </div>
          <div class="stars" style="margin-top:16px;">
             <img src="https://cdn.filepicker.io/api/file/XRxujfxwSZe6GD8RqBQj" >
@@ -49,12 +49,16 @@
             <tr>
                <td class="store-address" style="width: 70%;">
                   <div>
-                     <p><%= contact_information %></p>
+                    <p><%= @object.company.try(:name) %></p>
+                    <p><%= contact_information %></p>
                   </div>
                </td>
                <td>
                   <div>
                      <p><b>Invoice Date: </b><%= invoice_date %></p>
+                     <% if po_number %>
+                      <p><b>PO Number: </b><%= po_number %></p>
+                    <% end %>
                   </div>
                </td>
             </tr>
