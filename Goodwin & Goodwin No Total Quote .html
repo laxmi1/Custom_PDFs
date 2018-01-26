@@ -1,0 +1,171 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:6pt !important;
+         }
+         <%= page_size %>
+         <%= body_font_family %>
+         @page {
+         margin: 170pt 0pt 80pt -12pt;
+         @top {
+         content: url(https://cdn.filepicker.io/api/file/KRfxq0OET5KdTPipQ8Id);     
+         }
+         @bottom {          
+         width: 100%;
+         content: url(https://cdn.filepicker.io/api/file/AWnVYPqWSAGGMSSXb4Za);
+         transform: scale(0.8);
+         } 
+         }
+         .stars {
+         padding: 5px;
+         float: left;
+         }         
+         .clearfix:before,
+         .clearfix:after {
+         content: " ";
+         display: table;
+         }
+         .clearfix:after {
+         clear: both;
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="width: 100%; float: left; margin-top: -20px; border-bottom: none;" class="address-logo">
+         <div style="color: #EE3A24; width: auto; float:left; width: 27%; padding: 5px; font-size: 35px;margin-left:-8px;" ><%= quote_number %> 
+         </div>
+         <div class="stars" style="margin-top:16px;">
+            <img src="https://cdn.filepicker.io/api/file/XRxujfxwSZe6GD8RqBQj" >
+         </div>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo" style="border-bottom:none;">
+         <table style="width: 100%;">
+            <tr>
+               <td class="store-address" style="width: 70%;">
+                  <div>
+                     <p>
+                        <%= sold_to %><br />
+                        <%= billing_information %>
+                     </p>
+                  </div>
+               </td>
+               <td>
+                  <div>
+                     <p><b>Quote Date: </b><%= quote_date %></p>
+                     <p><b>   Valid For: </b>30 Days</p>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="border-bottom:1px solid #E9E9EA;border-top:1px solid #E9E9EA">
+                  <th class="position">
+                     <div class="first" style="color: #EE3A24;">#</div>
+                  </th>
+                  <th class="name" style="color: #EE3A24;"><%= item_header %></th>
+                  <th class="quantity" style="color: #EE3A24;"><%= qty_header %></th>
+                  <th class="quantity" style="color: #EE3A24;"><%= uom_header %></th>
+                  <th class="money" style="color: #EE3A24;"><%= unit_price_header %></th>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <th class="quantity" style="color: #EE3A24;"><%= discount_header %> </th>
+                  <th class="quantity" style="color: #EE3A24;"><%= discount_price_header %> </th>
+                  <% end %>
+                  <th class="money">
+                     <div class="last" style="color: #EE3A24;"><%= total_excl_header %></div>
+                  </th>
+                  <th class="money">
+                     <div class="last" style="color: #EE3A24;"><%= tax_header %></div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity"><%= item.quantity %></td>
+                  <td class="quantity"><%= item.uom %></td>
+                  <td class="money"><%= item.unit_price %></td>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="quantity"><%= item.discount_percentage %> </td>
+                  <td class="quantity"><%= item.unit_price_after_discount %></td>
+                  <% end %>
+                  <td class="money">
+                     <div class="last">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+                  <td class="money">
+                     <div class="last"><%= item.total_tax %></div>
+                  </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any? && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <% item.description_hash[:custom_fields].each do |cfv| %>
+                        <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
+                        <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
+                        <% if cfv[:field_type] == 'color' %>
+                        <%= "#{cfv[:name]}: " %>
+                        <%= [cfv[:value_hash]].flatten.map { |c| "<span style='position:relative;top:4px;width:20px;border-radius:5px;height:20px;display:inline-block;background:#{c['hex']}'></span> #{c['name']} <br>" }.join('') %>
+                        <% else %>
+                        <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
+                        <% end %>
+                        <% end %>
+                        <% end %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <!-- Internal Note -->
+      <!-- Cover Note -->
+      <!-- Signature Note -->
+      <div class="footer-bottom" >
+         <div class="section clearfix" style="border-top:1px solid #E9E9EA; border-bottom:1px solid #E9E9EA">
+            <div class="footer-bottom-left" >
+               <div class="terms-text"  style="margin-left:290px;">
+                  <img src="https://cdn.filepicker.io/api/file/1LuxSz0S46FoeBGpHwaB">
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
