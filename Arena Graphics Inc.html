@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Job PDF</title>
+  <style>
+    <%= page_size %>
+    <%= body_font_family %>
+
+    .bom-description--custom-class {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="job-pdf">
+
+  <!-- INFO -->
+  <div class="job-section job-pdf__info">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h1 class="job-pdf__info-title">
+            <%= title %><br>
+            <% if re_design? %>
+              <span class="job-virtual-step">Re-Design</span>
+            <% end %>
+          </h1>
+        </div>
+        <div class="col-3">
+          <p style="font-size:11px">Due: <strong><%= due_date %></strong></p>
+          <p style="font-size:11px">In Hand Date: <strong><%= in_hand_date %></strong></p>
+        </div>
+        <div class="col-2">
+          <p><strong>SO# <%= order_number %></strong></p>
+        </div>
+        <div class="col-1">
+          <p class="text--right">1 of <strong>2</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUSH -->
+  <% if job_rush %>
+    <div class="job-section job-section--mb-none">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p class="job-rush"><%= job_rush_text %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
+  <!-- COMPANY -->
+  <div class="job-section job-pdf__company">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="box box--default box--border">
+            <div class="box__title">
+              <p>Customer: <strong><%= company_name %></strong></p>
+              <% if txn_title.present? %>
+                <p><%= txn_title %></p>
+              <% end %>
+            </div>
+            <div class="box__content">
+              <p>
+                <%= contact_info %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="box box--default box--border box--sm">
+            <div class="box__content">
+              <table class="table table--list text--sm">
+                <tbody>
+                <tr>
+                  <td>Customer PO:</td>
+                  <td><strong><%= customer_po %></strong></td>
+                </tr>
+                <tr>
+                  <td>Sales Rep:</td>
+                  <td><strong><%= sales_rep_name %></strong></td>
+                </tr>
+                <tr>
+                  <td>Project Mgr:</td>
+                  <td><strong><%= project_manager_name %></strong></td>
+                </tr>
+                <tr>
+                  <td>Prod. Mgr:</td>
+                  <td><strong><%= pm_name %></strong></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SHIPPING -->
+  <div class="job-section job-pdf__shipping">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="box box--default box--border">
+            <div class="box__title">
+              <p>Ship To:</p>
+            </div>
+            <div class="box__content">
+              <div class="row">
+                <div class="col-6">
+                  <address>
+                    <%= shipping_information %>
+                  </address>
+                </div>
+                <div class="col-6">
+                  <table class="table table--list">
+                    <tbody>
+                    <tr style="font-size:11px">
+                      <td>Ship Method:</td>
+                      <td><strong><%= shipping_method %></strong></td>
+                    </tr>
+                    <tr style="font-size:11px">
+                      <td>Ship Date:</td>
+                      <td><strong><%= shipping_date %></strong></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="box box--default box--border">
+            <div class="box__title">
+              <p>Bill To:</p>
+            </div>
+            <div class="box__content">
+              <address>
+                <%= billing_information %>
+              </address>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="box box--default box--border">
+            <div class="box__content">
+              <div class="qr qr--default">
+                <div class="qr__code">
+                  <svg>
+                    <%= qr_code.as_svg %>
+                  </svg>
+                </div>
+                <div class="qr__status">
+                  <p>
+                    <strong>In progress</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- DETAILS -->
+  <div class="job-section job-pdf__details">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="box box--grey box--border box--margin-top">
+            <div class="box__title">
+              <div class="row">
+                <div class="col-12">
+                  <p>Design Details:</p>
+                </div>
+              </div>
+            </div>
+            <div class="box__content">
+              <div class="row">
+                <div class="col-12">
+                  <p>
+                    <%= design_details %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- BOM -->
+
+
+  <!-- LINE ITEMS - DESCRIPTION -->
+  <% if combined_job? %>
+
+    <!-- LINE ITEMS - LIST -->
+    <div class="job-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="box box--grey box--border box--avoid-page-break-inside">
+              <div class="box__title">
+                <p>Line Items Details:</p>
+              </div>
+              <div class="box__content box__content--no-padding">
+                <table class="table table--line-items table--line-items-no-border">
+                  <thead>
+                    <tr>
+                      <th class="text--left td--shrink">#</th>
+                      <th class="text--left">Item</th>
+                      <th>Qty</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% items.each_with_index do |item, index| %>
+                      <tr>
+                        <td class="td--shrink"><%= index+1 %></td>
+                        <td>
+                          <p><strong><%= item.name %></strong></p>
+                          <div class="text--pre-line li-desc-fixed-width">
+                            <%= item.description(html: true) %>
+                          </div>
+                          <% if item.table_view %>
+                              <% if item.has_bom? %>
+                                  <ul class="bom_report bom_report_detail">
+                                    <% item.bom_hash.keys.each do |item_type| %>   
+                                      <% if item_type == 'MachineRate' %>                                
+                                          <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                                            <% if item.bom_hash[item_type].size > 0 %>
+                                                <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                                  <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
+                                                      <li class="bom_report"><%= item_sub_type %></li>
+                                                      <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                                        <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
+                                                            <li class="bom_report">
+                                                              <% if li.is_a?(Hash) %>
+                                                                  <%= li[:category] if li[:category] %>
+                                                                  <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br>" %>
+                                                                  <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? %>
+                                                                  <% if li[:item_attr_name1] %>
+                                                                      <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %>
+                                                                  <% end %>
+                                                                  <% if li[:item_attr_name2] %>
+                                                                      <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %>
+                                                                  <% end %>
+                                                                  <% if li[:sub_items] %>
+                                                                      <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                                                          <table class='li-table-view-container'>
+                                                                            <tr>
+                                                                              <td class='li-table-view-name'>
+                                                                                <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                                                              </td>
+                                                                              <td>
+                                                                                <table class='li-table-view'>
+                                                                                  <tr>
+                                                                                    <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                                                  </tr>
+                                                                                  <tr>
+                                                                                    <%= sub_item[1].map{|col| "<td>#{col[:quantity].to_i}</td>"}.join %>
+                                                                                  </tr>
+                                                                                </table>
+                                                                              </td>
+                                                                              <td class='li-table-view-total'>
+                                                                                <table class='li-table-view'>
+                                                                                  <tr>
+                                                                                    <th>Total pcs</th>
+                                                                                  </tr>
+                                                                                  <tr>
+                                                                                    <td>
+                                                                                      <%= sub_item[1].inject(0){|sum,e| sum += e[:quantity]}.to_i.to_s %>
+                                                                                    </td>
+                                                                                  </tr>
+                                                                                </table>
+                                                                              </td>
+                                                                            </tr>
+                                                                          </table>
+                                                                      <% end %>
+                                                                  <% end %>
+                                                                  <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                                                      <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image">
+                                                                  <% end %>
+                                                              <% else %>
+                                                                  <%= li %>
+                                                              <% end %>
+                                                            </li>
+                                                        <% end %>
+                                                      </ul>
+                                                  <% end %>
+
+                                                </ul>
+                                            <% end %>
+                                          </li>
+                                        <% end %>
+                                    <% end %>
+                                  </ul>
+                              <% end %>
+                          <% else %>
+                              <% if item.has_bom? %>
+                                  <ul class="bom_report bom_report_detail">
+                                    <% item.bom_report.keys.each do |item_type| %>
+                                        <% unless item_type == 'Material' && item.table_view %>
+                                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                                              <% if item.bom_report[item_type].size > 0 %>
+                                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                                    <% item.bom_report[item_type].keys.each do |item_sub_type| %>
+                                                        <li class="bom_report"><%= item_sub_type %></li>
+                                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                                          <% item.bom_report[item_type][item_sub_type].each do |li| %>
+                                                              <li class="bom_report">
+                                                                <div class="text--pre-line li-desc-fixed-width">
+                                                                  <%= li %>
+                                                                </div>
+                                                              </li>
+                                                          <% end %>
+                                                        </ul>
+                                                    <% end %>
+
+                                                  </ul>
+                                              <% end %>
+                                            </li>
+                                        <% end %>
+                                    <% end %>
+                                  </ul>
+                              <% end %>
+                          <% end %>
+
+                          <% if item.product_image %>
+                              <img src="<%= item.product_image %>" class="line-item-description-image">
+                          <% end %>
+                        </td>
+                        <td class="text--center"><%= item.quantity.to_s %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
+  <!-- WORKFLOW -->
+  <% if show_workflow_on_pdf %>
+  <div class="job-section job-pdf__workflows">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="box box--white box--no-padding">
+            <div class="box__title">Workflow: <%= template_name %></div>
+            <div class="box__content">
+              <div class="job-pdf__workflows">
+                <% stages.each do |stage| %>
+                <div class="job-pdf__workflow job-pdf__workflow--default">
+                  <div class="job-pdf__workflow-title">
+                    <p><strong><%= stage.name %></strong></p>
+                  </div>
+                  <div class="job-pdf__workflow-content">
+                    <ol>
+                      <% stage.steps.each do |step| %>
+                        <li>
+                          <span class="clearfix">
+                            <span>
+                              <strong><%= step.name %></strong>
+                            </span>
+                            <span class="element--right">
+                              <em><%= step.assigned_to_user_initials %></em>
+                              <time><%= step.date %></time>
+                              <i></i>
+                            </span>
+                          </span>
+                        </li>
+                       <% end %>
+                    </ol>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+</body>
+</html>
