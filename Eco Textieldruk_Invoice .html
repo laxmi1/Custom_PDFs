@@ -18,7 +18,7 @@
 <div style="display:none" class="document-footer">
   <%= footer_text %>
 </div>
-<font color="grey">[O+Form01] [O+InvNum]<%= txn_number %> [O+InvDat]<%= invoice_date %> [O+CusAccNum]<%= po_number %> [O+CusGro]<%= store_name %> </font>
+<font color="grey">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= invoice_date %> [O+CusAccNum]<%= po_number %> [O+CusGro]<%= store_name %> </font>
 <div class="address-logo">
   <table>
     <tr>
@@ -56,7 +56,7 @@
     <tr>
       <td class="summ left">
         <div class="summary-wrapper">
-          <h1 class="main-title"><%= invoice_number_only %> <br/>
+          <h1 class="main-title"><%= invoice_number %> <br/>
             <small><%= name %></small>
           </h1>
           <% if project_number %>
