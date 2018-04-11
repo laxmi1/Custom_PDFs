@@ -18,7 +18,7 @@
 <div style="display:none" class="document-footer">
   <%= footer_text %>
 </div>
-<font color="grey">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= invoice_date %> [O+CusAccNum]<%= po_number %> [O+CusGro]<%= store_name %> </font>
+<font color="white">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= @object.txn_date %> [O+CusAccNum]<%= @object.company.account_number.present? ? @object.company.account_number : '' %> [O+CusGro]<%= @object.company.group_id? ? @object.company.group.try(:name) : '' %> </font>
 <div class="address-logo">
   <table>
     <tr>
@@ -30,12 +30,7 @@
           </p>
         <% end %>
       </td>
-      <td>
-        <font color="grey">
-        [O+Form01] = IN (invoice)<br>
-        [O+Form02] = SO (sale order)<br>
-        [O+Form03] = CN (credit note)</font>
-      </td>
+      
 
       <td class="store-logo">
         <img class="logo" src="<%= logo %>">
@@ -77,10 +72,10 @@
         <div class="summary-wrapper">
 
           <p class="title"><%= invoice_date_header %></p>
-          <p><%= invoice_date %></p>
+          <p><%= @object.txn_date %></p>
 
           <p class="title"><%= due_date_header %></p>
-          <p><%= due_date %></p>
+          <p><%= @object.due_date.to_date %></p>
           
           <% unless payment_method.blank?%>
           <p class="title"><%= payment_information_header %></p>
