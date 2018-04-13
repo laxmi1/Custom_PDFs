@@ -1,0 +1,314 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      .terms-title *, .terms-text * {
+          font-size:6pt !important;
+      }
+      <%= page_size %>
+      <%= body_font_family %>
+
+
+
+
+.fontsize{
+  font-size: 11px;
+}
+.address-logo {
+    padding: 20pt 20pt 5pt 20pt;
+    border-bottom: 0px solid #e3e3e3;
+}
+.addresses {
+    padding: 5pt 20pt;
+    border-bottom: 2px solid #e3e3e3;
+}
+.line-items .description {
+    font-size: 11px;
+}
+
+.line-items .first {
+    padding-left: 20pt;
+}
+.line-items .last {
+    padding-right: 20pt;
+}
+.section {
+    padding: 0 20pt;
+}
+.address-logo .store-logo .logo {
+    max-height: 100px;
+}
+
+.li-desc-fixed-width {
+    max-width: 450pt;
+    word-wrap: break-word;
+}
+.summary {
+    margin: 0pt;
+    padding: 15pt 20pt 5pt 20pt;
+    border-bottom: 2px solid #e3e3e3;
+    background: #FFFFFF;
+}
+.summary .summ.right .summary-wrapper {
+    border-right: 0px solid #e3e3e3;
+    text-align: right;
+    padding-right: 0pt;
+}
+
+
+  </style>
+</head>
+<body>
+
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+
+<div class="address-logo">
+  <table>
+    <tr>
+    <td class="store-address">
+    <p><b><%= store_name %></b></p>
+    <div class="fontsize">
+  <%if store_address_street%><p><%= store_address_street %></p><%end%>
+  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%>
+  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
+  </div>
+  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
+      </td>
+      <td class="store-logo">
+        <img class="logo" src="<%= logo %>" width = 250>
+      </td>
+
+    </tr>
+  </table>
+</div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <p>Sales Rep: <%=sales_rep%></p>
+          <br> 
+          <h2 class="main-title">Work Order # <%=txn_number_only%></h2>
+        </div>
+      </td>
+        <td class="summ left">
+        <div class="summary-wrapper"><br>
+        <h2> <small><%= name %></small> </h2>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title">Sales order date</p>
+          <p><%= work_order_date %></p>
+          <% if due_date %>
+          <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+        <% end %>
+        </div>
+      </td>
+      </tr>
+  </table>
+</div>
+<div class="addresses">
+  <table>
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_by_header %></p>
+
+          <p><%= sold_to %></p>
+          <%= billing_information %>
+        </div>
+      </td>
+      <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
+      <td class="address left">
+         <div class="address-wrapper">
+          <p class="title"><%= shipping_information_header %></p>
+          <p>
+            <% if shipping_address_type != 'DropShip' %>
+                <%= sold_to(show_company_name = false) %>
+            <% end %>
+          </p>
+             <p><%= shipping_information %></p>
+                      
+          <%if shipping_tracking.present? %>
+           <br/>
+           <p class="title"><%= shipping_tracking_header%></p>
+           <%= shipping_tracking %>
+          <% end %>
+
+        </div>
+       </td>
+      <% end %>
+      <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+        <td class="address left">
+          <div class="address-wrapper">
+            <p class="title"><%= installing_information_header %></p>
+            <%= installing_information %></p>
+          </div>
+        </td>
+      <% end %>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= contact_information_header %></p>
+
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+    </tr>
+    <% if show_about_this_desc and description.present? %>
+      <tr>
+        <td class="address left" colspan="3">
+          <div class="address-wrapper">
+            <p class="title"><%= about_this_so_header %></p>
+            <p>
+              <%= description %>
+            </p>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="quantity">
+      <div class="last">
+      <%= qty_header %></th>
+      </div>
+    </tr>
+    </thead>
+
+    <tbody>
+      <% items.each_with_index do |item, index| %>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name"><%= item.name %></td>
+          <td class="quantity">
+          <div class="last">
+          <%= item.quantity %>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="description" colspan="4">
+          <% else %>
+              <td class="description" colspan="4">
+          <% end %>
+
+            <div class="last">
+              <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view %>
+                </div>
+              <% else %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.description %>
+                  </div>
+              <% end %>
+              <% if item.show_custom_fields(item.description_hash[:custom_fields]) && item.table_view%>
+                  <hr class="custom-field-separator">
+                  <% item.description_hash[:custom_fields].each do |cfv| %>
+                      <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
+                        <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
+                          <% if cfv[:field_type] == 'color' %>
+                              <%= "#{cfv[:name]}:" %>
+                              <%= [cfv[:value_hash]].flatten.map { |c| "<span style='position:relative;top:4px;width:20px;border-radius:5px;height:20px;display:inline-block;background:#{c['hex']}'></span> #{c['name']} <br>" }.join('') %>
+                          <% else %>
+                              <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
+                          <% end %>
+                      <% end %>
+                  <% end %>
+                  <hr class="custom-field-separator">
+              <% end %>
+              <% if item.product_image %>
+                <img src="<%= item.product_image %>" class="line-item-description-image">
+              <% end %>
+              <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(show_child_items: true) %>
+                  </div>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+
+  </table>
+</div>
+
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td>Customer Note:</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<% if internal_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= internal_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= internal_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<% if cover_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= cover_note_header %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+</body>
+</html>
