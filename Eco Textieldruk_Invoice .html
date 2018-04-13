@@ -88,9 +88,9 @@
                  <td class="summ right">
                     <div class="summary-wrapper">
                        <p class="title"><%= invoice_date_header %></p>
-                       <p><%= @object.txn_date %></p>
+                       <p><%= invoice_date %></p>
                        <p class="title"><%= due_date_header %></p>
-                       <p><%= @object.due_date.to_date %></p>
+                       <p><%= due_date %></p>
                        <% unless payment_method.blank?%>
                        <p class="title"><%= payment_information_header %></p>
                        <p><%= payment_method %></p>
@@ -543,7 +543,7 @@
                        <%end%>
                        <%else%>
                        <% if total_discount_price != 0.0%>
-                       <th style="text-align: right; padding-left:270px;"><b>Verkeende korting</b></th>
+                       <th style="text-align: right; padding-left:270px;"><b>Verleende korting</b></th>
                        <td style="padding-left:45px;"><%= total_discount_price_in_dollars %></td>
                        <%end%>
                        <%end%>
