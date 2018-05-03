@@ -92,9 +92,9 @@
     <tr>
       <td class="summ left">
         <div class="summary-wrapper">
-          <p>Sales Rep: <%=sales_rep%></p>
+          <p>Sales Rep: <%=@object.primary_sales_rep.try(:name)%></p>
           <br> 
-          <h2 class="main-title">Work Order # <%=txn_number_only%></h2>
+          <h2 class="main-title"><%= work_order_number %></h2>
         </div>
       </td>
         <td class="summ left">
