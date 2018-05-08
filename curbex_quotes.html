@@ -25,9 +25,7 @@
 }
 .terms-text{
     font-size:6pt !important;
-    padding: 50pt 0;
     margin: 10pt 0;
-    border: 1pt solid #000000;
     /*padding: 5pt 35pt;*/
 }
 
@@ -154,9 +152,6 @@
           <div class="address-wrapper">
             <p class="title"><%= shipping_information_header %></p>
             <p>
-              <% if shipping_address_type != 'DropShip' %>
-                <%= sold_to(show_company_name = false) %>
-              <% end %>
               <%= shipping_information %>
             </p>
             <%if shipping_tracking %>
@@ -298,69 +293,17 @@
   </table>
 </div>
 
-<% if customer_note.present? %>
-    <div class="note">
-      <table class="no-page-break">
-        <thead>
-        <tr>
-          <td><%= customer_note_header%></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><%= customer_note %></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-<% end %>
-
-<!-- Internal Note -->
-<% if internal_note.present? %>
-  <div class="note">
-    <table class="no-page-break">
-      <thead>
-      <tr>
-        <td><%= internal_note_header %></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><%= internal_note %></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-<% end %>
-
-<!-- Cover Note -->
-<% if cover_note.present? %>
-  <div class="note">
-    <table class="no-page-break">
-      <thead>
-      <tr>
-        <td><%= cover_note_header %></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><%= cover_note %></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-<% end %>
 
 
 
 
 <!-- Signature Note -->
-<!-- <div class="footer-bottom"> -->
+<div class="footer-bottom">
 <div class="no-page-break">
     <div class="section">
         <div class="footer-bottom-left">
             <div class="terms-text">
-               <!-- <%= terms_conditions %> -->
+               <%= terms_conditions %>
             </div>
         </div>
         <div class="footer-bottom-right">
@@ -506,11 +449,66 @@
         </div>
     </div>
   <% end %> -->
-  <div class="splnote">
+  <!-- <div class="splnote">
     
+  </div> -->
   </div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= customer_note_header%></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Internal Note -->
+<% if internal_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= internal_note_header %></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= internal_note %></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-<!-- </div> -->
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= cover_note_header %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= cover_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+
+</div>
 
 </body>
 </html>

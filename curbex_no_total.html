@@ -28,18 +28,11 @@
 }
 .terms-text{
     font-size:6pt !important;
-    padding: 50pt 0;
     margin: 10pt 0;
-    border: 1pt solid #000000;
     /*padding: 5pt 35pt;*/
 }
 
-.splnote{
-    padding: 50pt 0;
-    margin: 0pt 35pt;
-    border: 1pt solid #000000;
-    /*padding: 5pt 35pt;*/
-}
+
   </style>
 </head>
 <body>
@@ -148,9 +141,6 @@
           <div class="address-wrapper">
             <p class="title"><%= shipping_information_header %></p>
             <p>
-              <% if shipping_address_type != 'DropShip' %>
-                <%= sold_to(show_company_name = false) %>
-              <% end %>
                <%= shipping_information %>
             </p>
             <%if shipping_tracking %>
@@ -279,6 +269,30 @@
   </table>
 </div>
 
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section">
+        <div class="footer-bottom-left full-width">
+            <div class="terms-text">
+              <%= terms_conditions %>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+   <!--  <div class="section section--border-bottom">
+        <div class="signature terms">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
+                    <td class="date text--up text--bold"><%= date_header %>:</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+    
 <% if customer_note.present? %>
     <div class="note">
       <table class="no-page-break">
@@ -332,33 +346,7 @@
     </table>
   </div>
 <% end %>
-
-<!-- Signature Note -->
-<!-- <div class="footer-bottom"> -->
-    <div class="section">
-        <div class="footer-bottom-left full-width">
-            <div class="terms-text">
-             <!--   <%= terms_conditions %> -->
-            </div>
-        </div>
-        <div style="clear: both;"></div>
-    </div>
-   <!--  <div class="section section--border-bottom">
-        <div class="signature terms">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
-                    <td class="date text--up text--bold"><%= date_header %>:</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> -->
-<!-- </div> -->
-  <div class="splnote">
-
-  </div>
+</div>
 
 </body>
 </html>
