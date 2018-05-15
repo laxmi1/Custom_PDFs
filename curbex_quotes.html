@@ -35,7 +35,11 @@
     border: 1pt solid #000000;
     /*padding: 5pt 35pt;*/
 }
+@page {
+
+}
   </style>
+}
 </head>
 <body>
 
@@ -134,7 +138,8 @@
 </div>
 
 <!-- Sold To, Contact Info and Shipping Address -->
-<div class="addresses">
+<span style="margin-left: 50px;font-size: 18px;margin-top: 10px;">Customer Information</span>
+<div class="addresses" style="margin-top: 8px;border-top: 2px solid #ccc;">
   <table>
     <tr>
       <td class="address left">
@@ -301,9 +306,9 @@
 <div class="footer-bottom">
 <div class="no-page-break">
     <div class="section">
-        <div class="footer-bottom-left">
+        <div class="footer-bottom-left" style="min-height: 150px;">
             <div class="terms-text">
-               <%= terms_conditions %>
+               <span style="font-size: 18px;">Terms and Conditions :</span>
             </div>
         </div>
         <div class="footer-bottom-right">
@@ -453,6 +458,13 @@
     
   </div> -->
   </div>
+
+    <div class="footer-bottom-left" style="min-height: 150px;">
+            <div class="terms-text">
+               <span style="font-size: 18px; margin-left: 50px;">Special Items :</span>
+            </div>
+        </div>
+
 
 <% if customer_note.present? %>
     <div class="note">
