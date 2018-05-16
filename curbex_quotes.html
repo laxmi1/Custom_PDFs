@@ -36,10 +36,34 @@
     /*padding: 5pt 35pt;*/
 }
 @page {
+        margin: 35pt 0 35pt 0;
+
+        @top-left {
+          content: none;
+        }
+
+        @top {
+          content: flow(header);
+        }
+      }
+
+      body {
+        padding-top: 120pt;
+      }
+
+      .address-logo {
+        flow: static(header);
+        border: none;
+      }
+
+      .summary {
+        border-top: 2px solid #e3e3e3;
+      }
+ 
 
 }
+
   </style>
-}
 </head>
 <body>
 
@@ -222,7 +246,7 @@
 
     <tbody class=''>
         <% items.each_with_index do |item, index| %>
-          <tr>
+          <tr style="border-top:2px solid #E9E9EA">
             <td class="position" rowspan="2">
               <div class="first">
                 <%= index + 1 %>
