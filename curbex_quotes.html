@@ -4,8 +4,31 @@
   <style>
       <%= page_size %>
       <%= body_font_family %>
+    @page {
+      margin-top: 50mm;
+    }
 
-      .line-items .quantity {
+    @page {
+    @top { content: flow(header) }
+          }
+    div.header { flow: static(header) }
+
+    .address-logo {
+    padding: 35pt 35pt 5pt 35pt;
+      }
+  
+  @page {
+    @top-left {
+        content: string(doc_header);
+        padding-left: 0pt;
+        font-size: 8px;
+        text-transform: uppercase;
+        font-weight: normal;
+    }
+
+}
+
+.line-items .quantity {
     text-align: center;
     width: 1%;
     white-space: nowrap;
@@ -35,61 +58,29 @@
     border: 1pt solid #000000;
     /*padding: 5pt 35pt;*/
 }
-@page {
-        margin: 35pt 0 35pt 0;
 
-        @top-left {
-          content: none;
-        }
-
-        @top {
-          content: flow(header);
-        }
-      }
-
-      body {
-        padding-top: 120pt;
-      }
-
-      .address-logo {
-        flow: static(header);
-        border: none;
-      }
-
-      .summary {
-        border-top: 2px solid #e3e3e3;
-      }
- 
-
-}
 
   </style>
 </head>
 <body>
 
-<div style="display:none" class="document-header">
-  <%= header_text %>
-</div>
-
-<!-- Footer Text for Page footter-->
-<div style="display:none" class="document-footer">
-  <%= footer_text %>
-</div>
 
 <!-- Store Address and Logo -->
+<div class="header">
 <div class="address-logo">
   <table>
     <tr>
-      <td class="store-address">
-        <%= store_address %>
+      <td class="store-address" width="60%">
+      <%= store_address %>
       </td>
       <td class="store-logo">
-        <img class="logo" src="<%= logo %>">
+        <img class="logo" src="<%= logo %>" width = 250>
       </td>
-
     </tr>
   </table>
 </div>
+</div>
+
 <div class="summary">
   <table>
     <tr>
@@ -98,7 +89,6 @@
           <h1 class="main-title"><small><%= quote_number %> <%= quote_version %></small><br/>
             <small><%= name %></small>
           </h1>
-
           <% if project_number %>
               <p class="title"><%= project_header %></p>
               <p><%= project_number %></p>
@@ -113,7 +103,6 @@
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
-
           <p class="title"><%= quote_date_header %></p>
           <p><%= quote_date %></p>
           <% if quote_has_due_date %>

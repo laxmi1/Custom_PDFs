@@ -8,7 +8,31 @@
     <%= page_size %>
     <%= body_font_family %>
 
-          .line-items .quantity {
+@page {
+      margin-top: 50mm;
+    }
+
+    @page {
+    @top { content: flow(header) }
+          }
+    div.header { flow: static(header) }
+
+    .address-logo {
+    padding: 35pt 35pt 5pt 35pt;
+      }
+  
+  @page {
+    @top-left {
+        content: string(doc_header);
+        padding-left: 0pt;
+        font-size: 8px;
+        text-transform: uppercase;
+        font-weight: normal;
+    }
+
+}
+
+.line-items .quantity {
     text-align: center;
     width: 1%;
     white-space: nowrap;
@@ -36,28 +60,21 @@
   </style>
 </head>
 <body>
-<div style="display:none" class="document-header">
-  <%= header_text %>
-</div>
-
-<!-- Footer Text for Page footter-->
-<div style="display:none" class="document-footer">
-  <%= footer_text %>
-</div>
 
 <!-- Store Address and Logo -->
+<div class="header">
 <div class="address-logo">
   <table>
     <tr>
-      <td class="store-address">
-        <%= store_address %>
+      <td class="store-address" width="60%">
+      <%= store_address %>
       </td>
       <td class="store-logo">
-        <img class="logo" src="<%= logo %>">
+        <img class="logo" src="<%= logo %>" width = 250>
       </td>
-
     </tr>
   </table>
+</div>
 </div>
 
 <div class="summary">
