@@ -1,0 +1,300 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .address-font{
+         font-size: 10pt;
+         font-weight: bold;
+         vertical-align: top;
+         }
+         .hr {
+         margin-left: 35px;
+         margin-right: 35px;
+         border-bottom: 1px solid #e3e3e3;
+         }
+         .orderby{
+         padding: 50pt 0pt 0pt 35pt;
+         font-size: 10pt;
+         font-weight: bold;
+         }
+         .invoice-no{
+         padding: 10pt 0pt 0pt 35pt;
+         text-align: left;
+         font-size: 11pt;
+         }
+         .phone-padding{
+         font-size: 10pt;
+         padding: 0pt 35pt 0pt 0pt;
+         }
+         .li-desc-fixed-width {
+         max-width: 350pt;
+         }
+         .line-items .description {
+         font-size: 12px;
+         padding: 0 35pt 5pt 5pt;
+         }
+         .note thead td {
+         color: 999999;
+         text-transform: none;
+         font-size: 15px;
+         border-bottom: none;
+         padding-top: 0pt;
+         padding-bottom: 2pt;
+         }
+         @page {
+         @bottom { 
+         border-top:2px solid #E9E9EA;
+         width: 85%;
+         content: "Big Art and Banners, Unit 16, Dale Industrial Estate, Radcliffe, Manchester, M26 1AD, United Kingdom Telephone : 0161 883 1490 Web: www.bigartandbanners.com Registration No: 10609479 VAT NO: 263 4286 96";
+         } 
+         }
+         @page {
+         @bottom-left {
+         content: " ";
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-logo" width="45%">
+                  <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-60px;">
+               </td>
+               <td  width="5%">
+               </td>
+               <td class="address-font" width="30%" >
+                  <div align = "left" style="margin-top:-30px;">
+                     <p><b><%= store_name %></b></p>
+                     <%if store_address_street%>
+                     <p><%= store_address_street %></p>
+                     <%end%>
+                     <%if store_address_street1%>
+                     <p><%= store_address_street1 %></p>
+                     <%end%>
+                     <p><%if store_address_city%><%= store_address_city %></p>
+                     <%end%> 
+                     <p><%if store_address_state %> <%= store_address_state%><%end%></p>
+                     <p><%if store_address_zip %> <%= store_address_zip%><%end%></p>
+                     <% if store_phone%>
+                     <p>Tel: <%=store_phone%></p>
+                     <%end%>  
+                     <% if license_number_text(@object.account) %> 
+                     <p><%= license_number_text(@object.account) %></p>
+                     <%end%>
+                     <% if @object.account.website %> 
+                     <p><%= @object.account.website %></p>
+                     <%end%>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <table cellpadding="3" >
+         <tr>
+            <td width="45%" height="80" >
+               <table cellpadding="3" >
+                  <tr>
+                     <td class = "orderby">
+                        <p> <%= contact_name %> </p>
+                        <p>
+                           <%= sold_to %><br />
+                           <%= billing_information %>
+                        </p>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td  width="5%">
+            </td>
+            <td class="address-font" width="32.5%" height="80" align = "left" >
+               <div class="phone-padding">
+                  <p style="font-size: 15px;">QUOTATION</p>
+                  <p>Ref No :  <%= txn_number_only %></p>
+                  <p>Dated  &ensp;:  <%= quote_date %></p>
+                  <p>Contact:  <%= contact_name %></p>
+                  <p>Tel    :  </p>
+                  <p>Fax    :  </p>
+               </div>
+            </td>
+         </tr>
+      </table>
+      <table>
+         <tr>
+            <td class="invoice-no" >
+               <p> Further to your recent enquiry please find our quotation detailed below. </p>
+               <br>
+               <p><b>Re : <%= name %></b></p>
+               <br> 
+            </td>
+         </tr>
+      </table>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr>
+                  <th class="position">
+                     <div class="first" style="color:black">Item</div>
+                  </th>
+                  <th class="quantity" style="color:black"><%= qty_header %></th>
+                  <th class="quantity" style="color:black">Pack</th>
+                  <th class="name" style="color:black">Description</th>
+                  <th class="money" style="color:black"><%= unit_price_header %></th>
+                  <th class="money">
+                     <div class="last" style="color:black">Total</div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr style="border-top:2px solid #E9E9EA">
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity"><%= item.uom %></td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money">
+                     <div class="last" style="margin-left: 20px;margin-right: -20px;">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div style="padding-left: 80px;">
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <td>
+                     <p style="font-weight: bold;margin-top:60px;">Ways to pay:</p>
+                     <br>
+                     <p><b>Bank Transfer:</b></p>
+                     <p>Barclays</p>
+                     <p>Sort code: 20-16-08</p>
+                     <p>Account no: 73531139</p>
+                     <br>            
+                     <p><b>PayPal:</b></p>
+                     <p>info@bigartandbanners.com</p>
+                     <br>
+                     <p><b>Telephone:</b></p>
+                     <p>0800 612 9266</p>
+                  </td>
+               </tr>
+            </thead>
+         </table>
+      </div>
+      <!-- Internal Note -->
+      <!-- Cover Note -->
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td class="labels first footer-subtotal">
+                           <% if has_setup_charges? %>
+                           <p><strong><%= setup_charges_header %>:</strong></p>
+                           <% end %>
+                           <% if has_shipping_charges? %>
+                           <p><strong><%= shipping_charges_header %>:</strong></p>
+                           <% end %>
+                           <% if has_finance_charges? %>
+                           <p><strong><%= finance_charges_header %>:</strong></p>
+                           <% end %>
+                           <% if has_misc_charges? %>
+                           <p><strong><%= misc_charges_header %>:</strong></p>
+                           <% end %>
+                           <p><strong><%= subtotal_header %>:</strong></p>
+                           <% if show_tax  %>
+                           <% if use_tax_codes? %>
+                           <p><strong><%= total_tax_header %>:</strong></p>
+                           <% else %>
+                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <% end %>
+                           <% end %>
+                           <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                        </td>
+                        <td class="money last footer-subtotal">
+                           <% if has_setup_charges? %>
+                           <p><strong><%= setup_charges %></strong></p>
+                           <% end %>
+                           <% if has_shipping_charges? %>
+                           <p><strong><%= shipping_charges %></strong></p>
+                           <% end %>
+                           <% if has_finance_charges? %>
+                           <p><strong><%= finance_charges %></strong></p>
+                           <% end %>
+                           <% if has_misc_charges? %>
+                           <p><strong><%= misc_charges %></strong></p>
+                           <% end %>
+                           <p><strong><%= sub_total %></strong></p>
+                           <% if show_tax  %>
+                           <p><strong><%= total_tax %></strong></p>
+                           <% end %>
+                           <p class="footer-total"><strong><%= final_price %></strong></p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+   </body>
+</html>
