@@ -11,7 +11,16 @@
     margin: 0 0 35pt 0;
     @top-left { content: none }
   }
-  .address-font{
+  .print{
+         font-size: 10pt;
+         }
+         .work-order{
+         font-size: 10pt;
+         font-weight: bold;
+         vertical-align: top;
+         padding-top: 10pt;
+         }
+         .address-font{
          font-size: 10pt;
          font-weight: bold;
          vertical-align: top;
@@ -22,12 +31,12 @@
          border-bottom: 1px solid #e3e3e3;
          }
          .orderby{
-         padding: 50pt 0pt 0pt 35pt;
+         padding: 25pt 0pt 0pt 35pt;
          font-size: 10pt;
          font-weight: bold;
          }
          .invoice-no{
-         padding: 10pt 0pt 0pt 35pt;
+         padding: 10pt 0pt 0pt 38pt;
          text-align: left;
          font-size: 11pt;
          }
@@ -40,8 +49,15 @@
          }
          .line-items .description {
          font-size: 12px;
-         padding: 0 35pt 5pt 5pt;
+         padding: 0pt 35pt 5pt 5pt;
          }
+         .line-items{
+          padding: 0pt 35pt 0pt 0pt;
+         }
+         .body{
+          font-family: Arial;
+         }
+
          .note thead td {
          color: 999999;
          text-transform: none;
@@ -51,6 +67,7 @@
          padding-bottom: 2pt;
          }
          @page {
+         margin: 20px 30px 30px 20px;
          @bottom { 
          border-top:2px solid #E9E9EA;
          width: 85%;
@@ -64,7 +81,7 @@
          }
   </style>
 </head>
-<body>
+<body class="body">
 
 <div style="display:none" class="document-header">
   <%= header_text %>
@@ -82,8 +99,7 @@
 
                </td>
                <td  width="5%">
-               </td>
-               <td class="address-font" width="30%">
+               <td class="address-font" width="26%">
                   <div align = "left" style="margin-top:-30px;">
                      <p><b><%= store_name %></b></p>
                      <%if store_address_street%>
@@ -111,6 +127,32 @@
          </table>
       </div>
       <table cellpadding="3" >
+        <tr>
+         </td>
+               <td width="45%" height="80">
+                <table cellpadding="3" >
+                  <td class = "orderby">
+                  <p><b>Pre-Print Check:</b></p>
+                  <br>
+                  <p><b>Printed By:</b></p><br>
+                  <p><b>Finished By:</b></p><br>
+                  <p><b>Packed By:</b></p>
+                </td>
+                </table>
+               </td>
+               <td class="work-order" width="26%" align = "left" >
+               <div class="phone-padding">
+                  <p style="font-size: 15px;">WORK ORDER</p>
+                  <p>Ref No :  <%= work_order_number %></p>
+                  <p>Order No &nbsp;&nbsp;:  </p>
+                  <p>Required By  :  <%= due_date %></p>
+                  <p>Dated  &nbsp;&nbsp;&nbsp;:  <%= work_order_date %></p>
+                  <p>Contact &nbsp;:  <%= contact_name %></p>
+                  <p>Tel    :  </p>
+                  <p>Fax    :  </p>
+               </div>
+            </td>
+             </tr>
          <tr>
             <td width="45%" height="80" >
                <table cellpadding="3" >
@@ -127,26 +169,12 @@
             </td>
             <td  width="5%">
             </td>
-            <td class="address-font" width="32.5%" height="80" align = "left" >
-               <div class="phone-padding">
-                  <p style="font-size: 15px;">WORK ORDER</p>
-                  <p>Ref No :  <%= work_order_number %></p>
-                  <p>Order No &nbsp;&nbsp;:  </p>
-                  <p>Required By  :  <%= due_date %></p>
-                  <p>Dated  &nbsp;&nbsp;&nbsp;:  <%= work_order_date %></p>
-                  <p>Contact &nbsp;:  <%= contact_name %></p>
-                  <p>Tel    :  </p>
-                  <p>Fax    :  </p>
-               </div>
-            </td>
          </tr>
       </table>
       <table>
          <tr>
             <td class="invoice-no" >
-               <p> Further to your recent enquiry please find our quotation detailed below. </p>
-               <br>
-               <p><b>Re : <%= name %></b></p>
+               <p><b>Job Description: <%= name %></b></p>
                <br> 
             </td>
          </tr>
@@ -186,7 +214,7 @@
                      <% else %>
                   <td class="description" colspan="5">
                      <% end %>
-                     <div class="last" style="padding-left: 80px;">
+                     <div class="last" style="padding-left: 87px;">
                         <% if item.table_view %>
                         <div class="text--pre-line li-desc-fixed-width">
                            <%= item.li_grid_html_view %>
@@ -232,7 +260,7 @@
                <tr>
                   <td>
                      <div class="">
-          <p class=""><%= shipping_information_header %></p>
+          <p class=""><b><%= shipping_information_header %></b></p>
 
           <% if shipping_address_type != 'DropShip' %>
               <%= sold_to(show_company_name = false) %>
@@ -249,8 +277,8 @@
         <div class="">
         <thead>
         </thead>
-          <td><b>Instructions / Notes:</b></td>
-          <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim</td>
+          <td><p><b>Instructions / Notes:</b>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim</p></td>
     </div>
                   </td>
                </tr>
