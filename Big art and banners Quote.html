@@ -38,16 +38,62 @@
          .note thead td {
          color: 999999;
          text-transform: none;
-         font-size: 15px;
          border-bottom: none;
-         padding-top: 0pt;
+         padding-top: 60pt;
          padding-bottom: 2pt;
          }
+         
+         .line-items {padding: 0 35pt;}         
+         
+         .line-items .money {
+         text-align: left;
+         width: 1%;
+         white-space: nowrap;
+         }
+         .titals-table{
+         border-collapse: collapse;
+         border-collapse: separate;
+         border-spacing: 7px;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 45%;
+         border-left: solid 0px #e3e3e3;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0;
+         }
+         .line-items .position{
+          padding-top: 7pt; 
+         }
+         .line-items .quantity{
+          padding-top: 7pt; 
+         }
+         .line-items .name{
+          padding-top: 7pt; 
+         }
+         .line-items .money{
+          padding-top: 7pt; 
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 25%;
+         background: #f7f7f7;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0pt;
+         margin-right: 45px;
+         }
+         body {
+         font-family: "Arial";
+         }
          @page {
+         margin: 20px 20px 30px 20px;
          @bottom { 
-         border-top:2px solid #E9E9EA;
-         width: 85%;
-         content: "Big Art and Banners, Unit 16, Dale Industrial Estate, Radcliffe, Manchester, M26 1AD, United Kingdom Telephone : 0161 883 1490 Web: www.bigartandbanners.com Registration No: 10609479 VAT NO: 263 4286 96";
+         border-top:1px solid #e3e3e3;
+         width: 60%;
+         font-size: 8px;
+         padding-right: 90pt;
+         padding-left: 90pt;
+         content: "Big Art and Banners, Unit 16, Dale Industrial Estate, Radcliffe, Manchester, M26 1AD, United Kingdom Telephone:0161 883 1490 Web: https://bigartandbanners.com Registration No: 10609479 VAT NO: 263 4286 96";
          } 
          }
          @page {
@@ -66,11 +112,11 @@
          <%= footer_text %>
       </div>
       <!-- Store Address and Logo -->
-      <div class="address-logo">
+      <div class="address-logo" style="border-bottom:none;">
          <table>
             <tr>
                <td class="store-logo" width="45%">
-                  <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-60px;">
+                  <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-60px;margin-left:-18px;">
                </td>
                <td  width="5%">
                </td>
@@ -109,7 +155,6 @@
                      <td class = "orderby">
                         <p> <%= contact_name %> </p>
                         <p>
-                           <%= sold_to %><br />
                            <%= billing_information %>
                         </p>
                      </td>
@@ -146,22 +191,22 @@
             <thead>
                <tr>
                   <th class="position">
-                     <div class="first" style="color:black">Item</div>
+                     <div style="color:black;margin-left:-3px;">Item</div>
                   </th>
                   <th class="quantity" style="color:black"><%= qty_header %></th>
                   <th class="quantity" style="color:black">Pack</th>
                   <th class="name" style="color:black">Description</th>
                   <th class="money" style="color:black"><%= unit_price_header %></th>
                   <th class="money">
-                     <div class="last" style="color:black">Total</div>
+                     <div style="color:black;margin-right:0px;">Total</div>
                   </th>
                </tr>
             </thead>
             <tbody class=''>
                <% items.each_with_index do |item, index| %>
-               <tr style="border-top:2px solid #E9E9EA">
+               <tr style="border-top: 1px solid #e3e3e3;">
                   <td class="position" rowspan="2">
-                     <div class="first">
+                     <div>
                         <%= index + 1 %>
                      </div>
                   </td>
@@ -169,11 +214,7 @@
                   <td class="quantity"><%= item.uom %></td>
                   <td class="name"><%= item.name %></td>
                   <td class="money"><%= item.unit_price %></td>
-                  <td class="money">
-                     <div class="last" style="margin-left: 20px;margin-right: -20px;">
-                        <%= item.total_price %>
-                     </div>
-                  </td>
+                  <td class="money"><%= item.total_price %></td>
                </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
@@ -181,7 +222,7 @@
                      <% else %>
                   <td class="description" colspan="5">
                      <% end %>
-                     <div style="padding-left: 80px;">
+                     <div style="padding-left: 83px;">
                         <% if item.table_view %>
                         <div class="text--pre-line li-desc-fixed-width">
                            <%= item.li_grid_html_view %>
@@ -216,12 +257,37 @@
             </tbody>
          </table>
       </div>
+      <div class="footer-bottom-right">
+         <table class="titals-table">
+            <tbody>
+               <tr>
+                  <td><b><%= subtotal_header %>:</b></td>
+                  <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
+               </tr>
+               <tr>
+                  <td><b>VAT (<%= tax_rate %>):</b></td>
+                  <td style="border-bottom: 1px solid #e3e3e3;;padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+               </tr>
+               <tr>
+                  <td colspan="2">
+                     <table>
+                        <tr class="top-bottom">
+                           <td><b> <font>Total: </font> </b></td>
+                           <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><%= final_price %></font> </td>
+                        </tr>
+                     </table>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+         <div class="clearfix"></div>
+      </div>
       <div class="note">
          <table class="no-page-break">
             <thead>
                <tr>
                   <td>
-                     <p style="font-weight: bold;margin-top:60px;">Ways to pay:</p>
+                     <p style="font-weight: bold;margin-top:60px;font-size:10px;">Ways to pay:</p>
                      <br>
                      <p><b>Bank Transfer:</b></p>
                      <p>Barclays</p>
@@ -237,64 +303,6 @@
                </tr>
             </thead>
          </table>
-      </div>
-      <!-- Internal Note -->
-      <!-- Cover Note -->
-      <!-- Signature Note -->
-      <div class="footer-bottom">
-         <div class="section">
-            <div class="footer-bottom-right">
-               <table>
-                  <tbody>
-                     <tr>
-                        <td class="labels first footer-subtotal">
-                           <% if has_setup_charges? %>
-                           <p><strong><%= setup_charges_header %>:</strong></p>
-                           <% end %>
-                           <% if has_shipping_charges? %>
-                           <p><strong><%= shipping_charges_header %>:</strong></p>
-                           <% end %>
-                           <% if has_finance_charges? %>
-                           <p><strong><%= finance_charges_header %>:</strong></p>
-                           <% end %>
-                           <% if has_misc_charges? %>
-                           <p><strong><%= misc_charges_header %>:</strong></p>
-                           <% end %>
-                           <p><strong><%= subtotal_header %>:</strong></p>
-                           <% if show_tax  %>
-                           <% if use_tax_codes? %>
-                           <p><strong><%= total_tax_header %>:</strong></p>
-                           <% else %>
-                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
-                           <% end %>
-                           <% end %>
-                           <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
-                        </td>
-                        <td class="money last footer-subtotal">
-                           <% if has_setup_charges? %>
-                           <p><strong><%= setup_charges %></strong></p>
-                           <% end %>
-                           <% if has_shipping_charges? %>
-                           <p><strong><%= shipping_charges %></strong></p>
-                           <% end %>
-                           <% if has_finance_charges? %>
-                           <p><strong><%= finance_charges %></strong></p>
-                           <% end %>
-                           <% if has_misc_charges? %>
-                           <p><strong><%= misc_charges %></strong></p>
-                           <% end %>
-                           <p><strong><%= sub_total %></strong></p>
-                           <% if show_tax  %>
-                           <p><strong><%= total_tax %></strong></p>
-                           <% end %>
-                           <p class="footer-total"><strong><%= final_price %></strong></p>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-            <div class="clearfix"></div>
-         </div>
       </div>
    </body>
 </html>
