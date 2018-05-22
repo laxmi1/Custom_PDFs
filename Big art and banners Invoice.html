@@ -45,6 +45,9 @@
          padding-top: 60pt;
          padding-bottom: 2pt;
          }
+         
+         .line-items {padding: 0 35pt;}         
+         
          .line-items .money {
          text-align: left;
          width: 1%;
@@ -91,6 +94,8 @@
          border-top:1px solid #e3e3e3;
          width: 60%;
          font-size: 8px;
+         padding-right: 90pt;
+         padding-left: 90pt;
          content: "Big Art and Banners, Unit 16, Dale Industrial Estate, Radcliffe, Manchester, M26 1AD, United Kingdom Telephone:0161 883 1490 Web: https://bigartandbanners.com Registration No: 10609479 VAT NO: 263 4286 96";
          } 
          }
@@ -112,7 +117,7 @@
          <table>
             <tr>
                <td class="store-logo" width="45%">
-                  <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-60px;margin-left:-20px;">
+                  <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-60px;margin-left:-18px;">
                </td>
                <td  width="5%">
                </td>
@@ -183,14 +188,14 @@
             <thead>
                <tr>
                   <th class="position">
-                     <div class="first" style="color:black;margin-left:-3px;">Item</div>
+                     <div style="color:black;margin-left:-3px;">Item</div>
                   </th>
                   <th class="quantity" style="color:black"><%= qty_header %></th>
                   <th class="quantity" style="color:black">Pack</th>
                   <th class="name" style="color:black">Description</th>
                   <th class="money" style="color:black;"><%= unit_price_header %></th>
                   <th class="money">
-                     <div class="last" style="color:black;margin-right:0px;">Total</div>
+                     <div style="color:black;margin-right:0px;">Total</div>
                   </th>
                </tr>
             </thead>
@@ -198,7 +203,7 @@
                <% items.each_with_index do |item, index| %>
                <tr style="border-top: 1px solid #e3e3e3;">
                   <td class="position" rowspan="2">
-                     <div class="first">
+                     <div>
                         <%= index + 1 %>
                      </div>
                   </td>
@@ -206,11 +211,7 @@
                   <td class="quantity"><%= item.uom %></td>
                   <td class="name"><%= item.name %></td>
                   <td class="money"><%= item.unit_price %></td>
-                  <td class="money">
-                     <div class="last">
-                        <%= item.total_price %>
-                     </div>
-                  </td>
+                  <td class="money"><%= item.total_price %></td>
                </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
@@ -218,7 +219,7 @@
                      <% else %>
                   <td class="description" colspan="5">
                      <% end %>
-                     <div class="last" style="padding-left: 80px;">
+                     <div class="last" style="padding-left: 83px;">
                         <% if item.table_view %>
                         <div class="text--pre-line li-desc-fixed-width">
                            <%= item.li_grid_html_view %>
