@@ -75,6 +75,18 @@
     padding: 5pt 5pt;
     color: #000000;
 }
+    .line-items .quantity {
+    text-align: center;
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 220px;
+}  
+.line-items .state {
+    text-align: left;
+    width: 1%;
+    white-space: nowrap;
+    margin-left: -200px;
+
     /* start - job related things are used in WO */
     .job-attributes {
     float: left;
@@ -137,8 +149,8 @@
       <td class="summ right">
         <div class="summary-wrapper">
           <% if due_date %>
-              <p class="title"><b><%= due_date_header %></b></p>
-              <p><%= due_date %></p>
+              <p class="title" style="font-size:24px;"><b><%= due_date_header %></b></p>
+              <p style="font-size:24px;"><%= due_date %></p>
           <% end %>
         </div>
       </td>
@@ -215,7 +227,10 @@
       </th>
       <th class="name"><%= item_header %></th>
       <th class="quantity" style="float:left;"><%= qty_header %></th>
-      <th class="state">IMAGE</th>
+            <th class="quantity">
+        <div class="last" style="margin-left:-250px;">QTY PRINTED</div>
+      </th>
+      <th class="state" style= "float:left;">IMAGE</th>
     </tr>
     </thead>
 
@@ -228,7 +243,7 @@
             </div>
           </td>
           <td class="name"><%= item.name %></td>
-          <td class="quantity" style="text-align: left;"><%= item.quantity %></td>
+          <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
           <td></td>
         </tr>
         <tr>
@@ -237,6 +252,7 @@
               <div class="text--pre-line li-desc-fixed-width">
                 <%= item.description %>
               </div>
+              <br>
               <% if item.table_view %>
                   <% if item.has_bom? %>
                       <ul class="bom_report bom_report_detail">
@@ -341,6 +357,10 @@
                   <% end %>
               <% end %>
             </div>
+            <br>
+            <p><b>Printer: </b></p>
+            <p><b>Art Size: </b></p>
+            <p><b>Art %: </b></p>
             <div>
               <div class='design_details'>
                 <div class="text--pre-line">
@@ -372,11 +392,12 @@
                 <% @proofs_job_ids << item.job.id %>
                 <div class="job-attributes">
                   <div class="proof">
-                    <div class="head">
+                    <div class="head" style="margin-left:150px;">
                       <%= item.job.proof_head %>
                     </div>
                     <div class="image">
-                      <img class="proof small" src="<%= item.job.proof_image(300) %>">
+                      <img class="proof small" style="margin-left:160px;" src="<%= item.job.proof_image(300) %>">
+                      <p style="margin-left:160px;padding:5px;"><b>File Location: </b></p>
                     </div>
                   </div>
                 </div>
@@ -385,9 +406,20 @@
         </tr>
         </tbody>
     <% end %>
-
-    <tfoot class="no-page-break">
-    </tfoot>
+      <div class="note">
+         <table class="no-page-break" style="margin-top:50px;margin-left:60px;">
+            <thead>
+               <tr>
+                  <td>
+                     <p><b>RIP Settings :</p><br>
+                     <p><b>Printer Settings: </p><br>
+                     <p>Cutter/Welder Settings: </p><br>
+                     <p>Pantone/Colors: </b></p>
+                  </td>
+               </tr>
+            </thead>
+         </table>
+      </div>
   </table>
 </div>
 </body>
