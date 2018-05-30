@@ -38,8 +38,7 @@
          color: 999999;
          text-transform: none;
          border-bottom: none;
-         padding-top: 60pt;
-         padding-bottom: 2pt;
+         padding: 0pt 0pt 0pt 0pt;
          }
          
          .line-items {padding: 0 35pt;}         
@@ -53,13 +52,6 @@
          border-collapse: collapse;
          border-collapse: separate;
          border-spacing: 7px;
-         }
-         .footer-bottom-right {
-         float: right;
-         width: 45%;
-         border-left: solid 0px #e3e3e3;
-         padding: 6pt 6pt 5pt 6pt;
-         margin: 10pt 0;
          }
          .line-items .position{
           padding-top: 7pt; 
@@ -75,8 +67,9 @@
          }
          .footer-bottom-right {
          float: right;
-         width: 25%;
+         width: 45%;
          background: #f7f7f7;
+         border-left: solid 0px #e3e3e3;
          padding: 6pt 6pt 5pt 6pt;
          margin: 10pt 0pt;
          margin-right: 45px;
@@ -257,52 +250,56 @@
             </tbody>
          </table>
       </div>
-      <div class="footer-bottom-right">
-         <table class="titals-table">
-            <tbody>
-               <tr>
-                  <td><b><%= subtotal_header %>:</b></td>
-                  <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
-               </tr>
-               <tr>
-                  <td><b>VAT (<%= tax_rate %>):</b></td>
-                  <td style="border-bottom: 1px solid #e3e3e3;;padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
-               </tr>
-               <tr>
-                  <td colspan="2">
-                     <table>
-                        <tr class="top-bottom">
-                           <td><b> <font>Total: </font> </b></td>
-                           <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><%= final_price %></font> </td>
-                        </tr>
-                     </table>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-         <div class="clearfix"></div>
-      </div>
-      <div class="note">
-         <table class="no-page-break">
-            <thead>
-               <tr>
-                  <td>
-                     <p style="font-weight: bold;margin-top:-200px;font-size:10px;">Ways to pay:</p>
-                     <br>
-                     <p><b>Bank Transfer:</b></p>
-                     <p>Barclays</p>
-                     <p>Sort code: 20-16-08</p>
-                     <p>Account no: 73531139</p>
-                     <br>            
-                     <p><b>PayPal:</b></p>
-                     <p>info@bigartandbanners.com</p>
-                     <br>
-                     <p><b>Telephone:</b></p>
-                     <p>0800 612 9266</p>
-                  </td>
-               </tr>
-            </thead>
-         </table>
+      <div>
+       <table>
+          <td class="note" style="float:left" >
+             <table style="margin-left:50px; ">
+                <thead>
+                   <tr>
+                      <td>
+                         <p style="font-weight: bold;margin-top:0px;font-size:10px;">Ways to pay:</p>
+                         <br>
+                         <p><b>Bank Transfer:</b></p>
+                         <p>Barclays</p>
+                         <p>Sort code: 20-16-08</p>
+                         <p>Account no: 73531139</p>
+                         <br>   
+                         <p><b>PayPal:</b></p>
+                         <p>info@bigartandbanners.com</p>
+                         <br>
+                         <p><b>Telephone:</b></p>
+                         <p>0800 612 9266</p>
+                      </td>
+                   </tr>
+                </thead>
+             </table>
+          </td>
+          <td ></td>
+          <td class="footer-bottom-right" style="float-right;;">
+             <table class="titals-table" >
+                <tbody>
+                   <tr>
+                      <td><b><%= subtotal_header %>:</b></td>
+                      <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
+                   </tr>
+                   <tr>
+                      <td><b>VAT (<%= tax_rate %>):</b></td>
+                      <td style="border-bottom: 1px solid #e3e3e3;;padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                   </tr>
+                   <tr>
+                      <td colspan="2">
+                         <table>
+                            <tr class="top-bottom">
+                               <td><b> <font>Total: </font> </b></td>
+                               <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><%= final_price %></font> </td>
+                            </tr>
+                         </table>
+                      </td>
+                   </tr>
+                </tbody>
+             </table>
+          </td>
+        </table>
       </div>
    </body>
 </html>
