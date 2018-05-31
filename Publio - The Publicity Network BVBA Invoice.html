@@ -9,24 +9,21 @@
          <%= body_font_family %>
          .orderby{
          padding: 10pt 0pt 0pt 35pt;
-         font-size: 12pt;
+         font-size: 10pt;
          }
          .phone-padding{
-         font-size: 12pt;
+         font-size: 10pt;
          padding:  0pt 0pt 0pt 50pt;
          margin-top: -40px;
          }
          .invoice-no{
          padding: 10pt 0pt 0pt 35pt;
          text-align: left;
-         font-size: 11pt;
-         }
-         .address-logo .store-logo .logo {
-         max-height: 150px;
+         font-size: 10pt;
          }
          .address-logo {
-         padding: 0pt 0pt 0pt 0pt;
-         border-bottom: 2px solid #e3e3e3;
+         padding: 0pt 70pt 0pt 0pt;
+         border-bottom: 0px solid #e3e3e3;
          }
          .line-items tbody tr:first-child td {
          border-top: 0px solid #e3e3e3;
@@ -40,7 +37,23 @@
          padding: 6pt 6pt 5pt 6pt;
          margin: 10pt 0;
          }
+         .line-items thead th {
+         font-size: 11px;
+         text-transform: uppercase;
+         color: black;
+         padding: 5pt 5pt;
+         }
+         .line-items .first {
+         padding-left: 5pt;
+         }
+         .line-items .last {
+         padding-right: 5pt;
+         }
          @page {
+         margin: 20px 0px 0px 20px;
+         @bottom-right {
+         content: " ";
+         }
          }
       </style>
    </head>
@@ -49,9 +62,8 @@
          <%= header_text %>
       </div>
       <div style="display:none" class="document-footer">
-         <%= footer_text %>
       </div>
-      <div class="address-logo" style="border-bottom :none;">
+      <div class="address-logo">
          <table>
             <tr>
                <td class="store-logo">
@@ -66,7 +78,28 @@
                <table cellpadding="3" >
                   <tr>
                      <td class = "orderby">
-                        <%= store_address %>          
+                        <p><b><%= store_name %></b></p>
+                        <%if store_address_street%>
+                        <p><%= store_address_street %>
+                           <%end%>
+                           <%if store_address_street1%>
+                           <%= store_address_street1 %>
+                        </p>
+                        <%end%>
+                        <p><%if store_address_city%><%= store_address_city %>
+                           <%end%> 
+                           <%if store_address_state %> <%= store_address_state%><%end%>
+                           <%if store_address_zip %> <%= store_address_zip%><%end%>
+                        </p>
+                        <% if store_phone%>
+                        <p>Phone: <%=store_phone%></p>
+                        <%end%>  
+                        <% if license_number_text(@object.account) %> 
+                        <p><%= license_number_text(@object.account) %></p>
+                        <%end%>
+                        <% if @object.account.website %> 
+                        <p><%= @object.account.website %></p>
+                        <%end%>          
                      </td>
                   </tr>
                </table>
@@ -84,7 +117,7 @@
       <table>
          <tr>
             <td class="invoice-no" >
-               <b> <font size="4"> Invoice No: <%= txn_number_only %> </font> </b>  
+               <b> <font size="4"><%= invoice_number %></font> </b>  
             </td>
          </tr>
       </table>
@@ -99,7 +132,7 @@
          <tr>
             <td style="border-right: 2px solid black;">
                <% if company_vat_number.present? %>
-               <p><b>VAT#:</b><%= company_vat_number %></p>
+               <p><%= company_vat_number %></p>
                <% end %>
             </td>
             <td style="border-right: 2px solid black;"><%= po_number %></td>
@@ -110,24 +143,23 @@
          </tr>
       </table>
       &nbsp&nbsp
-      <div class="line-items" style="border: 2px solid black;width: 85%;margin-left:50px;min-height:505px;">
+      <div class="line-items" style="border: 2px solid black;width: 85%;margin-left:50px;min-height:550px;">
          <!--<h2 class="title"><%= items_header %></h2>-->
-         <table style="margin-left:-30px;">
+         <table>
             <thead>
                <tr>
                   <th class="position">
-                     <div class="first">#</div>
+                     <div class="first">Pos.</div>
                   </th>
-                  <th class="name" colspan="1"><%= item_header %></th>
+                  <th class="name" colspan="1">Omschrijving</th>
                   <th class="quantity"><%= qty_header %></th>
-                  <th class="quantity"><%= uom_header %></th>
                   <th class="money"><%= unit_price_header %></th>
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <th class="quantity"><%= discount_header %> </th>
                   <th class="quantity"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
-                     <div class="last"><%= total_excl_header %></div>
+                     <div class="last" style=""><%= total_excl_header %></div>
                   </th>
                   <% if use_tax_codes? %>
                   <th class="money">
@@ -149,7 +181,6 @@
                   </td>
                   <td class="name" colspan="1"><%= item.name %></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity"><%= item.uom %></td>
                   <td class="money">
                      <%= item.unit_price %>
                   </td>
