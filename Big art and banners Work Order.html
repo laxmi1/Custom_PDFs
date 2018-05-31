@@ -1,15 +1,15 @@
 <html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <style>
-    <%= page_size %>
-    @page {
-    margin: 15pt 0 35pt 0;
-    }
-    @page :first {
-    margin: 0 0 35pt 0;
-    @top-left { content: none }
-  }
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         @page {
+         margin: 15pt 0 35pt 0;
+         }
+         @page :first {
+         margin: 0 0 35pt 0;
+         @top-left { content: none }
+         }
          .print{
          font-size: 10pt;
          }
@@ -51,22 +51,22 @@
          padding: 0pt 35pt 5pt 5pt;
          }
          .line-items{
-          padding: 0pt 35pt 0pt 0pt;
+         padding: 0pt 35pt 0pt 0pt;
          }
          .line-items .position{
-          padding-top: 7pt; 
+         padding-top: 7pt; 
          }
          .line-items .quantity{
-          padding-top: 7pt; 
+         padding-top: 7pt; 
          }
          .line-items .name{
-          padding-top: 7pt; 
+         padding-top: 7pt; 
          }
          .line-items .money{
-          padding-top: 7pt; 
+         padding-top: 7pt; 
          }
          body{
-          font-family: "Arial";
+         font-family: "Arial";
          }
          .note thead td {
          color: 999999;
@@ -77,7 +77,6 @@
          padding-bottom: 2pt;
          }
          .line-items {padding: 0 35pt;}         
-         
          .line-items .money {
          text-align: left;
          width: 1%;
@@ -109,7 +108,6 @@
          @page {
          margin: 20px 20px 30px 20px;
          font-family: "Arial";
-
          @bottom { 
          border-top:1px solid #e3e3e3;
          width: 53%;
@@ -124,24 +122,20 @@
          content: " ";
          }
          }
-  </style>
-</head>
-<body class="body">
-
-<div style="display:none" class="document-header">
-  <%= header_text %>
-</div>
-
-<div style="display:none" class="document-footer">
-  <%= footer_text %>
-</div>
-
-<div class="address-logo" style="border-bottom:none;">
+      </style>
+   </head>
+   <body class="body">
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="address-logo" style="border-bottom:none;">
          <table>
             <tr>
                <td class="store-logo" width="45%">
                   <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-25px;">
-
                </td>
                <td  width="5%">
                <td class="address-font" width="30%">
@@ -172,20 +166,22 @@
          </table>
       </div>
       <table cellpadding="3" >
-        <tr>
-         </td>
-               <td width="45%" height="80">
-                <table cellpadding="3"  style="margin-top: -130px;">
+         <tr>
+            </td>
+            <td width="45%" height="80">
+               <table cellpadding="3"  style="margin-top: -130px;">
                   <td class = "orderby">
-                  <p><b>Pre-Print Check:</b></p>
-                  <br>
-                  <p><b>Printed By:</b></p><br>
-                  <p><b>Finished By:</b></p><br>
-                  <p><b>Packed By:</b></p>
-                </td>
-                </table>
-               </td>
-               <td class="work-order" width="32.5%" height="80" align = "left" >
+                     <p><b>Pre-Print Check:</b></p>
+                     <br>
+                     <p><b>Printed By:</b></p>
+                     <br>
+                     <p><b>Finished By:</b></p>
+                     <br>
+                     <p><b>Packed By:</b></p>
+                  </td>
+               </table>
+            </td>
+            <td class="work-order" width="32.5%" height="80" align = "left" >
                <div class="phone-padding">
                   <p style="font-size: 15px;">WORK ORDER</p>
                   <p>Ref No :  <%= txn_number_only %></p>
@@ -197,7 +193,7 @@
                   <p>Fax    :  </p>
                </div>
             </td>
-             </tr>
+         </tr>
          <tr>
             <td width="45%" height="80" >
                <table cellpadding="3" >
@@ -223,7 +219,6 @@
             </td>
          </tr>
       </table>
-
       <div class="line-items">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
@@ -250,7 +245,6 @@
                   <td class="quantity"><%= item.uom %></td>
                   <td class="name"><%= item.name %></td>
                   <td class="money"></td>
-
                </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
@@ -299,36 +293,46 @@
          </table>
       </div>
       <div class="note">
+      <table class="no-page-break">
+         <thead>
+            <tr>
+               <td>
+                  <div class="">
+                     <p class=""><b><%= shipping_information_header %></b></p>
+                     <% if shipping_address_type != 'DropShip' %>
+                     <%= sold_to(show_company_name = false) %>
+                     <% end %>
+                     <%= shipping_information %>
+                     </p>
+                     <%if shipping_tracking.present? %>
+                     <br/>
+                     <p class="title"><%= shipping_tracking_header%></p>
+                     <%= shipping_tracking %>
+                     <% end %>
+                  </div>
+                  <br>
+                  <div class="">
+         <thead>
+         </thead>
+         <% if customer_note.present? %>
+         <div class="note">
          <table class="no-page-break">
-            <thead>
-               <tr>
-                  <td>
-                     <div class="">
-          <p class=""><b><%= shipping_information_header %></b></p>
-
-          <% if shipping_address_type != 'DropShip' %>
-              <%= sold_to(show_company_name = false) %>
-          <% end %>
-            <%= shipping_information %>
-          </p>
-          <%if shipping_tracking.present? %>
-           <br/>
-           <p class="title"><%= shipping_tracking_header%></p>
-           <%= shipping_tracking %>
-          <% end %>
-        </div>
-        <br>
-        <div class="">
-        <thead>
-        </thead>
-          <td><p><b>Instructions / Notes:</b>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim</p></td>
-    </div>
-                  </td>
-               </tr>
-            </thead>
+         <thead>
+         <tr>
+         <td><b>Instuctions/Notes</b></td>
+         </tr>
+         </thead>
+         <tbody>
+         <tr>
+         <td><%= customer_note %></td>
+         </tr>
+         </tbody>
          </table>
+         </div>
+         <% end %>
+         </tr>
+         </thead>
+      </table>
       </div>
-
-</body>
+   </body>
 </html>
