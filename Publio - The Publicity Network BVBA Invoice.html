@@ -31,11 +31,11 @@
          }
          .footer-bottom-right {
          float: right;
-         width: 30%;
+         width: 31%;
          border-left: solid 2px black;
          background: #f7f7f7;
          padding: 6pt 6pt 5pt 6pt;
-         margin: 10pt 0;
+         margin: 10pt -10pt;
          }
          .line-items thead th {
          font-size: 11px;
@@ -49,8 +49,16 @@
          .line-items .last {
          padding-right: 5pt;
          }
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
+         }
          @page {
          margin: 20px 0px 0px 20px;
+         @bottom { 
+          margin: 10px 0px 109px -20px;
+     content: url(https://cdn.filepicker.io/api/file/wXCHObMQ36jxPPHggoPQ);
+        }
          @bottom-right {
          content: " ";
          }
@@ -143,7 +151,7 @@
          </tr>
       </table>
       &nbsp&nbsp
-      <div class="line-items" style="border: 2px solid black;width: 85%;margin-left:50px;min-height:550px;">
+      <div class="line-items" style="border: 2px solid black;width: 85%;margin-left:50px;min-height:505px;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
@@ -159,7 +167,7 @@
                   <th class="quantity"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
-                     <div class="last" style=""><%= total_excl_header %></div>
+                     <div class="last">Bedrag</div>
                   </th>
                   <% if use_tax_codes? %>
                   <th class="money">
@@ -249,8 +257,8 @@
          </table>
       </div>
       <!-- Signature Note -->
-      <div class="footer-bottom" style="border: 2px solid black;width: 85%;margin-left:50px;min-height:150px;">
-         <div class="section">
+      <div class="footer-bottom" style="margin-right:109px;">
+         <div class="section" style="margin-top:-220px;border: 2px solid black;width: 85%;margin-left:50px;">
             <div class="footer-bottom-left">
                <div class="terms-text">
                   <%= terms_conditions %>
