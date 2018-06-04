@@ -223,9 +223,9 @@
                         </div>
                         <% end %>
                         <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
-                        <hr class="custom-field-separator">
+                        <hr class="">
                         <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
-                        <hr class="custom-field-separator">
+                        <hr class="">
                         <% end %>
                         <% if item.product_picture_assets.count > 0 %>
                         <% item.product_picture_assets.each do |asset| %>
