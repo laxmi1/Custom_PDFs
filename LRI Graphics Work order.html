@@ -395,9 +395,8 @@
                     <div class="head" style="margin-left:150px;">
                       <%= item.job.proof_head %>
                     </div>
-                    <div class="image">
+                    <div class="image" style="padding:5px;">
                       <img class="proof small" style="margin-left:160px;" src="<%= item.job.proof_image(300) %>">
-                      <p style="margin-left:160px;padding:5px;"><b>File Location: </b></p>
                     </div>
                   </div>
                 </div>
@@ -422,5 +421,21 @@
       </div>
   </table>
 </div>
+<%if @object.special_notes and not @object.special_notes.blank?%>
+    <div class="note"  style="padding-left:15px;">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><b>Special Info:<b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= @object.special_notes %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
 </body>
 </html>
