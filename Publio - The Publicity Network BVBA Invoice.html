@@ -13,8 +13,9 @@
          }
          .phone-padding{
          font-size: 10pt;
-         padding:  0pt 0pt 0pt 50pt;
-         margin-top: -40px;
+         padding:  0pt 0pt 0pt 0pt;
+         margin-top: -10px;
+         margin-left: -70px;
          }
          .invoice-no{
          padding: 10pt 0pt 0pt 35pt;
@@ -22,7 +23,7 @@
          font-size: 10pt;
          }
          .address-logo {
-         padding: 0pt 70pt 0pt 0pt;
+         padding: 0pt 30pt 0pt 0pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .line-items tbody tr:first-child td {
@@ -56,9 +57,9 @@
          @page {
          margin: 20px 0px 0px 20px;
          @bottom { 
-          margin: 10px 0px 109px -20px;
-     content: url(https://cdn.filepicker.io/api/file/wXCHObMQ36jxPPHggoPQ);
-        }
+         margin: 10px 0px 109px -20px;
+         content: url(https://cdn.filepicker.io/api/file/wXCHObMQ36jxPPHggoPQ);
+         }
          @bottom-right {
          content: " ";
          }
@@ -107,7 +108,7 @@
                         <%end%>
                         <% if @object.account.website %> 
                         <p><%= @object.account.website %></p>
-                        <%end%>          
+                        <%end%>        
                      </td>
                   </tr>
                </table>
@@ -117,6 +118,9 @@
             <td class="address-font" width="35%" height="80" align = "left" >
                <div class="phone-padding">
                   <p><%= sold_to %></p>
+                  <% if contact_name %>
+                  <%= contact_name %>
+                  <%end%>
                   <p><%= billing_information %></p>
                </div>
             </td>
@@ -130,7 +134,7 @@
          </tr>
       </table>
       <br>
-      <table style="text-align: center;font-size:10pt;border: 2px solid black;width: 85%;margin-left:50px;">
+      <table style="text-align: center;font-size:10pt;border: 2px solid black;width: 85%;margin-left:50px;margin-bottom:20px;">
          <tr>
             <th style="border-right: 2px solid black;">Uw BTW nr.</th>
             <th style="border-right: 2px solid black;">Uw ordernr.</th>
@@ -150,24 +154,24 @@
             </td>
          </tr>
       </table>
-      &nbsp&nbsp
       <div class="line-items" style="border: 2px solid black;width: 85%;margin-left:50px;min-height:505px;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
                <tr>
                   <th class="position">
-                     <div class="first">Pos.</div>
+                     <div class="first">#</div>
                   </th>
-                  <th class="name" colspan="1">Omschrijving</th>
+                  <th class="name" colspan="1"><%= item_header %></th>
                   <th class="quantity"><%= qty_header %></th>
+                  <th class="quantity"><%= uom_header %></th>
                   <th class="money"><%= unit_price_header %></th>
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <th class="quantity"><%= discount_header %> </th>
                   <th class="quantity"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
-                     <div class="last">Bedrag</div>
+                     <div class="last"><%= total_excl_header %></div>
                   </th>
                   <% if use_tax_codes? %>
                   <th class="money">
@@ -189,6 +193,7 @@
                   </td>
                   <td class="name" colspan="1"><%= item.name %></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity"><%= item.uom %></td>
                   <td class="money">
                      <%= item.unit_price %>
                   </td>
@@ -260,7 +265,7 @@
       <div class="footer-bottom" style="margin-right:109px;">
          <div class="section" style="margin-top:-220px;border: 2px solid black;width: 85%;margin-left:50px;">
             <div class="footer-bottom-left">
-               <div class="terms-text">
+               <div class="terms-text" style="margin-left:-30px;margin-top:-25px;">
                   <%= terms_conditions %>
                </div>
             </div>
