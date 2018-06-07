@@ -249,9 +249,15 @@
         <tr>
           <td class="description">
             <div class="last">
-              <div class="text--pre-line li-desc-fixed-width">
-                <%= item.description %>
-              </div>
+              <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view %>
+                </div>
+              <% else %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.description %>
+                  </div>
+              <% end %>
               <br>
               <% if item.table_view %>
                   <% if item.has_bom? %>
