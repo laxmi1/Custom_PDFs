@@ -14,7 +14,7 @@
          .phone-padding{
          font-size: 10pt;
          padding:  0pt 0pt 0pt 0pt;
-         margin-top: -10px;
+         margin-top: -20px;
          margin-left: -70px;
          }
          .invoice-no{
@@ -23,8 +23,13 @@
          font-size: 10pt;
          }
          .address-logo {
-         padding: 0pt 30pt 0pt 0pt;
+         padding: 0pt 20pt 0pt 0pt;
          border-bottom: 0px solid #e3e3e3;
+         margin-left: 50px;
+         }
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
          }
          .line-items tbody tr:first-child td {
          border-top: 0px solid #e3e3e3;
@@ -115,13 +120,14 @@
             </td>
             <td  width="5%">
             </td>
-            <td class="address-font" width="35%" height="80" align = "left" >
+            <td class="address-font" width="35%" height="90" align = "left" >
                <div class="phone-padding">
                   <p><%= sold_to %></p>
                   <% if contact_name %>
                   <%= contact_name %>
                   <%end%>
                   <p><%= billing_information %></p>
+                  <p><% if billing_address_country %><%=billing_address_country%><%end%></p>
                </div>
             </td>
          </tr>
