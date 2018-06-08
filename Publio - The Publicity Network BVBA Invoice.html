@@ -55,20 +55,23 @@
          .line-items .last {
          padding-right: 5pt;
          }
+         .li-desc-fixed-width {
+          max-width: 230pt;
+          }
          .section {
          border-top: 0px solid #e3e3e3;
          padding: 0 35pt;
          }
          @page {
-         margin: 20px 0px 0px 20px;
+         margin: 20pt 0pt 75pt 0pt;
          @bottom { 
-         margin: 10px 0px 109px -20px;
          content: url(https://cdn.filepicker.io/api/file/wXCHObMQ36jxPPHggoPQ);
          }
          @bottom-right {
-         content: " ";
+            content: " ";
          }
          }
+
       </style>
    </head>
    <body>
@@ -140,7 +143,7 @@
          </tr>
       </table>
       <br>
-      <table style="text-align: center;font-size:10pt;border: 2px solid black;width: 85%;margin-left:50px;margin-bottom:20px;">
+      <table style="text-align: center;font-size:10pt;border: 2px solid black;width: 91.1%;margin-left:50px;margin-bottom:20px;">
          <tr>
             <th style="border-right: 2px solid black;">Uw BTW nr.</th>
             <th style="border-right: 2px solid black;">Uw ordernr.</th>
@@ -268,8 +271,8 @@
          </table>
       </div>
       <!-- Signature Note -->
-      <div class="footer-bottom" style="margin-right:109px;">
-         <div class="section" style="margin-top:-220px;border: 2px solid black;width: 85%;margin-left:50px;">
+      <div class="no-page-break" style="margin-right:109px;">
+         <div class="section" style="border: 2px solid black;width: 85%;margin-left:50px;">
             <div class="footer-bottom-left">
                <div class="terms-text" style="margin-left:-30px;margin-top:-25px;">
                   <%= terms_conditions %>
