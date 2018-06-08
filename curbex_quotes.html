@@ -5,7 +5,7 @@
       <%= page_size %>
       <%= body_font_family %>
     @page {
-      margin-top: 50mm;
+      margin-top: 40mm;
     }
 
     @page {
@@ -26,6 +26,22 @@
         font-weight: normal;
     }
 
+}
+
+.line-items {
+    margin-top: 0pt;
+}
+
+.custinfo {
+    margin-top: 3pt;
+    margin-bottom: 3pt;
+    margin-left: 50px;
+    font-size: 18px;
+}
+
+.sig{
+  margin-left: : 35pt;
+  font-size: 18px;
 }
 
 .line-items .quantity {
@@ -59,8 +75,10 @@
     /*padding: 5pt 35pt;*/
 }
 
-
-  </style>
+.paddingtop{
+padding-top: 10px;
+}
+ </style>
 </head>
 <body>
 
@@ -71,7 +89,14 @@
   <table>
     <tr>
       <td class="store-address" width="60%">
-      <%= store_address %>
+  <p><%= store_name %></p>
+  <%if store_address_street%><%= store_address_street %>,<%end%>
+  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%>,<%end%>
+  <%if store_address_zip %> <%= store_address_zip%><%end%>
+  <% if store_email%><p>Primary Email: <%=store_email%></p><%end%>
+  <% if store_phone%><p>Primary Phone: <%=store_phone%></p><%end%>
+  <% if tax_code_number_text(@object.account)%><p><%=tax_code_number_text(@object.account)%></p><%end%>
+  <%if @object.account.website%><p><%= @object.account.website%></p><%end%>
       </td>
       <td class="store-logo">
         <img class="logo" src="<%= logo %>" width = 250>
@@ -151,8 +176,10 @@
 </div>
 
 <!-- Sold To, Contact Info and Shipping Address -->
-<span style="margin-left: 50px;font-size: 18px;margin-top: 10px;">Customer Information</span>
-<div class="addresses" style="margin-top: 8px;border-top: 2px solid #ccc;">
+<div class="custinfo">
+  Customer Information
+</div>
+<div class="addresses" style="border-top: 2px solid #e3e3e3;">
   <table>
     <tr>
       <td class="address left">
@@ -236,21 +263,21 @@
     <tbody class=''>
         <% items.each_with_index do |item, index| %>
           <tr style="border-top:2px solid #E9E9EA">
-            <td class="position" rowspan="2">
-              <div class="first">
+            <td class="position" rowspan="2" style="padding-top: 10px;">
+              <div class="first" >
                 <%= index + 1 %>
               </div>
             </td>
-            <td class="name"><%= item.name %></td>
-            <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-            <td class="quantity"><%= item.uom %></td>
-            <td class="money"><%= item.unit_price %></td>
+            <td class="name" style="padding-top: 10px;"><%= item.name %></td>
+            <td class="quantity" style="padding-top: 10px;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+            <td class="quantity" style="padding-top: 10px;"><%= item.uom %></td>
+            <td class="money" style="padding-top: 10px;"><%= item.unit_price %></td>
             <% if show_discounts && total_discount_price != 0.0 %>
-              <td class="quantity"><%= item.discount_percentage %> </td>
-              <td class="quantity"><%= item.unit_price_after_discount %></td>
+              <td class="quantity" style="padding-top: 10px;"><%= item.discount_percentage %> </td>
+              <td class="quantity" style="padding-top: 10px;"><%= item.unit_price_after_discount %></td>
             <% end %>
-            <td class="money">
-              <div class="last">
+            <td class="money" style="padding-top: 10px;">
+              <div class="last" >
                 <%= item.total_price %>
               </div>
             </td>
@@ -312,16 +339,15 @@
 </div>
 
 
-
-
-
 <!-- Signature Note -->
 <div class="footer-bottom">
 <div class="no-page-break">
     <div class="section">
+    
         <div class="footer-bottom-left" style="min-height: 150px;">
             <div class="terms-text">
-               <span style="font-size: 18px;">Terms and Conditions :</span>
+               <span style="font-size: 13px;">Terms and Conditions:</span>
+               <% if customer_note.present? %><font size="2"><%= customer_note %></font><% end %>
             </div>
         </div>
         <div class="footer-bottom-right">
@@ -375,6 +401,7 @@
             </table>
         </div>
         <div class="clearfix"></div>
+
     </div>
 <!--     <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
         <div class="split-tax">
@@ -474,12 +501,25 @@
 
     <div class="footer-bottom-left" style="min-height: 150px;">
             <div class="terms-text">
-               <span style="font-size: 18px; margin-left: 50px;">Special Items :</span>
+               <span style="font-size: 13px; margin-left: 50px;">Special Notes:</span>
+               <%if @object.special_notes and not @object.special_notes.blank?%><font size="2"><%= @object.special_notes %></font><% end %>
             </div>
+
         </div>
 
-
-<% if customer_note.present? %>
+    <div class="sig">
+             <table width="100%" style="margin-left: 40pt">
+      <tr>
+        <td style="font-size: 13px;">
+          Customer Signature: ____________________
+        </td>
+        <td style="font-size: 13px;">
+          Date: _______________
+        </td>
+      </tr>
+    </table>
+    </div>
+<!-- <% if customer_note.present? %>
     <div class="note">
       <table class="no-page-break">
         <thead>
@@ -494,10 +534,10 @@
         </tbody>
       </table>
     </div>
-<% end %>
+<% end %> -->
 
 <!-- Internal Note -->
-<% if internal_note.present? %>
+<!-- <% if internal_note.present? %>
   <div class="note">
     <table class="no-page-break">
       <thead>
@@ -512,10 +552,10 @@
       </tbody>
     </table>
   </div>
-<% end %>
+<% end %> -->
 
 <!-- Cover Note -->
-<% if cover_note.present? %>
+<!-- <% if cover_note.present? %>
   <div class="note">
     <table class="no-page-break">
       <thead>
@@ -530,7 +570,7 @@
       </tbody>
     </table>
   </div>
-<% end %>
+<% end %> -->
 
 
 </div>
