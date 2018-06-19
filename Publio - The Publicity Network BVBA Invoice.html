@@ -158,8 +158,9 @@
             </td>
             <td style="border-right: 2px solid black;"><%= po_number %></td>
             <td style="border-right: 2px solid black;"><%= invoice_date %></td>
-            <td style="border-right: 2px solid black;">50% bij opdracht en 50% bij<br>
-               levering/montage
+            <td style="border-right: 2px solid black;"><% if term_code %>
+              <p><%= term_code %></p>
+          <% end %>
             </td>
          </tr>
       </table>

@@ -260,7 +260,7 @@
                   <% if item.has_bom? %>
                       <ul class="bom_report bom_report_detail">
                         <% item.bom_hash.keys.each do |item_type| %>
-                        <% if item_type != "LaborRate"  && item_type != "MachineRate" %>
+                        <% if item_type != "LaborRate"%>
                             <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
                               <% if item.bom_hash[item_type].size > 0 %>
                                   <ul class="bom_report bom_report_detail bom_report_detail_level">
