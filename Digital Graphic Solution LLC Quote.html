@@ -1,0 +1,289 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .address-table{
+         margin-left: 35pt;
+         margin-bottom: 20px;
+         }
+         .line-items .last {
+         padding-right: 5pt;
+         }
+         .li-desc-fixed-width {
+         max-width: 350pt;
+         }
+         .line-items thead th {
+         color: #000000;
+         text-transform: capitalize;
+         padding: 5pt 5pt;
+         border-top: 0px solid #e3e3e3;
+         border-bottom: 0px solid #000000;
+         font-size: 10pt;
+         }
+         .addresses {
+         padding: 5pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses .address .title {
+         text-transform: capitalize;
+         margin-top: 0pt;
+         font-size: 10pt;
+         color: #000000;
+         }
+         .npb{
+         page-break-inside: avoid;
+         margin-left: -40px;
+         margin-top: 20px;
+         }
+         .no-li-br{
+         white-space: nowrap;
+         }
+         .address-logo .store-address {
+         text-align: right;
+         vertical-align: top;
+         }
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
+         }
+         .line-items .position{
+         padding-top: 4pt; 
+         }
+         .line-items .quantity{
+         padding-top: 4pt; 
+         }
+         .line-items .name{
+         padding-top: 4pt; 
+         }
+         .line-items .money{
+         padding-top: 4pt; 
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo" style="border-bottom:none;">
+         <table>
+            <tr>
+                <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+                </td>
+                <td class="store-address">
+                  <strong style="font-size: 33px; margin-right:40px;">estimate</strong>
+                </td>
+                <td class="store-address">
+                  <p><b><%= store_name %></b></p>
+                  <%if store_address_street%>
+                  <p><%= store_address_street %>
+                     <%end%>
+                     <%if store_address_street1%>
+                     <%= store_address_street1 %>
+                  </p>
+                  <%end%>
+                  <p><%if store_address_city%><%= store_address_city %>
+                     <%end%> 
+                     <%if store_address_state %> <%= store_address_state%><%end%>
+                     <%if store_address_zip %> <%= store_address_zip%><%end%>
+                  </p>
+                  <% if store_phone%>
+                  <p>Phone/fax: <b><%=store_phone%></b></p>
+                  <%end%>  
+                  <% if license_number_text(@object.account) %> 
+                  <p><%= license_number_text(@object.account) %></p>
+                  <%end%>
+                  <% if @object.account.website %> 
+                  <p><%= @object.account.website %></p>
+                  <%end%>
+                </td>
+            </tr>
+         </table>
+      </div>
+      <table class="address-table" style="width: 89%;" border="1"solid #999999; cellpadding="4">
+      <tr style="background: #B0C4DE;">
+         <th width="30%"><b>Customer</b></th>
+         <th width="10%"><b>Estimate #</b></th>
+         <th width="10%"><b>PO #</b></th>
+         <th width="10%"><b>Date</b></th>
+      </tr>
+      <tr>
+         <th>
+            <%= company_name %>
+         </th>
+         <th>
+            <%= txn_number_only %>
+         </th>
+         <th>
+            <% if po_number %>
+            <p><%= po_number %></p>
+            <% end %>
+         </th>
+         <th>
+            <%= quote_date %>
+         </th>
+      </tr>
+      </table>
+      <!-- Sold To, Contact Info and Shipping Address -->
+      <div class="addresses">
+         <table>
+            <tr>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title" style="margin-bottom:6px;"><b>Bill To:</b></p>
+                     <p>
+                        <%= sold_to %><br />
+                        <%= billing_information %>
+                     </p>
+                  </div>
+               </td>
+               <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title" style="margin-bottom:6px;"><b>Ship To:</b></p>
+                     <p>
+                        <% if shipping_address_type != 'DropShip' %>
+                        <%= sold_to(show_company_name = false) %>
+                        <% end %>
+                        <%= shipping_information %>
+                     </p>
+                     <%if shipping_tracking %>
+                     <br/>
+                     <p class="title"><%= shipping_tracking_header%></p>
+                     <%= shipping_tracking %>
+                     <% end %>
+                  </div>
+               </td>
+               <% end %>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items" style="border: 1px solid #999999;width: 89%;margin-left: 35pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="background: #B0C4DE;">
+                  <th class="position">
+                     <div>Line</div>
+                  </th>
+                  <th class="name">Description</th>
+                  <th class="quantity"><%= qty_header %></th>
+                  <th class="money">Cost</th>
+                  <th class="money">
+                     <div class="last">Total</div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr style="border-top:1px solid #999999;">
+                  <td class="position" rowspan="2">
+                     <div>
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money">
+                     <div class="last">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <div class="npb">
+         <table class="npb" cellpadding="4">
+            <tr>
+               <td width="75%"></td>
+               <td colspan="2" style="border: 1px solid #999999;"><strong>Sub Total:</strong></td>
+               <td style="border: 1px solid #999999;"><strong><%= sub_total %></strong></td>
+            </tr>
+            <tr>
+               <td width="75%"></td>
+               </td>
+               <td class="no-li-br" colspan="2" style="border: 1px solid #999999;" >
+                  <% if show_tax  %>
+                  <% if use_tax_codes? %>
+                  <p><strong><%= total_tax_header %>:</strong></p>
+                  <% else %>
+                  <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                  <% end %>
+                  <% end %>
+               </td>
+               <td colspan="2" style="border: 1px solid #999999;">
+                  <% if show_tax  %>
+                  <p><strong><%= total_tax %></strong></p>
+                  <% end %>
+               </td>
+            </tr>
+            <tr>
+               <td width="75%"></td>
+               </td>
+               <td colspan="2" style="border: 1px solid #999999;">
+                  <p><strong><%= shipping_charges_header %>:</strong></p>
+               </td>
+               <td style="border: 1px solid #999999;">
+                  <p><strong><%= shipping_charges %></strong></p>
+               </td>
+            </tr>
+            <tr>
+               <td width="75%"></td>
+               </td>
+               <td colspan="2" colspan="2" style="border: 1px solid #999999;"><strong>Estimate Total:<strong></td>
+               <td colspan="2" style="border: 1px solid #999999;"><strong><%= final_price %><strong></td>
+            </tr>
+         </table>
+      </div>
+      </div>
+      <!-- Internal Note -->
+      <!-- Cover Note -->
+      <!-- Signature Note -->
+   </body>
+</html>
