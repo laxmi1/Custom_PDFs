@@ -15,6 +15,15 @@
          margin-left: 35pt;
          margin-bottom: 20px;
          }
+         .line-items tbody tr td {
+         vertical-align: top;
+         font-size: 10px;
+         padding: 0 5pt;
+         }
+         .line-items .description {
+         font-size: 10px;
+         padding: 0 35pt 5pt 5pt;
+         }
          .line-items .last {
          padding-right: 5pt;
          }
@@ -27,7 +36,7 @@
          padding: 5pt 5pt;
          border-top: 0px solid #e3e3e3;
          border-bottom: 0px solid #000000;
-         font-size: 10pt;
+         font-size: 10px;
          }
          .addresses {
          padding: 5pt 35pt;
@@ -36,13 +45,14 @@
          .addresses .address .title {
          text-transform: capitalize;
          margin-top: 0pt;
-         font-size: 10pt;
+         font-size: 10px;
          color: #000000;
          }
          .npb{
          page-break-inside: avoid;
          margin-left: -40px;
          margin-top: 20px;
+         font-size: 10px;
          }
          .no-li-br{
          white-space: nowrap;
@@ -50,22 +60,15 @@
          .address-logo .store-address {
          text-align: right;
          vertical-align: top;
+         font-size: 10px;
+         color:   #696969;
          }
          .store-logo {
          text-align: left;
          vertical-align: top;
          }
-         .line-items .position{
-         padding-top: 4pt; 
-         }
-         .line-items .quantity{
-         padding-top: 4pt; 
-         }
          .line-items .name{
-         padding-top: 4pt; 
-         }
-         .line-items .money{
-         padding-top: 4pt; 
+         font-weight: normal; 
          }
          .footer-bottom-left {
          width: 100%;
@@ -76,11 +79,15 @@
          border-top: 0px solid #e3e3e3;
          padding: 0 35pt;
          }
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 10pt;
+         }
       </style>
    </head>
    <body>
       <div style="display:none" class="document-header">
-         <%= header_text %>
       </div>
       <!-- Footer Text for Page footter-->
       <div style="display:none" class="document-footer">
@@ -93,10 +100,10 @@
                   <img class="logo" src="<%= logo %>">
                </td>
                <td class="store-address">
-                  <strong style="font-size: 33px; margin-right:40px;">estimate</strong>
+                  <strong style="font-size: 33px; margin-right:80px;color:black;">estimate</strong>
                </td>
                <td class="store-address">
-                  <p><b><%= store_name %></b></p>
+                  <p><%= store_name %></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %>
                      <%end%>
@@ -110,7 +117,7 @@
                      <%if store_address_zip %> <%= store_address_zip%><%end%>
                   </p>
                   <% if store_phone%>
-                  <p>Phone/fax: <b><%=store_phone%></b></p>
+                  <p>Phone/fax: <b style="color:black;"><%=store_phone%></b></p>
                   <%end%>  
                   <% if license_number_text(@object.account) %> 
                   <p><%= license_number_text(@object.account) %></p>
@@ -122,29 +129,29 @@
             </tr>
          </table>
       </div>
-      <table class="address-table" style="width: 89%;" border="1"solid #999999; cellpadding="4">
-      <tr style="background: #B0C4DE;">
-         <th width="30%"><b>Customer</b></th>
-         <th width="10%"><b>Estimate #</b></th>
-         <th width="10%"><b>PO #</b></th>
-         <th width="10%"><b>Date</b></th>
-      </tr>
-      <tr>
-         <th>
-            <%= company_name %>
-         </th>
-         <th>
-            <%= txn_number_only %>
-         </th>
-         <th>
-            <% if po_number %>
-            <p><%= po_number %></p>
-            <% end %>
-         </th>
-         <th>
-            <%= quote_date %>
-         </th>
-      </tr>
+      <table class="address-table" style="width: 89%;border: 1px solid #999999;" cellpadding="4">
+         <tr style="background: #778899">
+            <th width="30%" style="font-size:10px;color:#FFFAFA;font-weight:normal;">customer</th>
+            <th width="10%" style="font-size:10px;color:#FFFAFA;font-weight:normal;">estimate #</th>
+            <th width="10%" style="font-size:10px;color:#FFFAFA;font-weight:normal;">po #</th>
+            <th width="10%" style="font-size:10px;color:#FFFAFA;font-weight:normal;">date</th>
+         </tr>
+         <tr>
+            <th style="font-size:10px;font-weight:normal;">
+               <%= company_name %>
+            </th>
+            <th style="font-size:10px;font-weight:normal;">
+               <%= txn_number_only %>
+            </th>
+            <th style="font-size:10px;font-weight:normal;">
+               <% if po_number %>
+               <p><%= po_number %></p>
+               <% end %>
+            </th>
+            <th style="font-size:10px;font-weight:normal;">
+               <%= quote_date %>
+            </th>
+         </tr>
       </table>
       <!-- Sold To, Contact Info and Shipping Address -->
       <div class="addresses">
@@ -152,8 +159,8 @@
             <tr>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title" style="margin-bottom:6px;"><b>Bill To:</b></p>
-                     <p>
+                     <p class="title" style="margin-bottom:6px;"><b>bill to:</b></p>
+                     <p style="font-size:10px;">
                         <%= sold_to %><br />
                         <%= billing_information %>
                      </p>
@@ -162,8 +169,8 @@
                <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title" style="margin-bottom:6px;"><b>Ship To:</b></p>
-                     <p>
+                     <p class="title" style="margin-bottom:6px;"><b>ship to:</b></p>
+                     <p style="font-size:10px;">
                         <% if shipping_address_type != 'DropShip' %>
                         <%= sold_to(show_company_name = false) %>
                         <% end %>
@@ -184,15 +191,15 @@
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
-               <tr style="background: #B0C4DE;">
-                  <th class="position">
-                     <div>Line</div>
+               <tr style="background: #778899;">
+                  <th class="position" style="font-size:10px;color:#FFFAFA;font-weight:normal;">
+                     <div>line</div>
                   </th>
-                  <th class="name">Description</th>
-                  <th class="quantity"><%= qty_header %></th>
-                  <th class="money">Cost</th>
+                  <th class="name" style="font-size:10px;color:#FFFAFA;text-align:center;">description</th>
+                  <th class="quantity" style="font-size:10px;color:#FFFAFA;font-weight:normal;">qty</th>
+                  <th class="money" style="font-size:10px;color:#FFFAFA;font-weight:normal;">cost</th>
                   <th class="money">
-                     <div class="last">Total</div>
+                     <div class="last" style="font-size:10px;color:#FFFAFA;font-weight:normal;">total</div>
                   </th>
                </tr>
             </thead>
@@ -258,42 +265,42 @@
          <table class="npb" cellpadding="4">
             <tr>
                <td width="75%"></td>
-               <td colspan="2" style="border: 1px solid #999999;"><strong>Sub Total:</strong></td>
-               <td style="border: 1px solid #999999;"><strong><%= sub_total %></strong></td>
+               <td colspan="2" style="border: 1px solid #999999;color: #696969;"><b>Sub Total:</b></td>
+               <td style="border: 1px solid #999999;"><%= sub_total %></td>
             </tr>
             <tr>
                <td width="75%"></td>
                </td>
-               <td class="no-li-br" colspan="2" style="border: 1px solid #999999;" >
+               <td class="no-li-br" colspan="2" style="border: 1px solid #999999;color: #696969;" >
                   <% if show_tax  %>
                   <% if use_tax_codes? %>
-                  <p><strong><%= total_tax_header %>:</strong></p>
+                  <p><b><%= total_tax_header %>:</b></p>
                   <% else %>
-                  <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                  <p><b><%= total_tax_header %> (<%= tax_rate %>):</b></p>
                   <% end %>
                   <% end %>
                </td>
                <td colspan="2" style="border: 1px solid #999999;">
                   <% if show_tax  %>
-                  <p><strong><%= total_tax %></strong></p>
+                  <p><%= total_tax %></p>
                   <% end %>
                </td>
             </tr>
             <tr>
                <td width="75%"></td>
                </td>
-               <td colspan="2" style="border: 1px solid #999999;">
-                  <p><strong><%= shipping_charges_header %>:</strong></p>
+               <td colspan="2" style="border: 1px solid #999999;color: #696969;">
+                  <p><b><%= shipping_charges_header %>:</b></p>
                </td>
                <td style="border: 1px solid #999999;">
-                  <p><strong><%= shipping_charges %></strong></p>
+                  <p><%= shipping_charges %></p>
                </td>
             </tr>
             <tr>
                <td width="75%"></td>
                </td>
-               <td colspan="2" colspan="2" style="border: 1px solid #999999;"><strong>Estimate Total:<strong></td>
-               <td colspan="2" style="border: 1px solid #999999;"><strong><%= final_price %><strong></td>
+               <td colspan="2" colspan="2" style="border: 1px solid #999999;color: #696969;"><b>Estimate Total:</b></td>
+               <td colspan="2" style="border: 1px solid #999999;"><%= final_price %></td>
             </tr>
          </table>
          <p style="margin-left:400px;margin-top:-35px;"><img src="https://www.filepicker.io/api/file/1a6xEiqCQY29cYrFCvtM"></p>
@@ -306,18 +313,18 @@
          <div class="section">
             <div class="footer-bottom-left">
                <table>
-                  <tr style="border-top: 1px solid #999999;">
+                  <tr style="border-top: 2px solid #999999;">
                      <td style="padding-bottom:10px;">
-                        <p>authorized approval:
+                        <p style="font-size:10px;color: #696969;">authorized approval:
                         <p>
                      </td>
-                     <td style="padding-bottom:10px;">
+                     <td style="padding-bottom:10px;font-size:10px;color: #696969;">
                         <p>date:</p>
                      </td>
                      </td>
                   </tr>
                   <tr>
-                     <td colspan="4">
+                     <td colspan="4" style=" font-size:10px;color: #696969;">
                         NOTE: estimate valid for 30 days. payment terms subject to credit approval. all pricing subject to change pending review of final artwork and order
                         specifications. customer is responsible for all legal and other fees associated with efforts to collect on delinquent balances. f.o.b. valparaiso, IN. all
                         content is privileged and confidential.
