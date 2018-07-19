@@ -67,9 +67,9 @@
          @bottom { 
          content: url(https://cdn.filepicker.io/api/file/wXCHObMQ36jxPPHggoPQ);
          }
-         @bottom-right {
-            content: " ";
-         }
+            @bottom-right {
+               content: " ";
+            }
          }
 
       </style>
@@ -301,17 +301,17 @@
                            <% if use_tax_codes? %>
                            <p><strong><%= total_tax_header %>:</strong></p>
                            <% else %>
-                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <p><strong>BTW (<%= tax_rate %>):</strong></p>
                            <% end %>
                            <% end %>
                            <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
                            <% if has_payments? || has_credits? %>
                            <p>&nbsp;</p>
-                           <p><strong><%= payment_total_header %>:</strong></p>
+                           <p><strong>Aanbetaling:</strong></p>
                            <% if has_credits? %>
                            <p><strong><%= credits_header %>:</strong></p>
                            <% end %>
-                           <p><strong><%= payment_balance_due_header %>:</strong></p>
+                           <p><strong>Te betalen:</strong></p>
                            <% end %>
                         </td>
                         <td class="money last footer-subtotal">
