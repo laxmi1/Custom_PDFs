@@ -309,7 +309,7 @@
                            <p>&nbsp;</p>
                            <p><strong>Aanbetaling:</strong></p>
                            <% if has_credits? %>
-                           <p><strong><%= credits_header %>:</strong></p>
+                           <p><strong>Creditnota:</strong></p>
                            <% end %>
                            <p><strong>Te betalen:</strong></p>
                            <% end %>
@@ -347,7 +347,7 @@
             </div>
             <div class="clearfix"></div>
          </div>
-         <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
+       <!--<% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
          <div class="split-tax">
             <h4>Split Taxes</h4>
             <table class="split-tax-table">
@@ -376,10 +376,10 @@
                </tbody>
             </table>
          </div>
-         <% end %>
+         <% end %>-->
          <% if show_discounts %>
          <div>
-            <table class="split-tax-table">
+            <table class="split-tax-table" style="border: 2px solid black;width: 107%;margin-left:50px;margin-top:5px;">
                <tbody>
                   <tr>
                      <% if show_range_volume_discounts %>
