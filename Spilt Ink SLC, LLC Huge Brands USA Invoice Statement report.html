@@ -1,152 +1,158 @@
 <html>
-   <% report.items.each do |company| %>
-   <head>
+<% report.items.each do |company| %>
+    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
-         <%= page_size_portrait %>
-         <%= body_font_family %>
+        <%= page_size_portrait %>
+        <%= body_font_family %>
       </style>
-   </head>
-   <body>
-      <div style='page-break-after:always;'>
-         <!-- Footer Text for Page footter-->
-         <div style="display:none" class="document-footer">
-            <%= footer_text %>
-         </div>
-         <!-- Store Address and Logo -->
-         <div class="address-logo">
-            <table>
-               <tr>
-                  <td class="store-address">
-                     <%= report.store_address %>
-                  </td>
-                  <td class="store-logo">
-                     <img class="logo" src="<%= logo %>">
-                  </td>
-               </tr>
-            </table>
-         </div>
-         <div class="invoice_statements">
-            <table width="100%" class="attr_table noborder" border="0" cellspacing="0" cellpadding="0">
-               <tr BGCOLOR="#FFBFE0">
-                  <td style="padding-top:20px;text-align:center;font-size:35px;color:#000000;height:40px;">
-                     <div class="pdf_title">
-                        <%= report.pdf_name %>
-                     </div>
-                     </th>
-               </tr>
-            </table>
-            <br/>
-            <div align="left">
-               <tr>
-                  <td> <b><%= report.statement_till_header %> :</b>
-                     <%= format_date report.invoice_date %>
-                  </td>
-               </tr>
-            </div>
-            <div class=" padder invoice_statements">
-               <table class="table table-hover table-striped table-bordered">
-                  <thead>
-                     <tr style="font-size:15px;">
-                        <th>Billing To</th>
-                        <th>Contact</th>
-                     </tr>
-                  </thead>
-                  <tbody >
-                     <tr>
-                        <td  style="font-size:15px;padding:8px;width:70%">
-                           <% billing_address = company.company_details.addresses.where(address_type: 'Billing').first %>
-                           <%= billing_address.present? ? billing_address.name : “” %><br>
-                           <%= billing_address.present? ? billing_address.street : “” %>
-                           <%= billing_address.present? ? billing_address.street1 : “” %><br>
-                           <%= billing_address.present? ? billing_address.city : “” %>
-                           <%= billing_address.present? ? billing_address.state : “” %>
-                           <%= billing_address.present? ? billing_address.zip : “” %><br>
-                           <%= billing_address.present? ? billing_address.country : “” %>
-                        </td>
-                        <td style="font-size:15px;padding:8px;">
-                           <%= company.company_details.primary_contact.try(:name) %><br/>
-                           <%= company.company_details.primary_contact.try(:email) %><br/>
-                           <%= format_phone_pdf(company.company_details.account,company.company_details.primary_contact.try(:phone), extension: company.company_details.primary_contact.try(:ext)) %>
-                        </td>
-                     </tr>
-               </table>
-            </div>
-            <div class="padder invoice_statements">
-               <table class="table table-hover table-striped table-bordered">
-                  <thead>
-                     <tr>
-                        <% report.headers.each do |h| %>
-                        <th>
-                           <%= report.display_header(h) %>
-                        </th>
-                        <% end %>
-                     </tr>
-                  </thead>
-                  <tbody class="invoice_statements">
-                     <h2 align="center"><%= company.name %></h2>
-                     <% company.items.each do |item| %>
-                     <tr>
-                        <td>
-                           <%= item.txn_number %>
-                        </td>
-                        <td>
-                           <%= item.title %>
-                        </td>
-                        <td>
-                           <%= format_date item.txn_date %>
-                        </td>
-                        <td>
-                           <%= (Time.zone.today - item.invoice_date).to_i %>
-                        </td>
-                        <td>
-                           <%= item.primary_contact.try(:name) %>
-                        </td>
-                        <td>
-                           <%= item.customer_po_number %>
-                        </td>
-                        <td>
-                           <%= item.workflow_state.tr("_", " ") %>
-                        </td>
-                        <td>
-                           <%= item.term_code.try(:name) %>
-                        </td>
-                        <td>
-                           <%= company.billing_to(item)%>
-                        </td>
-                        <td>
-                           <%= company.shipping_to(item)%>
-                        </td>
-                        <td class="money">
-                           <%= int_cents_to_money(item.total_price_with_tax_in_cents) %>
-                        </td>
-                        <td class="money">
-                           <%= int_cents_to_money(item.total_payments_in_cents) %>
-                        </td>
-                        <td class="money">
-                           <%= int_cents_to_money(item.balance_in_cents) %>
-                        </td>
-                     </tr>
-                     <% end %>
-                     <tr class="total">
-                        <td colspan="10">
-                           <%= total %>
-                        </td>
-                        <td class="money">
-                           <%= int_cents_to_money(company.total_price_with_tax_in_cents) %>
-                        </td>
-                        <td class="money">
-                           <%= int_cents_to_money(company.total_payments_in_cents) %>
-                        </td>
-                        <td class="money">
-                           <%= int_cents_to_money(company.balance_in_cents) %>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </div>
+    </head>
+    <body>
+    <div style='page-break-after:always;'>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+        <%= footer_text %>
       </div>
-   </body>
-   <% end %>
+
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+        <table>
+          <tr>
+            <td class="store-address">
+              <%= report.store_address %>
+            </td>
+
+            <td class="store-logo">
+              <img class="logo" src="<%= logo %>">
+            </td>
+          </tr>
+        </table>
+      </div>
+  <div class="invoice_statements">
+      <table width="100%" class="attr_table noborder" border="0" cellspacing="0" cellpadding="0">
+        <tr BGCOLOR="#FFBFE0">
+          <td style="padding-top:20px;text-align:center;font-size:35px;color:#000000;height:40px;">
+            <div class="pdf_title">
+              <%= report.pdf_name %>
+            </div></th>
+        </tr>
+      </table>
+
+      <br/>
+
+      <div align="left">
+        <tr>
+          <td> <b><%= report.statement_till_header %> :</b>
+            <%= format_date report.invoice_date %>
+          </td>
+        </tr>
+
+      </div>
+      <div class=" padder invoice_statements">
+        <table class="table table-hover table-striped table-bordered">
+         <thead>
+          <tr style="font-size:15px;">
+            <th>Billing To</th>
+            <th>Contact</th>
+            
+          </tr>
+         </thead>
+          <tbody >
+          <tr>
+          <td  style="font-size:15px;padding:8px;width:70%">
+              <% billing_address = company.company_details.addresses.where(address_type: 'Billing').first %>
+<%= billing_address.present? ? billing_address.name : "" %><br>
+<%= billing_address.present? ? billing_address.street : "" %>
+<%= billing_address.present? ? billing_address.street1 : "" %><br>
+<%= billing_address.present? ? billing_address.city : "" %>
+<%= billing_address.present? ? billing_address.state : "" %>
+<%= billing_address.present? ? billing_address.zip : "" %><br>
+<%= billing_address.present? ? billing_address.country : "" %>
+          </td>
+          <td style="font-size:15px;padding:8px;">
+              <%= company.company_details.primary_contact.try(:name) %><br/>
+              <%= company.company_details.primary_contact.try(:email) %><br/>
+              <%= format_phone_pdf(company.company_details.account,company.company_details.primary_contact.try(:phone), extension: company.company_details.primary_contact.try(:ext)) %>
+          </td>
+          
+        </tr>
+       </table>
+      </div>
+      <div class="padder invoice_statements">
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+          <tr>
+            <% report.headers.each do |h| %>
+                <th>
+                  <%= report.display_header(h) %>
+                </th>
+            <% end %>
+          </tr>
+          </thead>
+          <tbody class="invoice_statements">
+          <h2 align="center"><%= company.name %></h2>
+          <% company.items.each do |item| %>
+              <tr>
+                <td>
+                  <%= item.txn_number %>
+                </td>
+                <td>
+                  <%= item.title %>
+                </td>
+                <td>
+                  <%= format_date item.txn_date %>
+                </td>
+                <td>
+                  <%= (Time.zone.today - item.invoice_date).to_i %>
+                </td>
+                <td>
+                  <%= item.primary_contact.try(:name) %>
+                </td>
+                <td>
+                  <%= item.customer_po_number %>
+                </td>
+                <td>
+                  <%= item.workflow_state.tr("_", " ") %>
+                </td>
+                <td>
+                  <%= item.term_code.try(:name) %>
+                </td>
+                <td>
+                  <%= company.billing_to(item)%>
+                </td>
+                <td>
+                  <%= company.shipping_to(item)%>
+                </td>
+                <td class="money">
+                  <%= int_cents_to_money(item.total_price_with_tax_in_cents) %>
+                </td>
+                <td class="money">
+                  <%= int_cents_to_money(item.total_payments_in_cents) %>
+                </td>
+                <td class="money">
+                  <%= int_cents_to_money(item.balance_in_cents) %>
+                </td>
+              </tr>
+          <% end %>
+          <tr class="total">
+            <td colspan="10">
+              <%= total %>
+            </td>
+            <td class="money">
+              <%= int_cents_to_money(company.total_price_with_tax_in_cents) %>
+            </td>
+            <td class="money">
+              <%= int_cents_to_money(company.total_payments_in_cents) %>
+            </td>
+            <td class="money">
+              <%= int_cents_to_money(company.balance_in_cents) %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+    </body>
+<% end %>
 </html>
