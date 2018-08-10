@@ -22,7 +22,7 @@
          .summary .summ.right .summary-wrapper {
          border-right: 2px solid #5cd65c;
          text-align: right;
-         padding-right: 10pt;
+         padding-right: 6pt;
          }
          .addresses {
          padding: 5pt 35pt;
@@ -39,7 +39,7 @@
          padding-right: 10pt;
          }
          .line-items tbody tr:first-child td {
-         border-top: 2px solid #5cd65c;
+         border-top: 0px solid #5cd65c;
          padding-top: 5pt;
          }
          .line-items tfoot td {
@@ -173,45 +173,23 @@
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
+                     <% unless sales_rep_information.blank?%>
                      <p class="title"><%= sales_rep_information_header %></p>
                      <p><%= sales_rep_information %></p>
+                     <% end %>
                   </div>
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
                      <p class="title"><%= quote_date_header %></p>
                      <p><%= quote_date %></p>
-                     <% if quote_has_due_date %>
-                     <p class="title"><%= quote_due_date_header %></p>
-                     <p><%= quote_due_date%></p>
-                     <% end %>
                      <% if quote_expiry_date %>
                      <p class="title"><%= quote_expiry_date_header %></p>
                      <p><%= quote_expiry_date%></p>
                      <% end %>
-                     <% if quote_ship_date %>
-                     <p class="title"><%= quote_ship_date_header %></p>
-                     <p><%= quote_ship_date%></p>
-                     <% end %>
                      <% if term_code %>
                      <p class="title"><%= term_code_header %></p>
                      <p><%= term_code %></p>
-                     <% end %>
-                     <% if payment_method %>
-                     <p class="title"><%= payment_information_header %></p>
-                     <p><%= payment_method %></p>
-                     <% end %>
-                  </div>
-               </td>
-               <td class="summ right">
-                  <div class="summary-wrapper">
-                     <% if po_date %>
-                     <p class="title"><%= po_number_header %></p>
-                     <p><%= po_number %></p>
-                     <% end %>
-                     <% if po_date %>
-                     <p class="title"><%= po_date_header %></p>
-                     <p><%= po_date %></p>
                      <% end %>
                   </div>
                </td>
@@ -220,19 +198,19 @@
       </div>
       <!-- Sold To, Contact Info and Shipping Address -->
       <div class="addresses">
-         <table>
-            <% if show_about_this_desc and description.present? %>
+         <table>            
             <tr>
                <td class="address left" colspan="3">
-                  <div class="address-wrapper">
+                  <div class="address-wrapper" style="border-left: none;">
                      <p style="font-size:15px;"><%= name %></p>
+                     <% if show_about_this_desc and description.present? %>
                      <p>
                         <%= description %>
                      </p>
+                     <% end %>
                   </div>
                </td>
-            </tr>
-            <% end %>
+            </tr>            
          </table>
       </div>
       <div class="line-items">
