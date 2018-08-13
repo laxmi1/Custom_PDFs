@@ -160,8 +160,8 @@
                      <% if @object.account.website %> 
                      <p><%= @object.account.website %></p>
                      <%end%>
-                     <% if business_number_text(@object.account) %> 
-                     <p><%= business_number_text(@object.account) %></p>
+                     <p><%if @object.account and not @object.account.ein_number.blank?%>
+                     ABN: <%= @object.account.ein_number %></p>
                      <%end%>
                   </span>
                </td>
