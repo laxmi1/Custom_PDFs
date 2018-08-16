@@ -8,11 +8,26 @@
          <%= page_size %>
          <%= body_font_family %>
          .address-logo {
-         padding: 10pt 35pt 5pt 35pt;
+         padding: 10pt 75pt 5pt 35pt;
          border-bottom: 2px solid #e3e3e3;
          }
          .li-desc-fixed-width {
          max-width: 360pt;
+         }
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 150px;
+         max-height: 130px;
+         }
+         .footertax tr td{
+         padding:15pt;
+         font-size: 15px;
+         font-weight: bold;
+         }
+         .address-logo .store-address {
+         text-align: left;
+         vertical-align: top;
+         font-size: 10px;
          }
       </style>
    </head>
@@ -26,33 +41,38 @@
       <div class="address-logo">
          <table>
             <tr>
+               <p style="font-size:18px;padding-bottom:5px;"><b><%= store_name %></b></p>
                <td class="store-address">
-                  <p><b><%= store_name %></b></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %><%end%>
                      <%if store_address_street1%><%= store_address_street1 %>,<%end%>
-                     <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%>,<%end%>
+                     <%if store_address_city%><%= store_address_city %>,
+                  </p>
+                  <%end%> 
+                  <p><%if store_address_state %> <%= store_address_state%>,<%end%>
                      <%if store_address_zip %> <%= store_address_zip%>
                   </p>
                   <%end%>
-                  <% if store_email%>
-                  <p>Email: <%=store_email%></p>
-                  <%end%>
-                  <% if store_phone%>
-                  <p>Phone: <%=store_phone%></p>
-                  <%end%>  
                   <% if license_number_text(@object.account) %> 
                   <p><%= license_number_text(@object.account) %></p>
                   <%end%>
                   <% if tax_code_number_text(@object.account) %>
                   <p><%= tax_code_number_text(@object.account) %></p>
                   <%end%>
+               </td>
+               <td class="store-address" style="text-align: right;padding-right:180px;">
+                  <% if store_email%>
+                  <p>Email: <%=store_email%></p>
+                  <%end%>
+                  <% if store_phone%>
+                  <p>Phone: <%=store_phone%></p>
+                  <%end%>  
                   <% if @object.account.website %> 
                   <p><%= @object.account.website %></p>
                   <%end%>
                </td>
                <td class="store-logo">
-                  <img class="logo" src="<%= logo %>">
+                  <img class="logo"  style="margin-top:-27px;" src="<%= logo %>">
                </td>
             </tr>
          </table>
@@ -89,10 +109,6 @@
                      <p><%= invoice_date %></p>
                      <p class="title"><%= due_date_header %></p>
                      <p><%= due_date %></p>
-                     <% if payment_method %>
-                     <p class="title"><%= payment_information_header %></p>
-                     <p><%= payment_method %></p>
-                     <% end %>
                   </div>
                </td>
                <td class="summ right">
@@ -101,18 +117,7 @@
                      <p class="title"><%= term_code_header %></p>
                      <p><%= term_code %></p>
                      <% end %>
-                     <% if po_number %>
-                     <p class="title"><%= po_number_header %></p>
-                     <p><%= po_number %></p>
-                     <% end %>
-                     <% if po_date %>
-                     <p class="title"><%= po_date_header %></p>
-                     <p><%= po_date %></p>
-                     <% end %>
-                     <% if shipping_method %>
-                     <p class="title"><%= shipping_method_header %></p>
-                     <p><%= shipping_method %></p>
-                     <% end %>
+                     
                   </div>
                </td>
             </tr>
@@ -131,34 +136,18 @@
                      <% end %>
                   </div>
                </td>
-               <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') ) %>
-               <td class="address left">
-                  <div class="address-wrapper">
-                     <p class="title"><%= shipping_information_header %></p>
-                     <% if shipping_address_type != 'DropShip' %>
-                     <%= sold_to(show_company_name = false) %>
-                     <% end %>
-                     <%= shipping_information %></p>
-                     <%if shipping_tracking %>
-                     <br/>
-                     <p class="title"><%= shipping_tracking_header%></p>
-                     <%= shipping_tracking %>
-                     <% end %>
-                  </div>
-               </td>
-               <% end %>
-               <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
-               <td class="address left">
-                  <div class="address-wrapper">
-                     <p class="title"><%= installing_information_header %></p>
-                     <%= installing_information %></p>
-                  </div>
-               </td>
-               <% end %>
                <td class="address left">
                   <div class="address-wrapper">
                      <p class="title"><%= contact_information_header %></p>
                      <p><%= contact_information %></p>
+                  </div>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <% if po_number %>
+                     <p class="title"><%= po_number_header %></p>
+                     <p><%= po_number %></p>
+                     <% end %>
                   </div>
                </td>
             </tr>
@@ -350,9 +339,13 @@
       <div class="footer-bottom">
          <div class="section">
             <div class="footer-bottom-left">
-               <div class="terms-text">
-                  <%= terms_conditions %>
-               </div>
+               <table class="footertax">
+                  <tr>
+                     <td>TAXES</td>
+                     <td>GST</td>
+                     <td>PST</td>
+                  </tr>
+               </table>
             </div>
             <div class="footer-bottom-right">
                <table>

@@ -146,7 +146,7 @@
                      <%end%>
                      <% if store_email%>
                      <p><%=store_email%>
-                        <%end%>|
+                        <%end%> &nbsp;&nbsp;| &nbsp;&nbsp;
                         <% if store_phone%>
                         <%=store_phone%>
                      </p>
@@ -161,7 +161,7 @@
                      <p><%= @object.account.website %></p>
                      <%end%>
                      <p><%if @object.account and not @object.account.ein_number.blank?%>
-                     ABN: <%= @object.account.ein_number %></p>
+                     ABN : <%= @object.account.ein_number %></p>
                      <%end%>
                   </span>
                </td>
