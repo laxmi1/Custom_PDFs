@@ -19,15 +19,27 @@
          max-width: 150px;
          max-height: 130px;
          }
-         .footertax tr td{
-         padding:15pt;
-         font-size: 15px;
-         font-weight: bold;
-         }
          .address-logo .store-address {
          text-align: left;
          vertical-align: top;
          font-size: 10px;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 27%;
+         border-left: solid 2px #e3e3e3;
+         background: #f7f7f7;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0;
+         }
+
+         .footer-subtotal {
+         width: 50%;
+         text-align: right;
+         }
+
+         .footer-subtotal.labels {
+         text-align: right;
          }
       </style>
    </head>
@@ -136,7 +148,7 @@
                      <% end %>
                   </div>
                </td>
-               <td class="address left">
+               <td class="address left" style="padding-left:200px;">
                   <div class="address-wrapper">
                      <p class="title"><%= contact_information_header %></p>
                      <p><%= contact_information %></p>
@@ -339,14 +351,10 @@
       <div class="footer-bottom">
          <div class="section">
             <div class="footer-bottom-left">
-               <table class="footertax">
-                  <tr>
-                     <td>TAXES</td>
-                     <td>GST</td>
-                     <td>PST</td>
-                  </tr>
-               </table>
+               <div class="terms-text">
+                <%= terms_conditions %>
             </div>
+         </div>
             <div class="footer-bottom-right">
                <table>
                   <tbody>
@@ -361,10 +369,9 @@
                            <% if has_finance_charges? %>
                            <p><strong><%= finance_charges_header %>:</strong></p>
                            <% end %>
-                           <% if has_misc_charges? %>
-                           <p><strong><%= misc_charges_header %>:</strong></p>
-                           <% end %>
                            <p><strong><%= subtotal_header %>:</strong></p>
+                           <p><strong>GST:</strong></p>
+                           <p><strong>PST:</strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
                            <p><strong><%= total_tax_header %>:</strong></p>
@@ -392,10 +399,9 @@
                            <% if has_finance_charges? %>
                            <p><strong><%= finance_charges %></strong></p>
                            <% end %>
-                           <% if has_misc_charges? %>
-                           <p><strong><%= misc_charges %></strong></p>
-                           <% end %>
                            <p><strong><%= sub_total %></strong></p>
+                           <p><strong>&nbsp</strong></p>
+                           <p><strong>&nbsp</strong></p>
                            <% if show_tax  %>
                            <p><strong><%= total_tax %></strong></p>
                            <% end %>
