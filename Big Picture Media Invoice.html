@@ -12,7 +12,7 @@
          border-bottom: 0px solid #e3e3e3;
          }
          .orderby{
-         padding: 10pt 0pt 0pt 35pt;
+         padding: 10pt 0pt 30pt 35pt;
          font-size: 11pt;
          }
          .dates-terms{
@@ -31,7 +31,7 @@
          font-size: 11pt;
          }
          .li-desc-fixed-width {
-         max-width: 360pt;
+         max-width: 350pt;
          }
          .footer-bottom-left {
          width: 65%;
@@ -53,8 +53,10 @@
          text-align: right;
          margin-right: 35px;
          }
+
+
          @page {
-         margin: 20px 20px 45px 20px;
+         margin: 10px 20px 35px 20px;
          @bottom { 
          width: 67%;
          font-size: 12px;
@@ -81,18 +83,18 @@
          <table>
             <tr>
                <td class="store-address" >
-                  <b> <font size="6"> Invoice </font> </b> <br><br>
+                  <b> <font size="6"> INVOICE </font> </b> <br><br>
                </td>
                <td class="store-logo">
-                  <img class="logo" style="margin-top:-27px;" src="<%= logo %>">
+                  <img class="logo" style="margin-top:-33px;" src="<%= logo %>">
                </td>
             </tr>
          </table>
       </div>
-      <table cellpadding="3">
+      <table>
          <tr>
             <td class="orderby">
-               <div class="address-wrapper">
+               <div style="margin-top:-60px;">
                   <p><b>Invoice to</b></p>
                   <p><%= billing_information %></p>
                   <% if company_vat_number.present? %>
@@ -100,7 +102,7 @@
                   <% end %>
                </div>
             </td>
-            <td class="dates-terms" align="left" width="65%">
+            <td class="dates-terms" align="left" width="65%" style="padding-top:10px;">
                <p>Invoice No:
                   <b><%= txn_number_only %></b>
                <p>
@@ -133,28 +135,14 @@
          <table>
             <thead>
                <tr>
-                  <th class="position">
-                  </th>
                   <th class="name" colspan="1">Description</th>
                   <th class="money">
-                     <div class="last">Amount</div>
+                     <div class="last" style="margin-right:-120px;">Amount</div>
                   </th>
                </tr>
             </thead>
             <tbody class=''>
                <% items.each_with_index do |item, index| %>
-               <tr>
-                  <td class="position" rowspan="2">
-                     <div class="first">
-                     </div>
-                  </td>
-                  <td class="name" colspan="1">&nbsp</td>
-                  <td class="money">
-                     <div class="last">
-                        <%= item.total_price %>
-                     </div>
-                  </td>
-               </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="description" colspan="7">
@@ -171,6 +159,7 @@
                            <%= item.description %>
                         </div>
                         <% end %>
+<br>
                         <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
                         <hr class="custom-field-separator">
                         <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
@@ -196,6 +185,14 @@
                         <% end %>
                      </div>
                   </td>
+                  <td class="money">
+                     <div class="last" style="margin-right:150px;">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  
                </tr>
                <% end %>
             </tbody>
