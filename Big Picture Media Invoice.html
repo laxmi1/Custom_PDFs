@@ -8,15 +8,20 @@
          <%= page_size %>
          <%= body_font_family %>
          .address-logo {
-         padding: 50pt 35pt 5pt 35pt;
+         padding: 20pt 35pt 5pt 40pt;
          border-bottom: 0px solid #e3e3e3;
          }
+         .address-logo .store-logo .logo,
+         img.logo {
+           max-width: 230px;
+            max-height: 120px;
+           }
          .orderby{
-         padding: 10pt 0pt 30pt 35pt;
+         padding: 10pt 0pt 30pt 40pt;
          font-size: 11pt;
          }
          .dates-terms{
-         padding: 0pt 5pt 0pt 150pt;
+         padding: 0pt 5pt 0pt 190pt;
          /* font-family: "Times New Roman", Times, serif;*/
          font-size: 11pt;
          }
@@ -31,7 +36,7 @@
          font-size: 11pt;
          }
          .li-desc-fixed-width {
-         max-width: 350pt;
+         max-width: 360pt;
          }
          .footer-bottom-left {
          width: 65%;
@@ -51,12 +56,11 @@
          padding: 5px;
          border-top: solid 2px #e3e3e3;
          text-align: right;
+         width: 100%;
          margin-right: 35px;
          }
-
-
          @page {
-         margin: 10px 20px 35px 20px;
+         margin: 10px 20px 45px 20px;
          @bottom { 
          width: 67%;
          font-size: 12px;
@@ -86,7 +90,7 @@
                   <b> <font size="6"> INVOICE </font> </b> <br><br>
                </td>
                <td class="store-logo">
-                  <img class="logo" style="margin-top:-33px;" src="<%= logo %>">
+                  <img class="logo" src="<%= logo %>">
                </td>
             </tr>
          </table>
@@ -107,17 +111,18 @@
                   <b><%= txn_number_only %></b>
                <p>
                <p>Date:
-               <%= invoice_date %>
+                  <%= invoice_date %>
                </p>
                <% if term_code %>
                <p>Terms:
-               <%= term_code %>
+                  <%= term_code %>
                <p>
                   <% end %>
                <p>Due Date:
                   <%= due_date %>
-               </p><br>
-                  <% if po_number %>
+               </p>
+               <br>
+               <% if po_number %>
                <p>PO Number: 
                   <%= po_number %>
                </p>
@@ -135,9 +140,13 @@
          <table>
             <thead>
                <tr>
-                  <th class="name" colspan="1">Description</th>
+                  <th class="name">Description</th>
+                  <th class="name"></th>
+                  <th class="quantity"></th>
+                  <th class="quantity"></th>
+                  <th class="money"></th>
                   <th class="money">
-                     <div class="last" style="margin-right:-120px;">Amount</div>
+                     <div class="last">Amount</div>
                   </th>
                </tr>
             </thead>
@@ -159,7 +168,7 @@
                            <%= item.description %>
                         </div>
                         <% end %>
-<br>
+                        <br>
                         <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
                         <hr class="custom-field-separator">
                         <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
@@ -186,13 +195,12 @@
                      </div>
                   </td>
                   <td class="money">
-                     <div class="last" style="margin-right:150px;">
+                     <div class="last">
                         <%= item.total_price %>
                      </div>
                   </td>
                </tr>
                <tr>
-                  
                </tr>
                <% end %>
             </tbody>
