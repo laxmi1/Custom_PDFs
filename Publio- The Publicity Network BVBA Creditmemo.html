@@ -160,7 +160,9 @@
          </tr>
          <tr>
             <td style="border-right: 2px solid black;">
-               
+              <% if @company.vat_number %>
+               <p><%= @company.vat_number %></p>
+              <% end %>
             </td>
             <td style="border-right: 2px solid black;"><%= po_number %></td>
             <td style="border-right: 2px solid black;"><%= credit_memo_date %></td>
