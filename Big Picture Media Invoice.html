@@ -3,12 +3,12 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          .terms-title *, .terms-text * {
-         font-size:6pt !important;
+         font-size:10pt;
          }
          <%= page_size %>
          <%= body_font_family %>
          .address-logo {
-         padding: 20pt 35pt 5pt 40pt;
+         padding: 10pt 35pt 5pt 40pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .address-logo .store-logo .logo,
@@ -55,9 +55,9 @@
          .thankyou{
          padding: 5px;
          border-top: solid 2px #e3e3e3;
-         text-align: right;
          width: 100%;
-         margin-right: 35px;
+         text-align: center;
+         font-size: 10pt;
          }
          @page {
          margin: 10px 20px 45px 20px;
@@ -86,7 +86,7 @@
       <div class="address-logo">
          <table>
             <tr>
-               <td class="store-address" >
+               <td style="padding-top:10px;">
                   <b> <font size="6"> INVOICE </font> </b> <br><br>
                </td>
                <td class="store-logo">
@@ -98,7 +98,7 @@
       <table>
          <tr>
             <td class="orderby">
-               <div style="margin-top:-60px;">
+               <div style="margin-top:-18px;">
                   <p><b>Invoice to</b></p>
                   <p><%= billing_information %></p>
                   <% if company_vat_number.present? %>
@@ -130,11 +130,13 @@
                <p>Ordered By:
                   <%= company_name %>
                </p>
-               <p>Our Ref:
+               <p style="margin-boottom:30px;">Our Ref:
                </p>
             </td>
          </tr>
       </table>
+      <p>&nbsp</p>
+      <p>&nbsp</p>
       <div class="line-items" style="border: solid 2px #e3e3e3;width: 90%;margin-left:50px;min-height:360px;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
@@ -277,7 +279,7 @@
                            <br>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
-                           <p>VAT:</p>
+                           <p>VAT @ 23%:</p>
                            <br>
                            <% else %>
                            <p>VAT (<%= tax_rate %>):</p>
