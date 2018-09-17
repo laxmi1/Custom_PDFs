@@ -101,6 +101,9 @@
          color: black;
          font-weight: bold;
          }
+         .summary .summary-wrapper .PO-title {
+          font-size: 20px;
+         }
          .line-items thead th {
          font-size: 10px;
          text-transform: uppercase;
@@ -177,11 +180,9 @@
                   <div class="summary-wrapper">
                      <h1 class="main-title"><%= invoice_number %> <br/>
                      </h1>
-                      <h3 class="main-title">
-                        <% unless po_number.blank?%>
-                         <p>PO:<%= po_number %></p>
-                        <% end %>
-                      </h3>
+                       <% if po_number.present? %>
+                      <p class="PO-title"><b>PO: </b><%= po_number %></p>
+                     <% end %>
                      
                      <% if project_number %>
                      <p class="title"><%= project_header %></p>
