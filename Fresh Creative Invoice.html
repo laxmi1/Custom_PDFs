@@ -87,7 +87,7 @@
          border-left: solid 2px #88b342;
          background: none;
          padding: 6pt 6pt 5pt 6pt;
-         margin: 10pt 0;
+         margin: 6pt 0;
          }
          .box_label-details-table--line-items td,
          .box_label-details-table--line-items th {
@@ -162,7 +162,8 @@
                      <p><%= @object.account.website %></p>
                      <%end%>
                      <p><%if @object.account and not @object.account.ein_number.blank?%>
-                     ABN : <%= @object.account.ein_number %></p>
+                        ABN : <%= @object.account.ein_number %>
+                     </p>
                      <%end%>
                   </span>
                </td>
@@ -176,6 +177,12 @@
                   <div class="summary-wrapper">
                      <h1 class="main-title"><%= invoice_number %> <br/>
                      </h1>
+                      <h3 class="main-title">
+                        <% unless po_number.blank?%>
+                         <p>PO:<%= po_number %></p>
+                        <% end %>
+                      </h3>
+                     
                      <% if project_number %>
                      <p class="title"><%= project_header %></p>
                      <p><%= project_number %></p>
@@ -408,11 +415,6 @@
       <!-- Signature Note -->
       <div class="footer-bottom">
          <div class="section">
-            <div class="footer-bottom-left">
-               <div class="terms-text">
-                  <%= terms_conditions %>
-               </div>
-            </div>
             <div class="footer-bottom-right">
                <table>
                   <tbody>
@@ -479,19 +481,46 @@
                   </tbody>
                </table>
             </div>
-            <div class="clearfix"></div>
-         </div>
-         <div class="section section--border-bottom">
-            <div class="signature terms">
+            <div class="footer-bottom-right" style="background:#e3ecd4;">
                <table>
                   <tbody>
                      <tr>
-                        <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
-                        <td class="date text--up text--bold"><%= date_header %>:</td>
+                        <td>
+                           <p>Bank:</p>
+                           <p>Account Name:</p>
+                           <p>BSB:</p>
+                           <p>Account Number:</p>
+                        </td>
+                        <td >
+                           <p>Westpac</p>
+                           <p>Fresh Creative Design</p>
+                           <p>032-747</p>
+                           <p>155031</p>
+                        </td>
                      </tr>
                   </tbody>
                </table>
             </div>
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td  style="color:red;">
+                           <p>
+                              <b>
+                                 PAYMENT DUE 7 DAYS
+                           </p>
+                           <p>FROM DATE OF INVOICE</b></p>
+                           <p>Late payments may incur late</p>
+                           <p>fees and penalties</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+         <div class="section--border-bottom">
          </div>
       </div>
    </body>
