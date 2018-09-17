@@ -12,10 +12,10 @@
          font-size: 10pt;
          }
          .box__content-proof-img {
-    height: 70em;
-    width: 100%;
-    display: table;
-}
+         height: 70em;
+         width: 100%;
+         display: table;
+         }
       </style>
    </head>
    <body>
@@ -25,16 +25,15 @@
             <div class="container">
                <div class="row">
                   <div class="col-7">
-
                      <h1 class="job-pdf__info-title">
                         <b><%= company_name %></b><br>
-                        <%= title %></h1>
-                       <h2>
+                        <%= title %>
+                     </h1>
+                     <h2>
                         <% if txn_title.present? %>
                         <p style="margin-top:-12px;"><%= txn_title %></p>
                         <% end %>
                      </h2>
-
                      <div class="box box--default box--border">
                         <div class="box__content" style="margin-top:-15px;">
                            <div class="row">
@@ -86,7 +85,7 @@
                            <div class="qr__code">
                               <div>
                                  <p class="text--right" style="margin-top:-10px;">
-                                   1 of <strong>2</strong>
+                                    1 of <strong>2</strong>
                                  </p>
                               </div>
                               <svg>
@@ -121,9 +120,9 @@
          <div>
             <div class="col-12">
                <% if local_file_path.present? %>
-                  <p><strong>Local File:</strong>
-                     <%= local_file_path %>
-                  </p>
+               <p><strong>Local File:</strong>
+                  <%= local_file_path %>
+               </p>
                <% end %>
             </div>
          </div>
@@ -148,6 +147,18 @@
                            <p><b>Install details:</b>
                               <%= install_details %>
                            </p>
+                        </div>
+                     </div>
+                     <div class="box box--white box--border">
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-4">
+                                 <p>Quantity:</p>
+                              </div>
+                              <div class="col-8">
+                                 <p><strong><%= quantity %></strong></p>
+                              </div>
+                           </div>
                         </div>
                      </div>
                      <div class="box box--white box--no-padding">

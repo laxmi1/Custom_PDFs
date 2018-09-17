@@ -157,6 +157,10 @@
               <p class="title"><b><%= customer_po_header %></b></p>
               <p><%= po_number %></p>
           <% end %>
+          <% unless project_manager_name.blank?%>
+            <p class="title"><b><%= project_manager_header %></b></p>
+            <p><%= project_manager_name %></p>
+          <% end %>
         </div>
         <br/>
       </td>
