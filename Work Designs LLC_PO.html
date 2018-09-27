@@ -208,8 +208,12 @@
       <tr>
         <td class="description" colspan="6">
           <div class="last text--pre-line li-desc-fixed-width">
-            <%= item.description %>
-            <img src="<%= item.product_image %>" class="line-item-description-image">
+            <%= item.format_description(html: true) %>
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <%= item.notes %>
           </div>
         </td>
       </tr>
