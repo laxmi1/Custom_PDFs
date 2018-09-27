@@ -12,15 +12,15 @@
          @top-left { content: none }
          }
          .box-check {
-         border: 2px black solid;
-         height: 20px;
-         width: 20px;
+         border: 1px black solid;
+         height: 10px;
+         width: 10px;
          float: left;
          }
          .text {
          float: left;
          margin: 5px;
-         font-size: 14px;
+         font-size: 7px;
          }
       </style>
    </head>
@@ -56,7 +56,11 @@
                      <% if project_number %>
                      <p class="title"><%= project_header %></p>
                      <p><%= project_number %></p>
-                     <% end %>
+                     <% end %><br>
+                     <div style="float:left;">STORED:</div>
+                        <div style="width:117px; border-bottom: 2px #ccc solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;</div><br><br>
+                        <p style="width:117px; border-bottom: 2px #ccc solid;margin-bottom: 2px;margin-left:58px;">&nbsp;</p>
+
                   </div>
                </td>
                <td class="summ right">
@@ -450,53 +454,55 @@
          </table>
       </div>
       <% end %>
+    <div class="footer-bottom">
       <div class="section">
          <div class="footer-bottom-left">
             <div class="terms-text">
-               <div class="text">DESIGN TIME</div>
-               <div style="border: 2px black solid;height: 20px;width: 35px;float: left;"></div>
-               <br><br><br>
+               <div class="text">DESIGN TIME:</div>
+               <div style="width:36px; border-bottom: 2px #ccc solid;margin-bottom: 2px;float:left;">&nbsp;</div>
+               <br><br>
                <div class="text">FOLDER IN ASSETS</div>
                <div class="box-check"></div>
-               <br><br><br>
+               <br><br>
                <div class="text">IMAGES UPLOADED</div>
                <div class="box-check"></div>
-               <br><br><br>
+               <br><br>
                <div class="text">OUTSOURCED REQUIRED-</div>
-               <br><br><br>
+               <br><br>
                <div class="text"> YES</div>
                <div class="box-check"></div>
                <div class="text"> NO</div>
                <div class="box-check"></div>
                <div class="text"> IF YES: </div>
-               <br><br><br>
+               <br><br>
                <div class="text">QUOTE ATTACHED/INCLUDED</div>
                <div class="box-check"></div>
-               <br><br><br>
+               <br><br>
                <div class="text">SUPPLIER: </div>
-               <br><br><br>
+               <br><br>
                <div class="text">CONTACT: </div>
-               <br><br><br>
+               <br><br>
                <div class="text">PHONE: </div>
-               <br><br><br>
+               <br><br>
                <div class="text">INSTALL-</div>
                <div class="text">YES</div>
                <div class="box-check"></div>
                <div class="text">NO</div>
                <div class="box-check"></div>
-               <br><br><br>
+               <br><br>
                <div class="text">IF YES: </div>
                <div class="text">SIMPLE</div>
                <div class="box-check"></div>
                <div class="text">COMPLEX</div>
                <div class="box-check"></div>
-               <br><br><br>
+               <br><br>
                <div class="text">DETAILS:</div>
-               <br><br><br><br><br>
+               <br><br><br>
                <div class="text">ACCESS EQUIPMENT REQUIRED:</div>
             </div>
          </div>
          <div class="clearfix"></div>
+      </div>
       </div>
    </body>
 </html>
