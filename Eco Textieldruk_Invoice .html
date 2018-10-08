@@ -12,6 +12,14 @@
               content: "";
             }
            }
+           .footer-bottom-right {
+            float: right;
+            width: 42%;
+            border-left: solid 2px #e3e3e3;
+            background: #f7f7f7;
+            padding: 6pt 6pt 5pt 6pt;
+            margin: 10pt 0;
+}
         </style>
      </head>
      <body>
@@ -19,7 +27,7 @@
            <%= header_text %>
         </div>
         <div style="display:none" class="document-footer"></div>
-        <font color="white">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= @object.txn_date %> [O+CusAccNum]<%= @object.company.account_number.present? ? @object.company.account_number : '' %> [O+CusGro]<%= @object.company.group_id? ? @object.company.group.try(:name) : '' %> </font>
+        <font color="white">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= @object.txn_date %> [O+CusAccNum]<%= @object.company.account_number.present? ? @object.company.account_number : '' %> [O+CusDiv]<%= @object.company.division_id? ? @object.company.division.try(:name) : '' %> </font>
         <div class="address-logo">
            <table>
               <tr>
@@ -445,7 +453,7 @@
                              <% else %>
                              <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
                              <% end %>
-                             <% end %>
+                             <% end %><br>
                              <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
                              <% if has_payments? || has_credits? %>
                              <p>&nbsp;</p>
@@ -472,8 +480,8 @@
                              <p><strong><%= sub_total %></strong></p>
                              <% if show_tax  %>
                              <p><strong><%= total_tax %></strong></p>
-                             <% end %>
-                             <p class="footer-total"><strong><%= final_price %></strong></p>
+                             <% end %><br>
+                             <p class="footer-total"><strong  style="border-top: 1px solid black; padding: 5px;margin-top: 5px;"><%= final_price %></strong></p>
                              <% if has_payments? || has_credits? %>
                              <p>&nbsp;</p>
                              <p><strong><%= total_paid %></strong></p>
