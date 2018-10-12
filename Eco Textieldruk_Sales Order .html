@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          .terms-title *, .terms-text * {
-         font-size:6pt !important;
+         font-size:7pt;
          }
          <%= page_size %>
          <%= body_font_family %>
@@ -94,6 +94,10 @@
                      <% if ship_date %>
                      <p class="title"><%= shipping_date_header %></p>
                      <p><%= ship_date %></p>
+                     <% end %>
+                     <% if due_date %>
+                      <p class="title">VERZENDDATUM</p>
+                      <p><%= due_date %></p>
                      <% end %>
                   </div>
                </td>
