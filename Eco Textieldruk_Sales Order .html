@@ -139,7 +139,8 @@
                <td class="address left">
                   <div class="address-wrapper">
                      <p class="title"><%= ordered_by_header %></p>
-                     <p><%= sold_to %></p>
+                     <p>Account Number:<%= @object.company.account_number.present? ? @object.company.account_number : '' %></p>
+                     <p><%=@object.company.try(:name) %></p>
                      <%= billing_information %>
                   </div>
                </td>
@@ -149,7 +150,6 @@
                      <p class="title"><%= shipping_information_header %></p>
                      <p>
                         <% if shipping_address_type != 'DropShip' %>
-                        <%= sold_to(show_company_name = false) %>
                         <% end %>
                      </p>
                      <p><%= shipping_information %></p>
