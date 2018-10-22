@@ -51,6 +51,12 @@
                   <% if tax_code_number_text(@object.account) %>
                   <p><%= tax_code_number_text(@object.account) %></p>
                   <%end%>
+                  <% if bank_account_number_text(@object.account) %>
+                  <p><%= bank_account_number_text(@object.account) %></p>
+                  <%end%>
+                  <% if bic_code_number_text(@object.account) %>
+                  <p><%= bic_code_number_text(@object.account) %></p>
+                  <%end%>
                   <% if @object.account.website %>
                   <p><%= @object.account.website %></p>
                   <%end%>
