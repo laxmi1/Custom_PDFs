@@ -3,7 +3,6 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          <%= page_size %>
-         <%= body_font_family %>
          .address-logo {
          padding: 10pt 35pt 5pt 35pt;
          border-bottom: 2px solid #e3e3e3;
@@ -61,6 +60,63 @@
          content: " ";
          }
          }
+      .main-title{
+         font-family: "Dejavu sans condensed bold;"
+         font-size:30pt;
+      }
+     .summary .summ .main-title {
+    margin: 0;
+    font-family: "Arial Bold;"
+   font-size:14pt;
+
+}
+.summary .summ .title {
+    text-transform: uppercase;
+    margin-top: 5pt;
+    font-size: 7.5pt;
+    color: #6D6A6A;
+    font-family: "Arial Bold;"
+
+}
+
+.addresses .address .title {
+    text-transform: uppercase;
+    margin-top: 0pt;
+    font-size: 7.5pt;
+    color: #6D6A6A;
+    font-family: "Arial Bold;"
+}
+.line-items thead th {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    color: #999999;
+    padding: 5pt 5pt;
+    font-family: "Arial Bold;"
+}
+.line-items tbody tr td {
+    vertical-align: top;
+    font-size: 10pt;
+    padding: 0 5pt;
+    font-family: "Arial Bold;"
+}
+.footer-bottom-left {
+    width: 65%;
+    float: left;
+    text-align: justify;
+    font-family: "Arial;"
+    font-size: 10pt;
+
+}
+.footer-bottom-right {
+    float: right;
+    width: 30%;
+    border-left: solid 2px #e3e3e3;
+    background: #f7f7f7;
+    padding: 6pt 6pt 5pt 6pt;
+    margin: 10pt 0;
+    font-family: "Arial;"
+    font-size: 10pt;
+}
       </style>
    </head>
    <body>
@@ -79,7 +135,7 @@
                   <img class="logo" src="<%= logo %>">
                </td>
                <td class="store-logo">
-                  <h1 class="main-title" style="color:#4682B4;"><b>Quotation <%= txn_number_only %></b><br/>
+                  <h1 class="main-title" style="color:#4682B4;font-family: "Dejavu Sans Condensed Bold;" "><b>Quotation <span style="font-size:26pt;font-family: "Open Sans Semibold;""><%= txn_number_only %></span></b><br/>
                   </h1>
                </td>
             </tr>
@@ -94,7 +150,7 @@
                         <small><%= name %></small>
                      </h1>
                      <% if show_about_this_desc and description.present? %>
-                     <p>
+                     <p style="font-family: "Arial;"font-style:italic;">
                         <%= description %>
                      </p>
                      <% end %>
@@ -308,13 +364,13 @@
                   <tbody>
                      <tr>
                         <td>
-                           <strong>Payment Terms</strong>
-                           <p>PIA - Payment in advance</p>
+                           <strong style="font-family: "Arial Bold;"font-size: 10pt;">Payment Terms</strong>
+                           <p style="font-family: "Arial;"font-size: 9pt;">PIA - Payment in advance</p>
                         </td>
                         <% if show_downpayment %>
                         <td>
-                           <strong><%= downpayment_header %></strong>
-                           <p><%= downpayment_total %></p>
+                           <strong style="font-family: "Arial Bold;"font-size: 10pt;"><%= downpayment_header %></strong>
+                           <p style="font-family: "Arial;"font-size: 9pt;"><%= downpayment_total %></p>
                         </td>
                         <% end %>
                      </tr>
@@ -325,19 +381,19 @@
                <table>
                   <tbody>
                      <tr style="border-top: 2px solid #e3e3e3;">
-                        <td><b><%= subtotal_header %>:</b></td>
-                        <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= sub_total %></td>
+                        <td style="font-family: "Arial Bold;"font-size: 10pt;"><b><%= subtotal_header %>:</b></td>
+                        <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"font-family: "Arial;"font-size: 9pt;><%= sub_total %></td>
                      </tr>
                      <tr>
-                        <td><b>VAT (<%= tax_rate %>):</b></td>
-                        <td style="border-bottom: 2px solid #e3e3e3;padding-bottom:6px;padding-top:6px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                        <td style="font-family: "Arial Bold;"font-size: 10pt;"><b>VAT (<%= tax_rate %>):</b></td>
+                        <td style="border-bottom: 2px solid #e3e3e3;padding-bottom:6px;padding-top:6px;margin-top: 5px;"align="right"font-family: "Arial;"font-size: 9pt;><%= total_tax %></td>
                      </tr>
                      <tr>
                         <td colspan="2">
                            <table>
                               <tr class="top-bottom" style="border-bottom: 2px solid #e3e3e3;">
-                                 <td><b> <font>Total: </font> </b></td>
-                                 <td  style="padding-bottom:6px;padding-top:6px;"align="right"> <font><%= final_price %></font> </td>
+                                 <td style="font-family: "Arial Bold;"font-size: 10pt;"><b> <font>Total: </font> </b></td>
+                                 <td  style="padding-bottom:6px;padding-top:6px;"align="right"font-family: "Arial;"font-size: 9pt;> <font><%= final_price %></font> </td>
                               </tr>
                            </table>
                         </td>
