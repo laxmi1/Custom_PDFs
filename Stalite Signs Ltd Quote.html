@@ -45,7 +45,7 @@
       font-size: 15px;
       }
       @page {
-      font-family: "Arial", sans-serif;
+      font-family: "Arial","DejaVu Sans", sans-serif;
       prince-shrink-to-fit: auto;
       }
       @page {
@@ -54,14 +54,6 @@
       width: 100%;
       font-size: 15px;
       content: "Telephone: 01392 447001 || www.stalite.co.uk || Email: sales@stalite.co.uk";
-      }
-      }
-      @page {
-      @bottom-left {
-      content: " ";
-      }
-      @bottom-right {
-      content: " ";
       }
       }
       h1 {
@@ -96,7 +88,10 @@
       font-size: 7.5pt;
       text-transform: uppercase;
       color: #6D6A6A;
-      padding: 5pt 5pt;
+      padding: 3pt 5pt;
+      }
+      .line-items {
+      margin-top: -2pt;
       }
       .summary .summ.right .summary-wrapper {
       border-right: 2px solid #e3e3e3;
@@ -127,6 +122,13 @@
       border-top: 2px solid #e3e3e3;
       padding-top: 5pt;
       }
+      .line-items .first {
+      padding-left: 32pt;
+      }
+
+      .line-items .last {
+      padding-right: 32pt;
+      }
    </style>
 </head>
 <body>
@@ -134,9 +136,7 @@
   <%= header_text %>
 </div>
 <!-- Footer Text for Page footter-->
-<div style="display:none" class="document-footer">
-  <%= footer_text %>
-</div>
+
 <!-- Store Address and Logo -->
 <div class="address-logo">
   <table>
@@ -145,7 +145,7 @@
         <img class="logo" src="<%= logo %>">
       </td>
       <td class="store-logo">
-        <h1 class="main-title" style="color:#4682B4;"><b style="font-family: "DejaVu Sans Condensed Bold";">Quotation</b> <span class="h1font"><%= txn_number_only %></span><br/>
+        <h1 class="main-title" style="color:#4682B4;"><b style="font-family:DejaVu Sans;">Quotation</b> <span style="font-family: 'Open Sans Semibold', sans-serif;font-size:26pt; font-weight: Semi Bold ;"><%= txn_number_only %></span>
         </h1>
       </td>
     </tr>
@@ -257,12 +257,8 @@
       <th class="quantity"><%= qty_header %></th>
       <th class="quantity"><%= uom_header %></th>
       <th class="money">UNIT PRICE</th>
-      <% if show_discounts && total_discount_price != 0.0 %>
-          <th class="quantity"><%= discount_header %> </th>
-          <th class="quantity"><%= discount_price_header %> </th>
-      <% end %>
       <th class="money">
-        <div class="last">TOTAL <i>(EXCL. VAT)</i></div>
+        <div class="last" style="text-align: right;">TOTAL</div>
       </th>
     </tr>
     </thead>
@@ -270,7 +266,7 @@
     <% items.each_with_index do |item, index| %>
         <tr>
           <td class="position" rowspan="2">
-            <div class="first">
+            <div class="first" style="text-align: center;">
               <%= index + 1 %>
             </div>
           </td>
@@ -278,13 +274,9 @@
           <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
           <td class="quantity"><%= item.uom %></td>
           <td class="money"><%= item.unit_price %></td>
-          <% if show_discounts && total_discount_price != 0.0 %>
-              <td class="quantity"><%= item.discount_percentage %> </td>
-              <td class="quantity"><%= item.unit_price_after_discount %></td>
-          <% end %>
           <td class="money">
-            <div class="last">
-              <%= item.total_price %>
+            <div class="last" style="text-align: right;">
+              <%= item.total_price %><br><i style="font-size: 8pt;color: #6D6A6A;">ex VAT</i>
             </div>
           </td>
         </tr>
@@ -292,7 +284,7 @@
           <% if show_discounts && total_discount_price != 0.0 %>
             <td class="description" colspan="5">
           <% else %>
-            <td class="description" colspan="3">
+            <td class="description" colspan="2">
           <% end %>
             <div>
               <% if item.table_view %>
@@ -370,8 +362,8 @@
           </td>
           <% if show_downpayment %>
               <td>
-                <strong><%= downpayment_header %></strong>
-                <p><%= downpayment_total %></p>
+                <strong style="font-size:10pt;"><%= downpayment_header %></strong>
+                <p style="font-size:9pt;"><%= downpayment_total %></p>
               </td>
           <% end %>
         </tr>

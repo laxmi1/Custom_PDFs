@@ -129,9 +129,11 @@
                      <strong>
                         <p>INV No :  <%= txn_number_only %></p>
                      </strong>
+                     <% if quote_information %>
                      <strong>
-                        <p>Ref No :  </p>
+                        <p>Ref No :  <%= quote_information %></p>
                      </strong>
+                     <% end %>
                      <p>Dated  &ensp;:  <%= invoice_date %></p>
                      <% if po_number %>
                      <p>PO NO  :  <%= po_number %></p>
