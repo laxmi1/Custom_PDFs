@@ -48,12 +48,23 @@
       font-family: "Arial","DejaVu Sans", sans-serif;
       prince-shrink-to-fit: auto;
       }
+
       @page {
+      font-family: "Arial", sans-serif;
+      @bottom-left {
+      content: "01392 447001";
+      font-weight: bold;
+      font-size: 10pt;
+      }
       @bottom {
-      border-top:2px solid #e3e3e3;
-      width: 100%;
-      font-size: 15px;
-      content: "Telephone: 01392 447001 || www.stalite.co.uk || Email: sales@stalite.co.uk";
+      content: " Page " counter(page) " of " counter(pages);
+      font-weight: bold;
+      font-size: 10pt;
+      }
+      @bottom-right {
+      content: "www.stalite.co.uk";
+      font-weight: bold;
+      font-size: 10pt;
       }
       }
       h1 {
@@ -145,7 +156,7 @@
         <img class="logo" src="<%= logo %>">
       </td>
       <td class="store-logo">
-        <h1 class="main-title" style="color:#4682B4;"><b style="font-family:DejaVu Sans;">Quotation</b> <span style="font-family: 'Open Sans Semibold', sans-serif;font-size:26pt; font-weight: Semi Bold ;"><%= txn_number_only %></span>
+        <h1 class="main-title" style="color:#1E3764;"><b style="font-family:DejaVu Sans;">Quotation</b> <span style="font-family: 'Open Sans Semibold', sans-serif;font-size:26pt; font-weight: Semi Bold ;"><%= txn_number_only %></span>
         </h1>
       </td>
     </tr>
@@ -350,7 +361,7 @@
 <!-- Internal Note -->
 <!-- Cover Note -->
 <!-- Signature Note -->
-<div class="footer-bottom">
+<div class="footer-bottom" style="border-bottom:2px solid #e3e3e3;">
   <div class="section">
     <div class="footer-bottom-left">
       <table>
