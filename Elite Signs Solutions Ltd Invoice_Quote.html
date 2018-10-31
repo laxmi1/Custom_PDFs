@@ -35,12 +35,6 @@
          color: #999999;
          padding: 5pt 5pt;
          }
-         .line-items .first {
-         padding-left: 5pt;
-         }
-         .line-items .last {
-         padding-right: 5pt;
-         }
          .npb{
          page-break-inside: avoid;
          margin-right: 20px;
@@ -76,14 +70,16 @@
       <div style="display:none" class="document-header">
          <%= header_text %>
       </div>
+      <!-- Footer Text for Page footter-->
       <div style="display:none" class="document-footer">
          <%= footer_text %>
       </div>
+      <!-- Store Address and Logo -->
       <div class="address-logo">
          <table>
             <tr>
                <td class="store-address">
-                  <h1>Proforma Invoice</h1>
+                  <h1>Quote</h1>
                   <p><font size="5" style="color:#00AEEF;font-weight: normal;"><%= store_name %></font></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %></p>
@@ -117,26 +113,21 @@
                      <%= billing_information %>
                   </div>
                </td>
-               <td class="address left">
-                  <div class="address-wrapper">
-                     Delivery Address:
-                     <p><%= sold_to %></p>
-                     <%= shipping_information %>
-                  </div>
+               <td  width="10%">
                </td>
                <td width="35%" height="90" align = "left" style="font-size: 14px;">
                   <div>
                      <strong>
-                        <p>Ref No :  <%= txn_number_only %></p>
+                        <p>Ref No :  <%= invoice_quote_number %></p>
                      </strong>
-                     <p>Dated  &ensp;:  <%= work_order_date %></p>
                   </div>
                </td>
             </tr>
          </table>
-         <p style="padding-top:10px;padding-bottom:15px;font-size: 15px;">Please find our proforma invoice detailed below.</p>
+         <p style="padding-top:10px;padding-bottom:15px;font-size: 15px;">Please find our quotation detailed below.</p>
          <p style="padding-bottom:5px;font-size: 15px;"><b>Re :Shop Sign</b></p>
       </div>
+      <!-- Sold To, Contact Info and Shipping Address -->
       <div class="line-items" style="border: 2px solid #e3e3e3;width: 89%;margin-left: 35pt;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
@@ -149,15 +140,15 @@
                   <th class="quantity" style="font-size:14px;color:white;"><strong>Qty</strong></th>
                   <th class="money" style="font-size:14px;color:white;"><strong>Unit Price</strong></th>
                   <th class="money">
-                     <div class="last" style="font-size:14px;color:white;"><strong>Total</strong></div>
+                     <div class="last" style="font-size:14px;color:white;margin-right:-20px;"><strong>Total</strong></div>
                   </th>
                </tr>
             </thead>
-            <tbody>
+            <tbody class=''>
                <% items.each_with_index do |item, index| %>
                <tr style="border-top:2px solid #e3e3e3;">
                   <td class="position" rowspan="2">
-                     <div class="first">
+                     <div>
                         <%= index + 1 %>
                      </div>
                   </td>
@@ -165,7 +156,7 @@
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="money"><%= item.unit_price %></td>
                   <td class="money">
-                     <div class="last">
+                     <div class="last" style="margin-right:-20px;">
                         <%= item.total_price %>
                      </div>
                   </td>
@@ -176,17 +167,17 @@
                      <% else %>
                   <td class="description" colspan="5">
                      <% end %>
-                     <div class="last">
+                     <div>
                         <% if item.table_view %>
                         <div class="text--pre-line li-desc-fixed-width">
                            <%= item.li_grid_html_view %>
                         </div>
                         <% else %>
-                        <div class="last text--pre-line li-desc-fixed-width">
+                        <div class="text--pre-line li-desc-fixed-width">
                            <%= item.description %>
                         </div>
                         <% end %>
-                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any? && item.table_view %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
                         <hr class="custom-field-separator">
                         <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
                         <hr class="custom-field-separator">
@@ -236,7 +227,7 @@
                   <% end %>
                </td>
             </tr>
-            <tr>
+            <tr style="color:#00AEEF;">
                <td width="75%"></td>
                </td>
                <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Total:</b></td>
@@ -244,32 +235,18 @@
                   <b><%= final_price %></b>
                </td>
             </tr>
-            <tr>
-               <td width="75%"></td>
-               </td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Paid:</b></td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;font-size:17px;">
-                  <b><%= paid %></b>
-               </td>
-            </tr>
-            <tr style="color:#00AEEF;">
-               <td width="75%"></td>
-               </td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Total Due:</b></td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;font-size:17px;">
-                  <b><%= net_due %></b>
-               </td>
-            </tr>
-            <tr style="color:#00AEEF;">
-               <td width="75%"></td>
-               </td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Deposit:</b></td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;font-size:17px;">
-                  <b><%= downpayment_total %></b>
-               </td>
-            </tr>
          </table>
       </div>
       <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="terms-text">
+                  <%= terms_conditions %>
+               </div>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
    </body>
 </html>

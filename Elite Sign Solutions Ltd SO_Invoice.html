@@ -43,7 +43,7 @@
          }
          .npb{
          page-break-inside: avoid;
-         margin-right: 20px;
+         margin-right: 40px;
          margin-top: 20px;
          font-size: 14px;
          }
@@ -83,7 +83,7 @@
          <table>
             <tr>
                <td class="store-address">
-                  <h1>Proforma Invoice</h1>
+                  <h1>Invoice</h1>
                   <p><font size="5" style="color:#00AEEF;font-weight: normal;"><%= store_name %></font></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %></p>
@@ -127,14 +127,24 @@
                <td width="35%" height="90" align = "left" style="font-size: 14px;">
                   <div>
                      <strong>
-                        <p>Ref No :  <%= txn_number_only %></p>
+                        <p>INV No :  <%= invoice_number %></p>
                      </strong>
-                     <p>Dated  &ensp;:  <%= work_order_date %></p>
+                     <% if quote_information %>
+                     <strong>
+                        <p>Ref No :  <%= quote_information %></p>
+                     </strong>
+                     <% end %>
+                     <% if po_number %>
+                     <p>PO NO  :  <%= po_number %></p>
+                     <% end %>
+                     <% if term_code %>
+                     <p>Terms  &ensp;:  <%= term_code %></p>
+                     <% end %>
                   </div>
                </td>
             </tr>
          </table>
-         <p style="padding-top:10px;padding-bottom:15px;font-size: 15px;">Please find our proforma invoice detailed below.</p>
+         <p style="padding-top:10px;padding-bottom:15px;font-size: 15px;">Please find our invoice detailed below.</p>
          <p style="padding-bottom:5px;font-size: 15px;"><b>Re :Shop Sign</b></p>
       </div>
       <div class="line-items" style="border: 2px solid #e3e3e3;width: 89%;margin-left: 35pt;">
@@ -153,7 +163,7 @@
                   </th>
                </tr>
             </thead>
-            <tbody>
+            <tbody class=''>
                <% items.each_with_index do |item, index| %>
                <tr style="border-top:2px solid #e3e3e3;">
                   <td class="position" rowspan="2">
@@ -161,7 +171,7 @@
                         <%= index + 1 %>
                      </div>
                   </td>
-                  <td class="name"><%= item.name %></td>
+                  <td class="name" colspan="1"><%= item.name %></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="money"><%= item.unit_price %></td>
                   <td class="money">
@@ -182,15 +192,20 @@
                            <%= item.li_grid_html_view %>
                         </div>
                         <% else %>
-                        <div class="last text--pre-line li-desc-fixed-width">
+                        <div class="text--pre-line li-desc-fixed-width">
                            <%= item.description %>
                         </div>
                         <% end %>
-                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any? && item.table_view %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
                         <hr class="custom-field-separator">
                         <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
                         <hr class="custom-field-separator">
                         <% end %>
+                        <!--<div class='shipping_details'>-->
+                        <!--<div class="text&#45;&#45;pre-line">-->
+                        <!--<%= simple_format(item.shipping_details) %>-->
+                        <!--</div>-->
+                        <!--</div>-->
                         <% if item.product_picture_assets.count > 0 %>
                         <% item.product_picture_assets.each do |asset| %>
                         <img src="<%= asset.file_url %>" class="line-item-description-image">
@@ -236,7 +251,7 @@
                   <% end %>
                </td>
             </tr>
-            <tr>
+            <tr style="color:#00AEEF;">
                <td width="75%"></td>
                </td>
                <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Total:</b></td>
@@ -244,32 +259,18 @@
                   <b><%= final_price %></b>
                </td>
             </tr>
-            <tr>
-               <td width="75%"></td>
-               </td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Paid:</b></td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;font-size:17px;">
-                  <b><%= paid %></b>
-               </td>
-            </tr>
-            <tr style="color:#00AEEF;">
-               <td width="75%"></td>
-               </td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Total Due:</b></td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;font-size:17px;">
-                  <b><%= net_due %></b>
-               </td>
-            </tr>
-            <tr style="color:#00AEEF;">
-               <td width="75%"></td>
-               </td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;"><b style="font-size:17px;"> Deposit:</b></td>
-               <td colspan="2" style="border: 2px solid #e3e3e3;font-size:17px;">
-                  <b><%= downpayment_total %></b>
-               </td>
-            </tr>
          </table>
       </div>
       <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="terms-text">
+                  <%= terms_conditions %>
+               </div>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
    </body>
 </html>
