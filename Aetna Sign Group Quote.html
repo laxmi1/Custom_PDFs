@@ -2,18 +2,19 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
-      <%= page_size %>
-      <%= body_font_family %>
-      .footer-bottom-left {
+    <%= page_size %>
+    <%= body_font_family %>
+    .footer-bottom-left {
     width: 100%;
     float: left;
     text-align: justify;
-}
-.terms-text{
-    font-size:6.3pt;
-    padding: 10pt 0;
-    /*padding: 5pt 35pt;*/
-}
+    }
+    .terms-text1{
+      column-count:2;
+      column-gap: 20px;
+      font-size:6.3pt;
+      padding: 10pt 0;
+    }
   </style>
 </head>
 <body>
@@ -482,18 +483,14 @@
   <% end %>
 </div>
 <div class="footer-bottom">
-    <div class="section">
-      <div class="footer-bottom-left">
-            <div class="terms-text">
-                <%= terms_conditions %>
-            </div>
-        </div>   
-     
-        <div class="clearfix"></div>
-    </div>
-
-
-
+  <div class="section">
+    <div class="footer-bottom-left">
+      <div class="terms-text1">
+        <%= terms_conditions %>
+      </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
 </div>
 </body>
 </html>
