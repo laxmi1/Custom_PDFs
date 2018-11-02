@@ -183,8 +183,10 @@
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
+          <% unless sales_rep_information.blank?%>
           <p class="title">PREPARED BY</p>
           <p style="font-size:9pt;"><%= sales_rep_information %></p>
+          <% end %>
         </div>
       </td>
       <td class="summ right">
