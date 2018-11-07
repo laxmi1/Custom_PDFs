@@ -87,19 +87,15 @@
 
           <% if ship_date %>
               <p class="title"><%= shipping_date_header %></p>
-              <p><br><br></p>
+              <p><%= ship_date %></p>
           <% end %>
 
           <% if due_date %>
               <p class="title"><%= due_date_header %></p>
-              <p><br></p>
+              <p><%= due_date %></p>
           <% end %>
-
-          <% if install_date %>
-              <p class="title"><%= install_date_header %></p>
-              <p><%= install_date %></p>
-          <% end %>
-
+              <p class="title">In hand date</p>
+              <p><%= format_date(@object.in_hand_date) %></p>
         </div>
       </td>
       <td class="summ right">

@@ -205,7 +205,7 @@
       <td class="summ right">
         <div class="summary-wrapper">
           <p class="title"><%= quote_date_header %></p>
-          <p style="font-size:9pt;"><%= quote_date %></p><br>
+          <p style="font-size:9pt;"><%= quote_date %></p>
           <% if quote_expiry_date %>
               <p class="title">EXPIRY DATE</p>
               <p style="font-size:9pt;"><%= quote_expiry_date%></p>
@@ -292,7 +292,7 @@
           <td class="name"><b><%= item.name %></b></td>
           <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
           <td class="quantity"><%= item.uom %></td>
-          <td class="money"><%= item.unit_price %></td>
+          <td class="money" style="text-align: center;"><%= item.unit_price %></td>
           <td class="money">
             <div class="last" style="text-align: right;">
               <%= item.total_price %>
@@ -351,7 +351,7 @@
   </table>
 </div>
 <% if customer_note.present? %>
-    <div class="note" style="margin-left: 45pt;">
+    <div class="note" style="margin-left: 45pt;margin-right: 45pt;">
       <table class="no-page-break">
         <thead>
         <tr>
