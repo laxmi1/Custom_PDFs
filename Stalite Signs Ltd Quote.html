@@ -402,6 +402,18 @@
           <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= sub_total %></td>
         </tr>
         <tr>
+          <% unless setup_charges.blank?%>
+          <td><b><%= setup_charges_header %>:</b></td>
+          <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= setup_charges %></td>
+          <% end %>
+        </tr>
+        <tr>
+          <% unless shipping_charges.blank?%>
+          <td><b><%= shipping_charges_header %>:</b></td>
+          <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= shipping_charges %></td>
+          <% end %>
+        </tr>
+        <tr>
           <td><b>VAT (<%= tax_rate %>):</b></td>
           <td style="border-bottom: 2px solid #e3e3e3;padding-bottom:6px;padding-top:6px;margin-top: 5px;"align="right"><%= total_tax %></td>
         </tr>
