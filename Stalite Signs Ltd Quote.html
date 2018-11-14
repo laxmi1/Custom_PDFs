@@ -13,7 +13,7 @@
       max-height: 80px;
       }
       .line-items .money {
-      text-align: left;
+      text-align: center;
       width: 1%;
       white-space: nowrap;
       }
@@ -292,7 +292,7 @@
           <td class="name"><b><%= item.name %></b></td>
           <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
           <td class="quantity"><%= item.uom %></td>
-          <td class="money" style="text-align: center;"><%= item.unit_price %></td>
+          <td class="money"><%= item.unit_price %></td>
           <td class="money">
             <div class="last" style="text-align: right;">
               <%= item.total_price %>

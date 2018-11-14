@@ -102,7 +102,7 @@
               <%= shipping_information %>
             </span>
             <% end %>
-            <%if shipping_tracking %>
+            <% unless shipping_tracking.blank?%>
               <br/>
               <p class="title"><%= shipping_tracking_header%></p>
               <%= shipping_tracking %>
@@ -132,20 +132,6 @@
     </tr>
   </table>
 </div>
-<% if show_about_this_desc and description.present? %>
-  <div class="description_area">
-    <table>
-        <tr>
-            <td class="header">
-             <%= about_this_quote_header %>:
-            </td>
-            <td class="description page-break-after">
-              <%= description %>
-            </td>
-        </tr>
-    </table>
-  </div>
-<% end %>
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
   <table>
