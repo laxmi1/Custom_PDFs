@@ -1,0 +1,234 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:7pt;
+         }
+         <%= page_size %>
+         <%= body_font_family %>
+         h1 { 
+         text-align: center; 
+         background-color: #00AEEF;
+         color: white;
+         margin: 5pt 0;
+         }
+         .address-logo {
+         padding: 30pt 35pt 5pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .address-logo .store-address {
+         text-align: left;
+         vertical-align: top;
+         font-size: 14px;
+         font-weight: bold;
+         width: 36%;
+         }
+         .address-wrapper{
+         font-weight: bold;
+         font-size: 14px;
+         padding-top: 15px;
+         }
+         .line-items thead th {
+         font-size: 10px;
+         text-transform: capitalize;
+         color: #999999;
+         padding: 5pt 5pt;
+         }
+         .line-items .first {
+         padding-left: 5pt;
+         }
+         .line-items .last {
+         padding-right: 5pt;
+         }
+         .npb{
+         page-break-inside: avoid;
+         margin-right: 40px;
+         margin-top: 20px;
+         font-size: 14px;
+         }
+         .no-li-br{
+         white-space: nowrap;
+         }
+         .footer-bottom-left {
+         width: 100%;
+         float: left;
+         text-align: justify;
+         }
+         @page {
+         @bottom { 
+         border-top:2px solid #e3e3e3;
+         width: 63%;
+         font-size: 11px;
+         padding-right: 100pt;
+         padding-left: 100pt;
+         content: "Elite Sign Solutions Ltd, First Floor Morton Mill, Morton Street, Failsworth, Manchester, M35 0BN, United Kingdom Telephone : 0161 425 8455  Fax: 0161 850 0540  Web: www.elitesignsolutions.co.uk  Registration No: 06983765  VAT NO: 980 0703 32";
+         } 
+         }
+         @page {
+         @bottom-left {
+         content: " ";
+         }
+         }
+         .note thead td {
+         color: 999999;
+         text-transform: none;
+         border-bottom: none;
+         padding: 20pt 0pt 0pt 0pt;
+         font-size: 15px;
+         font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-address">
+                  <h1>Delivery Note</h1>
+                  <p><font size="5" style="color:#00AEEF;font-weight: normal;"><%= store_name %></font></p>
+                  <%if store_address_street%>
+                  <p><%= store_address_street %></p>
+                  <%end%>
+                  <%if store_address_street1%>
+                  <p><%= store_address_street1 %></p>
+                  <%end%>
+                  <%if store_address_city%><%= store_address_city %></p><%end%> <%if store_address_state %> <%= store_address_state%>,<%end%>
+                  <%if store_address_zip %> <%= store_address_zip%><%end%>
+                  <% if store_phone%>
+                  <p>Tel:<%=store_phone%></p>
+                  <%end%>
+                  <% if store_email%>
+                  <p style="color:blue;"><%=store_email%></p>
+                  <%end%>
+                  <% if @object.account.website %> 
+                  <p style="color:blue;"><%= @object.account.website %></p>
+                  <%end%>
+               </td>
+               <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+               </td>
+            </tr>
+         </table>
+         <table cellpadding="3">
+            <tr>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     For:
+                     <p><%= sold_to %></p>
+                     <%= billing_information %>
+                  </div>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     Delivery Address:
+                     <p><%= sold_to %></p>
+                     <%= shipping_information %>
+                  </div>
+               </td>
+             <td width="35%" height="90" align = "left" style="font-size: 14px;">
+                  <div>
+                     <strong>
+                        <p>Ref No :  <%= txn_number_only %></p>
+                     </strong>
+                     <p>Dated  &ensp;:  <%= invoice_date %></p>
+                     <% if po_number %>
+                     <p>PO NO  :  <%= po_number %></p>
+                     <% end %>
+                  </div>
+               </td>
+            </tr>
+         </table>
+         <p style="padding-top:10px;padding-bottom:15px;font-size: 15px;">Please find our delivery note detailed below.</p>
+         <p style="padding-bottom:5px;font-size: 15px;"><b>Re :Shop Sign</b></p>
+      </div>
+      <div class="line-items" style="border: 2px solid #e3e3e3;width: 89%;margin-left: 35pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="background: #00AEEF;">
+                  <th class="position" style="font-size:14px;color:white;">
+                     <div><strong>Item</strong></div>
+                  </th>
+                  <th class="name" style="font-size:14px;color:white;text-align:center;text-align:left;"><strong>Description</strong></th>
+                  <th class="quantity" style="font-size:14px;color:white;"><strong style="padding-right:130px;">Qty</strong></th>
+               </tr>
+            </thead>
+            <% items.each_with_index do |item, index| %>
+            <tbody class='no-page-break'>
+               <tr style="border-top:2px solid #e3e3e3;">
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity" style="padding-right:130px;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+               </tr>
+               <tr>
+                  <td class="description" colspan="1">
+            <% if item.table_view %>
+                <div class="shippers-invoice-pdf-grid-view">
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view %>
+                  </div>
+                </div>
+            <% else %>
+                <div class="last text--pre-line li-desc-fixed-width">
+                  <%= item.description %>
+                </div>
+            <% end %>
+
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+                <hr class="custom-field-separator">
+                <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                <hr class="custom-field-separator">
+            <% end %>
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <% if item.table_view %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view(show_child_items: true) %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+    <% end %>
+            <tfoot class="no-page-break">
+            </tfoot>
+         </table>
+      </div>
+      <table class="note" style="margin-left:50px;float:left ">
+         <thead>
+            <tr>
+               <td>
+                  <div style="float:left;">Signed :</div>
+                  <div style="width:180pt; border-bottom: 2px #ccc solid;margin-bottom: 2px;float:left;margin-left:40px;">&nbsp;</div>
+                  </div><br><br>
+                  <div style="float:left;">Print Name :</div>
+                  <div style="width:180pt; border-bottom: 2px #ccc solid;margin-bottom: 2px;float:left;margin-left:10px;">&nbsp;</div>
+                  </div><br><br>
+                  <div style="float:left;">Dated :</div>
+                  <div style="width:180pt; border-bottom: 2px #ccc solid;margin-bottom: 2px;float:left;margin-left:45px;">&nbsp;</div>
+                  </div>
+            </tr>
+         </thead>
+      </table>
+   </body>
+</html>
