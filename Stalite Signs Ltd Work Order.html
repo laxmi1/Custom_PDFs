@@ -117,8 +117,6 @@
          .summary {
          margin: 0pt;
          padding: 5pt 35pt;
-         border-bottom: 3px solid #e3e3e3;
-         background: #f7f7f7;
          }
          .line-items tbody tr:first-child td {
          border-top: 2px solid #e3e3e3;
@@ -132,6 +130,9 @@
          }
          .terms-title *, .terms-text * {
          font-size:9pt;
+         }
+         .li-desc-fixed-width {
+         max-width: 450pt;
          }
       </style>
    </head>
@@ -151,7 +152,7 @@
                   </h1>
                   <% if due_date %>
                   <p class="title" style="text-align:right;color:#1E3764;font-size:11pt;font-weight:bold"><%= due_date_header %>:
-                     <span style="color:red;"><%= due_date %></span>
+                     <span style="color:red;"><%= @object.due_date.strftime("%a")%> <%= due_date %></span>
                   </p>
                   <% end %>
                </td>
@@ -285,7 +286,8 @@
                   <div class="first"><%= item_header %></div>
                </th>
                <th class="name">DESCRIPTION</th>
-               <th class="quantity"><%= qty_header %></th>
+               <th class="state"></th>
+               <th class="quantity" style="padding-right:10pt;"><%= qty_header %></th>
                <th class="quantity">
                   <div class="last"><%= uom_header %></div>
                </th>
@@ -305,12 +307,11 @@
                      <%= item.get_job_art_due_date %>
                   </div>
                </td>
-               <span style="border:1px;">
-                  <td class="quantity" style="background-color: yellow;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity" style="background-color: yellow;">
-                     <div class="last" ><%= item.uom %></div>
+                  <td class="state"></td>
+                  <td class="quantity" style="padding-right:10pt;background-color:yellow;" ><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity" style="background-color:yellow;">
+                     <div class="last"><%= item.uom %></div>
                   </td>
-               </span>
             </tr>
             <tr>
                <td class="description">
@@ -414,35 +415,38 @@
                      <% end %>
                   </div>
                   <div>
-               </td>
-               <div class="addresses">
+               <% if item.design_details %>
+               <div class="note" style="border-bottom: 2px solid #e3e3e3;padding-bottom:6pt;margin-top: 5pt;">
                <table>
                <tr>
-               <td class="address left">
-               <div class="address-wrapper" style="border-right: 3px solid #e3e3e3;">
-               <% if item.design_details %>
-               <%= simple_format(item.design_details )%>
+               <td class="summ left">
+               <div class="summary-wrapper" style="border-right:2px solid #e3e3e3;">
+               <p><b>Design Notes:</p></b>
+               <%= simple_format(item.design_details.split("Design Details: ").last )%>
                <% end %>
                </div>
                </td>
-               <td class="address left">
-               <div class="address-wrapper" style="border-right: 3px solid #e3e3e3;">
+               <td class="summ left">
+               <div class="summary-wrapper" style="border-right:2px solid #e3e3e3;">
                <% if item.production_details %>
-               <%= simple_format(item.production_details) %>
+               <p><b>Production Notes:</p></b>
+               <%= simple_format(item.production_details.split("Production Details: ").last )%>
                <% end %>
                </div>
                </td>
-               <td class="address left">
-               <div class="address-wrapper" style="border-right: 3px solid #e3e3e3;">
+               <td class="summ left">
+               <div class="summary-wrapper" style="border-right:2px solid #e3e3e3;">
                <% if item.shipping_details %>
-               <%= simple_format(item.shipping_details) %>
+               <p><b>Shipping Notes:</p></b>
+               <%= simple_format(item.shipping_details.split("Shipping Details: ").last )%>
                <% end %>
                </div>
                </td>
-               <td class="address left">
-               <div class="address-wrapper" style="border-right: 3px solid #e3e3e3;">
+               <td class="summ left">
+               <div class="summary-wrapper">
                <% if item.install_details %>
-               <%= simple_format(item.install_details) %>
+               <p><b>Install Notes:</p></b>
+               <%= simple_format(item.install_details.split("Install Details: ").last )%>
                <% end %>
                </div></td>
                </tr>
@@ -521,7 +525,7 @@
          <table class="no-page-break">
             <thead>
                <tr>
-                  <td style="border-top: 2px solid #e3e3e3;padding-top: 15pt;"><strong>Customer Note:</strong></td>
+                  <td><strong>Customer Note:</strong></td>
                </tr>
             </thead>
             <tbody>
