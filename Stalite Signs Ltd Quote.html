@@ -402,13 +402,13 @@
           <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= sub_total %></td>
         </tr>
         <tr>
-          <% unless setup_charges.blank?%>
+          <% if has_setup_charges?  && setup_charges[1..-1].to_f > 0 %>
           <td><b><%= setup_charges_header %>:</b></td>
           <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= setup_charges %></td>
           <% end %>
         </tr>
         <tr>
-          <% unless shipping_charges.blank?%>
+          <% if has_shipping_charges?  && shipping_charges[1..-1].to_f > 0 %>
           <td><b><%= shipping_charges_header %>:</b></td>
           <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= shipping_charges %></td>
           <% end %>
