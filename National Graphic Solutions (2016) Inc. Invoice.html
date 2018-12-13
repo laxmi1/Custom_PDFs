@@ -370,13 +370,9 @@
                            <p><strong><%= finance_charges_header %>:</strong></p>
                            <% end %>
                            <p><strong><%= subtotal_header %>:</strong></p>
-                           <p><strong>GST:</strong></p>
-                           <p><strong>PST:</strong></p>
-                           <% if show_tax  %>
                            <% if use_tax_codes? %>
-                           <p><strong><%= total_tax_header %>:</strong></p>
-                           <% else %>
-                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <% tax_totals_table.each do |k, value| %>
+                           <p><b><%= value[:name] %>(<%= value[:rate] %>%):</b></p>
                            <% end %>
                            <% end %>
                            <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
@@ -400,10 +396,10 @@
                            <p><strong><%= finance_charges %></strong></p>
                            <% end %>
                            <p><strong><%= sub_total %></strong></p>
-                           <p><strong>&nbsp</strong></p>
-                           <p><strong>&nbsp</strong></p>
-                           <% if show_tax  %>
-                           <p><strong><%= total_tax %></strong></p>
+                           <% if use_tax_codes? %>
+                           <% tax_totals_table.each do |k, value| %>
+                          <p><b><%= to_pdf_dollars(value[:total]) %></b></p>
+                           <% end %>
                            <% end %>
                            <p class="footer-total"><strong><%= final_price %></strong></p>
                            <% if has_payments? || has_credits? %>
