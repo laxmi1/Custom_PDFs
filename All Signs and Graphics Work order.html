@@ -1,0 +1,164 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= body_font_family %>
+         <%= page_size %>
+         @page {
+         margin: 15pt 0 35pt 0;
+         }
+         @page :first {
+         margin: 0 0 35pt 0;
+         @top-left { content: none }
+         }
+         .address-logo {
+         padding: 20pt 35pt 5pt 35pt;
+         }
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 200px;
+         max-height: 100px;
+         }
+         .address-logo .store-address {
+         text-align: left;
+         vertical-align: top;
+         font-size: 15px;
+         }
+         .addresses .address .title {
+         text-transform: uppercase;
+         margin-top: 0pt;
+         font-size: 13px;
+         color: #6D6A6A;
+         }
+         .addresses .address {
+         vertical-align: top;
+         font-size: 11pt;
+         }
+         note thead td {
+        text-transform: uppercase;
+        color: 999999;
+        font-size: 10px;
+        border-bottom: 0px solid #e3e3e3;
+        padding-top: 0pt;
+        padding-bottom: 2pt;
+        }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-address">
+                  <img class="logo" src="<%= logo %>">
+                  <br>
+                  <p><%=store_name %></p>
+                  <p><%if store_address_street%><%= store_address_street %><%end%></p>
+                  <%if store_address_street1%><%= store_address_street1 %><%end%>
+                  <p><%if store_address_city%><%= store_address_city %><%end%>
+                     <%if store_address_state %> <%= store_address_state%><%end%>
+                     <%if store_address_zip %> <%= store_address_zip%><%end%>
+                  </p>
+                  <% if store_phone%>
+                  <p><%=store_phone%></p>
+                  <%end%>
+               </td>
+               <td class="store-logo">
+                  <h1 class="main-title">
+                     <b>Work Order #</b> <span><%= txn_number_only %></span>
+                     <% if due_date %>
+                     <p class="title" style="text-align:right;font-size:11pt;"><%= due_date_header %>:<%= due_date %>
+                     </p>
+                     <% end %>
+                     <p class="title" style="text-align:right;font-size:11pt;">Date:<%= work_order_date %>
+                     </p>
+                  </h1>
+                  <p style="text-align:left;font-size:11pt;font-weight:bold;padding-left:90pt;">Service for:
+                  </p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="addresses">
+         <table>
+            <tr>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= ordered_by_header %></p>
+                     <p><%= sold_to %></p>
+                     <%= billing_information %>
+                  </div>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= contact_information_header %></p>
+                     <p><%= contact_information %></p>
+                  </div>
+               </td>
+               <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= installing_information_header %></p>
+                     <%= installing_information %></p>
+                  </div>
+               </td>
+               <% end %>
+            </tr>
+         </table>
+      </div>
+      <% if show_about_this_desc and description.present? %>
+      <div class="description_area" style="font-size:11pt;">
+         <p><b>Description of work:</b></p>
+         <p><%= description %>
+         </p>
+      </div>
+      <% end %><br>
+      <table class="addresses">
+         <tr>
+            <td><p style="padding-left:35pt;font-size:18px;margin-top:-70pt;"><b>Location: </b></p>
+            </td>
+            
+            <td style="font-size:16px;padding-bottom:30pt;padding-left:180pt;">
+            <p><b>Lighting type: </b></p><br><br>
+            <p><b>Parts used:</b></p>
+            </td>
+         </tr>
+      </table>
+      <table class="addresses">
+         <tr>
+            <td><p style="padding-left:35pt;font-size:16px;margin-top:-80pt;"><b>Service details:</b></p></td>
+
+            
+            <td style="font-size:16px;padding-bottom:5pt;padding-top:10pt;padding-left:150pt;">
+            <p>Tech on site: </p>
+            <p>Arrival time:</p>
+            <p>Drive time to site:</p>
+            <p>Completion time:</p>
+            <p>Drive time from site:</p>
+            <p>Onsite time total:</p>
+            <p>Drive time total:</p>
+            </td>
+         </tr>
+      </table>
+
+      <div class="description_area">
+         <p style="font-size:15pt;font-weight:bold;text-align:center;">Customer Feedback:</p><br>
+         <p style="text-align:center;font-size:12pt;"><span style="padding-right:30pt;padding-top:10pt;"><b>Satisfied:</b></span> &nbsp;&nbsp;&nbsp; <span style="padding-left:30pt;"><b>Dissatisfied:</b></span></p><br>
+         <p style="font-size:15pt;font-weight:bold;text-align:left;">Comments:</p><br><br><br>
+      </div>
+     <table class="addresses">
+         <tr>
+            <td><p style="padding-left:35pt;font-size:18px;padding-top:10pt;padding-bottom:50pt;"><b>Customer Signature:</b></p></td>
+            
+            <td><p style="font-size:18px;padding-right:35pt;margin-top:-20pt;">Date: </p><br>
+            </td>
+         </tr>
+      </table>
+      
+   </body>
+</html>
