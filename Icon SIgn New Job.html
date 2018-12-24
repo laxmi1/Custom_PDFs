@@ -17,7 +17,7 @@
          margin-right: 35pt;
          }
          .address-logo {
-         padding: 10pt 35pt 5pt 35pt;
+         padding: 10pt 15pt 5pt 15pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .address-logo .store-address {
@@ -72,14 +72,14 @@
       </style>
    </head>
    <body>
-      <div class="job-pdf">
          <!-- INFO -->
          <table class="invoice">
             <tr>
                <td align="left">
+                <img src="https://cdn.filepicker.io/api/file/OucWhHPzQAaO4XPTpirV" >
                </td>
                <td align="right">
-                  <h1 style="margin-right:70pt;color: #808080;"><strong>Customer Proof</strong></h1>
+                  <h1 style="margin-right:50pt;color: #808080;"><strong>Customer Proof</strong></h1>
                </td>
             </tr>
          </table>
@@ -96,14 +96,15 @@
                      <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
                      <%if store_address_zip %> <%= store_address_zip%><%end%>
                      <% if store_phone%>
-                     <%=store_phone%>
+                     <p><%=store_phone%></p>
                      <%end%> 
                      <% if store_email%>
-                     <%=store_email%>
+                     <p><%=store_email%></p>
                      <%end%>
                   </td>
+                  <td>&nbsp</td>
                   <td width="28%" class="store-address">
-                     <p>Due: <strong><%= due_date %></strong></p>
+                     <p style="font-size:11pt;padding-top:20pt;">Due: <strong><%= due_date %></strong></p>
                      <p>*Subject to proof approval.</p>
                   </td>
                   <td width="30%" align="right" style="padding-top:20pt;">
@@ -117,6 +118,7 @@
                </tr>
             </table>
          </div>
+         <div class="job-pdf">
          <!-- RUSH -->
          <% if job_rush %>
          <div class="job-section job-section--mb-none">
