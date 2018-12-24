@@ -132,8 +132,28 @@
          font-size:9pt;
          }
          .li-desc-fixed-width {
-         max-width: 450pt;
+         max-width: 550pt;
          }
+.job-attributes {
+    float: right;
+    width: 40%;
+}
+.proof {
+    float: right;
+    width: 250px;
+    margin: 0;
+}
+img.proof{
+    width: auto;
+}
+.proof .image .proof.small{
+    max-width: 250px;
+}
+.proof .head {
+    padding: 3px;
+font-size: 11px;
+}
+
       </style>
    </head>
    <body>
@@ -337,7 +357,7 @@
               <% if item.table_view %>
                   <% if item.has_bom? %>
                       <ul class="bom_report bom_report_detail">
-                        <% item.bom_hash.keys.each do |item_type| %>
+                        <% item.bom_hash.keys.each do |item_type| %><br>
                             <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
                               <% if item.bom_hash[item_type].size > 0 %>
                                   <ul class="bom_report bom_report_detail bom_report_detail_level">
@@ -454,17 +474,9 @@
               </div>
             </div>
 
-            <% if item.product_picture_assets.count > 0 %>
-              <% item.product_picture_assets.each do |asset| %>
-                <img src="<%= asset.file_url %>" class="line-item-description-image">
-              <% end %>
-            <% end %>
-
-            <% if item.product_image %>
-              <img src="<%= item.product_image %>" class="line-item-description-image">
-            <% end %>
+            
           </td>
-          <td colspan="2">
+          <td colspan="1">
             <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
                 <% @proofs_job_ids << item.job.id %>
                 <div class="job-attributes">
@@ -480,6 +492,18 @@
                 </div>
             <% end %>
           </td>
+<td colspan="3">
+<% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+</td>
         </tr>
         <% if item.job.present? and show_workflow_steps? %>
             <tr>
@@ -519,20 +543,6 @@
          </tfoot>
       </table>
       </div>
-      <% if customer_note.present? %>
-      <div class="note" style="margin-top: 25pt;">
-         <table class="no-page-break">
-            <thead>
-               <tr>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-      <% end %>
       <% if internal_note.present? %>
       <div class="note">
          <table class="no-page-break">
