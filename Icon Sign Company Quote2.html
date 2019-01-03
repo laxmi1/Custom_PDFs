@@ -12,23 +12,23 @@
          line-height: 20px;
          letter-spacing: .8px;
          -webkit-font-smoothing: antialiased;
-         background: url(http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/f20c48e1-ad2b-4af0-9308-6270bbc38f2e/icon-watermark.png) center center no-repeat
          }
          @page{
          }
          .invoice{
          margin-top: 20px;
-         margin-left: 35pt;
+         margin-left: 0pt;
          margin-right: 35pt;
          }
          .address-logo {
-         padding: 10pt 35pt 5pt 35pt;
+         padding: 20pt 35pt 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .address-logo .store-address {
          text-align: left;
          vertical-align: top;
          font-size: 12px;
+         color: #808080;
          }
          .addresses {
          padding: 5pt 35pt;
@@ -83,7 +83,7 @@
          }
          .thanku{
          margin-left: 35pt;
-         margin-right: 35pt;
+         margin-right: 5pt;
          }
          h3{
          line-height: 5px;
@@ -147,11 +147,10 @@
       <table class="invoice">
          <tr>
             <td align="left">
-               <img src="https://cdn.filepicker.io/api/file/rrAuVbGBRCrNtXH8dwnA" >
-               <img src="https://cdn.filepicker.io/api/file/XRxujfxwSZe6GD8RqBQj" >
+               <img src="https://cdn.filepicker.io/api/file/c5IcTU66SRq4RisVtvEp" width="425" height="56" alt="Computer Hope">
             </td>
             <td align="right">
-               <h1 style="margin-right:70pt;color: #808080;"><strong>Quote</strong></h1>
+               <h1 style="margin-right:35pt;color: #808080;"><strong>Quote</strong></h1>
             </td>
          </tr>
       </table>
@@ -182,9 +181,9 @@
                <td width="28%" class="store-address">
                   <%= contact_information %>
                </td>
-               <td width="30%" align="right" style="padding-top:20pt;">
-                  <h3>#<%=txn_number_only%></h3>
-                  <h5><%= quote_date %></h5>
+               <td width="30%" align="right" style="padding-top:40pt;font-size: 15px;">
+                  <p><strong>#<%=txn_number_only%></strong></p>
+                  <p><strong><%= quote_date %></strong></p>
                </td>
             </tr>
          </table>
@@ -203,23 +202,23 @@
                      <strong>Terms</strong>
                   </td>
                   <%end%>
-                  <td class="label" align="right">
+                  <td class="label" align="center">
                      <strong>Expiration Date</strong>
                   </td>
                </tr>
                <tr>
                   <%if sales_rep%>
-                  <td align="left">
+                  <td align="left" style="color: #808080;">
                      <%= sales_rep%>
                   </td>
                   <%end%>
                   <%if term_code %>
-                  <td  align="center">
+                  <td  align="center" style="color: #808080;">
                      <%= term_code %>
                   </td>
                   <%end%>
                   <%if quote_expiry_date%>
-                  <td align="right">
+                  <td align="center" style="color: #808080;">
                      <%= quote_expiry_date%>
                   </td>
                   <%end%>
@@ -458,7 +457,7 @@
                   <h3>Thank you! We appreciate your business.</h3>
                </td>
                <td class="company">
-                  <h3>www.iconsigncompany.com</h3>
+                  <h4>www.iconsigncompany.com</h4>
                </td>
             </tr>
          </table>

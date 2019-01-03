@@ -13,7 +13,7 @@
          }
          .invoice{
          margin-top: 20px;
-         margin-left: 35pt;
+         margin-left: -8pt;
          margin-right: 35pt;
          }
          .address-logo {
@@ -76,17 +76,17 @@
          <table class="invoice">
             <tr>
                <td align="left">
-                <img src="https://cdn.filepicker.io/api/file/OucWhHPzQAaO4XPTpirV" >
+                <img src="https://cdn.filepicker.io/api/file/c5IcTU66SRq4RisVtvEp" width="425" height="56" alt="Computer Hope">
                </td>
                <td align="right">
-                  <h1 style="margin-right:50pt;color: #808080;"><strong>Customer Proof</strong></h1>
+                  <h1 style="color: #808080;"><strong>Customer Proof</strong></h1>
                </td>
             </tr>
          </table>
          <div class="address-logo">
             <table>
                <tr>
-                  <td  class="store-address" valign="top" width="30%">
+                  <td  class="store-address" valign="top" width="30%" style="color: #808080;">
                      <%if store_address_street%>
                      <p><%= store_address_street %></p>
                      <%end%>
@@ -104,10 +104,10 @@
                   </td>
                   <td>&nbsp</td>
                   <td width="28%" class="store-address">
-                     <p style="font-size:11pt;padding-top:20pt;">Due: <strong><%= due_date %></strong></p>
-                     <p>*Subject to proof approval.</p>
+                     <p style="font-size:11pt;padding-top:20pt;"><span style="color: #808080;">Due: </span><strong><%= due_date %></strong></p>
+                     <p style="color: #808080;">*Subject to proof approval.</p>
                   </td>
-                  <td width="30%" align="right" style="padding-top:20pt;">
+                  <td width="30%" align="right" style="padding-top:30pt;">
                      <p>
                         <strong><%= order_type %># <%= order_number %></strong><br>
                         <% if related_quotes.present? %>
@@ -334,7 +334,7 @@
                      <% if pa_items.size > 0 %>
                      <div class="box box--white box--border box--margin-top">
                         <div class="box__title">Item Attributes</div>
-                        <div class="box__content" style="height: 20em;">
+                        <div class="box__content" style="height: 27em;">
                            <table class="table table--no-border table--no-padding">
                               <tbody>
                                  <%= pa_table %>
