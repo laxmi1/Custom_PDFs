@@ -70,6 +70,7 @@
          float: left;
          text-align: justify;
          border-top: 2px solid  #808080;
+         color:  #000000;
          }
          .footer-bottom-right {
          font-size: 13px;
@@ -84,6 +85,7 @@
          .thanku{
          margin-left: 35pt;
          margin-right: 5pt;
+         margin-bottom: -20px;
          }
          h3{
          line-height: 5px;
@@ -210,6 +212,7 @@
                   <%if sales_rep%>
                   <td align="left" style="color: #808080;">
                      <%= sales_rep%>
+                     <p><%=@object.primary_sales_rep.try(:email)%></p>
                   </td>
                   <%end%>
                   <%if term_code %>
@@ -454,7 +457,7 @@
          <table class="thanku">
             <tr>
                <td class="appreciate">
-                  <h3>Thank you! We appreciate your business.</h3>
+                  <h3>Thank you! We appreciate your business!</h3>
                </td>
                <td class="company">
                   <h4>www.iconsigncompany.com</h4>

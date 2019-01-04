@@ -23,17 +23,22 @@
          .address-logo .store-address {
          text-align: left;
          vertical-align: top;
-         font-size: 12px;
+         font-size: 14px;
          }
          .addresses {
          padding: 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .box__content-proof-img {
-         height: 33em;
+         height: 34em;
          width: 100%;
          display: table;
          }
+         .table--list th,
+         .table--list td {
+          padding: 0.4em 0;
+          border: none;
+          }
          @font-face {
          font-family: 'futura';
          src: url('http://iconsign.company/wp-content/themes/icon/public/fonts/futura-medium-webfont.eot');
@@ -103,9 +108,9 @@
                      <%end%>
                   </td>
                   <td>&nbsp</td>
-                  <td width="28%" class="store-address">
+                  <td width="28%" class="store-address" style="padding-left:50px;">
                      <p style="font-size:11pt;padding-top:20pt;"><span style="color: #808080;">Due: </span><strong><%= due_date %></strong></p>
-                     <p style="color: #808080;">*Subject to proof approval.</p>
+                     <p style="color: #808080;font-size:10px;">*Subject to proof approval.</p>
                   </td>
                   <td width="30%" align="right" style="padding-top:30pt;">
                      <p>
@@ -135,7 +140,7 @@
          <div class="job-section job-pdf__company">
             <div class="container">
                <div class="row">
-                  <div class="col-6">
+                  <div class="col-5">
                      <div class="box box--default box--border">
                         <div class="box__title">
                            <p>Customer: <strong><%= company_name %></strong></p>
@@ -144,15 +149,17 @@
                            <% end %>
                         </div>
                         <div class="box__content">
-                           <p>
-                              <%= contact_info %>
-                           </p>
+                            <%if @object.contact.name %>
+                            <p><strong><%= @object.contact.name %></strong></p>
+                            <%end%>
+                            <%if @object.contact.email %>
+                            <p><%= @object.contact.email %></p><%end%>
                         </div>
                      </div>
                   </div>
                   <div class="col-3">
                      <div class="box box--default box--border box--sm">
-                        <div class="box__content">
+                        <div class="box__content" style="min-height: 90px;">
                            <table class="table table--list text--sm">
                               <tbody>
                                  <tr>
@@ -176,9 +183,9 @@
                         </div>
                      </div>
                   </div>
-                  <div class="col-3">
+                  <div class="col-4">
                      <div class="box box--default box--border box--sm">
-                        <div class="box__content">
+                        <div class="box__content" style="min-height: 90px;">
                            <table class="table table--list text--sm">
                               <tbody>
                                  <tr>
@@ -219,7 +226,7 @@
             </div>
          </div>
          <br>
-         <div class="col-12">
+         <div class="col-12" style="font-family: "Times New Roman", Times, serif;">
             <p>This order will not go into production until approval is received: Colors portrayed on proof do not match final product due to differences between digital and
                pigmented colors. Once approved, you are responsible for the remake costs should any errors be found after production begins.
             </p>
@@ -233,7 +240,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-6">
-                     <div class="box box--grey box--border box--margin-top">
+                     <div class="box box--border box--margin-top">
                         <div class="box box--default box--border">
                            <div class="box__title">
                               <p>Ship To:</p>
@@ -248,11 +255,11 @@
                                  <div class="col-6">
                                     <table class="table table--list">
                                        <tbody>
-                                          <tr>
+                                          <tr style="font-size:11px">
                                              <td>Ship Method:</td>
                                              <td><strong><%= shipping_method %></strong></td>
                                           </tr>
-                                          <tr>
+                                          <tr style="font-size:11px">
                                              <td>Ship Date:</td>
                                              <td><strong><%= shipping_date %></strong></td>
                                           </tr>
@@ -263,7 +270,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="box box--grey box--border box--margin-top">
+                     <div class="box box--border box--margin-top">
                         <% if ui_field_visibility('job/installing_address_id') and installing_information.present? %>
                         <div class="box box--default box--border">
                            <div class="box__title">
@@ -332,15 +339,17 @@
                   </div>
                   <div class="col-6">
                      <% if pa_items.size > 0 %>
-                     <div class="box box--white box--border box--margin-top">
+                     <div class="box box--border box--margin-top">
+                      <div class="box box--default box--border">
                         <div class="box__title">Item Attributes</div>
-                        <div class="box__content" style="height: 27em;">
+                        <div class="box__content" style="height: 26em;">
                            <table class="table table--no-border table--no-padding">
                               <tbody>
                                  <%= pa_table %>
                               </tbody>
                            </table>
                         </div>
+                     </div>
                      </div>
                      <% end %>
                   </div>
@@ -351,7 +360,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-10">
-                     <div class="box box--white box--border box--margin-top">
+                     <div class="box box--grey box--border">
                         <div class="box__title">Description:</div>
                         <div class="box__content">
                            <p>
@@ -382,7 +391,7 @@
             </div>
          </div>
          <div class="col-12">
-            <div class="box box--white box--border box--margin-top">
+            <div class="box box--grey box--border">
                <div class="box__title">Local File:</div>
                <div class="box__content">
                   <div class="row">
