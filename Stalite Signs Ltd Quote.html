@@ -282,7 +282,7 @@
     </tr>
     </thead>
     <% items.each_with_index do |item, index| %>
-    <tbody class='no-page-break'>
+    <tbody  class='no-page-break'>
         <tr>
           <td class="position" rowspan="2">
             <div class="first" style="text-align: center;">
@@ -401,12 +401,14 @@
           <td><b><%= subtotal_header %>:</b></td>
           <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= sub_total %></td>
         </tr>
+
         <tr>
           <% if has_setup_charges?  && setup_charges[1..-1].to_f > 0 %>
           <td><b><%= setup_charges_header %>:</b></td>
           <td style="border-bottom: 2px solid #e3e3e3; padding-bottom:6px;padding-top:6px;margin-top: 5px;" align="right"><%= setup_charges %></td>
           <% end %>
         </tr>
+
         <tr>
           <% if has_shipping_charges?  && shipping_charges[1..-1].to_f > 0 %>
           <td><b><%= shipping_charges_header %>:</b></td>

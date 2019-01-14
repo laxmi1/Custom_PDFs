@@ -28,7 +28,6 @@
          text-align: left;
          vertical-align: top;
          font-size: 12px;
-         color: #808080;
          }
          .addresses {
          padding: 5pt 35pt;
@@ -70,7 +69,7 @@
          float: left;
          text-align: justify;
          border-top: 2px solid  #808080;
-         color:  #000000;
+         font-family: 'futura_bk_btbook';
          }
          .footer-bottom-right {
          font-size: 13px;
@@ -105,6 +104,13 @@
          padding-right: 35pt;
          color: #2E8B57;
          }
+         @font-face {
+        font-family: 'futura_bk_btbook';
+        src: url('futura_book_bt-webfont.woff2') format('woff2'),
+             url('futura_book_bt-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        }
          @font-face {
          font-family: 'futura';
          src: url('http://iconsign.company/wp-content/themes/icon/public/fonts/futura-medium-webfont.eot');
@@ -152,11 +158,11 @@
                <img src="https://cdn.filepicker.io/api/file/c5IcTU66SRq4RisVtvEp" width="425" height="56" alt="Computer Hope">
             </td>
             <td align="right">
-               <h1 style="margin-right:35pt;color: #808080;"><strong>Quote</strong></h1>
+               <h1 style="margin-right:35pt;color: #A9A9A9;"><strong>Quote</strong></h1>
             </td>
          </tr>
       </table>
-      <div class="address-logo">
+      <div class="address-logo" style="font-family: 'futura_bk_btbook';">
          <table>
             <tr>
                <td  class="store-address" valign="top" width="30%">
@@ -183,7 +189,7 @@
                <td width="28%" class="store-address">
                   <%= contact_information %>
                </td>
-               <td width="30%" align="right" style="padding-top:40pt;font-size: 15px;">
+               <td width="30%" align="right" style="padding-top:40pt;font-size: 15px;font-family: 'futura';">
                   <p><strong>#<%=txn_number_only%></strong></p>
                   <p><strong><%= quote_date %></strong></p>
                </td>
@@ -210,18 +216,18 @@
                </tr>
                <tr>
                   <%if sales_rep%>
-                  <td align="left" style="color: #808080;">
+                  <td align="left" style="font-family: 'futura_bk_btbook';">
                      <%= sales_rep%>
                      <p><%=@object.primary_sales_rep.try(:email)%></p>
                   </td>
                   <%end%>
                   <%if term_code %>
-                  <td  align="center" style="color: #808080;">
+                  <td  align="center" style="font-family: 'futura_bk_btbook';">
                      <%= term_code %>
                   </td>
                   <%end%>
                   <%if quote_expiry_date%>
-                  <td align="center" style="color: #808080;">
+                  <td align="center" style="font-family: 'futura_bk_btbook';">
                      <%= quote_expiry_date%>
                   </td>
                   <%end%>
