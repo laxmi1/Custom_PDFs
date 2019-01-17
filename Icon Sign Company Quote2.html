@@ -3,18 +3,19 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          .terms-title *, .terms-text * {
-         font-size:6pt !important;
+         font-size:7pt;
          }
          <%= page_size %>
          body {
          font-size: 13px;
-         font-family: 'futura';
          line-height: 20px;
          letter-spacing: .8px;
          -webkit-font-smoothing: antialiased;
          }
-         @page{
-         }
+         @page {
+      font-family: "futura","DejaVu Sans", sans-serif;
+      prince-shrink-to-fit: auto;
+      }
          .invoice{
          margin-top: 20px;
          margin-left: 0pt;
@@ -43,7 +44,8 @@
          .line-items thead th {
          font-size: 13px;
          text-transform: capitalize;
-         color: #a3a3a3;
+         color: black;
+         font-weight: normal;
          padding: 5pt 5pt;
          }
          .line-items .first {
@@ -69,7 +71,6 @@
          float: left;
          text-align: justify;
          border-top: 2px solid  #808080;
-         font-family: 'futura_bk_btbook';
          }
          .footer-bottom-right {
          font-size: 13px;
@@ -79,12 +80,15 @@
          background: #FFF;
          padding: 6pt 15pt 5pt 0pt;
          margin: 0pt 0;
+         font-family: 'futura', sans-serif;
          font-weight: bold;
          }
          .thanku{
          margin-left: 35pt;
          margin-right: 5pt;
          margin-bottom: -20px;
+         font-family: 'futura', sans-serif;
+         font-weight: bold;
          }
          h3{
          line-height: 5px;
@@ -104,13 +108,7 @@
          padding-right: 35pt;
          color: #2E8B57;
          }
-         @font-face {
-        font-family: 'futura_bk_btbook';
-        src: url('futura_book_bt-webfont.woff2') format('woff2'),
-             url('futura_book_bt-webfont.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        }
+ 
          @font-face {
          font-family: 'futura';
          src: url('http://iconsign.company/wp-content/themes/icon/public/fonts/futura-medium-webfont.eot');
@@ -158,11 +156,11 @@
                <img src="https://cdn.filepicker.io/api/file/c5IcTU66SRq4RisVtvEp" width="425" height="56" alt="Computer Hope">
             </td>
             <td align="right">
-               <h1 style="margin-right:35pt;color: #A9A9A9;"><strong>Quote</strong></h1>
+               <h1 style="margin-right:35pt;color: #A9A9A9;font-family: 'futura';"><strong>Quote</strong></h1>
             </td>
          </tr>
       </table>
-      <div class="address-logo" style="font-family: 'futura_bk_btbook';">
+      <div class="address-logo" style="font-family:"DejaVu Sans", sans-serif;">
          <table>
             <tr>
                <td  class="store-address" valign="top" width="30%">
@@ -182,16 +180,16 @@
                   <p><%=store_email%></p>
                   <%end%>
                </td>
-               <td width="28%" class="store-address">
+               <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
                   <p><%= sold_to %></p>
                   <p><%= billing_information %></p>
                </td>
-               <td width="28%" class="store-address">
+               <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
                   <%= contact_information %>
                </td>
-               <td width="30%" align="right" style="padding-top:40pt;font-size: 15px;font-family: 'futura';">
-                  <p><strong>#<%=txn_number_only%></strong></p>
-                  <p><strong><%= quote_date %></strong></p>
+               <td width="30%" align="right" style="padding-top:40pt;font-size: 15px;">
+                  <p style="font-family: 'futura';"><strong>#<%=txn_number_only%></strong></p>
+                  <p style="font-family: 'futura';"><strong><%= quote_date %></strong></p>
                </td>
             </tr>
          </table>
@@ -202,32 +200,32 @@
                <tr>
                   <%if sales_rep%>
                   <td class="label" align="left">
-                     <strong>Salesperson</strong>
+                     <strong style="font-family: 'futura';">Salesperson</strong>
                   </td>
                   <%end%>
                   <%if term_code %>
                   <td class="label" align="center">
-                     <strong>Terms</strong>
+                     <strong style="font-family: 'futura';">Terms</strong>
                   </td>
                   <%end%>
                   <td class="label" align="center">
-                     <strong>Expiration Date</strong>
+                     <strong style="font-family: 'futura';">Expiration Date</strong>
                   </td>
                </tr>
                <tr>
                   <%if sales_rep%>
-                  <td align="left" style="font-family: 'futura_bk_btbook';">
+                  <td align="left" style="font-family:"DejaVu Sans", sans-serif;">
                      <%= sales_rep%>
                      <p><%=@object.primary_sales_rep.try(:email)%></p>
                   </td>
                   <%end%>
                   <%if term_code %>
-                  <td  align="center" style="font-family: 'futura_bk_btbook';">
+                  <td  align="center" style="font-family:"DejaVu Sans", sans-serif;">
                      <%= term_code %>
                   </td>
                   <%end%>
                   <%if quote_expiry_date%>
-                  <td align="center" style="font-family: 'futura_bk_btbook';">
+                  <td align="center" style="font-family:"DejaVu Sans", sans-serif;">
                      <%= quote_expiry_date%>
                   </td>
                   <%end%>
@@ -239,7 +237,7 @@
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
-               <tr>
+               <tr style="font-family:"DejaVu Sans", sans-serif;">
                   <th class="position">
                      <div class="first">Qty</div>
                   </th>
@@ -262,7 +260,7 @@
                   <% end %>
                </tr>
             </thead>
-            <tbody class=''>
+            <tbody class='' style="font-family: 'futura', sans-serif;">
                <% items.each_with_index do |item, index| %>
                <tr style="font-weight:bold;">
                   <td class="position" rowspan="2">
@@ -391,7 +389,7 @@
       <div class="footer-bottom">
          <div class="section">
             <div class="footer-bottom-left">
-               <div class="terms-text">
+               <div class="terms-text" style="font-family:"DejaVu Sans", sans-serif;">
                   <%= terms_conditions %>
                </div>
             </div>
