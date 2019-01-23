@@ -13,9 +13,9 @@
          -webkit-font-smoothing: antialiased;
          }
          @page {
-      font-family: "futura","DejaVu Sans", sans-serif;
-      prince-shrink-to-fit: auto;
-      }
+         font-family: "futura","DejaVu Sans", sans-serif;
+         prince-shrink-to-fit: auto;
+         }
          .invoice{
          margin-top: 20px;
          margin-left: 0pt;
@@ -38,8 +38,8 @@
          margin-left: 0pt;
          padding-top: 12pt;
          padding-bottom: 12pt;
-         border-bottom: 2px solid #808080;
-         border-top: 2px solid  #808080;   
+         border-bottom: 1px solid black;
+         border-top: 1px solid black;
          }
          .line-items thead th {
          font-size: 13px;
@@ -55,6 +55,16 @@
          .line-items tbody tr:first-child td {
          border-top: 0px solid #e3e3e3;
          }
+
+         hr.custom-field-separator {
+          height: 0;
+          margin-bottom: 5px;
+          padding-top: 5px;
+          margin-left: 5px;
+          border-bottom: 1px solid black;
+          width: 100px;
+         }
+
          .section {
          border-top: 0px solid #e3e3e3;
          padding: 0 35pt;
@@ -70,15 +80,15 @@
          width: 100%;
          float: left;
          text-align: justify;
-         border-top: 2px solid  #808080;
+         border-top: 1px solid black;
          }
          .footer-bottom-right {
          font-size: 13px;
          float: right;
-         width: 30%;
+         width: 25%;
          border-left: solid 0px #e3e3e3;
          background: #FFF;
-         padding: 6pt 15pt 5pt 0pt;
+         padding: 6pt 30pt 5pt 0pt;
          margin: 0pt 0;
          font-family: 'futura', sans-serif;
          font-weight: bold;
@@ -86,6 +96,7 @@
          .thanku{
          margin-left: 35pt;
          margin-right: 5pt;
+         margin-top: 15pt;
          margin-bottom: -20px;
          font-family: 'futura', sans-serif;
          font-weight: bold;
@@ -96,8 +107,6 @@
          h4{
          line-height: 5px;
          }
-         .label {
-         }
          .green {
          color: #2E8B57;
          }
@@ -105,10 +114,9 @@
          padding-left: 0px;
          }
          .company{
-         padding-right: 35pt;
+         padding-right: 5pt;
          color: #2E8B57;
          }
- 
          @font-face {
          font-family: 'futura';
          src: url('http://iconsign.company/wp-content/themes/icon/public/fonts/futura-medium-webfont.eot');
@@ -156,77 +164,77 @@
                <img src="https://cdn.filepicker.io/api/file/c5IcTU66SRq4RisVtvEp" width="425" height="56" alt="Computer Hope">
             </td>
             <td align="right">
-               <h1 style="margin-right:35pt;color: #A9A9A9;font-family: 'futura';"><strong>Quote</strong></h1>
+               <h1 style="font-family: 'futura';"><strong>Quote</strong></h1>
             </td>
          </tr>
       </table>
       <div class="address-logo" style="font-family:"DejaVu Sans", sans-serif;">
-         <table>
-            <tr>
-               <td  class="store-address" valign="top" width="30%">
-                  <p><%= store_name %></p>
-                  <%if store_address_street%>
-                  <p><%= store_address_street %></p>
-                  <%end%>
-                  <%if store_address_street1%>
-                  <p><%= store_address_street1 %></p>
-                  <%end%>
-                  <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
-                  <%if store_address_zip %> <%= store_address_zip%><%end%>
-                  <% if store_phone%>
-                  <p><%=store_phone%></p>
-                  <%end%> 
-                  <% if store_email%>
-                  <p><%=store_email%></p>
-                  <%end%>
-               </td>
-               <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
-                  <p><%= sold_to %></p>
-                  <p><%= billing_information %></p>
-               </td>
-               <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
-                  <%= contact_information %>
-               </td>
-               <td width="30%" align="right" style="padding-top:40pt;font-size: 15px;">
-                  <p style="font-family: 'futura';"><strong>#<%=txn_number_only%></strong></p>
-                  <p style="font-family: 'futura';"><strong><%= quote_date %></strong></p>
-               </td>
-            </tr>
-         </table>
+      <table>
+         <tr>
+            <td  class="store-address" valign="top" width="30%">
+               <p><%= store_name %></p>
+               <%if store_address_street%>
+               <p><%= store_address_street %></p>
+               <%end%>
+               <%if store_address_street1%>
+               <p><%= store_address_street1 %></p>
+               <%end%>
+               <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+               <%if store_address_zip %> <%= store_address_zip%><%end%>
+               <% if store_phone%>
+               <p><%=store_phone%></p>
+               <%end%>
+               <% if store_email%>
+               <p><%=store_email%></p>
+               <%end%>
+            </td>
+            <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
+            <p><%= sold_to %></p>
+            <p><%= billing_information %></p>
+            </td>
+            <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
+            <%= contact_information %>
+            </td>
+            <td width="30%" align="right" style="padding-top:40pt;font-size: 13.5pt;">
+               <p style="font-family: 'futura';"><strong>#<%=txn_number_only%></strong></p>
+               <p style="font-family: 'futura';font-size: 15px;"><strong><%= quote_date %></strong></p>
+            </td>
+         </tr>
+      </table>
       </div>
       <div class="addresses">
          <div class="sales_rep">
             <table>
                <tr>
                   <%if sales_rep%>
-                  <td class="label" align="left">
+                  <td align="left" width="40%">
                      <strong style="font-family: 'futura';">Salesperson</strong>
                   </td>
                   <%end%>
                   <%if term_code %>
-                  <td class="label" align="center">
+                  <td align="left" width="27%">
                      <strong style="font-family: 'futura';">Terms</strong>
                   </td>
                   <%end%>
-                  <td class="label" align="center">
+                  <td align="left" width="25%">
                      <strong style="font-family: 'futura';">Expiration Date</strong>
                   </td>
                </tr>
                <tr>
                   <%if sales_rep%>
-                  <td align="left" style="font-family:"DejaVu Sans", sans-serif;">
-                     <%= sales_rep%>
-                     <p><%=@object.primary_sales_rep.try(:email)%></p>
+                  <td align="left" width="40%" style="font-family:"DejaVu Sans", sans-serif;">
+                  <%= sales_rep%>
+                  <p><%=@object.primary_sales_rep.try(:email)%></p>
                   </td>
                   <%end%>
                   <%if term_code %>
-                  <td  align="center" style="font-family:"DejaVu Sans", sans-serif;">
-                     <%= term_code %>
+                  <td  align="left" width="25%" style="font-family:"DejaVu Sans", sans-serif;">
+                  <%= term_code %>
                   </td>
                   <%end%>
                   <%if quote_expiry_date%>
-                  <td align="center" style="font-family:"DejaVu Sans", sans-serif;">
-                     <%= quote_expiry_date%>
+                  <td align="left" width="25%" style="font-family:"DejaVu Sans", sans-serif;">
+                  <%= quote_expiry_date%>
                   </td>
                   <%end%>
                </tr>
@@ -238,26 +246,26 @@
          <table>
             <thead>
                <tr style="font-family:"DejaVu Sans", sans-serif;">
-                  <th class="position">
-                     <div class="first">Qty</div>
-                  </th>
-                  <th class="name" colspan="2">Item Description</th>
-                  <th class="money">Unit Price</th>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity"><%= discount_header %> </th>
-                  <th class="quantity"><%= discount_price_header %> </th>
-                  <% end %>
-                  <th class="money">
-                     <div class="last">Total</div>
-                  </th>
-                  <% if use_tax_codes? %>
-                  <th class="money">
-                     <div class="last"><%= tax_header %></div>
-                  </th>
-                  <th class="money">
-                     <div class="last"><%= tax_rate_header %></div>
-                  </th>
-                  <% end %>
+               <th class="position">
+                  <div class="first">Qty</div>
+               </th>
+               <th class="name" colspan="2">Item Description</th>
+               <th class="money" style="text-align:left;padding-right:40pt;">Unit Price</th>
+               <% if show_discounts && total_discount_price != 0.0 %>
+               <th class="quantity"><%= discount_header %> </th>
+               <th class="quantity"><%= discount_price_header %> </th>
+               <% end %>
+               <th class="money">
+                  <div class="last">Total</div>
+               </th>
+               <% if use_tax_codes? %>
+               <th class="money">
+                  <div class="last"><%= tax_header %></div>
+               </th>
+               <th class="money">
+                  <div class="last"><%= tax_rate_header %></div>
+               </th>
+               <% end %>
                </tr>
             </thead>
             <tbody class='' style="font-family: 'futura', sans-serif;">
@@ -269,7 +277,7 @@
                      </div>
                   </td>
                   <td class="name" colspan="2"><%= item.name %></td>
-                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money" style="text-align:left; padding-right:40pt;"><%= item.unit_price %></td>
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="quantity"><%= item.discount_percentage %> </td>
                   <td class="quantity"><%= item.unit_price_after_discount %></td>
@@ -288,7 +296,7 @@
                   </td>
                   <% end %>
                </tr>
-               <tr>
+               <tr style="font-weight:bold;">
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="description" colspan="7">
                      <% else %>
@@ -322,41 +330,9 @@
             </tbody>
          </table>
       </div>
-      <% if customer_note.present? %>
-      <div class="note">
-         <table class="no-page-break">
-            <thead>
-               <tr>
-                  <td>Customer Note:</td>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td><%= customer_note %></td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-      <% end %>
       <!-- Cover Note -->
-      <% if cover_note.present? %>
-      <div class="note">
-         <table class="no-page-break">
-            <thead>
-               <tr>
-                  <th><%= cover_note_header %></th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td><%= cover_note %></td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-      <% end %>
       <div class="footer-bottom-right">
-         <table>
+         <table class='no-page-break'>
             <tr>
                <td>Total Net:</td>
                <td><%= sub_total %></td>
@@ -390,84 +366,22 @@
          <div class="section">
             <div class="footer-bottom-left">
                <div class="terms-text" style="font-family:"DejaVu Sans", sans-serif;">
-                  <%= terms_conditions %>
-               </div>
+               <%= terms_conditions %>
             </div>
-            <div class="clearfix"></div>
+            <p style="font-family: 'futura';"><strong>Accepted by: &nbsp;<span style="border-bottom: 1px solid black;">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</span></strong></p>
          </div>
-         <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
-         <div class="split-tax">
-            <h4>Split Taxes</h4>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% tax_split.each do |name, rate| %>
-                     <th><%= name %>(<%= rate %>%)</th>
-                     <td><%= tax_subtotal(rate.to_f) %></td>
-                     <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <% if use_tax_codes? %>
-         <div class="split-tax">
-            <h4>Tax Totals</h4>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% tax_totals_table.each do |k, value| %>
-                     <th><%= value[:name] %>(<%= value[:rate] %>%)</th>
-                     <td><%= to_pdf_dollars(value[:total]) %></td>
-                     <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <% if show_discounts %>
-         <div>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% if show_range_volume_discounts %>
-                     <% if total_range_discount >0 || total_volume_discount >0  %>
-                     <th><b>Total Discount</b></th>
-                     <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
-                     <%end%>
-                     <% if total_range_discount >0 %>
-                     <th><b>Range Disc.</b></th>
-                     <td><%= total_range_discount_in_dollars %></td>
-                     <%end%>
-                     <% if total_volume_discount >0 %>
-                     <th><b>Volume Disc.</b></th>
-                     <td><%= total_volume_discount_in_dollars %></td>
-                     <%end%>
-                     <% if total_discount_price != 0.0%>
-                     <th><b>Customer Discount</b></th>
-                     <td><%= total_discount_price_in_dollars %></td>
-                     <%end%>
-                     <%else%>
-                     <% if total_discount_price != 0.0%>
-                     <th><b>Customer Discount</b></th>
-                     <td><%= total_discount_price_in_dollars %></td>
-                     <%end%>
-                     <%end%>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <table class="thanku">
-            <tr>
-               <td class="appreciate">
-                  <h3>Thank you! We appreciate your business!</h3>
-               </td>
-               <td class="company">
-                  <h4>www.iconsigncompany.com</h4>
-               </td>
-            </tr>
-         </table>
+         <div class="clearfix"></div>
+      </div>
+      <table class="thanku">
+         <tr>
+            <td class="appreciate">
+               <h3>Thank you! We appreciate your business!</h3>
+            </td>
+            <td class="company">
+               <h4>www.iconsigncompany.com</h4>
+            </td>
+         </tr>
+      </table>
       </div>
    </body>
 </html>
