@@ -250,7 +250,7 @@
                   <div class="first">Qty</div>
                </th>
                <th class="name" colspan="2">Item Description</th>
-               <th class="money" style="text-align:left;padding-right:40pt;">Unit Price</th>
+               <th class="money" style="text-align:left;padding-right:33pt;">Unit Price</th>
                <% if show_discounts && total_discount_price != 0.0 %>
                <th class="quantity"><%= discount_header %> </th>
                <th class="quantity"><%= discount_price_header %> </th>
@@ -277,7 +277,7 @@
                      </div>
                   </td>
                   <td class="name" colspan="2"><%= item.name %></td>
-                  <td class="money" style="text-align:left; padding-right:40pt;"><%= item.unit_price %></td>
+                  <td class="money" style="text-align:left; padding-right:33pt;"><%= item.unit_price %></td>
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="quantity"><%= item.discount_percentage %> </td>
                   <td class="quantity"><%= item.unit_price_after_discount %></td>
