@@ -55,16 +55,23 @@
          .line-items tbody tr:first-child td {
          border-top: 0px solid #e3e3e3;
          }
-
-         hr.custom-field-separator {
-          height: 0;
-          margin-bottom: 5px;
-          padding-top: 5px;
-          margin-left: 5px;
-          border-bottom: 1px solid black;
-          width: 100px;
+         .line-items .description {
+         font-size: 9px;
+         padding: 0 35pt 5pt 5pt;
          }
-
+         .line-items tbody tr td {
+         vertical-align: top;
+         font-size: 14px;
+         padding: 0 5pt;
+         }
+         hr.custom-field-separator {
+         height: 0;
+         margin-bottom: 5px;
+         padding-top: 5px;
+         margin-left: 5px;
+         border-bottom: 1px solid black;
+         width: 100px;
+         }
          .section {
          border-top: 0px solid #e3e3e3;
          padding: 0 35pt;
@@ -190,7 +197,14 @@
             </td>
             <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
             <p><%= sold_to %></p>
-            <p><%= billing_information %></p>
+            <p><% if billing_address_street %><%= billing_address_street %> <%end%>
+               <% if billing_address_street1 %><%= billing_address_street1 %><%end%>
+            </p>
+            <p> <% if billing_address_city %><%= billing_address_city %> <%end%>
+               <% if billing_address_state %><%= billing_address_state %><%end%>
+               <% if billing_address_zip %><%= billing_address_zip %><%end%>
+            </p>
+            <% if billing_address_country %><%= billing_address_country %><%end%></p>
             </td>
             <td width="28%" class="store-address" style="font-family:"DejaVu Sans", sans-serif;">
             <%= contact_information %>
