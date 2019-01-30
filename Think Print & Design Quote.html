@@ -50,10 +50,15 @@
           <%if @object.account.settings.addresses.where(address_type: 'Primary').first.suburb %>
           <%= @object.account.settings.addresses.where(address_type: 'Primary').first.suburb %>, <%end%>
         </p>
-        <p> <strong><%if store_address_city%><%= store_address_city %>,<%end%> 
+        <p><%if store_address_city%><%= store_address_city %>,<%end%> 
           <%if store_address_zip %> <%= store_address_zip%>,<%end%>
-          <%if store_address_state %><%= store_address_state%><%end%><strong>
+          <%if store_address_state %><%= store_address_state%><%end%>
         </p>
+      <% if store_email%><p>Primary Email: <%=store_email%></p><%end%>
+      <% if store_phone%><p>Primary Phone: <%=store_phone%></p><%end%>
+      <% if tax_code_number_text(@object.account) %><p><%= tax_code_number_text(@object.account) %></p>
+      <%end%>
+     <% if @object.account.website %><p><%= @object.account.website %></p><%end%>
       </td>
       <td class="store-logo">
         <img class="logo" src="<%= logo %>">
@@ -79,10 +84,10 @@
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
-          <% unless sales_rep_information.blank?%>
-           <p class="title"><%= sales_rep_information_header %></p>
-           <p><%= sales_rep_information %></p>
-          <% end %>
+     <% unless sales_rep_information.blank?%>
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
+    <% end %>
         </div>
       </td>
       <td class="summ right">
