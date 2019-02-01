@@ -85,8 +85,10 @@
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
-          <p class="title"><%= sales_rep_information_header %></p>
-          <p><%= sales_rep_information %></p>
+          <% unless sales_rep_information.blank?%>
+            <p class="title"><%= sales_rep_information_header %></p>
+            <p><%= sales_rep_information %></p>
+          <% end %>
         </div>
         <% if quote_information %>
           <div class="summary-wrapper">
