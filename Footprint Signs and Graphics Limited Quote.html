@@ -1,0 +1,190 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .address-logo {
+         padding: 35pt 25pt 35pt 25pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 300px;
+         max-height: 150px;
+         }
+         .address-logo .store-address {
+         text-align: left;
+         vertical-align: top;
+         font-size: 14px;
+         }
+         .line-items thead th {
+         font-size: 12px;
+         text-transform: uppercase;
+         color: black;
+         background-color: #999999;
+         height: 45px;
+         padding: 5pt 5pt;
+         }
+         .line-items .name {
+         text-align: left;
+         font-weight: bold;
+         padding-left: 35pt;
+         }
+         .line-items .quantity {
+         text-align: left;
+         width: 5%;
+         white-space: nowrap;
+         padding-right: 55pt;
+         }
+         .line-items .money {
+         text-align: right;
+         width: 1%;
+         white-space: nowrap;
+         padding-right: 35pt;
+         }
+         .footer-bottom {
+         float: bottom;
+         margin-bottom: 100pt;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 30%;
+         border-left: solid 0px #e3e3e3;
+         background: none;
+         padding: 5pt 6pt 5pt 6pt;
+         margin: 5pt 0;
+         }
+         .footer-bottom-left {
+         width: 95%;
+         float: left;
+         text-align: justify;
+         }
+         @page {
+         @bottom {
+         margin: 38pt 0pt 135pt 0pt;    
+         content:"";
+         width:102%;
+         background-image: url("https://cdn.filepicker.io/api/file/BoOhhxx8RCeqy8eQXKl6");
+         background-size: cover;
+         }
+         @bottom-right {
+         content: " ";
+         }
+         @bottom-left {
+         content: " ";
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header"></div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo" style="background-color:#3c3c3b;">
+         <table>
+            <tr>
+               <td class="store-address" style="color:white;">
+                  <img src="https://cdn.filepicker.io/api/file/a37HbWvKSIii7e5gHM16" width="200" height="56">
+               </td>
+               <td class="store-address" style="color:white;LINE-HEIGHT:14pt;">
+                  <p>TO</p>
+                  <p><%= company_name %></p>
+                  <p><%= contact_information %></p>
+               </td>
+               <td class="store-address" style="color:white;LINE-HEIGHT:14pt;">
+                  <p>FROM</p>
+                  <p><strong><%=store_name %></strong></p>
+                  <% if store_email%>
+                  <p><%=store_email%></p>
+                  <%end%>
+               </td>
+               <td class="store-logo" style="color:white;LINE-HEIGHT:20pt;">
+                  <p><%= quote_date %></p>
+                  <p style="color: #95C122; font-size:18pt;">Quotation</p>
+                  <p style="font-size:12pt;">QT# <%= txn_number_only %></p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div style="margin:-4px;">
+         <img src="https://cdn.filepicker.io/api/file/xt3vRv7QgiPDl4bA02UA" >
+      </div>
+      <div class="line-items" style="margin-top:-2pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr>
+                  <th class="name"><%= item_header %></th>
+                  <th class="quantity" ><%= qty_header %></th>
+                  <th class="money">PRICE</th>
+               </tr>
+            </thead>
+            <tbody class='' >
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="name" style="padding-top:20pt;"><%= item.name %></td>
+                  <td class="quantity" style="padding-top:20pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money" style="color: #95C122;padding-top:20pt;"><strong><%= item.unit_price %></strong></td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <!-- Internal Note -->
+      <!-- Cover Note -->
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <p style="text-align:right;padding-right:40pt;font-size:15pt;color:#999999;"><b>TOTAL</b></p>
+         <div class="section">
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td class="labels first footer-subtotal">
+                        </td>
+                        <td class="money last footer-subtotal">
+                           <p style="font-size: 15pt;color: #95C122;"><strong><%= sub_total %></strong></p>
+                           <p class="footer-total"><strong><%= final_price %></strong></p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+         <p style="text-align:center;color:red;"><strong>PLEASE READ TERMS & CONDITIONS ON PAGE 2</strong></p>
+      </div>
+      <div class="footer-bottom-left">
+         <div class="no-page-break" style="padding-left: 35pt;font-size:9.6pt;">
+            <div>
+         <table>
+            <tr>
+               <td>
+                  <img src="https://cdn.filepicker.io/api/file/LYubipPzQm62yR07HbPi" width="300" height="100">
+               </td>
+               <td>
+                  <p style="text-align:right;font-size:26pt;color:#999999"><strong>Terms & Conditions</strong></p>
+               </td>
+            </tr>
+         </table>
+      </div>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">All quotations are valid for 30 days. </p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">Average lead time from approval of quotation 2-3 weeks. (this can be longer during busy periods)</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">For all non account holders orders under £500 are to be paid upfront in full before artwork & production will commence. For all orders over £500 50% deposit will be required prior to works and balancedue on day of completion. Goods and vehicles will not be released until this process has been actioned andpayment made in full. Works completed o site must also be payed prior to team leaving site.For account holders our payment terms are 14 days from invoice date. </p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">All artworks & concepts are the intellectual property of Footprint Signs & Graphics Ltd    2017.Should any artwork be used without our consent a design fee will be applicable.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">Whilst we at Footprint Signs & Graphics make every eort to produce designs & artwork of the higheststandard <b>WE REQUIRE THAT YOU READ THROUGH & PROOF READ ALL DESIGNS & ARTWORK.</b>We require written approval before production can take place. Once approval has been given productioncan proceed very quickly and any mistakes spotted during production / installation will be rectied atextra cost.  Given approval will be accepted that the terms and conditions have been agreed to.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;"><b>VEHICLE GRAPHICS & WRAPS:</b></p><p>An average vehicle wrap can take 2-5 days.Unless otherwise agreed vehicle graphics will need to be installed at our premises. This ensures wehave the perfect working environment for installation. Works carried out in unsuitable environmentswill aect the manufacturers guarantee.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;"><b>All vehicles should be cleaned (not polished) prior to delivery to our premises.</b> Any extra timespent by our installers cleaning dirty vehicles will be billed accordingly.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">All vehicle wraps are subject to a pre-inspection of the vehicle to ensure the suitability of the substrateas paint chips and resprayed areas can cause damage when / if the vinyl is removed.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">On many vehicles, we will encounter painted surfaces that may not be conducive for that necessaryadhesion and durability of the materials, such as door handles, hinges, textured surfaces, emblems,rubber, mouldings, weather stripping, sliding windows, exhaust areas and some extreme convex andcompound curves. Door handles and badges can be removed but only if a disclaimer is signed.There are techniques for handling some of those areas, such as providing overlays, patches, relief cutsand taking these areas of concern into consideration during the design phase prior to fabrication.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">The materials used by Footprint Signs & Graphics Ltd are of the highest quality and have provisionsdesigned for outdoor use, such as the utilisation of inks and laminates with UV properties, to supportprevention of premature deterioration of the materials.</p>
+            <p style="border-bottom: 2px solid #95C122;padding:6pt;">The typical lifespan of a high performance cast vehicle wrap material is approximately 4 to 6 years.Computer cut high performance cast graphics have the durability in the region of 5 to 8 years. This is onlya manufacturers warranty and is not a warranty upheld by Footprint Signs & Graphics Ltd.  We will assessand repair where necessary any vinyl graphics defects within 12 months if these are deemed to be due tothe application of the vinyl.</p>
+            <p style="padding:6pt;">Our material manufacturers base these time parameters on the average sun exposure within the CentralEuropean climate, on a vertical surface.Horizontal sections of your wrap such as the bonnet (combined with the heat omitted from the vehicleengine) and the roof will experience deterioration more readily than the vertical surfaces, specically thesides of the vehicle.</p>
+         </div>
+      </div>
+   </body>
+</html>
