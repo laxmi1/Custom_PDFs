@@ -32,7 +32,7 @@
          <%= header_text %>
       </div>
       <div style="display:none" class="document-footer"></div>
-      <font color="white">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= @object.txn_date %> [O+CusAccNum]<%= @object.company.account_number.present? ? @object.company.account_number : '' %> [O+CusDiv]<%= @object.company.division_id? ? @object.company.division.try(:name) : '' %> </font>
+      <font color="white">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= @object.txn_date %> [O+CusAccNum]<%= @object.company.account_number.present? ? @object.company.account_number : '' %> [O+CusDiv]<%= @object.company.divisions.any? ? @object.company.divisions.first.try(:name) : '' %> </font>
       <div class="address-logo">
          <table>
             <tr>

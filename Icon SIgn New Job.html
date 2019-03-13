@@ -158,10 +158,10 @@
                            <% end %>
                         </div>
                         <div class="box__content" style="min-height: 4.4em;">
-                           <%if @object.contact.name %>
+                           <%if @object.contact && @object.contact.name %>
                            <p style="font-family: 'futura', sans-serif;"><strong><%= @object.contact.name %></strong></p>
                            <%end%>
-                           <%if @object.contact.email %>
+                           <%if @object.contact && @object.contact.email %>
                            <p style="font-family: "Arial", sans-serif;"><%= @object.contact.email %></p><%end%>
                         </div>
                      </div>
@@ -390,8 +390,8 @@
       </div>
       </div>
       </div>
-   <!-- BOM - OTHERS -->
-   <% if has_pricing? %>
+      <!-- BOM - OTHERS -->
+  <% if has_pricing? %>
     <div class="job-section job-section--custom-fields">
       <div class="container">
         <div class="row">
@@ -421,7 +421,7 @@
         </div>
       </div>
     </div>
-   <% end %>
+  <% end %>
       <div class="job-section job-pdf__shipping">
          <div class="container">
             <div class="row">
