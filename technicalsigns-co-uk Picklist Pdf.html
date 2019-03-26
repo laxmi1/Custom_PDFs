@@ -72,16 +72,9 @@
       </td>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title"><%= shipping_information_header %></p>
-
-          <% if shipping_address_type != 'DropShip' %>
-            <%= sold_to %><br />
-          <% end %>
-          <%= shipping_information %></p>
-          <%if shipping_tracking.present? %>
-           <br/>
-           <p class="title"><%= shipping_tracking_header%></p>
-           <%= shipping_tracking %>
+          <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+            <p class="title"><%= installing_information_header %></p>
+            <p><%= installing_information %></p>
           <% end %>
         </div>
       </td>

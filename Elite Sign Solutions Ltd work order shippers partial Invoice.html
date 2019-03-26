@@ -176,7 +176,7 @@
             <% if item.table_view %>
                 <div class="shippers-invoice-pdf-grid-view">
                   <div class="text--pre-line li-desc-fixed-width">
-                    <%= item.li_grid_html_view %>
+                    <%= item.li_grid_html_view(hide_prices: true) %>
                   </div>
                 </div>
             <% else %>
