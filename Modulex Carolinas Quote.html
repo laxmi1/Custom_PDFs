@@ -1,0 +1,376 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:7pt;
+         }
+         <%= page_size %>
+         <%= body_font_family %>
+         .addresses {
+         padding: 5pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 10pt;
+         }
+         .addresses .address .title {
+         text-transform: none;
+         margin-top: 0pt;
+         font-size: 10px;
+         color: black;
+         }
+         .address-logo {
+         padding: 0pt 35pt 5pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses1 {
+         padding: 5pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .sales_rep{
+         margin-left: 0pt;
+         padding-top: 6pt;
+         padding-bottom: 6pt;
+         border-bottom: 1px solid black;
+         border-top: 1px solid black;
+         }
+         .line-items thead th {
+         font-size: 10px;
+         text-transform: capitalize;
+         color: #999999;
+         padding: 5pt 5pt;
+         }
+         .note thead td {
+         color: 999999;
+         text-transform: none;
+         border-bottom: none;
+         padding: 0pt 0pt 0pt 0pt;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 90%;
+         background: white;
+         border-left: solid 0px #e3e3e3;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0pt;
+         }
+         .footer-bottom-left {
+         width: 95%;
+         float: left;
+         text-align: justify;
+         }
+         .titals-table{
+         border-collapse: collapse;
+         border-collapse: separate;
+         border-spacing: 7px;
+         }
+         .termtotals{
+         page-break-inside: avoid;
+         border-top: 1px solid black;
+         border-bottom: 1px solid black;
+         margin-right: 50px;
+         padding-bottom: 10pt;
+         margin-left: 50px;
+         }
+         @page {
+         @bottom {
+         width: 80%;
+         font-size: 10px;
+         content: "SignalFactors dba Modulex Carolinas | 3615 Centre Circle Fort Mill SC 29715 | T: (704) 413-3800 | modulexcarolinas.com";
+         } 
+         }
+         @page {
+         @bottom-left {
+         content: " ";
+         }
+         }
+         @page { margin: 150px 0  50px 0; }  
+         @page { padding: 0pt 0pt 0pt 0pt;} 
+         @page {  
+         @top { content: flow(header); }  
+         }  
+         #header {      
+         position:relative;  
+         padding: 0pt 35pt 0pt 35pt;
+         flow: static(header);  
+         }
+         @page {
+         @top-left {
+         content: string(doc_header);
+         padding-left: 0pt;
+         font-size: 8px;
+         text-transform: uppercase;
+         font-weight: normal;
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+      </div>
+      <div id="header">
+         <table style="width: 100%">
+            <tr>
+               <td>
+                  <p style="font-size:14pt;font-weight:bold;"><%= quote_number %></p>
+                  <p><%= @object.quote_date.strftime("%A")%>, <%= @object.quote_date.strftime("%b %e, %Y")%></p>
+                  <br>
+                  <p style=:font-size:14pt;><strong>Customer:</strong> <%= company_name %></p>
+                  <br>
+                  <p style=:font-size:14pt;><strong>Reference:</strong> <%= name %></p>
+               </td>
+               <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
+            </tr>
+         </table>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+         <div class="addresses">
+            <table>
+               <tr>
+                  <td class="address left">
+                     <div class="address-wrapper">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Bill to:</b></p>
+                        <p style="font-size:9pt;">
+                           <%= sold_to %><br />
+                           <%= billing_information %>
+                        </p>
+                     </div>
+                  </td>
+                  <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
+                  <td class="address left">
+                     <div class="address-wrapper">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Ship to:</b></p>
+                        <p style="font-size:9pt";>
+                           <% if shipping_address_type != 'DropShip' %>
+                           <%= sold_to(show_company_name = false) %>
+                           <% end %>
+                           <%= shipping_information %>
+                        </p>
+                        <%if shipping_tracking %>
+                        <br/>
+                        <p class="title"><%= shipping_tracking_header%></p>
+                        <%= shipping_tracking %>
+                        <% end %>
+                     </div>
+                  </td>
+                  <% end %>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div class="addresses1">
+         <div class="sales_rep">
+            <table>
+               <tr>
+                  <td align="left">
+                     <p><b>Valid Until:</b> <% if quote_expiry_date %>
+                        <%= quote_expiry_date%>
+                        <% end %>
+                     </p>
+                  </td>
+                  <td align="left">
+                     <p><b>Revision Date:</b></p>
+                  </td>
+                  <td align="left">
+                     <p><b>SR:</b> <%=@object.primary_sales_rep.try(:name)%></p>
+                  </td>
+               </tr>
+               <tr>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p><b>Terms:</b><% if term_code %><%= term_code %>
+                        <% end %>
+                     </p>
+                  </td>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p><b>Ship Method:</b><%= shipping_method %></p>
+                  </td>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p><b>PM:</b><% if project_manager_name %><%= project_manager_name %><% end %></p>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <p class= "sales_rep" style="border-top:none;"><b>Quote Ref:</b></p>
+      </div>
+      <!-- Sold To, Contact Info and Shipping Address -->
+      <div class="line-items" style="width: 89%;margin-left: 35pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="background: black;">
+                  <th class="position" style="font-size:14px;color:white;">
+                     <div><strong>Item</strong></div>
+                  </th>
+                  <th class="name" style="font-size:14px;color:white;text-align:center;text-align:left;"><strong>Description</strong></th>
+                  <th class="quantity" style="font-size:14px;color:white;"><strong>Qty</strong></th>
+                  <th class="quantity" style="font-size:14px;color:white;"><strong><%= uom_header %></strong></th>
+                  <th class="money" style="font-size:14px;color:white;"><strong>Unit Price</strong></th>
+                  <th class="money">
+                     <div class="last" style="font-size:14px;color:white;margin-right:-20px;"><strong>Extension</strong></div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div>
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity"><%= item.uom %></td>
+                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money">
+                     <div class="last" style="margin-right:-20px;">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <!-- Signature Note -->
+      <div class="termtotals">
+         <table>
+            <td class="note" style="float:left" >
+               <table>
+                  <thead>
+                     <tr>
+                        <td style="font-size:11.5px;">
+                           <p>Any required deposit is due within 5 business days of quote approval.</p>
+                           <p >Any required deposits are due prior to start of manufacturing.</p>
+                           <p>Lead time noted on project is from receipt of approved submittal package from client.</p>
+                           <br><br>
+                           <p><b>Quote Valid Until:  
+                              <% if quote_expiry_date %>
+                              <%= @object.expiry_date.strftime("%A")%>, <%= @object.expiry_date.strftime("%b %e, %Y")%>
+                              <% end %></b>
+                           </p>
+                        </td>
+                     </tr>
+                  </thead>
+               </table>
+            </td>
+            <td ></td>
+            <td class="footer-bottom-right" style="float-right;;">
+               <table class="titals-table" >
+                  <tbody>
+                     <tr>
+                        <td><%= subtotal_header %>:</td>
+                        <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
+                     </tr>
+                     <tr>
+                        <td>Sales Tax (<%= tax_rate %>):</td>
+                        <td style="border-bottom: 1px solid #e3e3e3;;padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                     </tr>
+                     <tr>
+                        <td colspan="2">
+                           <table>
+                              <tr class="top-bottom">
+                                 <td><b> <font>Total: </font> </b></td>
+                                 <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><b><%= final_price %></b></font> </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+         </table>
+      </div>
+      <p style="padding-top:8px;margin-right: 50px;margin-left: 50px;font-size:11.5px;">By signing below, I approve and authorize this quote and acknowledge that I have read and agree to the attached terms and conditions.</p>
+      <div class="address-logo">
+         <div style="padding-top:50pt">
+            <div style="border-bottom:1px solid black;padding-bottom:20pt;">
+               <table>
+                  <tr>
+                     <td align="left">
+                        <p style="border-top:1px solid black;width:150pt;"><b>Submitted by</b></p>
+                     </td>
+                     <td align="left">
+                        <p style="border-top:1px solid black;width:90pt;"><b>Date</b></p>
+                     </td>
+                     <td align="left">
+                        <p style="border-top:1px solid black;width:150pt;"><b>Approved by</p>
+                     </td>
+                     <td align="left">
+                        <p style="border-top:1px solid black;width:90pt;"><b>Date</p>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                     <td></td>
+                     <td align="left" style="padding-top:30pt;">
+                        <p style="border-top:1px solid black;width:150pt;"><b>Print Name</b></p>
+                     </td>
+                     <td></td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="footer-bottom-left">
+         <div class="no-page-break" style="padding-left: 35pt;font-size:8pt;">
+            <p style="border-bottom:1px solid black;border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Conditions</b></p>
+            <p style="padding:6pt;">Modulex Carolinas must be notified in writing to cancel any orders. Upon receipt of cancellation notice, Modulex Carolinas will invoice client all administrative time and materials
+               used up to the point of notice.
+            </p>
+            <p style="padding:6pt;">Any drawings provided along with this proposal shall remain the property of Modulex Carolinas and shall be used only for verification and approval for production by Modulex Carolinas. Drawing(s) shall not be distributed to other vendors.</p>
+            <p style="padding:6pt;">Modulex Carolinas accepts VISA, MasterCard and American Express. Orders over $3,000.00:Visa & MasterCard a 3% service charge will be added to invoice at time of payment.American Express a 6% service charge will be added to invoice at time of payment.</p>
+            <p style="padding:6pt;">Customer to verify that all information outlined above as well as any drawings provided are accurate. It is the customer's responsibility to ensure all information is accurate prior to signing the documents for approval.</p>
+            <p style="padding:6pt;">Installations are based on a single mobilization to the site. Should site and/or client delays result in an additional trip, Modulex Carolinas will advise client of additional incurred charges for approval prior to returning to site.</p>
+            <p style="padding:6pt;">Client is to pay invoice within terms outlined in the approved proposal. Should client not pay within these terms, Modulex Carolinas has the right to charge a 1.5% monthly interest rate of the balance due. Should balance go to collections, client will be responsible for any collection fees incurred by Modulex Carolinas to collect the balance.</p>
+            <p style="padding:6pt;">Prices and lead times quoted are valid for 30-days of quote date, either original or revised. Please contact Modulex Carolinas to discuss prices post this period. The quoted lead time starts after Modulex Carolinas receives approvals of proposal, submittals and permits (if necessary).</p>
+            <p style="padding-bottom:30pt;padding-top:6pt;padding-left:6pt;padding-right:6pt;">Above unit prices are based on the project scope, as outlined in proposal, and must be accepted as such. Line items can be sold individually but a revised proposal may be required. Any change to lead time, quantity and/or design may result in a revised proposal being submitted for approval.</p>
+            <p style="padding:6pt;">Deposit required is due within 5 business days of quote approval. Lead time and/or process may be interrupted if deposit not received.In order for client to take advantage of 2% discount for Net 10, the check or payment method must be received by SignalFactors dba Modulex Carolinas no later than 10 days from invoice</p>
+         </div>
+      </div>
+   </body>
+</html>
