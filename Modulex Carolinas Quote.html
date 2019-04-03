@@ -43,6 +43,11 @@
          color: #999999;
          padding: 5pt 5pt;
          }
+         .line-items tbody tr td {
+          vertical-align: top;
+          font-size: 9pt;
+          padding: 5 5pt;
+         }
          .note thead td {
          color: 999999;
          text-transform: none;
@@ -161,6 +166,16 @@
                      </div>
                   </td>
                   <% end %>
+                  <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
+                  <td class="address left">
+                     <div class="address-wrapper">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install To:</b></p>
+                        <p style="font-size:9pt";>
+                           <%= installing_information %>
+                        </p>
+                     </div>
+                  </td>
+                  <% end %>
                </tr>
             </table>
          </div>
@@ -170,7 +185,7 @@
             <table>
                <tr>
                   <td align="left">
-                     <p><b>Valid Until:</b> <% if quote_expiry_date %>
+                     <p><b>Valid Until: </b> <% if quote_expiry_date %>
                         <%= quote_expiry_date%>
                         <% end %>
                      </p>
@@ -184,20 +199,19 @@
                </tr>
                <tr>
                   <td align="left" style="padding-top: 6pt;">
-                     <p><b>Terms:</b><% if term_code %><%= term_code %>
+                     <p><b>Terms: </b><% if term_code %><%= term_code %>
                         <% end %>
                      </p>
                   </td>
                   <td align="left" style="padding-top: 6pt;">
-                     <p><b>Ship Method:</b><%= shipping_method %></p>
+                     <p><b>Ship Method: </b><%= shipping_method %></p>
                   </td>
                   <td align="left" style="padding-top: 6pt;">
-                     <p><b>PM:</b><% if project_manager_name %><%= project_manager_name %><% end %></p>
+                     <p><b>PM: </b><% if project_manager_name %><%= project_manager_name %><% end %></p>
                   </td>
                </tr>
             </table>
          </div>
-         <p class= "sales_rep" style="border-top:none;"><b>Quote Ref:</b></p>
       </div>
       <!-- Sold To, Contact Info and Shipping Address -->
       <div class="line-items" style="width: 89%;margin-left: 35pt;">
@@ -313,9 +327,19 @@
                      <tr>
                         <td colspan="2">
                            <table>
-                              <tr class="top-bottom">
+                              <tr>
                                  <td><b> <font>Total: </font> </b></td>
                                  <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><b><%= final_price %></b></font> </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="2">
+                           <table>
+                              <tr class="top-bottom">
+                                 <td> <font>Downpayment: </font></td>
+                                 <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><%= downpayment_total %></font> </td>
                               </tr>
                            </table>
                         </td>
