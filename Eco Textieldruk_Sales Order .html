@@ -57,8 +57,10 @@
                   <% if bic_code_number_text(@object.account) %>
                   <p><%= bic_code_number_text(@object.account) %></p>
                   <%end%>
-                  <% if @object.account.website %>
-                  <p><%= @object.account.website %></p>
+                  <% if @object.division %>
+                    <p><%= @object.division.website %></p>
+                    <% elsif @object.account.website %>
+                    <p><%= @object.account.website %></p>
                   <%end%>
                </td>
                <td class="store-logo">

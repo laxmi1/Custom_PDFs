@@ -188,22 +188,19 @@
             <table>
                <tr>
                   <td align="left">
-                     <p><b>Order Ref.</b></p>
-                  </td>
-                  <td align="left">
-                     <p><b>Ship/Install: </b><%= shipping_date %></p>
+                     <p><b>Order Number: </b></p>
                   </td>
                   <td align="left" style="padding-top: 6pt;">
                      <p><b>Terms: </b><% if term_code %><%= term_code %>
                         <% end %>
                      </p>
                   </td>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p><b>PM: </b><% if project_manager_name %><%= project_manager_name %><% end %></p>
+                  </td>
                   
                </tr>
                <tr>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p><b>F.O.B. </b><%= shipping_method %></p>
-                  </td>
                   <td align="left" style="padding-top: 6pt;">
                      <p><b>Client PO: </b><%= po_number %></p>
                   </td>
@@ -217,42 +214,7 @@
             </table>
          </div>
       </div>
-      <div class="addresses1">
-         <div class="sales_rep" style="border-top:none;padding-top:0pt;">
-            <table>
-               <tr>
-                  <td align="left">
-                     <p><b>Quote Ref. </b></p>
-                  </td>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p><b>Sales Rep. </b> <%=@object.primary_sales_rep.try(:name)%></p>
-                  </td>
-                  <td align="left">
-                     <p><b>Subcontract:</p>
-                  </td>
-                  
-               </tr>
-               <tr>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p><b>Sub Order #'s </b></p>
-                  </td>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p><b>Parent Order # </b></p>
-                  </td>
-               </tr>
-               <tr>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p><b>Under Same </b></p>
-                  </td>
-               </tr>
-               <tr>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p><b>Contract </b></p>
-                  </td>
-               </tr>
-            </table>
-         </div>
-      </div>
+      
 <div class="line-items" style="width: 89%;margin-left: 35pt;">
   <!--<h2 class="title"><%= items_header %></h2>-->
   <table>
