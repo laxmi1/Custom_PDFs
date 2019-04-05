@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .address-logo {
+         padding: 0pt 35pt 0pt 40pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
+         }
+         .job-section  {
+         margin: 1em 0;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="job-section job-pdf__shipping" style="margin-top:-20pt;">
+         <div class="container">
+            <div class="col-12" style="padding-left: 4.4em;padding-right: 3.9em;">
+               <div class="box box--default box--border box--sm">
+                  <div class="box__content">
+                     <table>
+                        <tbody>
+                           <tr>
+                              <td style="font-size:26pt;text-align:center;"><strong>Survey Sheet</strong></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-5"style="padding-left: 5em;">
+                  <% if ui_field_visibility('job/installing_address_id') and installing_information.present? %>
+                  <div class="box box--default box--white box--border">
+                     <div class="box__title">
+                        <p><b>Site Address:</b></p>
+                     </div>
+                     <div class="box__content">
+                        <address>
+                           <%= installing_information %>
+                        </address>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+               <div class="col-3">
+                  <div class="box box--default box--border box--sm">
+                     <div class="box__content">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td style="height: 2em;">
+                                    <strong>
+                                       <p>Date: <%= due_date %></p>
+                                    </strong>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-4" style="padding-right: 4.5em;">
+                  <div class="box box--default box--border box--sm">
+                     <div class="box__content">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td style="height: 2em;"><strong>Job No: <%= order_number %></strong></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-3">
+                  <div class="box box--default box--border box--sm">
+                     <div class="box__content">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td style="height: 2em;"><strong>Surveyor</strong></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-4" style="padding-right: 4.5em;">
+                  <div class="box box--default box--border box--sm">
+                     <div class="box__content">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td style="height: 2em;"><strong>Project Mgr:<%= project_manager_name %> </strong></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="job-section job-pdf__shipping">
+         <div class="container">
+            <div class="row">
+               <div class="col-6" style="padding-left: 5em;">
+                  <div class="box box--default box--border box--sm">
+                     <div class="box__content">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td>Description of works required.</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-6" style="padding-right: 3em;width: 48%;">
+                  <div class="box box--default box--border box--sm">
+                     <div class="box__content">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td>Drawings attached <span style="padding-left:40pt;">Y</span> <span style="padding-left:40pt;">N</span></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="job-section job-pdf__shipping">
+         <div class="container">
+            <div class="col-12" style="padding-left: 4.3em;padding-right: 3.5em;">
+               <div class="box box--default box--border box--sm">
+                  <div class="box__content">
+                     <table>
+                        <tbody>
+                           <tr>
+                              <td style="height: 8em;" ><%= description %></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div>
+         <img src="https://cdn.filestackcontent.com/output=f:svg/Tpylc3VRceYQpAjQwo2D">
+      </div>
+      <div>
+         <img style="margin-top: -45pt;" src="https://cdn.filestackcontent.com/output=f:svg,p:2/JtqobIoJSuaE4kGXTFUf">
+      </div>
+      <div>
+         <img style="margin-top:-45pt;" src="https://cdn.filestackcontent.com/output=f:svg,p:3/JtqobIoJSuaE4kGXTFUf">
+      </div>
+   </body>
+</html>
