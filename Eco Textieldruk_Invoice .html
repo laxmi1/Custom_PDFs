@@ -31,7 +31,7 @@
         <div class="address-logo">
            <table>
               <tr>
-                 <td class="store-address <%= "stamp-container" if is_paid? %>">
+                  <td class="store-address <%= "stamp-container" if is_paid? %>">
                     <p style="margin-left:-10px;">
                     <p><%=store_name %></p>
                     <p><%if store_address_street%><%= store_address_street %><%end%></p>
@@ -67,7 +67,7 @@
                        <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
                     </p>
                     <% end %>
-                 </td>
+                  </td>
                  <td class="store-logo">
                     <img class="logo" src="<%= logo %>">
                  </td>

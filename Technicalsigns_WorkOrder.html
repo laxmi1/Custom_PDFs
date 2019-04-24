@@ -93,10 +93,10 @@
                <td align="center">Laser</td>
                <td align="center">Router</td>
                <td align="center">Metal</td>
-               <td align="center">Assembly and Paint</td>
+               <td align="center">Assembly</td>
+               <td align="center">Paint</td>
                <td align="center">LED</td>
-               <td align="center">Vinyl</td>
-               <td align="center">Digi Print</td>
+               <td align="center">Vinyl & Digi Print</td>
                <td align="center">Purchasing</td>
                <td align="center">Fitters</td>
             </tr>
@@ -137,12 +137,6 @@
                      <p class="title"><%= project_header %></p>
                      <p><%= project_number %></p>
                      <% end %>
-                  </div>
-               </td>
-               <td class="address left">
-                  <div class="address-wrapper">
-                     <p class="title"><%= work_order_date_header %></p>
-                     <p><%= work_order_date %></p>
                      <p class="title"><% if @object.primary_sales_rep%> Sales rep <br></p>
                      <p><%=@object.primary_sales_rep.try(:name)%></p>
                      <%end%>
@@ -150,11 +144,25 @@
                </td>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title"><%= shipping_date_header %></p>
-                     <p><%= shipping_date %></p>
+                     <p class="title"><%= work_order_date_header %></p>
+                     <p><%= work_order_date %></p>
                      <br>
-                     <p class="title">PC DATE</p>
-                     <p><%= due_date %></p>
+                     <% if due_date %>
+                       <p class="title">ARTWORK DUE DATE</p>
+                       <p><%= due_date %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <% if ship_date %>
+                     <p class="title"><%= shipping_date_header %></p>
+                     <p><%= shipping_date %></p><br>
+                     <% end %>
+                     <% if due_date %>
+                       <p class="title"><%= due_date_header %></p>
+                       <p><%= due_date %></p>
+                     <% end %>
                   </div>
                </td>
                <td class="address left">

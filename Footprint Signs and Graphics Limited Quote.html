@@ -48,6 +48,10 @@
          white-space: nowrap;
          padding-right: 35pt;
          }
+         .line-items .description {
+         font-size: 12px;
+         padding: 0 35pt 5pt 35pt;
+         }
          .footer-bottom {
          float: bottom;
          margin-bottom: 100pt;
@@ -134,6 +138,48 @@
                   <td class="quantity" style="padding-top:20pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="money" style="color: #5E7D2D;padding-top:20pt;"><strong><%= item.unit_price %></strong></td>
                </tr>
+ <tr>
+            <% if show_discounts && total_discount_price != 0.0 %>
+                <td class="description" colspan="7">
+            <% else %>
+                <td class="description" colspan="5">
+            <% end %>
+
+              <div>
+                <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view %>
+                  </div>
+                <% else %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.description %>
+                  </div>
+                <% end %>
+
+                <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                  <hr class="custom-field-separator">
+                  <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                  <hr class="custom-field-separator">
+                <% end %>
+
+                <% if item.product_picture_assets.count > 0 %>
+                  <% item.product_picture_assets.each do |asset| %>
+                    <img src="<%= asset.file_url %>" class="line-item-description-image">
+                  <% end %>
+                <% end %>
+
+                <% if item.product_image %>
+                  <img src="<%= item.product_image %>" class="line-item-description-image">
+                <% end %>
+
+                <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(show_child_items: true) %>
+                  </div>
+                <% end %>
+              </div>
+            </td>
+          </tr>
                <% end %>
             </tbody>
          </table>
