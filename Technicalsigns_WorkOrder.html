@@ -146,11 +146,6 @@
                   <div class="address-wrapper">
                      <p class="title"><%= work_order_date_header %></p>
                      <p><%= work_order_date %></p>
-                     <br>
-                     <% if due_date %>
-                       <p class="title">ARTWORK DUE DATE</p>
-                       <p><%= due_date %></p>
-                     <% end %>
                   </div>
                </td>
                <td class="address left">
@@ -163,6 +158,11 @@
                        <p class="title"><%= due_date_header %></p>
                        <p><%= due_date %></p>
                      <% end %>
+                      <br>
+                     <% if items.first.get_job_art_due_date %>
+                      <p class="title">Drawings/Artwork Due date</p>
+                      <%= items.first.get_job_art_due_date.split(": ")[1] %>
+                      <% end %>
                   </div>
                </td>
                <td class="address left">
