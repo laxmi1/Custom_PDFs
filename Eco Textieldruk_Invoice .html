@@ -28,57 +28,30 @@
         </div>
         <div style="display:none" class="document-footer"></div>
         <font color="white">[O+Form01] [O+InvNum]<%= txn_number_only %> [O+InvDat]<%= @object.txn_date %> [O+CusAccNum]<%= @object.company.account_number.present? ? @object.company.account_number : '' %> [O+CusDiv]<%= @object.company.divisions.any? ? @object.company.divisions.first.try(:name) : '' %> </font>
-        <div class="address-logo">
-           <table>
-              <tr>
-                  <td class="store-address <%= "stamp-container" if is_paid? %>">
-                    <p style="margin-left:-10px;">
-                    <p><%=store_name %></p>
-                    <p><%if store_address_street%><%= store_address_street %><%end%></p>
-                    <%if store_address_street1%><%= store_address_street1 %><%end%>
-                    <%if store_address_zip %> <%= store_address_zip%><%end%>
-                    <%if store_address_city%><%= store_address_city %><%end%> 
-                    <%if store_address_state %> <%= store_address_state%><%end%></p>  
-                    <% if store_phone%>
-                    <p>Telefoonnummer: <%=store_phone%></p>
-                    <%end%>  
-                    <%if @object.account and not @object.account.ein_number.blank?%>
-                     KVK: <%= @object.account.ein_number %>
-                    <%end%>
-                    <% if license_number_text(@object.account) %> 
-                    <p><%= license_number_text(@object.account) %></p>
-                    <%end%>
-                    <% if tax_code_number_text(@object.account) %> 
-                    <p><%= tax_code_number_text(@object.account) %></p>
-                    <%end%>
-                    <% if bank_account_number_text(@object.account) %>
-                    <p><%= bank_account_number_text(@object.account) %></p>
-                    <%end%>
-                    <% if bic_code_number_text(@object.account) %>
-                    <p><%= bic_code_number_text(@object.account) %></p>
-                    <%end%>
-                    <% if @object.division %>
-                    <p><%= @object.division.website %></p>
-                    <% elsif @object.account.website %>
-                    <p><%= @object.account.website %></p>
-                    <%end%>
-                    <% if is_paid? %>
-                    <p class="stamp">
-                       <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
-                    </p>
-                    <% end %>
-                  </td>
-                 <td class="store-logo">
-                    <img class="logo" src="<%= logo %>">
-                 </td>
-              </tr>
-           </table>
-           <% if is_past_due? %>
-           <div class="invoice-past-due-label">
-              <p><%= past_due %></p>
-           </div>
-           <% end %>
-        </div>
+      <div class="address-logo">
+        <table>
+          <tr>
+            <td class="store-address <%= "stamp-container" if is_paid? %>">
+              <%= store_address %>
+              <% if is_paid? %>
+                <p class="stamp">
+                  <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
+                </p>
+              <% end %>
+            </td>
+            <td class="store-logo">
+              <img class="logo" src="<%= logo %>">
+            </td>
+
+          </tr>
+        </table>
+
+        <% if is_past_due? %>
+          <div class="invoice-past-due-label">
+            <p><%= past_due %></p>
+          </div>
+        <% end %>
+      </div>
         <div class="summary">
            <table>
               <tr>
