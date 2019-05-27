@@ -12,6 +12,7 @@
          max-width: 120px;
          max-height: 60px;
          }
+
          .line-items .money {
          text-align: left;
          width: 1%;
@@ -131,29 +132,25 @@
          .terms-title *, .terms-text * {
          font-size:9pt;
          }
-         .li-desc-fixed-width {
-         max-width: 550pt;
+        .job-attributes {
+         float: right;
+         width: 40%;
          }
-.job-attributes {
-    float: right;
-    width: 40%;
-}
-.proof {
-    float: right;
-    width: 250px;
-    margin: 0;
-}
-img.proof{
-    width: auto;
-}
-.proof .image .proof.small{
-    max-width: 250px;
-}
-.proof .head {
-    padding: 3px;
-font-size: 11px;
-}
-
+        .proof {
+         float: right;
+         width: 250px;
+         margin: 0;
+         }
+         img.proof{
+         width: auto;
+         }
+        .proof .image .proof.small{
+         max-width: 250px;
+         }
+        .proof .head {
+         padding: 3px;
+         font-size: 11px;
+         }
       </style>
    </head>
    <body>
@@ -543,6 +540,20 @@ font-size: 11px;
          </tfoot>
       </table>
       </div>
+      <% if customer_note.present? %>
+      <div class="note" style="margin-top: 25pt;">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
       <% if internal_note.present? %>
       <div class="note">
          <table class="no-page-break">
