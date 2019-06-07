@@ -26,6 +26,11 @@
          padding: 0pt 35pt 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
          }
+        .address-logo .store-logo .logo,
+        img.logo {
+        max-width: 210px;
+        max-height: 105px;
+        }
          .addresses1 {
          padding: 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
@@ -146,6 +151,7 @@
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Bill to:</b></p>
                         <p style="font-size:9pt;">
                            <%= sold_to %><br />
+                           <p><%= contact_information %></p>
                            <%= billing_information %>
                         </p>
                      </div>
@@ -158,6 +164,7 @@
                            <% if shipping_address_type != 'DropShip' %>
                            <%= sold_to(show_company_name = false) %>
                            <% end %>
+                          <p><%= contact_information %></p>
                            <%= shipping_information %>
                         </p>
                         <%if shipping_tracking %>
@@ -173,6 +180,7 @@
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install To:</b></p>
                         <p style="font-size:9pt";>
+                         <p><%= contact_information %></p>
                            <%= installing_information %>
                         </p>
                      </div>
