@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .box-check {
+         border: 2px black solid;
+         height: 15px;
+         width: 15px;
+         float: center;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf">
+         <!-- INFO -->
+         <div class="job-section job-pdf__info">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <h1 class="job-pdf__info-title">
+                        <%= title %><br>
+                        <% if re_design? %>
+                        <span class="job-virtual-step">Re-Design</span>
+                        <% end %>
+                     </h1>
+                  </div>
+                  <div class="col-3">
+                     <p style="font-size:13pt;">Due: <strong><%= due_date %></strong></p>
+                  </div>
+                  <div class="col-2">
+                     <p style="font-size:15pt;">
+                        <strong><%= order_type %># <%= order_number %></strong><br>
+                     </p>
+                  </div>
+                  <!--<div class="col-1">-->
+                  <!--<p class="text&#45;&#45;right">1 of <strong>2</strong></p>-->
+                  <!--</div>-->
+               </div>
+            </div>
+         </div>
+         <!-- RUSH -->
+         <!-- COMPANY -->
+         <div class="job-section job-pdf__company">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p>Customer: <strong><%= company_name %></strong></p>
+                           <% if txn_title.present? %>
+                           <p><%= txn_title %></p>
+                           <% end %>
+                        </div>
+                        <div class="box__content">
+                           <p><% if print_line_item_in_job_pdf %>
+                              <%= line_item_number_position %>
+                              <% end %>
+                           </p>
+                           <p>
+                              <%= contact_info %>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-2">
+                     <div class="box box--default box--border">
+                        <div class="box__content">
+                           <div class="qr qr--default">
+                              <div class="qr__code">
+                                 <svg>
+                                    <%= qr_code.as_svg %>
+                                 </svg>
+                              </div>
+                              <div class="qr__status">
+                                 <p>
+                                    <strong>In progress</strong>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="box box--default box--border box--sm">
+                        <div class="box__content">
+                           <table class="table table--list text--sm">
+                              <tbody style="font-size:10pt;">
+                                 <tr>
+                                    <td>Date In:</td>
+                                    <td><strong><%= in_hand_date %></strong></td>
+                                 </tr>
+                                 <tr style="color:red;">
+                                    <td>Due Date:</td>
+                                    <td><strong><%= due_date %></strong></td>
+                                 </tr>
+                                 <tr style="font-size:10pt;">
+                                    <td><strong>TOTAL UNITS:</strong></td>
+                                    <td><strong><%= quantity %></strong></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Customer PO:</td>
+                                    <td><strong><%= customer_po %></strong></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Sales Rep:</td>
+                                    <td><strong><%= sales_rep_name %></strong></td>
+                                 </tr>
+                                 <tr>
+                                    <% if related_quotes.present? %>
+                                    <td>Quote# :</td>
+                                    <td><strong><%= related_quotes %></strong></td>
+                                    <% end %>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM - OTHERS -->
+         <% if has_pricing? %>
+         <div class="job-section job-section--custom-fields">
+            <div class="container">
+               <div class="row">
+                  <% if custom_field_items.size > 0 %>
+                  <div class="col-6">
+                     <div class="box box--white box--border">
+                        <div class="box__title">Custom fields:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <% if order_custom_field_items.size > 0 %>
+                  <div class="col-6">
+                     <div class="box box--white box--border">
+                        <div class="box__title">Order custom fields:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= order_custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+            </div>
+         </div>
+         <% else %>
+         <% if custom_field_items.size > 0 %>
+         <div class="job-section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--white box--border">
+                        <div class="box__title">Custom fields:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding table--th-text-right">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% end %>
+         <!-- SHIPPING -->
+         <div class="job-section job-pdf__shipping">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--grey box--border box--margin-top">
+                        <div class="box__title">
+                           <div class="row">
+                              <div class="col-6">
+                                 <p>Shipping Details:</p>
+                              </div>
+                              <div class="col-6">
+                                 <p>Design Details:</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-6">
+                                 <p>
+                                    <%= shipping_details %>
+                                 </p>
+                              </div>
+                              <div class="col-6">
+                                 <p>
+                                    <%= design_details %>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="box box--grey box--border">
+                        <div class="box__title">
+                           <div class="row">
+                              <div class="col-6">
+                                 <p>Production details:</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-6">
+                                 <p>
+                                    <%= production_details %>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM -->
+         <% if has_pricing? %>
+         <div class="job-section job-pdf__bom">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__title">BOM:</div>
+                        <div class="box__content">
+                           <% if apparel_ui? %>
+                           <%= apparel_item_table %>
+                           <% else %>
+                           <table class="table table--bom">
+                              <thead>
+                                 <th>Name</th>
+                                 <th>Qty</th>
+                                 <th>Attr1</th>
+                                 <th>Attr2</th>
+                              </thead>
+                              <tbody>
+                                 <%= materials_bom_table(true) %>
+                              </tbody>
+                           </table>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <!-- Proof -->
+         <div class="col-12">
+            <div class="box box--grey box--border">
+               <div class="box__content box__content-proof-img text--center">
+                  <div>
+                     <img src="<%= proof_image(500,300) %>">
+                  </div>
+               </div>
+               <div class="box__title" style="margin-bottom:20pt;">
+                  <%= proof_footer %>
+               </div>
+            </div>
+         </div>
+         </div>
+         <!-- Table Manual FIlling -->
+
+         <table style="border: 1px solid black;border-collapse: collapse;width: 100%;">
+          <p style="font-size:11pt;font-weight:bold;">DESPATCH DETAILS</p>
+            <tr>
+               <th style="border: 1px solid black;text-align: center;height: 15pt;background-color: #C4F3FF;">UNPACKED BY: </th>
+               <th style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></th>
+               <th style="border: 1px solid black;text-align: center;height: 15pt;background-color: #C4F3FF;">PACKED BY: </th>
+               <th style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></th>
+               <th style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></th>
+            </tr>
+            <tr>
+               <td style="border: 1px solid black;text-align: center;height: 15pt;background-color: #C4F3FF;"><strong>DATE:</strong> </td>
+               <td style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></td>
+               <td style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></td>
+               <td style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></td>
+               <td style="border: 1px solid black;height: 15pt;background-color: #C4F3FF;"></td>
+            </tr>
+            <tr>
+               <td style="border: 1px solid black;text-align: center;height: 20pt;"><strong>FREIGHT</strong></td>
+               <td style="border: 1px solid black;text-align: center;height: 20pt;"><strong>LOCAL</strong></td>
+               <td style="border: 1px solid black;height: 20pt;">
+                  <div class="box-check" style="margin-left:50pt;"></div>
+               </td>
+               <td style="border: 1px solid black;text-align: center;height: 20pt;"><strong>INTERSTATE</strong></td>
+               <td style="border: 1px solid black;height: 20pt;">
+                  <div class="box-check" style="margin-left:50pt;"></div>
+               </td>
+            </tr>
+            <tr>
+               <td style="border: 1px solid black;text-align: center;height: 15pt;"><strong>NUMBER OF BOXES</strong></td>
+               <td style="border: 1px solid black;text-align: center;height: 15pt;"><strong>WEIGHT</strong></td>
+               <td style="border: 1px solid black;text-align: center;height: 15pt;"><strong>LENGTH</strong></td>
+               <td style="border: 1px solid black;text-align: center;height: 15pt;"><strong>WIDTH</strong></td>
+               <td style="border: 1px solid black;text-align: center;height: 15pt;"><strong>HEIGHT</strong></td>
+            </tr>
+            <tr>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+            </tr>
+            <tr>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+            </tr>
+            <tr>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+               <td style="border: 1px solid black;height: 15pt;">&nbsp;</td>
+            </tr>
+         </table>
+         <!-- WORKFLOW -->
+      
+   </body>
+</html>

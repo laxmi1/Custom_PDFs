@@ -109,7 +109,7 @@
                                </div>
                             </div>
                          </div>
-                      </div>          
+                      </div>
                    </div>
                 </div>
              </div>
@@ -157,6 +157,12 @@
                                      <tr>
                                         <td>Customer PO#:</td>
                                         <td><strong><%= customer_po %></strong></td>
+                                     </tr>
+                                     <tr>
+                                      <% unless order_customer_po_date.blank?%>
+                                        <td>Order Date:</td>
+                                        <td><strong><%= order_customer_po_date %></strong></td>
+                                      <% end %>
                                      </tr>
                                      <tr>
                                         <td>Due Date:</td>
@@ -218,6 +224,10 @@
                                      </tr>
                                      <tr>
                                         <td>Transferrer:</td>
+                                        <td></td>
+                                     </tr>
+                                     <tr>
+                                        <td>DTG:</td>
                                         <td></td>
                                      </tr>
                                   </tbody>
