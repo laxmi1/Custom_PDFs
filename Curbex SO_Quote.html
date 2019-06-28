@@ -120,7 +120,7 @@
             <tr>
                <td class="summ left">
                   <div class="summary-wrapper">
-                     <h1 class="main-title"><small><%= quote_number %> <%= quote_version %></small><br/>
+                     <h1 class="main-title"><small><%= work_order_quote_number %></small><br/>
                         <small><%= name %></small>
                      </h1>
                      <% if project_number %>
@@ -131,19 +131,9 @@
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
-                     <p class="title"><%= quote_date_header %></p>
-                     <p><%= quote_date %></p>
-                     <% if quote_has_due_date %>
-                     <p class="title"><%= quote_due_date_header %></p>
-                     <p><%= quote_due_date%></p>
-                     <% end %>
-                     <% if quote_expiry_date %>
-                     <p class="title"><%= quote_expiry_date_header %></p>
-                     <p><%= quote_expiry_date%></p>
-                     <% end %>
-                     <% if quote_ship_date %>
-                     <p class="title"><%= quote_ship_date_header %></p>
-                     <p><%= quote_ship_date%></p>
+                     <% if ship_date %>
+                     <p class="title"><%= shipping_date_header %></p>
+                     <p><%= ship_date %></p>
                      <% end %>
                      <% if term_code %>
                      <p class="title"><%= term_code_header %></p>
@@ -220,7 +210,7 @@
             <tr>
                <td class="address left" colspan="3">
                   <div class="address-wrapper">
-                     <p class="title"><%= about_this_quote_header %></p>
+                     <p class="title"><%= about_this_so_header %>:</p>
                      <p>
                         <%= description %>
                      </p>
@@ -376,8 +366,6 @@
                </div>
                <div class="clearfix"></div>
             </div>
-            <!-- <div class="splnote">
-               </div> -->
          </div>
          <div class="footer-bottom-left" style="min-height: 150px;">
             <div class="terms-text">
@@ -400,4 +388,3 @@
       </div>
    </body>
 </html>
-
