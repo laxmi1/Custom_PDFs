@@ -22,7 +22,7 @@
                <div class="row">
                   <div class="col-6">
                      <h1 class="job-pdf__info-title">
-                        <%= title %><br>
+                        <%= company_name %><br>
                         <% if re_design? %>
                         <span class="job-virtual-step">Re-Design</span>
                         <% end %>
@@ -36,9 +36,6 @@
                         <strong><%= order_type %># <%= order_number %></strong><br>
                      </p>
                   </div>
-                  <!--<div class="col-1">-->
-                  <!--<p class="text&#45;&#45;right">1 of <strong>2</strong></p>-->
-                  <!--</div>-->
                </div>
             </div>
          </div>
@@ -124,42 +121,17 @@
             </div>
          </div>
          <!-- BOM - OTHERS -->
-         <% if has_pricing? %>
-         <div class="job-section job-section--custom-fields">
-            <div class="container">
-               <div class="row">
-                  <% if custom_field_items.size > 0 %>
-                  <div class="col-6">
-                     <div class="box box--white box--border">
-                        <div class="box__title">Custom fields:</div>
-                        <div class="box__content">
-                           <table class="table table--no-border table--no-padding">
-                              <tbody>
-                                 <%= custom_field_table %>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-                  <% end %>
-                  <% if order_custom_field_items.size > 0 %>
-                  <div class="col-6">
-                     <div class="box box--white box--border">
-                        <div class="box__title">Order custom fields:</div>
-                        <div class="box__content">
-                           <table class="table table--no-border table--no-padding">
-                              <tbody>
-                                 <%= order_custom_field_table %>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-                  <% end %>
-               </div>
+         <div class="box box--white box--border box--margin-top">
+            <div class="col-6">
+            <div class="box__title">Description:</div>
+            <div class="box__content" style="min-height: 30px; margin-bottom:9pt;">
+              <p>
+                <%= description %>
+              </p>
             </div>
-         </div>
-         <% else %>
+          </div>
+          </div>
+         <% if has_pricing? %>
          <% if custom_field_items.size > 0 %>
          <div class="job-section">
             <div class="container">
@@ -181,10 +153,25 @@
          </div>
          <% end %>
          <% end %>
+<!-- Proof -->
+         <div class="col-12">
+            <div class="box box--grey box--border">
+               <div class="box__content box__content-proof-img text--center">
+                  <div>
+                     <img src="<%= proof_image(500,300) %>">
+                  </div>
+               </div>
+               <div class="box__title" style="margin-bottom:20pt;">
+                  <%= proof_footer %>
+               </div>
+            </div>
+         </div>
+
          <!-- SHIPPING -->
          <div class="job-section job-pdf__shipping">
             <div class="container">
                <div class="row">
+                  <div class="no-page-break">
                   <div class="col-12">
                      <div class="box box--grey box--border box--margin-top">
                         <div class="box__title">
@@ -231,6 +218,7 @@
                         </div>
                      </div>
                   </div>
+                  </div>
                </div>
             </div>
          </div>
@@ -239,6 +227,7 @@
          <div class="job-section job-pdf__bom">
             <div class="container">
                <div class="row">
+ <div class="no-page-break">
                   <div class="col-12">
                      <div class="box box--white box--no-padding">
                         <div class="box__title">BOM:</div>
@@ -261,25 +250,13 @@
                         </div>
                      </div>
                   </div>
+                </div>
                </div>
             </div>
          </div>
          <% end %>
-         <!-- Proof -->
-         <div class="col-12">
-            <div class="box box--grey box--border">
-               <div class="box__content box__content-proof-img text--center">
-                  <div>
-                     <img src="<%= proof_image(500,300) %>">
-                  </div>
-               </div>
-               <div class="box__title" style="margin-bottom:20pt;">
-                  <%= proof_footer %>
-               </div>
-            </div>
-         </div>
-         </div>
-         <!-- Table Manual FIlling -->
+
+         <!-- Table Manual Filling -->
 
          <table style="border: 1px solid black;border-collapse: collapse;width: 100%;">
           <p style="font-size:11pt;font-weight:bold;">DESPATCH DETAILS</p>
