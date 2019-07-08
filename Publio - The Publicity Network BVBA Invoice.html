@@ -191,10 +191,15 @@
                      <div class="last"><%= tax_rate_header %></div>
                   </th>
                   <% end %>
+                  <th class="money">
+                     <div class="last">Type</div>
+                  </th>
                </tr>
             </thead>
             <tbody class=''>
                <% items.each_with_index do |item, index| %>
+               <% mappedTypes = {"Apparel" => "A", "Signs" => "S"} %>
+               <%= mappedTypes[item.product_type] %>
                <tr>
                   <td class="position" rowspan="2">
                      <div class="first">
@@ -224,6 +229,11 @@
                      <div class="last"><%= item.tax_rate %></div>
                   </td>
                   <% end %>
+                  <td class="money">
+                     <div class="last">
+                        <%= item.product_type %>
+                     </div>
+                  </td>
                </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
@@ -246,12 +256,14 @@
                         <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
                         <hr class="custom-field-separator">
                         <% end %>
+
                         <div class='shipping_details'>
                            <div class="text--pre-line">
                               <%= simple_format(item.shipping_details) %>
-                           </div>
+                              </div>
                         </div>
-                        <% if item.product_picture_assets.count > 0 %>
+
+                       <% if item.product_picture_assets.count > 0 %>
                         <% item.product_picture_assets.each do |asset| %>
                         <img src="<%= asset.file_url %>" class="line-item-description-image">
                         <% end %>
