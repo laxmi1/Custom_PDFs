@@ -1,0 +1,380 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+         .terms-title *, .terms-text * {
+         font-size:7pt;
+         }
+         <%= page_size %>
+         <%= body_font_family %>
+         .addresses {
+         padding: 5pt 25pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 10pt;
+         }
+         .addresses .address .title {
+         text-transform: none;
+         margin-top: 0pt;
+         font-size: 10px;
+         color: black;
+         }
+         .address-logo {
+         padding: 0pt 35pt 5pt 0pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 300px;
+         max-height: 150px;
+         }
+         .addresses1 {
+         padding: 0pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .sales_rep{
+         margin-left: 0pt;
+         padding-top: 6pt;
+         padding-bottom: 6pt;
+         border-bottom: 1px solid black;
+         border-top: 1px solid black;
+         }
+         .line-items thead th {
+         font-size: 10px;
+         text-transform: capitalize;
+         color: #999999;
+         padding: 5pt 5pt;
+         }
+         .line-items tbody tr:first-child td {
+         border-top: 0px solid #e3e3e3;
+         padding-top: 5pt;
+         }
+         .line-items tbody tr td {
+         vertical-align: top;
+         font-size: 9pt;
+         padding: 5 5pt;
+         }
+         .note thead td {
+         color: 999999;
+         text-transform: none;
+         border-bottom: none;
+         padding: 0pt 0pt 0pt 0pt;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 32%;
+         background: white;
+         border-left: solid 0px #e3e3e3;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0pt;
+         }
+         .footer-bottom-left {
+         width: 95%;
+         float: left;
+         text-align: justify;
+         }
+         .titals-table{
+         border-collapse: collapse;
+         border-collapse: separate;
+         border-spacing: 7px;
+         }
+         .termtotals{
+         page-break-inside: avoid;
+         border-top: 1px solid black;
+         margin-right: 50px;
+         padding-bottom: 10pt;
+         margin-left: 50px;
+         }
+         @page {
+         @bottom {
+         border-top: 1px solid black;
+         width: 90%;
+         font-size: 10px;
+         content: "Modulex Alberta Inc. | 1, 3200 14th Ave NE, Calgary, AB, T2A6J4 | www.modulexamericas.com";
+         } 
+         }
+         @page {
+         @bottom-left {
+         content: " ";
+         }
+         }
+         @page { margin: 140px 0  50px 0; }  
+         @page { padding: 0pt 0pt 0pt 0pt;} 
+         @page {  
+         @top { content: flow(header); }  
+         }  
+         #header {      
+         position:relative;  
+         padding: 0pt 35pt 0pt 35pt;
+         flow: static(header);  
+         }
+         @page {
+         @top-left {
+         content: string(doc_header);
+         padding-left: 0pt;
+         font-size: 8px;
+         text-transform: uppercase;
+         font-weight: normal;
+         }
+         }
+      </style>
+</head>
+<body>
+
+<div style="display:none" class="document-header">
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+      </div>
+      <div id="header">
+         <table style="width: 100%">
+            <tr>
+               <td>
+                  <p style="font-size:18pt;font-weight:bold;">Invoice  <%= txn_number_only %></p>
+                  <br>
+                  <p style=:font-size:14pt;><strong>Customer:</strong> <%= company_name %></p>
+                  <br>
+                  <p style=:font-size:14pt;><strong>Title:</strong> <%= name %></p>
+               </td>
+               <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
+            </tr>
+         </table>
+      </div>
+      <div class="addresses1">
+         <div class="sales_rep">
+            <table>
+               <tr>
+                  <td align="left">
+                     <p>Date:
+                        <%= invoice_date %>
+                     </p>
+                  </td>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p>Terms: <% if term_code %><%= term_code %>
+                        <% end %>
+                     </p>
+                  </td>
+                  <td align="left">
+                     <p>SR: <%=@object.primary_sales_rep.try(:name)%></p>
+                  </td>
+               </tr>
+               <tr>
+                  <td align="left">
+                     <p>Due date:
+                        <%= due_date %>
+                     </p>
+                  </td>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p>PO: <% if po_number %><%= po_number %>
+                        <% end %>
+                     </p>
+                  </td>
+                  <td align="left" style="padding-top: 6pt;">
+                     <p>PM: <% if project_manager_name %><%= project_manager_name %><% end %></p>
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+         <div class="addresses">
+            <table>
+               <tr>
+                  <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id')) %>
+                  <td class="address left">
+                     <div class="address-wrapper">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Sold To:</b></p>
+                        <p style="font-size:9pt";>
+                           <% if shipping_address_type != 'DropShip' %>
+                           <%= sold_to(show_company_name = false) %>
+                           <% end %>
+                           <%= shipping_information %>
+                        </p>
+                     </div>
+                  </td>
+                  <% end %>
+                  <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
+                  <td class="address left">
+                     <div class="address-wrapper" style="padding-left:200pt;">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install To:</b></p>
+                        <p style="font-size:9pt";>
+                           <%= installing_information %>
+                        </p>
+                     </div>
+                  </td>
+                  <% end %>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div class="address-logo">
+         <div class="addresses">
+            <table>
+               <tr>
+                  <td class="address left">
+                     <div class="address-wrapper">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Ordered by</b></p>
+                        <p style="font-size:9pt;">
+                           <%= sold_to %><br />
+                        <p><%= contact_information %></p>
+                        <%= billing_information %>
+                        </p>
+                     </div>
+                  </td>
+                  <td class="address left">
+                     <div class="address-wrapper" style="padding-left:250pt;">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Contact:</b></p>
+                        <p style="font-size:9pt";>
+                        <p><%= contact_information %></p>
+                        </p>
+                     </div>
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+
+
+<div class="line-items" style="width: 89%;margin-left: 35pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="background: #505050;">
+                  <th class="position" style="font-size:14px;color:white;">
+                     <div>Item</div>
+                  </th>
+                  <th class="name" style="font-size:14px;color:white;text-align:center;text-align:left;">Description</th>
+                  <th class="quantity" style="font-size:14px;color:white;"><strong>Qty</strong></th>
+                  <th class="quantity" style="font-size:14px;color:white;"><strong><%= uom_header %></strong></th>
+                  <th class="money" style="font-size:14px;color:white;"><strong>Unit</strong></th>
+                  <th class="money">
+                     <div class="last" style="font-size:14px;color:white;margin-right:-20px;"><strong>Extended</strong></div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div>
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity"><%= item.uom %></td>
+                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money">
+                     <div class="last" style="margin-right:-20px;">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+</div>
+
+
+
+
+<!-- Signature Note -->
+<div class="termtotals">
+         <table>
+            <td class="note" style="float:left" >
+               <table>
+                  <thead>
+                     <tr>
+                        <td style="font-size:11.5px;">
+                           <p></p>
+                        </td>
+                     </tr>
+                  </thead>
+               </table>
+            </td>
+            <td ></td>
+            <td class="footer-bottom-right" style="float-right;;">
+               <table class="titals-table" >
+                  <tbody>
+                     <tr>
+                        <td>Fees & Charges:</td>
+                        <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"></td>
+                     </tr>
+                     <tr>
+                        <td><%= subtotal_header %>:</td>
+                        <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
+                     </tr>
+                     <tr>
+                        <td>Tax (<%= tax_rate %>):</td>
+                        <td style="border-bottom: 1px solid #e3e3e3;;padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                     </tr>
+                     <tr>
+                        <td colspan="2">
+                           <table>
+                              <tr>
+                                 <td><b> <font>Total: </font> </b></td>
+                                 <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><b><%= final_price %></b></font> </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+         </table>
+</div>
+<div class="footer-bottom-left">
+      <div class="no-page-break" style="padding-left: 35pt;font-size:8pt;">
+         <p style="border-bottom:1px solid black;border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
+         <p style="padding:6pt;">We accept credit card payments thru PAYPAL. Please contact accountingAB@modulexamericas.com,
+a 2.5% admin fee will be charged.
+         </p>
+         <p style="padding:6pt;">Please remit payment to: Modulex Alberta Inc. 1, 3200 14th Avenue NE, Calgary, AB T2A 6J4</p>
+         <p style="padding:6pt;">NOTE: Our phone number for Accounts Receivables is (403) 272-0597 ext. 1001
+         </p>
+         <p style="padding:6pt;">GST Registration Number: R788754687
+         </p>
+      </div>
+</body>
+</html>

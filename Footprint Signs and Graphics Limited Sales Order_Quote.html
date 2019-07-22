@@ -48,10 +48,10 @@
          white-space: nowrap;
          padding-right: 35pt;
          }
-       .line-items .description {
-       font-size: 12px;
-        padding: 0 35pt 5pt 35pt;
-        }
+         .line-items .description {
+         font-size: 12px;
+         padding: 0 35pt 5pt 35pt;
+         }
          .footer-bottom {
          float: bottom;
          margin-bottom: 100pt;
@@ -71,10 +71,10 @@
          }
          @page :first {
          margin: 0pt 0pt 140pt 0pt;
-         @bottom { 
+         @bottom {
          padding-right:50pt;
-         content: " ";
-         width: 102%;
+         content:"";
+         width:102%;
          background-image: url("https://cdn.filepicker.io/api/file/JwcOWCk3Qc225xIR5XGk");
          background-size: cover;
          }
@@ -116,7 +116,6 @@
               <p><%=@object.primary_sales_rep.try(:email)%></p> 
                </td>
                <td class="store-logo" style="color:white;LINE-HEIGHT:20pt;">
-                  <p><%= @object.quote_date.strftime("%e %b %Y")%></p>
                   <p style="color: #95C122; font-size:18pt;">Quotation</p>
                   <p style="font-size:12pt;">QT# <%= txn_number_only %></p>
                </td>
@@ -136,7 +135,7 @@
                   <th class="money">PRICE</th>
                </tr>
             </thead>
-            <tbody class= ''>
+            <tbody class='' >
                <% items.each_with_index do |item, index| %>
                <tr>
                   <td class="name1" style="padding-top:20pt;"><%= item.name %></td>
