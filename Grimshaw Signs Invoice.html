@@ -1,0 +1,396 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <head>
+         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+         <style>
+            .terms-title *, .terms-text * {
+            font-size:6pt !important;
+            }
+            <%= page_size %>
+            .hr {
+            margin-left: 35px;
+            margin-right: 35px;
+            border-bottom: 1px solid #e3e3e3;
+            }
+            .address-logo {
+            padding: 10pt 35pt 5pt 35pt;
+            border-bottom: 0px;
+            }
+            .store-logo {
+            text-align: left;
+            vertical-align: top;
+            }
+            .address-logo .store-address {
+            text-align: center;
+            vertical-align: top;
+            font-size: 12pt;
+            }
+            .orderby{
+            padding: 10pt 0pt 30pt 35pt;
+            font-size: 11pt;
+            }
+            .dates-terms{
+            padding: 0pt 5pt 0pt 160pt;
+            /* font-family: "Times New Roman", Times, serif;*/
+            font-size: 11pt;
+            }
+            .line-items {
+            padding: 0px 35px 0px 35px;
+            margin-top: 25pt;
+            border-top: 0px solid #e3e3e3; 
+            }
+            .line-items thead th {
+            font-size: 12px;
+            color: #000000;
+            text-transform: capitalize;
+            padding: 5pt 5pt;
+            border-top: 0px solid #e3e3e3;
+            border-bottom: 2px solid #000000;
+            }
+            .line-items .first {
+            padding-left: 0pt;
+            }
+            .line-items .last {
+            padding-right: 0pt;
+            }
+            .line-items .first1 {
+            padding-left: 0pt;
+            }
+            .line-items .last1 {
+            padding-right: 0pt;
+            }
+            .line-items .description {
+            font-size: 12px;
+            padding: 0 35pt 5pt 5pt;
+            }
+            .titals-table{
+            border-collapse: collapse;
+            border: 4px solid;
+            border-collapse: separate;
+            border-spacing: 10px;
+            border-color: #000000;
+            }
+            .top-bottom{
+            border-top: 2px solid #e3e3e3;
+            border-bottom: 2px solid #e3e3e3;
+            border-color: #000000;
+            }
+            .footer-bottom-right {
+            float: right;
+            width: 35%;
+            border-left: solid 0px #e3e3e3;
+            background: #ffffff;
+            padding: 6pt 6pt 5pt 6pt;
+            margin: 10pt 0;
+            }
+            .footer-bottom-left {
+            width: 50%;
+            float: left;
+            text-align: justify;
+            }
+            .section {
+            border-top: 0px solid #e3e3e3;
+            padding: 0 35pt;
+            }
+            .btm-left{
+            font-size: 9pt !important;
+            padding: 12pt 6pt 0pt 6pt;
+            /*padding: 5pt 35pt;*/
+            }
+            .thanks{
+            padding: 0pt 0pt 0pt 40pt;
+            text-align: left;
+            }
+            @page {
+            @bottom-right {
+            content: " ";
+            }
+            }
+         </style>
+   </head>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+               </td>
+               <td class="store-address">
+                  <p style="color: #00AEEF;font-size:46pt;padding-left:145pt;"><strong>Invoice</strong></p>
+                  <p style="padding-left:135pt;font-weight:bold;">Invoice Date: <%= invoice_date %></p>
+                  <br>
+                  <p style="font-size:26pt;padding-left:150pt;"><strong><%= invoice_number %></strong></p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <table>
+         <tr>
+            <td class="orderby">
+               <div style="margin-top:-18px;">
+                  <p><%if @object.account and not @object.account.ein_number.blank?%>
+                     ABN : <%= @object.account.ein_number %>
+                  </p>
+                  <%end%>
+                  <p><b><%= store_name %></b></p>
+                  <%if store_address_street%>
+                  <p><%= store_address_street %>,<%end%>
+                     <%if store_address_street1%><%= store_address_street1 %><%end%>
+                  </p>
+                  <p><%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%>,<%end%>
+                     <%if store_address_zip %> <%= store_address_zip%><%end%>
+                  </p>
+                  <% if store_email%>
+                  <p><%=store_email%></p>
+                  <%end%>
+                  <% if store_phone%>
+                  <p><%=store_phone%></p>
+                  <%end%>
+                  <% if @object.account.website %> 
+                  <p><%= @object.account.website %></p>
+                  <%end%>
+               </div>
+            </td>
+            <td class="dates-terms" align="left" width="65%" style="padding-top:10px;">
+               <p>Title:
+                  <%= name %>
+               <p>
+               <p>Company:
+                  <%= company_name %>
+               </p>
+               <P><%= contact_information %></P>
+            </td>
+         </tr>
+      </table>
+      <p>&nbsp</p>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr>
+                  <th class="position">
+                     <div class="first">#</font></div>
+                  </th>
+                  <th class="name">TITLE DESCRIPTION</font></th>
+                  <th class="quantity" colspan="0">QTY</font></th>
+                  <th class="money">UNIT PRICE</font></th>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <th class="quantity"><%= discount_header %> </th>
+                  <th class="quantity"><%= discount_price_header %> </th>
+                  <% end %>
+                  <th class="money">
+                     <div class="last">EXC. GST</font></div>
+                  </th>
+                  <% if use_tax_codes? %>
+                  <th class="money">
+                     <div class="last">TAX</div>
+                  </th>
+                  <% end %>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name" colspan="1"><%= item.name %></td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money">
+                     <%= item.unit_price %>
+                  </td>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="quantity"><%= item.discount_percentage %> </td>
+                  <td class="quantity"><%= item.unit_price_after_discount %></td>
+                  <% end %>
+                  <td class="money">
+                     <div class="last">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+                  <% if use_tax_codes? %>
+                  <td class="money">
+                     <div class="last"><%= item.total_tax %></div>
+                  </td>
+                  <% end %>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div class="last">
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <!--<div class='shipping_details'>-->
+                        <!--<div class="text&#45;&#45;pre-line">-->
+                        <!--<%= simple_format(item.shipping_details) %>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <% if customer_note.present? %>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <td><%= customer_note_header %></td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><%= customer_note %></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
+      <!-- Cover Note -->
+      <% if cover_note.present? %>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <th><%= cover_note_header %></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><%= cover_note %></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
+      <!-- Signature Note -->
+      <div class="footer-bottom" style="border-top: 4px solid;">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="btm-left">
+                  <table>
+                     <p><b> TERMS & CONDITIONS: </b></p>
+                     <br>
+                     <p>Invoices are due to be paid by the due date. Please make deposits to our bank account number as specified and include your invoice number as reference. Any queries on this invoice should be notified to us within 7 days.</p>
+                     <br>
+                     <p>All materials remain the property of Grimshaw Signs Pty Ltd until the invoice has been paid in full.</p>
+                     <br>
+                     <p><b>PAYMENT METHODS: </b></p>
+                     <br>
+                     <p><b>GRIMSHAW SIGNS PTY LTD</b></p>
+                     <p><b>BSB   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;368 937</b></p>
+                     <p><b>ACCOUNT  &nbsp;&nbsp;   033 26</b></p>
+                  </table>
+               </div>
+            </div>
+            <div class="footer-bottom-right">
+               <table class="titals-table">
+                  <tbody>
+                     <tr>
+                        <td>SUBTOTAL:</td>
+                        <td align="right"><%= sub_total %></td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <% if show_tax  %>
+                           <% if use_tax_codes? %>
+                           <p>TOTAL GST:</p>
+                           <% else %>
+                           <p>TOTAL GST: (<%= tax_rate %>):</p>
+                           <% end %>
+                           <% end %>(<%= tax_rate %>):
+                        </td>
+                        <td align="right"><% if show_tax  %><%= total_tax %><% end %></td>
+                     </tr>
+                     <tr>
+                        <td>FINAL PRICE:</td>
+                        <td align="right"><%= final_price %></td>
+                     </tr>
+                     <tr>
+                        <% if has_payments? %>
+                        <td><%= payment_total_header %>:</td>
+                        <td align="right"><%= total_paid %></td>
+                        <% end %>
+                     </tr>
+                     <tr>
+                        <% if has_credits? %>
+                        <td><%= credits_header %>:</td>
+                        <td align="right"><%= total_credit %></td>
+                        <% end %>
+                     </tr>
+                     <tr>
+                        <td><%= payment_balance_due_header %>:</td>
+                        <td align="right"><%= total_paid %></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+         <% if show_signature %>
+         <div class="section section--border-bottom">
+            <div class="signature terms">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td class="date text--up text--bold">
+                           <div style="float:left;padding-left:5pt;"><%= signature_header %>:
+                           </div>
+                           <div style="width:216px; border-bottom: 2px  solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;
+                           </div>
+                        </td>
+                        <td class="date text--up text--bold">
+                           <div style="float:left;padding-left:60pt;"><%= date_header %>:
+                           </div>
+                           <div style="width:216px; border-bottom: 2px solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <% end %>
+      </div>
+   </body>
+</html>
