@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         @page { 
+         size: A4 landscape 
+         }
+         .job-section  {
+         margin: 1.2em;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf">
+         <!-- RUSH -->
+         <% if job_rush %>
+         <div class="job-section job-section--mb-none">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <p class="job-rush"><%= job_rush_text %></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <!-- INFO -->
+         <div class="job-section job-pdf__info">
+            <div class="container">
+               <div class="row">
+                  <div class="col-7">
+                     <h1 class="job-pdf__info-title"><strong>
+                        Customer: </strong><%= company_name %>
+                     </h1>
+                     <br>
+                     <p><strong>Customer Name: </strong><%= company_name %></p>
+                     <p>
+                        <strong>
+                           <%if @object.contact.name %>
+                     <p>Conatct Name: <%= @object.contact.name %></p><%end%></strong></p>
+                     <p><strong>PO Number: <%= customer_po %></strong></p>
+                     <p><strong>Shipping Method: <%= shipping_method %></strong></p>
+                  </div>
+                  <div class="col-4">
+                     <h1 class="job-pdf__info-title"><strong>Workflow:</strong> <%= template_name %></h1>
+                     <br>
+                     <p style="font-size:12pt;"><strong><%= order_type %># <%= order_number %> </strong></p>
+                     <p style="font-size:12pt;"><strong>In Hand Date: <%= in_hand_date %></strong></p>
+                     <p style="font-size:12pt;"><strong>Due Date: <%= due_date %></strong></p>
+                  </div>
+                  <!--<div class="col-1">-->
+                  <!--<p class="text&#45;&#45;right">1 of <strong>2</strong></p>-->
+                  <!--</div>-->
+               </div>
+            </div>
+         </div>
+         <!-- COMPANY -->
+         <!-- SHIPPING -->
+         <div class="job-section job-pdf__shipping">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--grey box--border">
+                        <div class="box__title">
+                           <p>Ship To:</p>
+                        </div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-6">
+                                 <address>
+                                    <%= shipping_information %>
+                                 </address>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <div class="box box--grey box--border">
+                        <div class="box__title">
+                           <p>Bill To:</p>
+                        </div>
+                        <div class="box__content">
+                           <address>
+                              <%= billing_information %>
+                           </address>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <br>
+            <!-- DETAILS -->
+            <div class="box__title">
+               <h1><strong>Job Name:</strong> 
+                  <%= title %>
+               </h1>
+            </div>
+            <div class="box__content">
+               <p>
+                  <%= description %>
+               </p>
+            </div>
+            <div class="box box--grey box--border box--margin-top" style="margin-left:7pt;margin-right:7pt;">
+               <div class="box__title">
+                  <div class="row">
+                     <div class="col-6">
+                        <p>Production Details:</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="box__content">
+                  <div class="row">
+                     <div class="col-6">
+                        <p>
+                           <%= production_details %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <br>
+            <div class="box box--grey box--border box--margin-top" style="margin-left:7pt;margin-right:7pt;">
+               <div class="box__title">
+                  <div class="row">
+                     <div class="col-6">
+                        <p>Shipping Details:</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="box__content">
+                  <div class="row">
+                     <div class="col-6">
+                        <p>
+                           <%= shipping_details %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM -->
+         <% if has_pricing? %>
+         <!-- BOM - OTHERS -->
+         <div class="job-section">
+            <div class="container">
+               <div class="row">
+                  <% if custom_field_items.size > 0 %>
+                  <div class="col-6">
+                     <div class="box box--white box--border">
+                        <div class="box__title">Custom fields:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <% if order_custom_field_items.size > 0 %>
+                  <div class="col-6">
+                     <div class="box box--white box--border">
+                        <div class="box__title">Order custom fields:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= order_custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+            </div>
+         </div>
+         <% else %>
+         <% if custom_field_items.size > 0 %>
+         <div class="job-section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-5">
+                     <div class="box box--white box--border">
+                        <div class="box__title">Custom fields:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding table--th-text-right">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% end %>
+      </div>
+   </body>
+</html>
