@@ -6,9 +6,6 @@
       <style>
          <%= page_size %>
          <%= body_font_family %>
-         @page { 
-         size: A4 landscape 
-         }
          .job-section  {
          margin: 1.2em;
          }
@@ -37,11 +34,9 @@
                         Customer: </strong><%= company_name %>
                      </h1>
                      <br>
-                     <p><strong>Customer Name: </strong><%= company_name %></p>
-                     <p>
-                        <strong>
-                           <%if @object.contact.name %>
-                     <p>Conatct Name: <%= @object.contact.name %></p><%end%></strong></p>
+                     <p><strong>Contact Info: </strong><br>
+                        <%= contact_info %>
+                     </p>
                      <p><strong>PO Number: <%= customer_po %></strong></p>
                      <p><strong>Shipping Method: <%= shipping_method %></strong></p>
                   </div>
@@ -52,9 +47,6 @@
                      <p style="font-size:12pt;"><strong>In Hand Date: <%= in_hand_date %></strong></p>
                      <p style="font-size:12pt;"><strong>Due Date: <%= due_date %></strong></p>
                   </div>
-                  <!--<div class="col-1">-->
-                  <!--<p class="text&#45;&#45;right">1 of <strong>2</strong></p>-->
-                  <!--</div>-->
                </div>
             </div>
          </div>
@@ -95,49 +87,50 @@
             </div>
             <br>
             <!-- DETAILS -->
-            <div class="box__title">
-               <h1><strong>Job Name:</strong> 
-                  <%= title %>
-               </h1>
-            </div>
-            <div class="box__content">
-               <p>
-                  <%= description %>
-               </p>
-            </div>
-            <div class="box box--grey box--border box--margin-top" style="margin-left:7pt;margin-right:7pt;">
-               <div class="box__title">
-                  <div class="row">
-                     <div class="col-6">
-                        <p>Production Details:</p>
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box__title">
+                        <h1><strong>Job Name:</strong> 
+                           <%= title %>
+                        </h1>
                      </div>
                   </div>
-               </div>
-               <div class="box__content">
-                  <div class="row">
-                     <div class="col-6">
-                        <p>
-                           <%= production_details %>
-                        </p>
+                  <div class="col-6">
+                     <div class="box__title">
+                        <h1><strong>Quantity: <%= quantity %></strong>
+                        </h1>
                      </div>
                   </div>
                </div>
             </div>
             <br>
-            <div class="box box--grey box--border box--margin-top" style="margin-left:7pt;margin-right:7pt;">
-               <div class="box__title">
-                  <div class="row">
-                     <div class="col-6">
-                        <p>Shipping Details:</p>
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--grey box--border">
+                        <div class="box__title">Job Description:</div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-6">
+                                 <p>
+                                    <%= description %>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="box__content">
-                  <div class="row">
-                     <div class="col-6">
-                        <p>
-                           <%= shipping_details %>
-                        </p>
+                  <div class="col-6">
+                     <div class="box box--grey box--border">
+                        <div class="box__title">
+                           <p>Production details:</p>
+                        </div>
+                        <div class="box__content">
+                           <p>
+                              <%= production_details %>
+                           </p>
+                        </div>
                      </div>
                   </div>
                </div>

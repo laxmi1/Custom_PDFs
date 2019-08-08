@@ -33,6 +33,7 @@
          }
          .addresses1 {
          padding: 0pt 35pt;
+         width: 89%;
          border-bottom: 0px solid #e3e3e3;
          }
          .sales_rep{
@@ -68,7 +69,7 @@
          width: 32%;
          background: white;
          border-left: solid 0px #e3e3e3;
-         padding: 6pt 6pt 5pt 6pt;
+         padding: 6pt 0pt 5pt 6pt;
          margin: 10pt 0pt;
          }
          .footer-bottom-left {
@@ -91,8 +92,9 @@
          @page {
          @bottom {
          border-top: 1px solid black;
-         width: 90%;
-         font-size: 10px;
+         width: 88%;
+         font-size: 8px;
+         text-align: left;
          content: "Modulex Alberta Inc. | 1, 3200 14th Ave NE, Calgary, AB, T2A6J4 | www.modulexamericas.com";
          } 
          }
@@ -134,9 +136,9 @@
                <td>
                   <p style="font-size:18pt;font-weight:bold;"><%= purchase_order_number %></p>
                   <br>
-                  <p style=:font-size:14pt;><strong>Vendor:</strong> <%= vendor_name %></p>
+                  <p style="font-size:15pt;"><strong>Vendor:</strong> <%= vendor_name %></p>
                   <br>
-                  <p style=:font-size:14pt;><strong>Title:</strong> <%= name %></p>
+                  <p style="font-size:14pt;">Title: </strong> <%= name %></p>
                </td>
                <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
             </tr>
@@ -146,20 +148,22 @@
          <div class="sales_rep">
             <table>
                <tr>
-                  <td align="left">
+                  <td align="left" style="width:40%;">
                      <p>PO Date:
                         <%= po_date %>
                      </p>
                   </td>
-                  <td align="left">
+                  <td align="left" style="width:30%;">
                      <p><%= expected_delivery_date_header %>
                         <%= expected_delivery_date %>
                      </p>
                   </td>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p>Terms: <% if term_code %><%= term_code %>
-                        <% end %>
+                  <td align="left" style="width:30%;">
+                     <% if term_code %>
+                     <p>Terms: <%= term_code %>
                      </p>
+                  <% end %>
+                     
                   </td>
                </tr>
             </table>
@@ -170,7 +174,7 @@
          <div class="addresses">
             <table>
                <tr>
-                  <td class="address left">
+                  <td class="address left" style="width:41.5%;">
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b><%= ordered_from_header %></b></p>
                         <p style="font-size:9pt";>
@@ -180,7 +184,7 @@
                      </div>
                   </td>
                   <% if drop_ship_to.present? || shipping_information.present?  %>
-                  <td class="address left">
+                  <td class="address left" style="width:31%;">
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b><%= shipping_information_header %></b></p>
                         <p style="font-size:9pt";>
@@ -194,8 +198,8 @@
                      </div>
                   </td>
                   <% end %>
-                  <td class="address left">
-                     <div class="address-wrapper" style="margin-right:-10pt;">
+                  <td class="address left" style="width:30%;">
+                     <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Contact:</b></p>
                         <p style="font-size:9pt";>
                         <p><%= contact_information %></p>
@@ -207,20 +211,20 @@
          </div>
       </div>
       <!-- Items Table -->
-      <div class="line-items" style="width: 89%;margin-left:35pt;">
+      <div class="line-items" style="width: 89%;margin-left:35pt;margin-top:30pt;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
                <tr style="background: #505050;">
-                  <th class="position" style="font-size:14px;color:white;">
-                     <div class="first" style="margin-left:-35pt;">Item</div>
+                  <th class="position" style="font-size:11px;color:white;">
+                     <div class="first" style="margin-left:-35pt;font-weight:normal;">Item</div>
                   </th>
-                  <th class="name" colspan="2" style="font-size:14px;color:white;text-align:center;text-align:left;">Description</th>
-                  <th class="quantity" colspan="0" style="font-size:14px;color:white;"><%= qty_header %></th>
-                  <th class="quantity" colspan="0" style="font-size:14px;color:white;"><%= uom_header %></th>
-                  <th class="money" style="font-size:14px;color:white;">Unit</th>
+                  <th class="name" colspan="2" style="font-size:11px;color:white;text-align:center;text-align:left;font-weight:normal;">Description</th>
+                  <th class="quantity" colspan="0" style="font-size:11px;color:white;font-weight:normal;"><%= qty_header %></th>
+                  <th class="quantity" colspan="0" style="font-size:11px;color:white;font-weight:normal;"><%= uom_header %></th>
+                  <th class="money" style="font-size:11px;color:white;font-weight:normal;">Unit</th>
                   <th class="money">
-                     <div class="last" style="font-size:14px;color:white;margin-right:-30pt;"><strong>Extended</strong></div>
+                     <div class="last" style="font-size:11px;color:white;margin-right:-25pt;font-weight:normal;">Extended</div>
                   </th>
                </tr>
             </thead>
@@ -255,7 +259,7 @@
                   <td class="quantity"><%= item.uom %></td>
                   <td class="money"><%= item.unit_price %></td>
                   <td class="money">
-                     <div class="last" style="margin-right:-30pt;">
+                     <div class="last" style="margin-right:-25pt;">
                         <%= item.total_price %>
                      </div>
                   </td>
@@ -316,28 +320,30 @@
                </table>
             </td>
             <td ></td>
-            <td class="footer-bottom-right" style="float-right;;">
+            <td class="footer-bottom-right" style="float-right;">
                <table class="titals-table" >
                   <tbody>
                      <tr>
-                        <td>Fees & Charges:</td>
-                        <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"></td>
-                     </tr>
-                     <tr>
                         <td><%= subtotal_header %>:</td>
-                        <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
+                        <td style="padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
                      </tr>
                      <tr>
                         <td>Tax (<%= tax_rate %>):</td>
-                        <td style="border-bottom: 1px solid #e3e3e3;;padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                        <td style="padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
                      </tr>
                      <tr>
                         <td colspan="2">
                            <table>
                               <tr>
-                                 <td><b> <font>Total: </font> </b></td>
-                                 <td style="border-bottom: 1px solid #e3e3e3; padding: 5px;margin-top: 5px;" align="right"> <font><b><%= final_price %></b></font> </td>
+                        <td colspan="2">
+                           <table>
+                              <tr>
+                                 <td><b> <font style="font-size:15pt;">Total: </font> </b></td>
+                                 <td style="padding: 5px;margin-top: 5px;" align="right"> <font style="font-size:15pt;"><b><%= final_price %></b></font> </td>
                               </tr>
+                           </table>
+                        </td>
+                     </tr>
                            </table>
                         </td>
                      </tr>
@@ -346,12 +352,14 @@
             </td>
          </table>
       </div>
+      <div class="footer-bottom">
       <div class="footer-bottom-left">
-      <div class="no-page-break" style="padding-left: 35pt;font-size:8pt;">
-         <p style="border-bottom:1px solid black;border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
+      <div class="no-page-break" style="padding-left: 35pt;padding-right: 10pt;font-size:8pt;">
+         <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
          <p style="padding:6pt;">All packing slips & invoices must clearly indicate a PO number otherwise there will be a delay in payment.
          </p>
          <p style="padding:6pt;">NOTE: Our phone number for Accounts Payable is (403) 272-0597 ext. 1001</p>
+      </div>
       </div>
    </body>
 </html>

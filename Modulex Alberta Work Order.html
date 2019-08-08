@@ -32,8 +32,7 @@
          max-height: 150px;
          }
          .addresses1 {
-         padding: 0pt 35pt;
-         border-bottom: 0px solid #e3e3e3;
+         padding-top: 10px;
          }
          .sales_rep{
          margin-left: 0pt;
@@ -91,8 +90,9 @@
          @page {
          @bottom {
          border-top: 1px solid black;
-         width: 90%;
-         font-size: 10px;
+         width: 88%;
+         font-size: 8px;
+         text-align: left;
          content: "Modulex Alberta Inc. | 1, 3200 14th Ave NE, Calgary, AB, T2A6J4 | www.modulexamericas.com";
          } 
          }
@@ -101,8 +101,7 @@
          content: " ";
          }
          }
-         @page { margin: 180px 0  50px 0; }  
-         @page { padding: 0pt 0pt 0pt 0pt;} 
+         @page { margin: 230px 0  50px 0; }
          @page {  
          @top { content: flow(header); }  
          }  
@@ -131,34 +130,47 @@
          <table style="width: 100%">
             <tr>
                <td>
-                  <p style="font-size:18pt;font-weight:bold;">Work Order:  <%= txn_number_only %></p>
-                  <p style="font-size:18pt;font-weight:bold;">Production:  <%= due_date %></p>
-                  <p style="font-size:18pt;font-weight:bold;">Installation:  <%= install_date %></p>
+                  <p style="font-size:18pt;font-weight:bold;">Work Order:  
+                     <%= txn_number_only %></p>
+                  <p style="font-size:18pt;font-weight:bold;">Production:  
+                     <%= due_date %></p>
+                  <p style="font-size:18pt;font-weight:bold;">Installation: 
+                     <% if install_date %>
+                       <%= install_date %>
+                     <% end %>
+                  </p>
                   <br>
-                  <p style=:font-size:14pt;><strong>Customer:</strong> <%= company_name %></p>
-                  <br>
-                  <p style=:font-size:14pt;><strong>Title:</strong> <%= name %></p>
+                  <p style="font-size:15pt;"><strong>Customer: <%= company_name %></strong></p>                  
                </td>
                <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
             </tr>
          </table>
-      </div>
+      <table>
+         <tr>
+            <td>
+             <p style="font-size:14pt;padding-top:10px">Title: <%= name %></p>
+            </td> 
+         </tr>
+      </table>
       <div class="addresses1">
          <div class="sales_rep">
             <table>
                <tr>
-                  <td align="left">
+                  <td align="left" style="width:40%;">
                      <p>SR: <%=@object.primary_sales_rep.try(:name)%></p>
                   </td>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p>PM: <% if project_manager_name %><%= project_manager_name %><% end %></p>
+                  <td align="left" style="width:30%;">
+                     <% if project_manager_name %><p>PM: <%= project_manager_name %></p>
+                     <% end %>
                   </td>
-                  <td align="left" style="padding-top: 6pt;">
-                     <p>Ship: <% if shipping_method %><%= shipping_method %><% end %></p>
+                  <td align="left" style="width:30%;">
+                     <% if shipping_method %><p>Ship: <%= shipping_method %></p>
+                     <% end %>
                   </td>
                </tr>
             </table>
          </div>
+      </div>
       </div>
       <!-- Store Address and Logo -->
       <div class="address-logo">
@@ -166,11 +178,11 @@
             <table>
                <tr>
                   <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') )  || shipment_details.present? %>
-                  <td class="address left">
+                  <td class="address left" style="width:41.5%;">
                      <div class="address-wrapper">
-                        <p class="title" style="margin-bottom:6px;font-size:9pt;">Ship To</p>
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><strong>Ship To</strong></p>
                         <p style="font-size:9pt";><% if shipping_address_type != 'DropShip' %>
-                           <%= sold_to(show_company_name = false) %>
+                           <p><%= sold_to %></p>
                            <% end %>
                            <%= shipping_information %>
                         </p>
@@ -185,8 +197,9 @@
                   <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
                   <td class="address left">
                      <div class="address-wrapper">
-                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><%= installing_information_header %></p>
-                        <%= installing_information %></p>
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><strong><%= installing_information_header %></strong></p>
+                        <p><%= sold_to %><p>
+                        <p><%= installing_information %></p>
                      </div>
                   </td>
                   <% end %>
@@ -199,13 +212,13 @@
          <table>
             <thead>
                <tr style="background: #505050;">
-                  <th class="position" style="font-size:14px;color:white;">
-                     <div>Item</div>
-                  </th>
-                  <th class="name" style="font-size:14px;color:white;text-align:center;text-align:left;">Description</th>
-                  <th class="state" style="font-size:14px;color:white;"><%= state_header %></th>
-                  <th class="quantity" style="font-size:14px;color:white;"><strong style="padding-left:20px;">Qty</strong></th>
-                  <th class="last" style="font-size:14px;color:white;"><strong><%= uom_header %></strong></th>
+                  <th class="position" style="font-size:11px;color:white;font-weight:normal;">
+                      <div>Item</div>
+                   </th>
+                  <th class="name" style="font-size:11px;color:white;text-align:center;text-align:left;font-weight:normal;">Description</th>
+                  <th class="state" style="font-size:11px;color:white;font-weight:normal;"><%= state_header %></th>
+                  <th class="quantity" style="font-size:11px;color:white;font-weight:normal;">Qty</th>
+                  <th class="quantity" style="font-size:11px;color:white;font-weight:normal;"><div class="last"><%= uom_header %></div></th>
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
@@ -223,9 +236,9 @@
                      </div>
                   </td>
                   <td class="state"><%= item.state %></td>
-                  <td class="quantity" style="padding-left:20px;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="quantity">
-                     <div class="last" style="padding-left:40px;"><%= item.uom %></div>
+                     <div class="last"><%= item.uom %></div>
                   </td>
                </tr>
                <tr>
@@ -463,6 +476,9 @@
          </table>
       </div>
       <% end %>
+      <div class="no-page-break">
+         <img style="width:100%;" src="https://cdn.filepicker.io/api/file/ULb1NwWFTIeRj5du3zXr">
+      </div>
    </body>
 </html>
 
