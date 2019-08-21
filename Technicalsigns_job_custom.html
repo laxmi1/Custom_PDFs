@@ -5,7 +5,7 @@
          <%=page_size %> .store-logo {
          position: absolute;
          top: 25px;
-         right: 45px;
+         right: 35px;
          }
          .titles {
          border: none;
@@ -33,7 +33,7 @@
          }
          .addresses {
          padding: 5pt 0pt;
-         s border-bottom: 0px solid #e3e3e3;
+         border-bottom: 0px solid #e3e3e3;
          }
          .thead th {
          font-size: 11px;
@@ -78,7 +78,7 @@
       </style>
    </head>
    <body>
-      <div style="width:35%;float:left;margin-top:20px;margin-left:15px" class="pad">
+      <div style="width:25%;float:left;margin-top:20px;margin-left:15px" class="pad">
          <form action="checkbox" method="get">
             <input type="checkbox" name="vehicle" value="Bike"> Survey
             <br>
@@ -97,7 +97,7 @@
       <div style="display:none" class="document-footer">
          <%= footer_text %>
       </div>
-      <div style="width:45%;float:left;">
+      <div style="width:35%;float:left;">
          <!-- Store Address and Logo -->
          <div class="title-logo">
             <div class="titles">
@@ -106,25 +106,40 @@
             </div>
          </div>
          <div class="store-logo">
-            <img class="logo" src="<%= logo %>">
+            <img class="logo" src="<%= logo %>"><br>
+<div class="qr" style="float: right;padding-right: 10px;">
+    <table>
+      <% qr_code.modules.each_index do |x| %>
+          <tr>
+            <% @qr_code.modules.each_index do |y| %>
+                <% if @qr_code.dark?(x, y) %>
+                    <td class="black"/>
+                <% else %>
+                    <td class="white"/>
+                <% end %>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+  </div>
          </div>
       </div>
       <div class="pag_tit" style="width: 96%; margin-left:2%;border-top:10px;">
          <div class="addresses">
             <table>
                <tr>
-                    <td class="address left">
-                        <div class="address-wrapper">
-                            <% if installing_information.present? && is_form_field_visible?('installing_address_id') %>
-                                <td class="address left">
-                                    <div class="address-wrapper">
-                                        <p class="title">SITE ADDRESS</p>
-                                        <p><%= installing_information %></p>
-                                    </div>
-                                </td>
-                            <% end %>
-                        </div>
-                    </td>
+                 <% if installing_information.present? && is_form_field_visible?('installing_address_id') %>
+                  <td class="address left">
+                  <div class="address-wrapper">
+                  <p class="title">SITE ADDRESS</p>
+                  <p>
+                  <%= installing_information %>
+                  </p>
+                  </div>
+                  </td>
+                  <% end %>
+                  </div>
+                  </td>
                   <td class="address left" style="font-size: 20px;">
                      <div class="address-wrapper">
                         <p class="title" style="font-size: 20px;">Customer Name</p>
