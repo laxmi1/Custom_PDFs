@@ -101,13 +101,13 @@
          content: " ";
          }
          }
-         @page { margin: 160px 0  50px 0; }
+         @page { margin: 150px 0  50px 0; }
          @page {  
          @top { content: flow(header); }  
          }  
          #header {      
          position:relative;  
-         padding: 0pt 35pt 0pt 35pt;
+         padding: 10pt 35pt 0pt 35pt;
          flow: static(header);  
          }
          @page {
@@ -131,21 +131,21 @@
             <tr>
                <td>
                   <p style="font-size:18pt;font-weight:bold;padding-bottom:10pt;">Packing List  <%= txn_number_only %></p>
-                  <p style="font-size:15pt;"><strong>Customer: <%= company_name %></strong></p>
+                  <p style="font-size:10pt;"><strong>Customer: <%= company_name %></strong></p>
                </td>
                <td class="store-logo">
-        <img class="logo" src="<%= logo %>">      
+                 <img class="logo" src="<%= logo %>">
                </td>
             </tr>
          </table>
          <table>
-         <tr>
-            <td>
-             <p style="font-size:10pt;padding-top:10px;">Title: <%= name %></p>
-            </td> 
-         </tr>
-      </table>
-      </div>
+            <tr>
+               <td>
+                <p style="font-size:10pt;">Title: <%= name %></p>
+               </td>
+            </tr>
+         </table>
+        </div>
       <div class="addresses1">
          <div class="sales_rep">
             <table>
@@ -172,35 +172,35 @@
             <table>
                <tr>
                   <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') )  || shipment_details.present? %>
-        <td class="address left" style="width:72%;">
-          <div class="address-wrapper">
-            <p class="title" style="margin-bottom:6px;font-size:9pt;"><strong>Ship To</strong></p>
+                     <td class="address left" style="width:72%;">
+                      <div class="address-wrapper">
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><strong>Ship To</strong></p>
 
-            <p style="font-size:9pt";><% if shipping_address_type != 'DropShip' %>
-                <p><%= sold_to %></p>
-            <% end %>
-               <%= shipping_information %>
-            </p>
-            <p><%= shipment_details %></p>
-            <%if shipping_tracking.present? %>
-             <br/>
-             <p class="title"><%= shipping_tracking_header%></p>
-             <%= shipping_tracking %>
-            <% end %>
-          </div>
-        </td>
-      <% end %>
+                        <p style="font-size:9pt";><% if shipping_address_type != 'DropShip' %>
+                            <p><%= sold_to %></p>
+                        <% end %>
+                           <%= shipping_information %>
+                        </p>
+                        <p><%= shipment_details %></p>
+                        <%if shipping_tracking.present? %>
+                         <br/>
+                         <p class="title"><%= shipping_tracking_header%></p>
+                         <%= shipping_tracking %>
+                        <% end %>
+                      </div>
+                     </td>
+                  <% end %>
                   <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
-      <td class="address left">
-        <div class="address-wrapper">
-          <p class="title" style="margin-bottom:6px;font-size:9pt;"><strong><%= installing_information_header %></strong></p>
-          <p>
-            <%= sold_to %>
-          <p>
-          <p><%= installing_information %></p>
-        </div>
-      </td>
-      <% end %>
+                     <td class="address left">
+                       <div class="address-wrapper">
+                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><strong><%= installing_information_header %></strong></p>
+                         <p>
+                           <%= sold_to %>
+                         <p>
+                         <p><%= installing_information %></p>
+                       </div>
+                     </td>
+                  <% end %>
                </tr>
             </table>
          </div>

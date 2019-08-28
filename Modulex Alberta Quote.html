@@ -104,15 +104,14 @@
          content: " ";
          }
          }
-         @page { margin: 140px 0  50px 0; }  
-         @page { padding: 0pt 0pt 0pt 0pt;} 
+         @page { margin: 160px 0  50px 0; }
          @page {  
          @top { content: flow(header); }  
          }  
          #header {      
          position:relative;  
-         padding: 20pt 35pt 0pt 35pt;
-         flow: static(header);  
+         padding: 0pt 35pt 0pt 35pt;
+         flow: static(header);
          }
          @page {
          @top-left {
@@ -137,11 +136,16 @@
                <td>
                   <p style="font-size:18pt;font-weight:bold;"><%= quote_number %></p>
                   <br>
-                  <p style="font-size:15pt;"><strong>Customer: <%= company_name %></strong></p>
-                  <br>
-                  <p style="font-size:14pt;">Title: <%= name %></p>
+                  <p style="font-size:10pt;"><strong>Customer: <%= company_name %></strong></p>
                </td>
                <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
+            </tr>
+         </table>
+         <table>
+            <tr>
+               <td>
+                <p style="font-size:10pt;">Title: <%= name %></p>
+               </td>
             </tr>
          </table>
       </div>
@@ -206,7 +210,7 @@
                      </div>
                   </td>
                   <% end %>
-                  <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
+                  <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
                   <td class="address left">
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install To:</b></p>
@@ -369,9 +373,10 @@
             </td>
          </table>
       </div>
+      <div class="no-page-break">
       <p style="padding-top:8px;margin-right: 50px;margin-left: 50px;font-size:11.5px;">By signing below, I approve this quote, and acknowledge that I have read and agree to the attached terms and conditions.</p>
       <div class="address-logo" style="padding-left:35pt;">
-         <div style="padding-top:50pt">
+         <div style="padding-top:40pt">
             <div style="padding-bottom:20pt;">
                <table>
                   <tr>
@@ -392,6 +397,7 @@
             </div>
          </div>
       </div>
+   </div>
       <div class="footer-bottom-left">
       <div class="no-page-break" style="padding-left: 35pt;font-size:8pt;">
          <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>

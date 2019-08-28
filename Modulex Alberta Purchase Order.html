@@ -103,14 +103,13 @@
          content: " ";
          }
          }
-         @page { margin: 140px 0  50px 0; }  
-         @page { padding: 0pt 0pt 0pt 0pt;} 
+         @page { margin: 150px 0  50px 0; }
          @page {  
          @top { content: flow(header); }  
          }  
          #header {      
          position:relative;  
-         padding: 20pt 35pt 0pt 35pt;
+         padding: 10pt 35pt 0pt 35pt;
          flow: static(header);  
          }
          @page {
@@ -136,39 +135,44 @@
                <td>
                   <p style="font-size:18pt;font-weight:bold;"><%= purchase_order_number %></p>
                   <br>
-                  <p style="font-size:15pt;"><strong>Vendor:</strong> <%= vendor_name %></p>
-                  <br>
-                  <p style="font-size:14pt;">Title: </strong> <%= name %></p>
+                  <p style="font-size:10pt;"><strong>Customer:</strong> <%= vendor_name %></p>
                </td>
                <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
             </tr>
          </table>
+         <table>
+            <tr>
+               <td>
+                <p style="font-size:10pt;">Title: <%= name %></p>
+               </td>
+            </tr>
+         </table>
       </div>
-      <div class="addresses1">
-         <div class="sales_rep">
-            <table>
-               <tr>
-                  <td align="left" style="width:40%;">
-                     <p>PO Date:
-                        <%= po_date %>
-                     </p>
-                  </td>
-                  <td align="left" style="width:30%;">
-                     <p><%= expected_delivery_date_header %>
-                        <%= expected_delivery_date %>
-                     </p>
-                  </td>
-                  <td align="left" style="width:30%;">
-                     <% if term_code %>
-                     <p>Terms: <%= term_code %>
-                     </p>
-                  <% end %>
-                     
-                  </td>
-               </tr>
-            </table>
+         <div class="addresses1">
+            <div class="sales_rep">
+               <table>
+                  <tr>
+                     <td align="left" style="width:40%;">
+                        <p>PO Date:
+                           <%= po_date %>
+                        </p>
+                     </td>
+                     <td align="left" style="width:30%;">
+                        <p>Date Required:
+                           <%= expected_delivery_date %>
+                        </p>
+                     </td>
+                     <td align="left" style="width:30%;">
+                        <% if term_code %>
+                           <p>Terms: 
+                             <%= term_code %>
+                           </p>
+                        <% end %>
+                     </td>
+                  </tr>
+               </table>
+            </div>
          </div>
-      </div>
       <!-- Store Address and Logo -->
       <div class="address-logo">
          <div class="addresses">
@@ -180,13 +184,14 @@
                         <p style="font-size:9pt";>
                         <p><%= sold_to %></p>
                         <p><%= vendor_address %></p>
+                        <p><%= contact_information %></p>
                         </p>
                      </div>
                   </td>
-                  <% if drop_ship_to.present? || shipping_information.present?  %>
                   <td class="address left" style="width:31%;">
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b><%= shipping_information_header %></b></p>
+                        <% if drop_ship_to.present? || shipping_information.present?  %>
                         <p style="font-size:9pt";>
                            <% if drop_ship_to.present? %>
                            <%= drop_ship_to %>
@@ -202,7 +207,7 @@
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Contact:</b></p>
                         <p style="font-size:9pt";>
-                        <p><%= contact_information %></p>
+                        <p><%= store_address %></p>
                         </p>
                      </div>
                   </td>
@@ -211,7 +216,7 @@
          </div>
       </div>
       <!-- Items Table -->
-      <div class="line-items" style="width: 89%;margin-left:35pt;margin-top:30pt;">
+      <div class="line-items" style="width: 89%;margin-left:35pt;margin-top:10pt;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
@@ -353,13 +358,14 @@
          </table>
       </div>
       <div class="footer-bottom">
-      <div class="footer-bottom-left">
-      <div class="no-page-break" style="padding-left: 35pt;padding-right: 10pt;font-size:8pt;">
-         <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
-         <p style="padding:6pt;">All packing slips & invoices must clearly indicate a PO number otherwise there will be a delay in payment.
-         </p>
-         <p style="padding:6pt;">NOTE: Our phone number for Accounts Payable is (403) 272-0597 ext. 1001</p>
-      </div>
+         <div class="footer-bottom-left">
+            <div class="no-page-break" style="padding-left: 35pt;padding-right: 10pt;font-size:8pt;">
+               <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
+               <p style="padding:6pt;">All packing slips & invoices must clearly indicate a PO number otherwise there will be a delay in payment.
+               </p>
+               <p style="padding:6pt;">NOTE: Our phone number for Accounts Payable is (403) 272-0597 ext. 1001</p>
+            </div>
+         </div>
       </div>
    </body>
 </html>
