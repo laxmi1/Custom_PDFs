@@ -2,9 +2,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
-         .terms-title *, .terms-text * {
-         font-size:7pt;
-         }
          <%= page_size %>
          <%= body_font_family %>
          .addresses {
@@ -38,10 +35,8 @@
          }
          .sales_rep{
          margin-left: 0pt;
-         padding-top: 6pt;
          padding-bottom: 6pt;
          border-bottom: 1px solid black;
-         border-top: 1px solid black;
          }
          .line-items thead th {
          font-size: 10px;
@@ -73,7 +68,7 @@
          margin: 10pt 0pt;
          }
          .footer-bottom-left {
-         width: 95%;
+         width: 98%;
          float: left;
          text-align: justify;
          }
@@ -121,6 +116,13 @@
          font-weight: normal;
          }
          }
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
+         }
+         .terms-title *, .terms-text * {
+        font-size: 9pt;
+         }
       </style>
 </head>
 <body>
@@ -144,7 +146,7 @@
          <table>
             <tr>
                <td>
-                <p style="font-size:10pt;">Title: <%= name %></p>
+                <p style="font-size:10pt;padding-bottom :6pt;border-bottom: 1px solid black;">Title: <%= name %></p>
                </td>
             </tr>
          </table>
@@ -356,8 +358,14 @@
                         <td style="padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
                      </tr>
                      <tr>
+                        <% if show_tax  %>
+                        <% if use_tax_codes? %>
+                        <td>Tax :</td>
+                        <% else %>
                         <td>Tax (<%= tax_rate %>):</td>
-                        <td style="padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                        <% end %>
+                        <% end %>
+                        <td style="padding: 5px;margin-top: 5px;"align="right"><% if show_tax  %><%= total_tax %></td><% end %>
                      </tr>
                      <tr>
                         <td colspan="2">
@@ -374,17 +382,17 @@
             </td>
          </table>
 </div>
-<div class="footer-bottom-left">
-      <div class="no-page-break" style="padding-left: 35pt;font-size:8pt;">
-         <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
-         <p style="padding:6pt;">We accept credit card payments thru PAYPAL. Please contact accountingAB@modulexamericas.com,
-a 2.5% admin fee will be charged.
-         </p>
-         <p style="padding:6pt;">Please remit payment to: Modulex Alberta Inc. 1, 3200 14th Avenue NE, Calgary, AB T2A 6J4</p>
-         <p style="padding:6pt;">NOTE: Our phone number for Accounts Receivables is (403) 272-0597 ext. 1001
-         </p>
-         <p style="padding:6pt;">GST Registration Number: R788754687
-         </p>
+<div class="footer-bottom">
+      <div class="section">
+         <div class="footer-bottom-left">
+            <div class="terms-text" style= "border-top:1px solid black;">
+               <p style=" padding-bottom:6pt;">
+                  <b style= "font-size:11pt;">Terms & Conditions</b>
+               </p>
+            <%= terms_conditions %>
+         </div>
       </div>
+   </div>
+   <div class="clearfix"></div>
 </body>
 </html>

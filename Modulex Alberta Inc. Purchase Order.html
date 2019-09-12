@@ -2,9 +2,6 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
-         .terms-title *, .terms-text * {
-         font-size:7pt;
-         }
          <%= page_size %>
          <%= body_font_family %>
          .addresses {
@@ -38,10 +35,8 @@
          }
          .sales_rep{
          margin-left: 0pt;
-         padding-top: 6pt;
          padding-bottom: 6pt;
          border-bottom: 1px solid black;
-         border-top: 1px solid black;
          }
          .line-items thead th {
          font-size: 10px;
@@ -73,7 +68,7 @@
          margin: 10pt 0pt;
          }
          .footer-bottom-left {
-         width: 95%;
+         width: 98%;
          float: left;
          text-align: justify;
          }
@@ -121,6 +116,13 @@
          font-weight: normal;
          }
          }
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
+         }
+         .terms-title *, .terms-text * {
+         font-size: 9pt;
+         }
       </style>
    </head>
    <body>
@@ -135,7 +137,7 @@
                <td>
                   <p style="font-size:18pt;font-weight:bold;"><%= purchase_order_number %></p>
                   <br>
-                  <p style="font-size:10pt;"><strong>Customer:</strong> <%= vendor_name %></p>
+                  <p style="font-size:10pt;"><strong>Vendor:</strong> <%= vendor_name %></p>
                </td>
                <td style="vertical-align: top; text-align: right;"><img class="logo" src="<%= logo %>"></td>
             </tr>
@@ -143,7 +145,7 @@
          <table>
             <tr>
                <td>
-                <p style="font-size:10pt;">Title: <%= name %></p>
+                <p style="font-size:10pt;padding-bottom :6pt;border-bottom: 1px solid black;">Title: <%= name %></p>
                </td>
             </tr>
          </table>
@@ -358,15 +360,17 @@
          </table>
       </div>
       <div class="footer-bottom">
+      <div class="section">
          <div class="footer-bottom-left">
-            <div class="no-page-break" style="padding-left: 35pt;padding-right: 10pt;font-size:8pt;">
-               <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
-               <p style="padding:6pt;">All packing slips & invoices must clearly indicate a PO number otherwise there will be a delay in payment.
+            <div class="terms-text" style= "border-top:1px solid black;">
+               <p style=" padding-bottom:6pt;">
+                  <b style= "font-size:11pt;">Terms & Conditions</b>
                </p>
-               <p style="padding:6pt;">NOTE: Our phone number for Accounts Payable is (403) 272-0597 ext. 1001</p>
-            </div>
+            <%= terms_conditions %>
          </div>
       </div>
+   </div>
+   <div class="clearfix"></div>
    </body>
 </html>
 

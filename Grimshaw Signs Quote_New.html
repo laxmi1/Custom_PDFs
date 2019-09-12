@@ -4,20 +4,24 @@
       <style>
          <%= page_size %>
          <%= body_font_family %>
-         @page {
-         margin: 160pt 0pt 80pt 0pt;
-         @top {
-         content: url(https://cdn.filepicker.io/api/file/MHfIsuYSQnuBjbeYJP67);     
+         @page :first {
+         margin: 0pt 0pt 50pt 0pt;
+         @bottom { 
+         content: " ";
+         width: 70%;
+         content: url("https://cdn.filepicker.io/api/file/QUxzWesmRG62jyAocDmw");
+         background-size: cover;
          }
-         @bottom {          
-         width: 100%;
-         content: url(https://cdn.filepicker.io/api/file/chS1pGNJSwyFClUUwc7V);
-         transform: scale(0.4);
-         } 
+         @bottom-right {
+         content: " ";
+         }
+         @bottom-left {
+         content: " ";
+         }
          }
          .address-logo {
-         padding: 20pt 35pt 5pt 35pt;
-         border-bottom: 2px solid #e3e3e3;
+         padding: 5pt 5pt 5pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
          }
          .stars {
          padding: 5px;
@@ -40,19 +44,31 @@
       <div style="display:none" class="document-header">
          <%= header_text %>
       </div>
-      <!-- Footer Text for Page footter-->
-      <div style="width: 100%; float: left; border-bottom: none;" class="address-logo">
-         <div style="color: #00ffff; width: auto; float:left; width: 30%; padding: 5px; font-size: 35px;margin-left:-8px;" ><%= quote_number %> 
-         </div>
-         <div class="stars" style="margin-top:21px;width: 67%;">
-            <img src="https://cdn.filepicker.io/api/file/S8KbPtkXQImWnYzZSQPx" >
-         </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo" style="background-color:#202020;border-bottom: 6pt solid #00aeef;">
+         <table>
+            <tr>
+               <td class="store-address" style="color:white;padding-top:6pt;">
+                  <img src="https://cdn.filepicker.io/api/file/dfH3bOwaRBinfUrbWB1v" width="400" height="100">
+               </td>
+               <td class="address-logo" style="color:white;LINE-HEIGHT:20pt;">
+                  <p style="font-size:20pt;"><strong>Quote <%= txn_number_only %></strong></p>
+               </td>
+            </tr>
+         </table>
+         <table>
+            <tr>
+               <td style="text-align:center;">
+                  <img src="https://cdn.filepicker.io/api/file/PLj9hMCTGusL5SI0MpHQ" width="85%">
+               </td>
+            </tr>
+         </table>
       </div>
       <!-- Store Address and Logo -->
-      <div class="address-logo" style="border-bottom:none;">
+      <div class="address-logo" style="border-bottom:none;padding-top:20pt;">
          <table style="width: 100%;">
             <tr>
-               <td class="store-address" style="width: 70%;">
+               <td class="store-address" style="width: 70%;padding-left: 5pt">
                   <div>
                      <p>
                         <%= sold_to %><br />
@@ -76,27 +92,19 @@
             <thead>
                <tr style="border-bottom:1px solid #E9E9EA;border-top:1px solid #E9E9EA;">
                   <th class="position">
-                     <div class="first" style="color: #00ffff;">#</div>
+                     <div class="first" style="color: #00aeef;">#</div>
                   </th>
-                  <th class="name" style="color: #00ffff;"><%= item_header %></th>
-                  <th class="quantity" style="color: #00ffff;"><%= qty_header %></th>
-                  <th class="quantity" style="color: #00ffff;"><%= uom_header %></th>
-                  <th class="money" style="color: #00ffff;"><%= unit_price_header %></th>
+                  <th class="name" style="color: #00aeef;"><%= item_header %></th>
+                  <th class="quantity" style="color: #00aeef;"><%= qty_header %></th>
+                  <th class="quantity" style="color: #00aeef;"><%= uom_header %></th>
+                  <th class="money" style="color: #00aeef;"><%= unit_price_header %></th>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity" style="color: #00ffff;"><%= discount_header %> </th>
-                  <th class="quantity" style="color: #00ffff;"><%= discount_price_header %> </th>
+                  <th class="quantity" style="color: #00aeef;"><%= discount_header %> </th>
+                  <th class="quantity" style="color: #00aeef;"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
-                     <div class="last" style="color: #00ffff;">TOTAL (EXCL.GST)</div>
+                     <div class="last" style="color: #00aeef;">TOTAL (EXCL.GST)</div>
                   </th>
-                  <% if use_tax_codes? %>
-                  <th class="money">
-                     <div class="last" style="color: #00ffff;"><%= tax_header %></div>
-                  </th>
-                  <th class="money">
-                     <div class="last" style="color: #00ffff;"><%= tax_rate_header %></div>
-                  </th>
-                  <% end %>
                </tr>
             </thead>
             <tbody class=''>
@@ -120,14 +128,6 @@
                         <%= item.total_price %>
                      </div>
                   </td>
-                  <% if use_tax_codes? %>
-                  <td class="money">
-                     <div class="last" style="font-size: 13px;"><%= item.total_tax %></div>
-                  </td>
-                  <td class="money">
-                     <div class="last" style="font-size: 13px;"><%= item.tax_rate %></div>
-                  </td>
-                  <% end %>
                </tr>
                <tr style="border-bottom:1px solid #E9E9EA">
                   <% if show_discounts && total_discount_price != 0.0 %>
@@ -173,24 +173,17 @@
       <!-- Internal Note -->
       <div class="footer-bottom" >
          <div class="section clearfix" style="border-top:1px solid #E9E9EA; border-bottom:1px solid #E9E9EA">
-            <div class="footer-bottom-left" >
-               <table>
-                  <tr>
-                     <td class="terms-text">
-                        <%= terms_conditions %>
-                     </td>
-                     <td class="terms-text" style="width: 45%;">
-                        <img src="https://cdn.filepicker.io/api/file/vNbdRwgTyaZsgnPZXSY4">
-                     </td>
-                  </tr>
-               </table>
+            <div class="footer-bottom-left">
+               <div class="terms-text">
+                  <%= terms_conditions %>
+               </div>
             </div>
-            <div class="footer-bottom-right" style="background-color: transparent;">
+            <div class="footer-bottom-right" style="background-color: transparent;LINE-HEIGHT:20pt;">
                <table>
                   <tbody>
                      <tr>
                         <td class="labels first footer-subtotal" >
-                           <p style="color: #00ffff;"><strong><%= subtotal_header %>:</strong></p>
+                           <p style="color: #00aeef;"><strong><%= subtotal_header %>:</strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
                            <p><strong><%= total_tax_header %>:</strong></p>
@@ -201,7 +194,7 @@
                            <p class="footer-total"><strong>Final Price:</strong></p>
                         </td>
                         <td class="money last footer-subtotal">
-                           <p style="color: #00ffff;"><strong><%= sub_total %></strong></p>
+                           <p style="color: #00aeef;"><strong><%= sub_total %></strong></p>
                            <% if show_tax  %>
                            <p><strong><%= total_tax %></strong></p>
                            <% end %>
@@ -212,36 +205,7 @@
                </table>
             </div>
          </div>
-         <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
-         <div class="split-tax">
-            <h4>Split Taxes</h4>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% tax_split.each do |name, rate| %>
-                     <th><%= name %>(<%= rate %>%)</th>
-                     <td><%= tax_subtotal(rate.to_f) %></td>
-                     <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <% if use_tax_codes? %>
-         <div class="split-tax">
-            <h4>Tax Totals</h4>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% tax_totals_table.each do |k, value| %>
-                     <th><%= value[:name] %>(<%= value[:rate] %>%)</th>
-                     <td><%= to_pdf_dollars(value[:total]) %></td>
-                     <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
       </div>
    </body>
 </html>
+

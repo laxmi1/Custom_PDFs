@@ -1,140 +1,158 @@
 <html>
-   <head>
-      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-      <style>
-         <%= page_size %>
-         <%= body_font_family %>
-         .address-logo {
-         padding: 0pt 15pt 15pt 15pt;
-         border-bottom: 0px solid #e3e3e3;
-         }
-         table, td, th {
-         border: 1px solid black;
-         }
-         table {
-         border-collapse: collapse;
-         width: 100%;
-         }
-         td {
-         height: 25px;
-         vertical-align: center;
-         text-align: center;
-         }
-         th {
-         height: 20px;
-         font-size: 12px;
-         }
-      </style>
-   </head>
-   <body>
-      <div style="display:none" class="document-header">
-         <%= header_text %>
-      </div>
-      <div style="display:none" class="document-footer">
-         <%= footer_text %>
-      </div>
-      <div class="address-logo">
-         <table1 style="text-align:right;">
-         <tr>
-            <td class="store-logo">
-               <h1 class="main-title"><strong>Packing Slip</strong></h1>
-            </td>
-         </tr>
-         </table>
-      </div>
-      <div class="address-logo">
-         <table align="right" style="width: 40%;">
-            <tr>
-               <th>Date</th>
-               <th>SO No.</th>
-            </tr>
-            <tr>
-               <td style="height: 50px;"><%= invoice_date %></td>
-               <td style="height: 50px;"><%= txn_number_only %></td>
-            </tr>
-         </table>
-      </div>
-      <div class="address-logo">
-         <table align="right" style="width: 50%;">
-          <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') )  || shipment_details.present? %>
-            <tr>
-               <th>Ship To   </th>
-            </tr>
-            <tr>
-                <td style="height: 70px;">
-                  <% if shipping_address_type != 'DropShip' %>
-                    <%= sold_to(show_company_name = false) %>
-                  <% end %>
-                   <%= shipping_information %></p>
-                  <p><%= shipment_details %></p>
-                  <%if shipping_tracking %>
-                   <br/>
-                   <p class="title"><%= shipping_tracking_header%></p>
-                   <%= shipping_tracking %>
-                  <% end %>
-                </td>
-            </tr>
-          <% end %> 
-         </table>
-      </div>
-      <div class="address-logo">
-         <table align="right" style="width: 90%;">
-            <tr>
-               <th>P.O No.</th>
-               <th>Ship Via</th>
-               <th>FOB</th>
-               <th>Project</th>
-            </tr>
-            <tr>
-               <td>
-                  <% if po_number %>
-                  <%= po_number %>
-                  <% end %>
-               </td>
-               <td>
-                  <% if shipping_method %>
-                  <%= shipping_method %>
-                  <% end %>
-               </td>
-               <td></td>
-               <td><%= name %></td>
-            </tr>
-         </table>
-      </div>
-      <div class="address-logo">
-         <table>
-            <tr>
-               <th style="width:25%;">Item</th>
-               <th style="text-align:center;padding-right:60pt;">Description</th>
-               <th style="padding: 5pt;">Size</th>
-               <th style="padding: 5pt;">Shipped</th>
-               <th style="padding: 5pt;">Backordered</th>
-            </tr>
-            <% items.each_with_index do |item, index| %>
-            <tr>
-               <td>          
-                  <%= item.name %>              
-               </td>
-               <td class="description" colspan="1">
-                  <% if item.table_view %>
-                  <div class="shippers-invoice-pdf-grid-view">
-                     <div class="text--pre-line li-desc-fixed-width">
-                        <%= item.li_grid_html_view(hide_prices: true) %>
-                     </div>
-                  </div>
-                  <% else %>
-                  <div class="last text--pre-line li-desc-fixed-width">
-                     <%= item.description %>
-                  </div>
-                  <% end %>
-               </td>
-               <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-               <td></td>
-               <td></td>
-            </tr>
-            <% end %>
-         </table>
-      </div>
-   </body>
-</html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    <%= page_size %>
+    <%= body_font_family %>
+    .address-logo {
+      padding: 0pt 15pt 15pt 15pt;
+      border-bottom: 0px solid #e3e3e3;
+    }
+    table, td, th {
+      border: 1px solid black;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td {
+      height: 25px;
+      vertical-align: center;
+      text-align: center;
+    }
+    th {
+      height: 20px;
+      font-size: 12px;
+    }
 
+    .li-table-view-container, .li-table-view-container tr td {
+      border: none;
+    }
+
+    .li-table-view tr td {
+      border: 1px solid black;
+      padding: 5pt;
+    }
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+<div class="address-logo">
+  <table1 style="text-align:right;">
+    <tr>
+      <td class="store-logo">
+        <h1 class="main-title"><strong>Packing Slip</strong></h1>
+      </td>
+    </tr>
+    </table>
+</div>
+<div class="address-logo">
+  <table align="right" style="width: 40%;">
+    <tr>
+      <th>Date</th>
+      <th>SO No.</th>
+    </tr>
+    <tr>
+      <td style="height: 50px;"><%= invoice_date %></td>
+      <td style="height: 50px;"><%= txn_number_only %></td>
+    </tr>
+  </table>
+</div>
+<div class="address-logo">
+  <table align="right" style="width: 50%;">
+    <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') )  || shipment_details.present? %>
+        <tr>
+          <th>Ship To   </th>
+        </tr>
+        <tr>
+          <td style="height: 70px;">
+            <% if shipping_address_type != 'DropShip' %>
+                <%= sold_to(show_company_name = false) %>
+            <% end %>
+            <%= shipping_information %></p>
+            <p><%= shipment_details %></p>
+            <%if shipping_tracking %>
+                <br/>
+                <p class="title"><%= shipping_tracking_header%></p>
+                <%= shipping_tracking %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+<div class="address-logo">
+  <table align="right" style="width: 90%;">
+    <tr>
+      <th>P.O No.</th>
+      <th>Ship Via</th>
+      <th>FOB</th>
+      <th>Project</th>
+    </tr>
+    <tr>
+      <td>
+        <% if po_number %>
+            <%= po_number %>
+        <% end %>
+      </td>
+      <td>
+        <% if shipping_method %>
+            <%= shipping_method %>
+        <% end %>
+      </td>
+      <td></td>
+      <td><%= name %></td>
+    </tr>
+  </table>
+</div>
+<div class="address-logo">
+  <table>
+    <tr>
+      <th style="width:25%;">Item</th>
+      <th style="text-align:center;padding-right:60pt;">Description</th>
+      <th style="padding: 5pt;">Size</th>
+      <th style="padding: 5pt;">Shipped</th>
+      <th style="padding: 5pt;">Backordered</th>
+    </tr>
+    <% items.each_with_index do |item, index| %>
+        <tr>
+          <td>
+            <%= item.name %>
+          </td>
+          <td class="description" colspan="1">
+            <% if item.table_view %>
+                <div class="shippers-invoice-pdf-grid-view">
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(hide_prices: true) %>
+                  </div>
+                </div>
+            <% else %>
+                <div class="last text--pre-line li-desc-fixed-width">
+                  <%= item.description %>
+                </div>
+            <% end %>
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+              <hr class="custom-field-separator">
+            <% end %>
+            <% if item.table_view %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view(show_child_items: true) %>
+              </div>
+            <% end %>
+          </td>
+          <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+          <td></td>
+          <td></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+</body>
+</html>

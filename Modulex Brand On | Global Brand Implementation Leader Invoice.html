@@ -1,10 +1,7 @@
 <html>
-   <head>
-      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-      <style>
-         .terms-title *, .terms-text * {
-         font-size:7pt;
-         }
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
          <%= page_size %>
          <%= body_font_family %>
          .addresses {
@@ -38,10 +35,8 @@
          }
          .sales_rep{
          margin-left: 0pt;
-         padding-top: 6pt;
          padding-bottom: 6pt;
          border-bottom: 1px solid black;
-         border-top: 1px solid black;
          }
          .line-items thead th {
          font-size: 10px;
@@ -66,14 +61,14 @@
          }
          .footer-bottom-right {
          float: right;
-         width: 70%;
+         width: 32%;
          background: white;
          border-left: solid 0px #e3e3e3;
          padding: 6pt 6pt 5pt 6pt;
          margin: 10pt 0pt;
          }
          .footer-bottom-left {
-         width: 95%;
+         width: 98%;
          float: left;
          text-align: justify;
          }
@@ -85,7 +80,6 @@
          .termtotals{
          page-break-inside: avoid;
          border-top: 1px solid black;
-         border-bottom: 1px solid black;
          margin-right: 50px;
          padding-bottom: 10pt;
          margin-left: 50px;
@@ -110,8 +104,8 @@
          }  
          #header {      
          position:relative;  
-         padding: 0pt 35pt 0pt 35pt;
-         flow: static(header);
+         padding: 10pt 35pt 0pt 35pt;
+         flow: static(header);  
          }
          @page {
          @top-left {
@@ -122,10 +116,18 @@
          font-weight: normal;
          }
          }
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
+         }
+         .terms-title *, .terms-text * {
+        font-size: 9pt;
+         }
       </style>
-   </head>
-   <body>
-      <div style="display:none" class="document-header">
+</head>
+<body>
+
+<div style="display:none" class="document-header">
       </div>
       <!-- Footer Text for Page footter-->
       <div style="display:none" class="document-footer">
@@ -134,7 +136,7 @@
          <table style="width: 100%">
             <tr>
                <td>
-                  <p style="font-size:18pt;font-weight:bold;"><%= quote_number %></p>
+                  <p style="font-size:18pt;font-weight:bold;">Invoice  <%= txn_number_only %></p>
                   <br>
                   <p style="font-size:10pt;"><strong>Customer: <%= company_name %></strong></p>
                </td>
@@ -144,73 +146,68 @@
          <table>
             <tr>
                <td>
-                <p style="font-size:10pt;">Title: <%= name %></p>
+                <p style="font-size:10pt;padding-bottom :6pt;border-bottom: 1px solid black;">Title: <%= name %></p>
                </td>
             </tr>
          </table>
       </div>
       <div class="addresses1">
-         <div class="sales_rep">
-            <table>
-               <tr>
-                  <td align="left" style="width:40%;">
-                     <p>Date:
-                        <%= quote_date %>
-                     </p>
-                  </td>
-                  <td align="left" style="width:30%;">
-                     <% if term_code %><p>Terms: <%= term_code %></p>
-                     <% end %>                     
-                  </td>
-                  <td align="left" style="width:30%;">
-                     <% unless sales_rep.blank?%>
-                     <p>SR: <%=@object.primary_sales_rep.try(:name)%></p>
-                     <% end %>
-                  </td>
-               </tr>
-               <tr>
-                  <td align="left" style="width:40%;">
-                     <% if quote_expiry_date %>
-                       <p style="padding-top:6pt;">Quote Expires:  <%= quote_expiry_date%>
+            <div class="sales_rep">
+               <table>
+                  <tr>
+                     <td align="left" style="width:40%;">
+                        <p>Date:
+                           <%= invoice_date %>
                         </p>
-                     <% end %>                     
-                  </td>
-                  <td align="left" style="width:30%;">
-                     <% if po_number %><p style="padding-top:6pt;">PO: <%= po_number %></p>
-                     <% end %>                     
-                  </td>
-                  <td align="left" style="width:30%;">
-                     <% if project_manager_name %><p style="padding-top:6pt;">PM: <%= project_manager_name %></p>
-                     <% end %>
-                  </td>
-               </tr>
-            </table>
-         </div>
+                     </td>
+                     <td align="left" style="width:30%;">
+                        <% if term_code %><p>Terms: <%= term_code %>
+                        </p>
+                        <% end %>
+                     </td>
+                     <td align="left" style="width:30%;">
+                        <% unless sales_rep.blank?%>
+                         <p>SR: <%=@object.primary_sales_rep.try(:name)%></p>                 <% end %>
+                      </td>
+                  </tr>
+                  <tr>
+                     <td align="left" style="width:40%;">
+                        <p style="padding-top:6pt;">Due date:
+                           <%= due_date %>
+                        </p>
+                     </td>
+                     <td align="left" style="width:30%;">
+                        <% if po_number %><p style="padding-top:6pt;">PO: <%= po_number %>
+                        </p>
+                        <% end %>
+                     </td>
+                     <td align="left" style="width:30%;">
+                        <% if project_manager_name %><p style="padding-top:6pt;">PM: <%= project_manager_name %></p>
+                        <% end %>
+                     </td>
+                  </tr>
+               </table>
+            </div>
       </div>
       <!-- Store Address and Logo -->
       <div class="address-logo">
          <div class="addresses">
             <table>
                <tr>
-                  <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
+                  <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') ) %>
                   <td class="address left" style="width:72.5%;">
                      <div class="address-wrapper">
-                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Ship to:</b></p>
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Sold To:</b></p>
                         <p style="font-size:9pt";>
                            <% if shipping_address_type != 'DropShip' %>
                            <%= sold_to %><br>
                            <% end %>
                            <%= shipping_information %>
                         </p>
-                        <%if shipping_tracking %>
-                        <br/>
-                        <p class="title"><%= shipping_tracking_header%></p>
-                        <%= shipping_tracking %>
-                        <% end %>
                      </div>
                   </td>
                   <% end %>
-                  <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
+                  <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
                   <td class="address left">
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install To:</b></p>
@@ -232,12 +229,12 @@
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Ordered by</b></p>
                         <p style="font-size:9pt;">
-                        <%= contact_information %></p>
+                           <%= contact_information %>
+                        </p>
                      </div>
                   </td>
                   <td class="address left">
                      <div class="address-wrapper">
-                        
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Contact:</b></p>
                         <p style="font-size:9pt";>
                         <p><%= contact_information %></p>
@@ -248,8 +245,9 @@
             </table>
          </div>
       </div>
-      <!-- Sold To, Contact Info and Shipping Address -->
-      <div class="line-items" style="width: 89%;margin-left: 35pt;">
+
+
+<div class="line-items" style="width: 89%;margin-left: 35pt;">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
@@ -324,16 +322,20 @@
                <% end %>
             </tbody>
          </table>
-      </div>
-      <!-- Signature Note -->
-      <div class="termtotals">
+</div>
+
+
+
+
+<!-- Signature Note -->
+<div class="termtotals">
          <table>
             <td class="note" style="float:left" >
                <table>
                   <thead>
                      <tr>
                         <td style="font-size:11.5px;">
-                           <p>GST Registration Number: R788754687</p>
+                           <p></p>
                         </td>
                      </tr>
                   </thead>
@@ -346,24 +348,31 @@
                      <tr>
                         <td>Miscellaneous Charges:</td>
                         <td style="padding: 5px;margin-top: 5px;" align="right">
-                           <% if has_misc_charges? %>
-                          <p><%= misc_charges %></p>
-                      <% end %></td>
+                        <% if has_misc_charges? %>
+                           <p><%= misc_charges %></p>
+                        <% end %>
+                        </td>
                      </tr>
                      <tr>
                         <td><%= subtotal_header %>:</td>
                         <td style="padding: 5px;margin-top: 5px;" align="right"><%= sub_total %></td>
                      </tr>
                      <tr>
+                        <% if show_tax  %>
+                        <% if use_tax_codes? %>
+                        <td>Tax :</td>
+                        <% else %>
                         <td>Tax (<%= tax_rate %>):</td>
-                        <td style="padding: 5px;margin-top: 5px;"align="right"><%= total_tax %></td>
+                        <% end %>
+                        <% end %>
+                        <td style="padding: 5px;margin-top: 5px;"align="right"><% if show_tax  %><%= total_tax %></td><% end %>
                      </tr>
                      <tr>
                         <td colspan="2">
                            <table>
                               <tr>
                                  <td><b> <font style="font-size:15pt;">Total: </font> </b></td>
-                                 <td style="padding: 5px;margin-top: 5px;" align="right"> <font style="font-size:15pt;"><b><%= final_price %></b></font> </td>
+                                 <td style="padding: 5px;margin-top: 5px;" align="right"> <font style="font-size:15pt;"><b><%= final_price %></b></font></td>
                               </tr>
                            </table>
                         </td>
@@ -372,62 +381,18 @@
                </table>
             </td>
          </table>
-      </div>
-      <div class="no-page-break">
-      <p style="padding-top:8px;margin-right: 50px;margin-left: 50px;font-size:11.5px;">By signing below, I approve this quote, and acknowledge that I have read and agree to the attached terms and conditions.</p>
-      <div class="address-logo" style="padding-left:35pt;">
-         <div style="padding-top:40pt">
-            <div style="padding-bottom:20pt;">
-               <table>
-                  <tr>
-                     <td align="left">
-                        <p style="border-top:1px solid black;width:150pt;"><b>Approved by</p>
-                     </td>
-                     <td align="left">
-                        <p style="border-top:1px solid black;width:90pt;"><b>Date</p>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td align="left" style="padding-top:30pt;">
-                        <p style="border-top:1px solid black;width:150pt;"><b>Print Name</b></p>
-                     </td>
-                     <td></td>
-                  </tr>
-               </table>
-            </div>
+</div>
+<div class="footer-bottom">
+      <div class="section">
+         <div class="footer-bottom-left">
+            <div class="terms-text" style= "border-top:1px solid black;">
+               <p style=" padding-bottom:6pt;">
+                  <b style= "font-size:11pt;">Terms & Conditions</b>
+               </p>
+            <%= terms_conditions %>
          </div>
       </div>
    </div>
-      <div class="footer-bottom-left">
-      <div class="no-page-break" style="padding-left: 35pt;font-size:8pt;">
-         <p style="border-top:1px solid black;padding:5pt;font-size:10pt;"><b>Terms & Conditions</b></p>
-         <p style="padding:6pt;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-            commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
-            feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore
-            te feugait nulla facilisi.
-         </p>
-         <p style="padding:6pt;">Any drawings provided along with this proposal shall remain the property of Modulex Carolinas and shall be used only for verification and approval for production by Modulex Carolinas. Drawing(s) shall not be distributed to other vendors.</p>
-         <p style="padding:6pt;">Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-            commodo consequat.
-         </p>
-         <p style="padding:6pt;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-            commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
-            feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore
-            te feugait nulla facilisi.
-         </p>
-         <p style="padding:6pt;">Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-            commodo consequat.
-         </p>
-         <p style="padding:6pt;border-bottom:1px solid black;padding-bottom:20pt;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-            commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
-            feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore
-            te feugait nulla facilisi.
-         </p>
-      </div>
-   </body>
+   <div class="clearfix"></div>
+</body>
 </html>
