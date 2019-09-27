@@ -7,14 +7,17 @@
          }
          <%= page_size %>
          <%= body_font_family %>
+         body {
+         font-size: 15px;
+         }
          .address-logo {
-         padding: 40pt 35pt 5pt 35pt;
+         padding: 40pt 5pt 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .address-logo .store-address {
          text-align: left;
          vertical-align: top;
-         font-size: 13px;
+         font-size: 15px;
          }
          .summary {
          margin: 0pt;
@@ -36,7 +39,13 @@
          }
          th {
          height: 20px;
-         font-size: 12px;
+         }
+         .line-items {
+         margin-top: 0pt;
+         padding: 10pt 35pt;
+         }
+         .li-desc-fixed-width {
+         max-width: 450pt;
          }
          .li-table-view-container, .li-table-view-container tr td {
          border: none;
@@ -80,8 +89,8 @@
          <table style="border: 0px solid black;">
             <tr style="border: 0px solid black;">
                <td class="store-address" style="border: 0px solid black;">
-                  <p><font size="6" style="color:#6495ED;;font-weight: normal;"><%= store_name %></font></p>
-                  <p><font size="5" style="color:#6495ED;;font-weight: normal;">PURCHASE ORDER</font></p>
+                  <p><font size="5" style="color:#6495ED;;font-weight: bold;">PURCHASE ORDER</font></p>
+                  <p><font size="5" style="color:#6495ED;;font-weight: bold;"><%= store_name %></font></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %>,
                      <%end%>
@@ -97,9 +106,6 @@
                   <% if store_email%>
                   <p><%=store_email%></p>
                   <%end%>
-                  <% if @object.account.website %> 
-                  <p><%= @object.account.website %></p>
-                  <%end%>
                </td>
                <td class="store-logo" style="border: 0px solid black;">
                   <img class="logo" src="<%= logo %>">
@@ -114,7 +120,7 @@
                <th>SHIP TO</th>
             </tr>
             <tr>
-               <td style="padding:5pt;">
+               <td style="padding:5pt;width:50%;">
                   <p><%= sold_to %></p>
                   <p><%= vendor_address %></p>
                </td>
@@ -135,7 +141,7 @@
          </table>
       </div>
       <!-- Items Table -->
-      <div class="summary">
+      <div class="line-items">
          <table>
             <tr style="background-color:#6495ED;">
                <th style="width:5%;">QTY</th>

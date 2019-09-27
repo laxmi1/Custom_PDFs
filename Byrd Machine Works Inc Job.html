@@ -13,8 +13,19 @@
          td {
          height: 30px;
          text-align: left;
+         width: 50%;
          padding: 5pt 0 0 10pt;
          }
+         table {
+         border-collapse: collapse;
+         width: 100%;
+         }
+         .summary {
+          margin: 0pt;
+          padding: 5pt 35pt;
+          border-bottom: 0px solid #e3e3e3;
+          background-color: transparent;
+          }
       </style>
    </head>
    <body>
@@ -29,17 +40,17 @@
                   <td><strong>JOB DUE DATE: </strong><%= due_date %></td>
                </tr>
                <tr>
-                  <td style="width:1%;padding:0pt 0 0 0pt;">
+                  <td style="padding:0pt 0 0 0pt;width:1%;">
                      <div class="col-sm-2">
                         <div class="box box--default box--border">
                            <div class="box__content">
                               <div class="qr qr--default">
                                  <div class="qr__code">
-                                    <svg>
+                                    <svg style="width:55%">
                                        <%= qr_code.as_svg %>
                                     </svg>
                                  </div>
-                                 <div class="qr__status">
+                                 <div class="qr__status" style="text-align: left;">
                                     <p>
                                        <strong>In progress</strong>
                                     </p>
@@ -59,7 +70,7 @@
                   </td>
                </tr>
                <tr>
-                  <td style="width:30%;">
+                  <td>
                      <strong>Ship To:</strong>
                      <address>
                         <%= shipping_information %>

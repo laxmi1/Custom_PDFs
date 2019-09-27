@@ -7,14 +7,17 @@
          }
          <%= page_size %>
          <%= body_font_family %>
+         body {
+         font-size: 15px;
+         }
          .address-logo {
-         padding: 30pt 35pt 5pt 35pt;
+         padding: 30pt 5pt 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .address-logo .store-address {
          text-align: left;
          vertical-align: top;
-         font-size: 13px;
+         font-size: 15px;
          }
          .summary {
          margin: 0pt;
@@ -36,7 +39,16 @@
          }
          th {
          height: 20px;
-         font-size: 12px;
+         }
+         .line-items {
+         margin-top: 0pt;
+         padding: 10pt 35pt;
+         }
+        .shippers-invoice-pdf-grid-view {
+         max-width: 600pt;
+        }
+         .li-desc-fixed-width {
+         max-width: 600pt;
          }
          .li-table-view-container, .li-table-view-container tr td {
          border: none;
@@ -44,10 +56,6 @@
          .li-table-view tr td {
          border: 1px solid black;
          padding: 5pt;
-         }
-         .summary .description {
-         font-size: 15px;
-         padding: 0 35pt 5pt 5pt;
          }
          .section {
          border-top: 0px solid #e3e3e3;
@@ -77,8 +85,8 @@
          <table style="border: 0px solid black;">
             <tr style="border: 0px solid black;">
                <td class="store-address" style="border: 0px solid black;">
-                  <p><font size="6" style="color:#6495ED;;font-weight: normal;"><%= store_name %></font></p>
-                  <p><font size="5" style="color:#6495ED;;font-weight: normal;">PACKING LIST</font></p>
+                  <p><font size="5" style="color:#6495ED;;font-weight: bold;">PACKING LIST</font></p>
+                  <p><font size="5" style="color:#6495ED;;font-weight: bold;"><%= store_name %></font></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %>,
                      <%end%>
@@ -94,9 +102,6 @@
                   <% if store_email%>
                   <p><%=store_email%></p>
                   <%end%>
-                  <% if @object.account.website %> 
-                  <p><%= @object.account.website %></p>
-                  <%end%>
                </td>
                <td class="store-logo" style="border: 0px solid black;">
                   <img class="logo" src="<%= logo %>">
@@ -111,7 +116,7 @@
                <th>SHIP TO</th>
             </tr>
             <tr>
-               <td style="padding:5pt;">
+               <td style="padding:5pt;width:50%;">
                   <p>
                      <%= sold_to %>
                   <p>
@@ -149,20 +154,21 @@
             </tr>
          </table>
       </div>
-      <div class="summary">
+      <div class="line-items">
          <table>
             <tr style="background-color:#6495ED;">
                <th style="width:5%;">QTY</th>
-               <th style="text-align:center;padding-right:90pt;">DESCRIPTION</th>
+               <th style="text-align:left;padding-left: 3pt;">DESCRIPTION</th>
             </tr>
             <% items.each_with_index do |item, index| %>
             <tr>
                <td class="quantity" style="padding-top:3pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                <td class="description" style="padding: 3pt;text-align:left;">
+<p><strong><%= item.name %></strong></p>
                   <% if item.table_view %>
                   <div class="shippers-invoice-pdf-grid-view">
                      <div class="text--pre-line li-desc-fixed-width">
-                        <%= item.li_grid_html_view(hide_prices: true) %>
+                       <%= item.li_grid_html_view(hide_prices: true) %>
                      </div>
                   </div>
                   <% else %>
