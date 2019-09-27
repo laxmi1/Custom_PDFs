@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         @page { size: 4in 6in landscape; }
+         <%= body_font_family %>
+         table, td, th {
+         border: 1px solid black;
+         }
+         
+         td {
+         height: 30px;
+         text-align: left;
+         padding: 5pt 0 0 10pt;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf" id="page-job-new">
+         <div class="summary">
+            <table>
+               <tr>
+                  <td><% if print_line_item_in_job_pdf %>
+                     <%= line_item_number_position %>
+                     <% end %>  
+                  </td>
+                  <td><strong>JOB DUE DATE: </strong><%= due_date %></td>
+               </tr>
+               <tr>
+                  <td style="width:1%;padding:0pt 0 0 0pt;">
+                     <div class="col-sm-2">
+                        <div class="box box--default box--border">
+                           <div class="box__content">
+                              <div class="qr qr--default">
+                                 <div class="qr__code">
+                                    <svg>
+                                       <%= qr_code.as_svg %>
+                                    </svg>
+                                 </div>
+                                 <div class="qr__status">
+                                    <p>
+                                       <strong>In progress</strong>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </td>
+                  <td>
+                     <p><% if related_quotes.present? %>
+                        <strong><%= related_quotes %></strong>
+                        <% end %>
+                     </p>
+                     <br>
+                     <p><strong><%= order_type %># <%= order_number %></strong></p>
+                  </td>
+               </tr>
+               <tr>
+                  <td style="width:30%;">
+                     <strong>Ship To:</strong>
+                     <address>
+                        <%= shipping_information %>
+                     </address>
+                  </td>
+                  <td>
+                     <strong>Bill To:</strong> 
+                     <address>
+                        <%= billing_information %>
+                     </address>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><strong>QTY: <%= quantity %></strong></p>
+                  </td>
+                  <td>
+                     <strong>DESCRIPTION</strong>
+                     <p><%= description %>
+                     </p>
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>

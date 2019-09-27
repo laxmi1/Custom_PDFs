@@ -212,6 +212,7 @@
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install To:</b></p>
                         <p style="font-size:9pt";>
+<%= sold_to %><br>
                            <%= installing_information %>
                         </p>
                      </div>
@@ -227,17 +228,17 @@
                <tr>
                   <td class="address left" style="width:72.5%;">
                      <div class="address-wrapper">
-                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Ordered by</b></p>
-                        <p style="font-size:9pt;">
-                           <%= contact_information %>
-                        </p>
+                        <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Bill To</b></p>
+                            <p style="font-size:9pt;">
+<%= sold_to %><br>
+<%= billing_information %></p>
                      </div>
                   </td>
                   <td class="address left">
                      <div class="address-wrapper">
                         <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Contact:</b></p>
                         <p style="font-size:9pt";>
-                        <p><%= contact_information %></p>
+                        <%= sold_to %><br><%= contact_information %>
                         </p>
                      </div>
                   </td>
