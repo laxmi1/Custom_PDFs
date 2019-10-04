@@ -508,39 +508,6 @@
               </table>
            </div>
            <% end %>
-           <% if show_discounts %>
-           <div>
-              <table class="split-tax-table">
-                 <tbody>
-                    <tr>
-                       <% if show_range_volume_discounts %>
-                       <% if total_range_discount >0 || total_volume_discount >0  %>
-                       <th><b>Total Discount</b></th>
-                       <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
-                       <%end%>
-                       <% if total_range_discount >0 %>
-                       <th><b>Range Disc.</b></th>
-                       <td><%= total_range_discount_in_dollars %></td>
-                       <%end%>
-                       <% if total_volume_discount >0 %>
-                       <th><b>Volume Disc.</b></th>
-                       <td><%= total_volume_discount_in_dollars %></td>
-                       <%end%>
-                       <% if total_discount_price != 0.0%>
-                       <th><b><%= customer_discount %></b></th>
-                       <td><%= total_discount_price_in_dollars %></td>
-                       <%end%>
-                       <%else%>
-                       <% if total_discount_price != 0.0%>
-                       <th style="text-align: right; padding-left:270px;"><b>Verleende korting</b></th>
-                       <td style="padding-left:45px;"><%= total_discount_price_in_dollars %></td>
-                       <%end%>
-                       <%end%>
-                    </tr>
-                 </tbody>
-              </table>
-           </div>
-           <% end %>
         </div>
      </body>
   </html>

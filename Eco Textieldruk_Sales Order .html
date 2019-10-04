@@ -39,8 +39,10 @@
                <td class="store-address">
                   <p style="margin-left:-10px;">
                   <p><%=store_name %></p>
-                  <% if store_phone%>
-                  <p>Telefoonnummer: <%=store_phone%></p>
+                  <% if @object.division %>
+                  <p>Telefoonnummer: <%= @object.division.primary_phone %></p>
+                  <% elsif @object.account.settings.primary_phone %>
+                  <p>Telefoonnummer: <%= @object.account.settings.primary_phone %></p>
                   <%end%>
                   <%if @object.account and not @object.account.ein_number.blank?%>
                   KVK: <%= @object.account.ein_number %>

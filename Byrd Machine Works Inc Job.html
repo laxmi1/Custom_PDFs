@@ -11,7 +11,7 @@
          }
          
          td {
-         height: 30px;
+         height: 20px;
          text-align: left;
          width: 50%;
          padding: 5pt 0 0 10pt;
@@ -22,7 +22,7 @@
          }
          .summary {
           margin: 0pt;
-          padding: 5pt 35pt;
+          padding: 1pt 25pt;
           border-bottom: 0px solid #e3e3e3;
           background-color: transparent;
           }
@@ -33,9 +33,8 @@
          <div class="summary">
             <table>
                <tr>
-                  <td><% if print_line_item_in_job_pdf %>
-                     <%= line_item_number_position %>
-                     <% end %>  
+                  <td>
+                  <%= title %>
                   </td>
                   <td><strong>JOB DUE DATE: </strong><%= due_date %></td>
                </tr>
@@ -61,13 +60,8 @@
                      </div>
                   </td>
                   <td>
-                     <p><% if related_quotes.present? %>
-                        <strong><%= related_quotes %></strong>
-                        <% end %>
-                     </p>
-                     <br>
-                     <p><strong><%= order_type %># <%= order_number %></strong></p>
-                  </td>
+                     <%= description %>
+                  </td> 
                </tr>
                <tr>
                   <td>
@@ -88,9 +82,7 @@
                      <p><strong>QTY: <%= quantity %></strong></p>
                   </td>
                   <td>
-                     <strong>DESCRIPTION</strong>
-                     <p><%= description %>
-                     </p>
+                     <p><strong>PO: <%= customer_po %></strong></p>
                   </td>
                </tr>
             </table>
