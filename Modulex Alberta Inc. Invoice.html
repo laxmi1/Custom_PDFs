@@ -123,6 +123,11 @@
          .terms-title *, .terms-text * {
         font-size: 9pt;
          }
+         .split-tax {
+         width: 100%;
+         box-sizing: border-box;
+         padding: 5pt 35pt;
+         }
       </style>
 </head>
 <body>
@@ -383,6 +388,36 @@
             </td>
          </table>
 </div>
+   <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
+        <div class="split-tax">
+          <h4><%= split_taxes_header %></h4>
+          <table class="split-tax-table">
+            <tbody>
+            <tr>
+              <% tax_split.each do |name, rate| %>
+                  <th><%= name %>(<%= rate %>%)</th>
+                  <td><%= tax_subtotal(rate.to_f) %></td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+    <% if use_tax_codes? %>
+        <div class="split-tax">
+          <h4><%= tax_totals_header %></h4>
+          <table class="split-tax-table">
+            <tbody>
+            <tr>
+              <% tax_totals_table.each do |k, value| %>
+                  <th><%= value[:name] %>(<%= value[:rate] %>%)</th>
+                  <td><%= to_pdf_dollars(value[:total]) %></td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
 <div class="footer-bottom">
       <div class="section">
          <div class="footer-bottom-left">
