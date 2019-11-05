@@ -61,7 +61,7 @@
          }
          .footer-bottom-right {
          float: right;
-         width: 30%;
+         width: 35%;
          border-left: solid 0px #e3e3e3;
          background: none;
          padding: 6pt 0pt 5pt 6pt;
@@ -150,13 +150,17 @@
                <th>QUOTATION#</th>
                <th>DATE</th>
                <th>TERMS</th>
-               <th>LEAD TIME</th>
+               <th>SPECIAL INFO</th>
             </tr>
             <tr>
                <td style="padding:5pt;"><%= quote_number %></td>
                <td style="padding:5pt;"><%= quote_date %></td>
                <td style="padding:5pt;"><% if term_code %><%= term_code %><% end %></td>
-               <td style="padding:5pt;"></td>
+               <td style="padding:5pt;max-width: 180px;">
+                  <%if @object.special_notes and not @object.special_notes.blank?%>
+                    <%= @object.special_notes %>
+                  <% end %>
+                </td>
             </tr>
          </table>
       </div>
