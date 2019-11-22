@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .box--default.box--border .box__title {
+         border: none;
+         font-size: 18pt;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf" id="page-job-new">
+         <!-- INFO -->
+         <div class="job-section job-pdf__info">
+            <div class="container">
+               <div class="row">
+                  <div class="col-9">
+                     <h1 class="job-pdf__info-title" style="text-transform: uppercase;">
+                        <strong><%= title %></strong>
+                     </h1>
+                  </div>
+                  <div class="col-3">
+                     <table style="text-align: right;">
+                        <tbody>
+                           <tr>
+                              <td><strong>Due: <%= due_date %></strong></td>
+                           </tr>
+                           <tr>
+                              <td>Art Due Date: <%= art_due_date %></td>
+                           </tr>
+                           <tr>
+                              <td>Ship Date: <%= shipping_date %></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-9">
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p>Customer: <strong><%= company_name %></strong></p>
+                           <% if txn_title.present? %>
+                           <p><%= txn_title %></p>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-3">
+                     <table style="text-align: right;">
+                        <tbody>
+                           <tr>
+                              <td><strong style="font-size: 30pt;"><%= order_number %></strong></td>
+                           </tr>
+                           <tr>
+                              <td>Sales Rep:  <%= sales_rep_name %></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM -->
+         <% if has_pricing? %>
+         <div class="job-section job-pdf__bom">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__title">BOM:</div>
+                        <div class="box__content">
+                           <% if apparel_ui? %>
+                           <%= apparel_item_table %>
+                           <% else %>
+                           <table class="table table--bom">
+                              <thead>
+                                 <th>Name</th>
+                                 <th>Qty</th>
+                                 <th>Attr1</th>
+                                 <th>Attr2</th>
+                              </thead>
+                              <tbody>
+                                 <%= materials_bom_table(true) %>
+                              </tbody>
+                           </table>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM - OTHERS -->    
+         <% end %>
+         <!-- PROOF -->
+         <div class="col-12">
+            <div class="box box--grey box--border">
+               <div class="box__content box__content-proof-img text--center">
+                  <div>
+                     <img src="<%= proof_image(800,700) %>">
+                  </div>
+               </div>
+               <div>
+                  <%= proof_local_file_path %>
+               </div>
+               <div class="box__title">
+                  <%= proof_footer %>
+               </div>
+            </div>
+         </div>
+         <!-- LINE ITEMS - DESCRIPTION -->
+         <!-- WORKFLOW -->
+        <div>
+         <img src="https://cdn.filestackcontent.com/output=f:svg/x6WcpI3RsSBpkxy55rt5">
+        </div>
+      </div>
+   </body>
+</html>
+
