@@ -7,6 +7,14 @@
          .footer-bottom {
          float: bottom!important;
          }
+         .li-desc-fixed-width {
+         max-width: 450pt;
+
+         }
+         .line-items .description {
+          font-size: 12px;
+          padding: 0 15pt 5pt 5pt;
+          }
       </style>
    </head>
    <body>
@@ -168,24 +176,11 @@
                   <th class="position">
                      <div class="first">#</div>
                   </th>
-                  <th class="name"><%= item_header %></th>
-                  <th class="quantity"><%= qty_header %></th>
-                  <th class="quantity"><%= uom_header %></th>
-                  <th class="money"><%= unit_price_header %></th>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity"><%= discount_header %> </th>
-                  <th class="quantity"><%= discount_price_header %> </th>
-                  <% end %>
-                  <th class="money">
-                     <div class="last"><%= total_excl_header %></div>
-                  </th>
-                  <% if use_tax_codes? %>
-                  <th class="money">
-                     <div class="last"><%= tax_header %></div>
-                  </th>
-                  <% end %>
+                  <th class="name" style="padding-left: 35pt;"><%= item_header %></th>
+
                </tr>
             </thead>
+<table>
             <tbody class=''>
                <% items.each_with_index do |item, index| %>
                <tr>
@@ -195,23 +190,7 @@
                      </div>
                   </td>
                   <td class="name"><%= item.name %></td>
-                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity"><%= item.uom %></td>
-                  <td class="money"><%= item.unit_price %></td>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="quantity"><%= item.discount_percentage %> </td>
-                  <td class="quantity"><%= item.unit_price_after_discount %></td>
-                  <% end %>
-                  <td class="money">
-                     <div class="last">
-                        <%= item.total_price %>
-                     </div>
-                  </td>
-                  <% if use_tax_codes? %>
-                  <td class="money">
-                     <div class="last"><%= item.total_tax %></div>
-                  </td>
-                  <% end %>
+
                </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
@@ -250,7 +229,48 @@
                      </div>
                   </td>
                </tr>
+
+               <tr style="padding-left: -35pt;">              
+<th></th>  
+                  <th class="money"><%= unit_price_header %></th>
+                  <th class="quantity"><%= qty_header %></th>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <th class="quantity"><%= discount_header %> </th>
+                  <th class="quantity"><%= discount_price_header %> </th>
+                  <% end %>
+                  <th class="money">
+                     <div class="last">Subtotal(ex.gst)</div>
+                  </th>
+                  <% if use_tax_codes? %>
+                  <th class="money">
+                     <div class="last">Subtotal(GST)</div>
+                  </th>
+                  <% end %>
+
+               </tr>
+           
+            <tr>
+<td></td>
+               
+               <td class="money"><%= item.unit_price %></td>
+<td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+               <% if show_discounts && total_discount_price != 0.0 %>
+               <td class="quantity"><%= item.discount_percentage %> </td>
+               <td class="quantity"><%= item.unit_price_after_discount %></td>
                <% end %>
+               <td class="money">
+                  <div class="last">
+                     <%= item.total_price %>
+                  </div>
+               </td>
+               <% if use_tax_codes? %>
+               <td class="money">
+                  <div class="last"><%= item.total_tax %></div>
+               </td>
+               <% end %>
+
+            </tr>
+            <% end %>
             </tbody>
          </table>
       </div>
@@ -284,9 +304,9 @@
                            <p><strong><%= subtotal_header %>:</strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
-                           <p><strong><%= total_tax_header %>:</strong></p>
+                           <p><strong>Total GST:</strong></p>
                            <% else %>
-                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <p><strong>Total GST (<%= tax_rate %>):</strong></p>
                            <% end %>
                            <% end %>
                            <% if coupon_code_discount_header %>
