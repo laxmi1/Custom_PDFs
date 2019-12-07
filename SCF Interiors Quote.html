@@ -4,17 +4,41 @@
       <style>
          <%= page_size %>
          <%= body_font_family %>
-         .footer-bottom {
-         float: bottom!important;
+         .line-items .money {
+         text-align: right;
+         width: 30%;
+         white-space: nowrap;
+         }
+         .line-items .quantity {
+         text-align: center;
+         width: 30%;
+         white-space: nowrap;
          }
          .li-desc-fixed-width {
          max-width: 450pt;
-
          }
          .line-items .description {
-          font-size: 12px;
-          padding: 0 15pt 5pt 5pt;
-          }
+         font-size: 12px;
+         padding: 0 15pt 5pt 5pt;
+         }
+         @page :first {
+         margin: 150pt 0pt 0pt 0pt;
+         @top {
+         content:"";
+         width:102%;
+         background-image: url("https://cdn.filestackcontent.com/output=f:svg/pAxVUgQSpiSzQA3lxpWV");
+         background-size: cover;
+         }
+         }
+         .footer-bottom-left {
+         width: 100%;
+         float: left;
+         text-align: justify;
+         font-size:10pt;
+         }
+         .terms-text * {
+         font-size:7pt;
+         }
       </style>
    </head>
    <body>
@@ -26,18 +50,6 @@
          <%= footer_text %>
       </div>
       <!-- Store Address and Logo -->
-      <div class="address-logo">
-         <table>
-            <tr>
-               <td class="store-address">
-                  <img class="logo" src="<%= logo %>">        
-               </td>
-               <td class="store-logo">
-                  <%= store_address %>
-               </td>
-            </tr>
-         </table>
-      </div>
       <div class="summary">
          <table>
             <tr>
@@ -163,6 +175,7 @@
          </table>
       </div>
       <% end %>
+      <!-- Line Items -->
       <div class="line-items">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <% if show_multi_currecies %>
@@ -176,11 +189,9 @@
                   <th class="position">
                      <div class="first">#</div>
                   </th>
-                  <th class="name" style="padding-left: 35pt;"><%= item_header %></th>
-
+                  <th class="name"><%= item_header %></th>
                </tr>
             </thead>
-<table>
             <tbody class=''>
                <% items.each_with_index do |item, index| %>
                <tr>
@@ -189,14 +200,13 @@
                         <%= index + 1 %>
                      </div>
                   </td>
-                  <td class="name"><%= item.name %></td>
-
+                  <td class="name" style="white-space: nowrap; "><%= item.name %></td>
                </tr>
                <tr>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="description" colspan="7">
+                  <td class="description"  colspan="7">
                      <% else %>
-                  <td class="description" colspan="5">
+                  <td class="description"  colspan="5">
                      <% end %>
                      <div>
                         <% if item.table_view %>
@@ -228,62 +238,45 @@
                         <% end %>
                      </div>
                   </td>
+                  <td></td>
                </tr>
-
-               <tr style="padding-left: -35pt;">              
-<th></th>  
-                  <th class="money"><%= unit_price_header %></th>
+               <tr>
+                  <th></th>
+                  <th class="money" style="padding-left:50pt;">Unit Price(ex.gst)</th>
                   <th class="quantity"><%= qty_header %></th>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity"><%= discount_header %> </th>
-                  <th class="quantity"><%= discount_price_header %> </th>
-                  <% end %>
                   <th class="money">
                      <div class="last">Subtotal(ex.gst)</div>
                   </th>
                   <% if use_tax_codes? %>
                   <th class="money">
-                     <div class="last">Subtotal(GST)</div>
+                     <div class="last">Subtotal(gst)</div>
                   </th>
                   <% end %>
-
                </tr>
-           
-            <tr>
-<td></td>
-               
-               <td class="money"><%= item.unit_price %></td>
-<td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-               <% if show_discounts && total_discount_price != 0.0 %>
-               <td class="quantity"><%= item.discount_percentage %> </td>
-               <td class="quantity"><%= item.unit_price_after_discount %></td>
+               <tr>
+                  <td></td>
+                  <td class="money"style="padding-bottom: 20pt;"><%= item.unit_price %></td>
+                  <td class="quantity"style="padding-bottom: 20pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money">
+                     <div class="last"style="padding-bottom: 20pt;">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+                  <% if use_tax_codes? %>
+                  <td class="money">
+                     <div class="last"style="padding-bottom: 20pt;"><%= item.total_tax %></div>
+                  </td>
+                  <% end %>
+               </tr>
                <% end %>
-               <td class="money">
-                  <div class="last">
-                     <%= item.total_price %>
-                  </div>
-               </td>
-               <% if use_tax_codes? %>
-               <td class="money">
-                  <div class="last"><%= item.total_tax %></div>
-               </td>
-               <% end %>
-
-            </tr>
-            <% end %>
             </tbody>
          </table>
       </div>
-      <!-- Internal Note -->
       <!-- Cover Note -->
       <!-- Signature Note -->
-      <div class="footer-bottom">
+      <!-- Signature Note -->
+      <div class="footer-botto">
          <div class="section">
-            <div class="footer-bottom-left">
-               <div class="terms-text">
-                  <%= terms_conditions %>
-               </div>
-            </div>
             <div class="footer-bottom-right">
                <table>
                   <tbody>
@@ -348,47 +341,52 @@
             </div>
             <div class="clearfix"></div>
          </div>
-         <% if customer_note.present? %>
-         <div class="note">
-            <table class="no-page-break">
-               <thead>
-                  <tr>
-                     <td>Project Specific Notes</td>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td><%= customer_note %></td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <div class="footer-bottom">
-            <div class="section">
-               <div class="footer-bottom-left">
-                  <p style="font-size: 10pt;"><strong>Conditions of Contract: </strong></p>
-                  <div class="terms-text">
-                     <%= terms_conditions %>
-                  </div>
+      </div>
+      <div class="clearfix"></div>
+      <% if customer_note.present? %>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <td>Project Specific Notes</td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><%= customer_note %></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
+      <div class="footer-botto">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <p style="font-size: 12pt;"><strong>Conditions of Contract: </strong></p>
+               <div class="terms-text">
+                  <p><%= terms_conditions %></p>
                </div>
-               <div class="clearfix"></div>
             </div>
+            <div class="clearfix"></div>
          </div>
+      </div>
+      <div class="no-page-break">
          <div class="section section--border-bottom">
             <div class="signature terms">
-               <table>
+               <table style="font-size: 13pt;">
                   <tbody>
                      <tr>
                         <td>
                            <p>Yours Faithfully</p>
                            <p>SCF Interiors</p>
-                           <br>
+                           <br><br>
                            <p><%= sales_rep%></p>
                            <p>Estimator/Sales Consultant</p>
                            <br>
-                           <p>Accepted....................          .......................Date: .................</p>
-                           <p>Upon acceptance, if we are contracted to check measure, please indicates as to when the joinery will be complete to enable the check measure/template: ...............................</p>
+                           <p>Accepted: ...........................................                    &nbsp;&nbsp;&nbsp;&nbsp;.......................................  Date: .............................</p>
+                           <p><span style="padding-left:85pt;">(Printed Name)</span><span  style="padding-left:80pt;">(Signature)</span></p>
+                           <br>
+                           <p>Upon acceptance, if we are contracted to check measure, please indicates as to when the joinery will be complete to enable the check measure/template: ..........................................</p>
                         </td>
                      </tr>
                   </tbody>
@@ -396,6 +394,6 @@
             </div>
          </div>
       </div>
+      </div>
    </body>
 </html>
-
