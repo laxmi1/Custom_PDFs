@@ -21,47 +21,57 @@
          <%= footer_text %>
       </div>
       <div class="address-logo">
-         <table border="1" cellpadding="4">
+         <table border="1" cellpadding="3">
             <tr>
-               <td class="store-address" width="20%">
-                  <img class="logo" src="<%= logo %>">
-               </td>
-               <td class="store-address" width="20%">
-                  <%= store_address %>
-               </td>
-               <td width="20%" style="text-align: center;font-size: 13pt;">
-                  <p style="font-size: 15pt;"><strong>ORDER</strong>  <%= txn_number_only%></p>
+               <td style="text-align: center;font-size: 13pt;">
+                  <p style="font-size: 15pt;"><strong>ORDER  <%= txn_number_only%></strong></p>
                   <% if contact_name %>
                   <p><%= contact_name %></p>
                   <% end %>
                   <% if ship_date %>
-                  <span>SHIP DATE</span>
-                  <p style="color: red;"><%= ship_date %></p>
+                  <p style="border-top:2px solid black;border-bottom:2px solid black;background: #A9A9A9;color: white;">SHIP DATE</p>
+                  <p style="color: red;font-weight:bold;"><%= ship_date %></p>
                   <% end %>
                   <% if @object.in_hand_date %>
-                  <span>IN HAND DATE</span>
-                  <p style="color: red;"><%= format_date(@object.in_hand_date) %></p>
+                  <p style="border-top:2px solid black;border-bottom:2px solid black;background: #A9A9A9;color: white;">IN HANDS DATE</p>
+                  <p style="color: red;font-weight:bold;"><%= format_date(@object.in_hand_date) %></p>
                   <% end %>
                </td>
-            <tr>
-               <td style="background: #A9A9A9;" width="33%" align="center"><b style="color: white;">SALES REP INFO</b></td>
-               <td style="background: #A9A9A9;" width="33%" align="center"><b style="color: white;">CONTACT INFO</b></td>
-               <td style="background: #A9A9A9;" width="33%" align="center"><b style="color: white;">SHIPPING ADDRESS</b></td>
+               <td class="store-address" colspan="2">
+                  <div style="float: left;padding-right:10pt;"> <img class="logo" src="<%= logo %>"></div>
+                  <div>
+                     <p><b><%= store_name %></b></p>
+                     <%if store_address_street%>
+                     <p><%= store_address_street %>,<%end%>
+                        <%if store_address_street1%><%= store_address_street1 %>
+                     </p>
+                     <%end%>
+                     <%if store_address_city%>
+                     <p><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+                        <%if store_address_zip %> <%= store_address_zip%>
+                     </p>
+                     <%end%>
+                     <% if store_email%>
+                     <p><%=store_email%></p>
+                     <%end%>
+                     <% if store_phone%>
+                     <p><%=store_phone%></p>
+                     <%end%>
+                     <% if @object.account.website %> 
+                     <p><%= @object.account.website %></p>
+                     <%end%>
+                  </div>
+               </td>
             </tr>
+            <td style="background: #A9A9A9;" align="center"><b style="color: white;">SHIPPING ADDRESS</b></td>
+            <td style="background: #A9A9A9;" align="center"><b style="color: white;">SALES REP INFO</b></td>
+            <td style="background: #A9A9A9;" align="center"><b style="color: white;">CONTACT INFO</b></td>
             <tr>
-               <td width="20%">
-                  <p><%= sales_rep_information %></p>
-               </td>
-               <td width="20%">
-                  <p><%= contact_information %></p>
-                  <p><%= sales_rep_information_header %></p>
-                  <p><%= sales_rep_information %></p>
-               </td>
                <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
-               <td width="25%">                 
-                     <% if shipping_address_type != 'DropShip' %>
-                     <%= sold_to(show_company_name = false) %>
-                     <% end %>                  
+               <td>
+                  <% if shipping_address_type != 'DropShip' %>
+                  <%= sold_to(show_company_name = false) %>
+                  <% end %>                  
                   <p><%= shipping_information %></p>
                   <%if shipping_tracking.present? %>
                   <br/>
@@ -69,10 +79,16 @@
                   <%= shipping_tracking %>
                   <% end %><br>
                   <% if shipping_method %>
-                  <p><strong>Shipping Method: </strong><%= shipping_method %></p>
+                  <p style="border-top:2px solid black;padding-top:3px;">SHIPPING METHOD: <%= shipping_method %></p>
                   <% end %>
                </td>
                <% end %>
+               <td>
+                  <p><%= sales_rep_information %></p>
+               </td>
+               <td>
+                  <p><%= contact_information %></p>
+               </td>
             </tr>
          </table>
       </div>
@@ -452,3 +468,4 @@
       </div>
    </body>
 </html>
+
