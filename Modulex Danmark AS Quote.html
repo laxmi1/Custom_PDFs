@@ -1,197 +1,204 @@
 <html>
-   <head>
-      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-      <style>
-         .terms-title *, .terms-text * {
-         font-size:8pt;
-         }
-         <%= page_size %>
-         <%= body_font_family %>
-         .address-logo {
-         padding: 30pt 35pt 5pt 40pt;
-         border-bottom: 2px solid #e3e3e3;
-         }
-         .address-logo .store-address {
-         text-align: right;
-         vertical-align: top;
-         font-size: 13px;
-         }
-         .store-logo {
-         text-align: left;
-         vertical-align: top;
-         }
-         .address-logo .store-logo .logo,
-         img.logo {
-         max-width: 45mm;
-         max-height: 8mm;
-         }
-         .orderby{
-         padding: 10pt 0pt 10pt 0pt;
-         font-size: 9pt;
-         width: 25%;
-         }
-         .dates-terms{
-         padding: 0pt 0pt 0pt 0pt;
-         font-size: 9pt;
-         width: 20%;
-         }
-         .footer-bottom {
-         float: bottom;
-         margin-bottom: 100pt;
-         }
-         .footer-bottom-left {
-         width: 100%;
-         float: left;
-         text-align: justify;
-         } 
-         .footer-bottom-right {
-         float: right;
-         width: 45%;
-         border-left: solid 2px #e3e3e3;
-         background: #f7f7f7;
-         padding: 6pt 6pt 5pt 6pt;
-         margin: 10pt 0;
-         }
-         .footer-bottom-right1 {
-         float: left;
-         width: 45%;
-         padding: 6pt 6pt 5pt 1pt;
-         margin: 5pt 0;
-         }
-         .section {
-         border-top: 1px solid #e3e3e3;
-         padding: 0 40pt;
-         }          
-         #footer{
-         width: 100%;
-         position: fixed;
-         padding: 5px 0px 0px 55px;
-         border-top: 1px solid black;
-         bottom: -20pt;
-         }
-         @page{
-         @bottom 
-         {
-         content: flow(footer);
-         }
-         }
-      </style>
-   </head>
-   <body>
-      <div class="address-logo">
-         <table>
-            <tr>
-               <td class="store-logo">
-                  <img class="logo" src="<%= logo %>">
-               </td>
-               <td class="store-address" style>
-                  <p style="font-size:20pt;font-weight:bold;">Quote</p>
-               </td>
-            </tr>
-         </table>
-         <table>
-            <tr>
-               <td class="orderby">
-                  <div>
-                     <% if @company.name? %>
-                     <p><%= @company.name %></p>
-                     <%end%>
-                     <% if billing_address_attention_to %>
-                     <p><%= billing_address_attention_to.gsub('Attn:', '') %></p>
-                     <%end%>
-                     <% if billing_address_street %>
-                     <p><%= billing_address_street %></p>
-                     <%end%>
-                     <% if billing_address_street1 %>
-                     <p><%= billing_address_street1 %></p>
-                     <%end%>
-                     <% if billing_address_zip %>
-                     <p><%= billing_address_zip %><%end%> <% if billing_address_city %><%= billing_address_city %></p>
-                     <%end%>
-                     <% if billing_address_country %>
-                     <p><%= billing_address_country %></p>
-                     <%end%>
-                  </div>
-               </td>
-               <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
-               <td class="dates-terms">
-                  <p style="font-size:10pt;font-weight:bold;">Delivery address</p>
-                  <% if @company.name? %>
-                  <p><%= @company.name %></p>
-                  <%end%>
-                  <%if check_exist_empty('installing_address_attention_to') != nil %>
-                  <p><%= check_exist_empty('installing_address_attention_to').gsub('Attn:', '') %></p>
-                  <%end%>
-                  <%if check_exist_empty('installing_address_street') != nil %>
-                  <p><%= check_exist_empty('installing_address_street') %></p>
-                  <%end%>
-                  <%if check_exist_empty('installing_address_street1') != nil %>
-                  <p><%= check_exist_empty('installing_address__street1') %></p>
-                  <%end%>
-                  <%if check_exist_empty('installing_address_zip') != nil %>
-                  <p><%= check_exist_empty('installing_address_zip') %><%end%> 
-                     <%if check_exist_empty('installing_address_city') != nil %><%= check_exist_empty('installing_address_city') %>
-                  </p>
-                  <%end%>
-                  <%if check_exist_empty('installing_address_country') != nil %>
-                  <p><%= check_exist_empty('installing_address_country') %></p>
-                  <%end%>
-               </td>
-               <% end %>
-            </tr>
-         </table>
-         <table>
-            <tr>
-               <td class="orderby" style="font-weight: bold;">
-                  <p>Quote no: </p>
-                  <p>Customer  no: </p>
-                  <p>Customer  VAT no: </p>
-                  <p>Your PO no: </p>
-                  <p>Your contact name: </p>
-                  <p>Our sales person: </p>
-               </td>
-               <td class="orderby">
-                  <p><%= txn_number_only %></p>
-                  <p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p>
-                  <p><% if @company.vat_number? %>
-                     <%= @company.vat_number %>
-                  </p>
-                  <% end %>
-                  <p><% if po_number %><%= po_number %><% end %></p>
-                  <p><% if contact_name %><%= contact_name %></p>
-                  <%end%>
-                  <p><%= sales_rep %></p>
-               </td>
-               <td class="dates-terms" style="font-weight: bold;">
-                  <p>Date:                    
-                  </p>
-                  <p>Payment terms:                     
-                  </p><br>
-                  <p>Expiry date:                    
-                  </p>
-               </td>
-               <td class="dates-terms">
-                  <p><%= quote_date %></p>
-                  <% if term_code %>
-                  <p><%= term_code %></p>
-                  <% end %><br>
-                  <% if quote_expiry_date %>
-                  <p><%= quote_expiry_date%></p>
-                  <% end %>
-               </td>
-            </tr>
-         </table>
-      </div>
-      <div class="description_area">
-         <table>
-            <tr>
-               <td class="description">
-                  <p style="font-size: 12pt;padding-left: 5pt;"><%= name %></p>
-               </td>
-            </tr>
-         </table>
-      </div>
-      <div class="line-items">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <style>
+      .terms-title *, .terms-text * {
+      font-size: 8pt;
+      }
+      <%= page_size %>
+      <%= body_font_family %>
+      .address-logo {
+      padding: 30pt 35pt 5pt 40pt;
+      border-bottom: 2px solid #e3e3e3;
+      }        
+      .address-logo .store-address {
+      text-align: right;
+      vertical-align: top;
+      font-size: 13px;
+      }        
+      .store-logo {
+      text-align: left;
+      vertical-align: top;
+      }        
+      .address-logo .store-logo .logo,
+      img.logo {
+      max-width: 45mm;
+      max-height: 8mm;
+      }        
+      .orderby {
+      padding: 10pt 0pt 10pt 0pt;
+      font-size: 9pt;
+      width: 25%;
+      }        
+      .dates-terms {
+      padding: 0pt 0pt 0pt 0pt;
+      font-size: 9pt;
+      width: 20%;
+      }        
+      .footer-bottom {
+      float: bottom;
+      margin-bottom: 100pt;
+      }        
+      .footer-bottom-left {
+      width: 100%;
+      float: left;
+      text-align: justify;
+      }        
+      .footer-bottom-right {
+      float: right;
+      width: 45%;
+      border-left: solid 2px #e3e3e3;
+      background: #f7f7f7;
+      padding: 6pt 6pt 5pt 6pt;
+      margin: 10pt 0;
+      }        
+      .footer-bottom-right1 {
+      float: left;
+      width: 45%;
+      padding: 6pt 6pt 5pt 1pt;
+      margin: 5pt 0;
+      }        
+      .section {
+      border-top: 1px solid #e3e3e3;
+      padding: 0 40pt;
+      }        
+      #footer {
+      width: 100%;
+      position: fixed;
+      padding: 5px 0px 0px 55px;
+      border-top: 1px solid black;
+      bottom: -20pt;
+      }        
+      @page {
+      @bottom {
+      content: flow(footer);
+      }
+      }        
+      #footer > table {
+      table-layout: fixed;
+      width: 100%;
+      }        
+      #footer > table td {
+      width: 25%;
+      }
+    </style>
+  </head>
+<body>
+<div class="address-logo">
+    <table>
+        <tr>
+            <td class="store-logo">
+                <img class="logo" src="<%= logo %>">
+            </td>
+            <td class="store-address" style>
+                <p style="font-size:20pt;font-weight:bold;">Quote</p>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td class="orderby">
+                <div>
+                    <% if @company.name? %>
+                    <p><%= @company.name %></p>
+                    <%end%>
+                    <% if billing_address_attention_to %>
+                    <p><%= billing_address_attention_to.gsub('Attn:', '') %></p>
+                    <%end%>
+                    <% if billing_address_street %>
+                    <p><%= billing_address_street %></p>
+                    <%end%>
+                    <% if billing_address_street1 %>
+                    <p><%= billing_address_street1 %></p>
+                    <%end%>
+                    <% if billing_address_zip %>
+                    <p><%= billing_address_zip %><%end%> <% if billing_address_city %><%= billing_address_city %></p>
+                    <%end%>
+                    <% if billing_address_country %>
+                    <p><%= billing_address_country %></p>
+                    <%end%>
+                </div>
+            </td>
+            <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
+            <td class="dates-terms">
+                <p style="font-size:10pt;font-weight:bold;">Delivery address</p>
+                <% if @company.name? %>
+                <p><%= @company.name %></p>
+                <%end%>
+                <%if check_exist_empty('installing_address_attention_to') != nil %>
+                <p><%= check_exist_empty('installing_address_attention_to').gsub('Attn:', '') %></p>
+                <%end%>
+                <%if check_exist_empty('installing_address_street') != nil %>
+                <p><%= check_exist_empty('installing_address_street') %></p>
+                <%end%>
+                <%if check_exist_empty('installing_address_street1') != nil %>
+                <p><%= check_exist_empty('installing_address__street1') %></p>
+                <%end%>
+                <%if check_exist_empty('installing_address_zip') != nil %>
+                <p><%= check_exist_empty('installing_address_zip') %><%end%>
+                    <%if check_exist_empty('installing_address_city') != nil %><%=
+                    check_exist_empty('installing_address_city') %>
+                </p>
+                <%end%>
+                <%if check_exist_empty('installing_address_country') != nil %>
+                <p><%= check_exist_empty('installing_address_country') %></p>
+                <%end%>
+            </td>
+            <% end %>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td class="orderby" style="font-weight: bold;">
+                <p>Quote no: </p>
+                <p>Customer no: </p>
+                <p>Customer VAT no: </p>
+                <p>Your PO no: </p>
+                <p>Your contact name: </p>
+                <p>Our sales person: </p>
+            </td>
+            <td class="orderby">
+                <p><%= txn_number_only %></p>
+                <p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p>
+                <p><% if @company.vat_number? %>
+                    <%= @company.vat_number %>
+                </p>
+                <% end %>
+                <p><% if po_number %><%= po_number %><% end %></p>
+                <p><% if contact_name %><%= contact_name %></p>
+                <%end%>
+                <p><%= sales_rep %></p>
+            </td>
+            <td class="dates-terms" style="font-weight: bold;">
+                <p>Date:
+                </p>
+                <p>Payment terms:
+                </p><br>
+                <p>Expiry date:
+                </p>
+            </td>
+            <td class="dates-terms">
+                <p><%= quote_date %></p>
+                <% if term_code %>
+                <p><%= term_code %></p>
+                <% end %><br>
+                <% if quote_expiry_date %>
+                <p><%= quote_expiry_date%></p>
+                <% end %>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="description_area">
+    <table>
+        <tr>
+            <td class="description">
+                <p style="font-size: 12pt;padding-left: 5pt;"><%= name %></p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="line-items">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
             <thead>
@@ -340,47 +347,50 @@
             <div class="clearfix"></div>
          </div>
       </div>
-      <div id="footer">
-         <table>
-         <tr>
-            <td>
-               <p><%= store_name %></p>
-               <%if store_address_street%>
-               <p><%= store_address_street %>,<%end%>
-                  <%if store_address_street1%><%= store_address_street1 %>
-               </p>
-               <%end%>
-               <p> <%if store_address_zip %> <%= store_address_zip%><%end%> <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>              
-               </p>
-               <% if tax_code_number_text(@object.account)%>
-               <p><%=tax_code_number_text(@object.account).gsub('Tax ID:', 'VAT no: ')%></p>
-               <%end%>
-            </td>
-            <td>
-               <p>Bank: Jyske Bank</p>
-               <% if bank_account_number_text(@object.account) %>
-               <p><%= bank_account_number_text(@object.account).gsub('Bank Account#:', 'Bank Account: ') %></p>
-               <%end%>
-               <% if dir_number_text(@object.account) %>
-               <p><%= dir_number_text(@object.account).gsub('DIR #:', 'IBAN no: ') %></p>
-               <%end%>
-               <% if bic_code_number_text(@object.account) %>
-               <p><%= bic_code_number_text(@object.account) %></p>
-               <%end%>
-            </td>
-            <td>
-               <% if store_phone%>
-               <p>Phone: <%=store_phone%></p>
-               <%end%>
-               <% if store_email%>
-               <p>e-mail: <%=store_email%></p>
-               <%end%>
-               <% if @object.account.website %> 
-               <p><%= @object.account.website %></p>
-               <%end%>
-            </td>
-         </tr>
-      </div>
-   </body>
-</html>
 
+<!-- Signature Note -->
+   <div id="footer">
+    <table>
+        <tr>
+            <td>
+                <p><%= store_name %></p>
+                <%if store_address_street%>
+                <p><%= store_address_street %>,<%end%>
+                    <%if store_address_street1%><%= store_address_street1 %>
+                </p>
+                <%end%>
+                <p> <%if store_address_zip %> <%= store_address_zip%><%end%> <%if store_address_city%><%=
+                    store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+                </p>
+                <% if tax_code_number_text(@object.account)%>
+                <p><%=tax_code_number_text(@object.account).gsub('Tax ID:', 'VAT no: ')%></p>
+                <%end%>
+            </td>
+            <td>
+                <p>Bank: Jyske Bank</p>
+                <% if bank_account_number_text(@object.account) %>
+                <p><%= bank_account_number_text(@object.account).gsub('Bank Account#:', 'Bank Account: ') %></p>
+                <%end%>
+                <% if dir_number_text(@object.account) %>
+                <p><%= dir_number_text(@object.account).gsub('DIR #:', 'IBAN no: ') %></p>
+                <%end%>
+                <% if bic_code_number_text(@object.account) %>
+                <p><%= bic_code_number_text(@object.account) %></p>
+                <%end%>
+            </td>
+            <td>
+                <% if store_phone%>
+                <p>Phone: <%=store_phone%></p>
+                <%end%>
+                <% if store_email%>
+                <p>e-mail: <%=store_email%></p>
+                <%end%>
+                <% if @object.account.website %>
+                <p><%= @object.account.website %></p>
+                <%end%>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
