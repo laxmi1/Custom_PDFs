@@ -25,7 +25,7 @@
          <%= footer_text %>
       </div>
       <div class="address-logo">
-         <table border="1" cellpadding="3">
+         <table border="1">
             <tr>
                <td style="text-align: center;font-size: 13pt;">
                   <p style="font-size: 15pt;"><strong>ORDER  <%= txn_number_only%></strong></p>
@@ -43,15 +43,15 @@
                </td>
                <td style="text-align: center;font-size: 13pt;" valign="top">
                   <p style="border-top:2px solid black;border-bottom:2px solid black;background: #808080;color: white;">PRIORITY</p>
-                  <p style="color: red;font-weight:bold;"><% if po_number %><%= po_number %></p>
-                  <% end %><br>
+                  <p style="color: red;font-weight:bold;"height="30.5"><% if po_number %><%= po_number %></p>
+                  <% end %>
                   <% if show_about_this_desc and description.present? %>
                   <p style="border-top:2px solid black;border-bottom:2px solid black;background: #808080;color: white;">ABOUT THIS ORDER</p>
                   <p><%= description %></p>
                   <% end %>
                </td>
                <td class="store-address">
-                  <div style="padding-bottom:3pt;text-align:center;"> <img class="logo" src="<%= logo %>"></div>
+                  <div style="padding-bottom:2pt;text-align:center;"> <img src="https://cdn.filestackcontent.com/output=f:svg/qrp7VQ0NRgyfEAeYPrbG"  width="210" height="120"></div>
                   <div style="text-align:center;">
                      <%if store_address_street%>
                      <p><%= store_address_street %>,<%end%>
@@ -66,12 +66,12 @@
                   </div>
                </td>
             </tr>
-            <td style="background: #808080;" align="center"><b style="color: white;">SHIPPING ADDRESS</b></td>
-            <td style="background: #808080;" align="center"><b style="color: white;">CONTACT INFO</b></td>
-            <td style="background: #808080;" align="center"><b style="color: white;">SALES REP INFO</b></td>
+            <td style="background: #808080;padding:2pt;" align="center"><b style="color: white;" >SHIPPING ADDRESS</b></td>
+            <td style="background: #808080;padding:2pt;" align="center"><b style="color: white;">CONTACT INFO</b></td>
+            <td style="background: #808080;padding:2pt;" align="center"><b style="color: white;">SALES REP INFO</b></td>
             <tr>
                <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
-               <td>
+               <td style="padding:3pt;">
                   <% if shipping_address_type != 'DropShip' %>
                   <%= sold_to(show_company_name = false) %>
                   <% end %>                  
@@ -80,16 +80,16 @@
                   <br/>
                   <p class="title"><%= shipping_tracking_header%></p>
                   <%= shipping_tracking %>
-                  <% end %><br>
+                  <% end %>
                   <% if shipping_method %>
-                  <p style="border-top:2px solid black;padding-top:3px;">SHIPPING METHOD: <%= shipping_method %></p>
+                  <p style="border-top:2px solid black;padding-top:3px;"valign="bottom">SHIPPING METHOD: <%= shipping_method %></p>
                   <% end %>
                </td>
                <% end %>
-               <td valign="top">
+               <td valign="top" style="padding:3pt;">
                   <p><%= contact_information %></p>
                </td>
-               <td valign="top">
+               <td valign="top" style="padding:3pt;">
                   <p><%= sales_rep_information %></p>
                </td>
             </tr>
@@ -458,3 +458,4 @@
    </body>
 </html>
 
+   

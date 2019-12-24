@@ -85,7 +85,7 @@
                   <img class="logo" src="<%= logo %>">
                </td>
                <td class="store-address">
-                  <p style="font-size:20pt;font-weight:bold;">Order confirmation</p>
+                  <p style="font-size:20pt;font-weight:bold;">Invoice</p>
                </td>
             </tr>
          </table>
@@ -113,7 +113,7 @@
                      <%end%>
                   </div>
                </td>
-               <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+               <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
                <td class="dates-terms">
                   <p style="font-size:10pt;font-weight:bold;">Delivery address</p>
                   <% if @company.name? %>
@@ -143,7 +143,7 @@
          <table>
             <tr>
                <td class="orderby"style="font-weight: bold;">
-                  <p>Order no: </p>
+                  <p>Invoice no: </p>
                   <p>Customer  no: </p>
                   <p>Customer  VAT no: 
                   </p>
@@ -168,13 +168,16 @@
                   </p>
                   <p>Payment terms:
                   </p><br>
-                  <p>Expected shipment date:
+                  <p>Due Date:
+                  </p>
+                  <p>Shipment date:
                   </p>
                </td>
                <td class="dates-terms">
-                  <p><%= work_order_date %></p>
+                  <p><%= invoice_date %></p>
                   <p><% if term_code %><%= term_code %><% end %></p><br>
-                  <p><% if ship_date %><%= ship_date %><% end %></p>
+                  <p><%= due_date %></p>
+                  <p><% if shipping_date %><%= shipping_date %><% end %></p>
                </td>
             </tr>
          </table>
@@ -210,70 +213,83 @@
                </tr>
             </thead>
             <tbody>
-               <% items.each_with_index do |item, index| %>
-               <tr>
-                  <td class="position" rowspan="2">
-                     <div class="first">
-                        <%= index + 1 %>
-                     </div>
-                  </td>
-                  <td class="name"><%= item.name %></td>
-                  <td class="quantity"><%= item.uom %></td>
-                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="money"><%= item.unit_price %></td>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="quantity"><%= item.discount_percentage %> </td>
-                  <td class="quantity"><%= item.unit_price_after_discount %></td>
-                  <% end %>
-                  <td class="money">
-                     <div class="last">
-                        <%= item.total_price %>
-                     </div>
-                  </td>
-               </tr>
-               <tr>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="description" colspan="7">
-                     <% else %>
-                  <td class="description" colspan="5">
-                     <% end %>
-                     <div class="last">
-                        <% if item.table_view %>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.li_grid_html_view %>
-                        </div>
-                        <% else %>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.description %>
-                        </div>
-                        <% end %>
-                        <% if item.show_custom_fields(item.description_hash[:custom_fields]) && item.table_view%>
-                        <hr class="custom-field-separator">
-                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
-                        <hr class="custom-field-separator">
-                        <% end %>
-                        <% if item.product_picture_assets.count > 0 %>
-                        <% item.product_picture_assets.each do |asset| %>
-                        <img src="<%= asset.file_url %>" class="line-item-description-image">
-                        <% end %>
-                        <% end %>
-                        <% if item.product_image %>
-                        <img src="<%= item.product_image %>" class="line-item-description-image">
-                        <% end %>
-                        <% if item.table_view %>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.li_grid_html_view(show_child_items: true) %>
-                        </div>
-                        <% end %>
-                     </div>
-                  </td>
-               </tr>
-               <% end %>
-            </tbody>
-         </table>
-      </div>
-      <!-- Signature Note -->
-      <div class="footer-bottom">
+    <% items.each_with_index do |item, index| %>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name" colspan="1"><%= item.name %></td>
+          <td class="quantity"><%= item.uom %></td>
+          <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>          
+          <td class="money">
+            <%= item.unit_price %>
+          </td>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="quantity"><%= item.discount_percentage %> </td>
+              <td class="quantity"><%= item.unit_price_after_discount %></td>
+             <% end %>
+          <td class="money">
+            <div class="last">
+              <%= item.total_price %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="description" colspan="7">
+          <% else %>
+              <td class="description" colspan="5">
+          <% end %>
+          <div class="last">
+            <% if item.table_view %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view %>
+              </div>
+            <% else %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+            <% end %>
+
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+              <hr class="custom-field-separator">
+            <% end %>
+
+            <!--<div class='shipping_details'>-->
+                <!--<div class="text&#45;&#45;pre-line">-->
+                  <!--<%= simple_format(item.shipping_details) %>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view(show_child_items: true) %>
+                </div>
+            <% end %>
+          </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="footer-bottom">
          <div class="section">
             <div class="footer-bottom-right">
                <table>
@@ -397,6 +413,5 @@
          </tr>
        </table>
       </div>
-   </body>
+</body>
 </html>
-

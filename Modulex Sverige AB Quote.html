@@ -20,11 +20,11 @@
       text-align: left;
       vertical-align: top;
       }        
-      .address-logo .store-logo .logo,
+       .address-logo .store-logo .logo,
       img.logo {
-      max-width: 45mm;
-      max-height: 8mm;
-      }        
+      max-width: 90mm;
+      max-height: 20mm;
+      }     
       .orderby {
       padding: 10pt 0pt 10pt 0pt;
       font-size: 9pt;
@@ -103,7 +103,7 @@
                     <p><%= @company.name %></p>
                     <%end%>
                     <% if billing_address_attention_to %>
-                    <p><%= billing_address_attention_to.gsub('Attn:', '') %></p>
+                    <%= billing_address_attention_to.gsub('Attn:', '') %>
                     <%end%>
                     <% if billing_address_street %>
                     <p><%= billing_address_street %></p>
@@ -290,7 +290,7 @@
                   <tbody>
                      <tr>
                         <td class="labels first footer-subtotal">
-                           <p><strong>Subtotal DKK: </strong></p>
+                           <p><strong>Subtotal SEK: </strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
                            <p><strong> VAT Amount: </strong></p>
@@ -301,7 +301,7 @@
                            <% if coupon_code_discount_header %>
                            <p class="footer-discount"><strong><%= coupon_code_discount_header %>:</strong></p>
                            <% end %>
-                           <p class="footer-total"><strong>Total DKK: </strong></p>
+                           <p class="footer-total"><strong>Total SEK: </strong></p>
                            <% if show_multi_currecies %>
                            <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
                            <% end %>
