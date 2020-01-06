@@ -144,13 +144,12 @@
             <tr>
                <td class="orderby"style="font-weight: bold;">
                   <p>Order no: </p>
-                  <p>Customer  no: </p>
-                  <p>Customer  VAT no: 
-                  </p>
-                  <p>Your PO no: </p>
-                  <p>Quote no: </p>
-                  <p>Your contact name: </p>
-                  <p>Our sales person: </p>
+                  <% if @object.company.account_number %><p>Customer no: </p><% end %>
+                  <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
+                  <% if po_number %><p>Your PO no: </p><% end %>
+                  <% if quote_information %><p>Quote no: </p><% end %>
+                  <% if contact_name %><p>Your contact name: </p><% end %>
+                  <% if @object.primary_sales_rep%><p>Our sales person: </p><% end %>
                </td>
                <td class="orderby">
                   <p><%= txn_number_only %></p>
@@ -161,15 +160,18 @@
                   <p><% if po_number %><%= po_number %><% end %></p>
                   <p><% if quote_information %><%= quote_information %><% end %></p>
                   <p><% if contact_name %><%= contact_name %><%end%></p>
-                  <p><%= sales_rep %></p>
+                  <% if @object.primary_sales_rep%>
+                 <p><%=@object.primary_sales_rep.try(:name)%></p>
+               <%end%>
                </td>
                <td class="dates-terms" style="font-weight: bold;">
                   <p>Date:
                   </p>
+                  <% if term_code %>
                   <p>Payment terms:
-                  </p><br>
-                  <p>Expected shipment date:
-                  </p>
+                  </p><% end %><br>
+                  <% if ship_date %><p>Expected shipment date:
+                  </p><% end %>
                </td>
                <td class="dates-terms">
                   <p><%= work_order_date %></p>
@@ -222,7 +224,7 @@
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="money"><%= item.unit_price %></td>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="quantity"><%= item.discount_percentage %> </td>
+                   <td class="quantity"><%= item.discount_percentage %> </td>
                   <td class="quantity"><%= item.unit_price_after_discount %></td>
                   <% end %>
                   <td class="money">

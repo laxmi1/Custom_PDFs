@@ -151,11 +151,11 @@
         <tr>
             <td class="orderby" style="font-weight: bold;">
                 <p>Quote no: </p>
-                <p>Customer no: </p>
-                <p>Customer VAT no: </p>
-                <p>Your PO no: </p>
-                <p>Your contact name: </p>
-                <p>Our sales person: </p>
+                <% if @object.company.account_number %><p>Customer no: </p><% end %>
+                <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
+                <% if po_number %><p>Your PO no: </p><% end %>
+                <% if contact_name %><p>Your contact name: </p><% end %>
+                <% if @object.primary_sales_rep%><p>Our sales person: </p><% end %>
             </td>
             <td class="orderby">
                 <p><%= txn_number_only %></p>
@@ -167,15 +167,17 @@
                 <p><% if po_number %><%= po_number %><% end %></p>
                 <p><% if contact_name %><%= contact_name %></p>
                 <%end%>
-                <p><%= sales_rep %></p>
+                <% if @object.primary_sales_rep%>
+                 <p><%=@object.primary_sales_rep.try(:name)%></p>
+               <%end%>
             </td>
             <td class="dates-terms" style="font-weight: bold;">
                 <p>Date:
                 </p>
-                <p>Payment terms:
-                </p><br>
-                <p>Expiry date:
-                </p>
+                <% if term_code %><p>Payment terms:
+                </p><% end %><br>
+                <% if quote_expiry_date %><p>Expiry date:
+                </p><% end %>
             </td>
             <td class="dates-terms">
                 <p><%= quote_date %></p>
@@ -369,7 +371,7 @@
                 <%end%>
             </td>
             <td>
-                <p>Bank: Jyske Bank</p>
+                <p>Bank: Skandinaviska Enskilda Banken</p>
                 <% if bank_account_number_text(@object.account) %>
                 <p><%= bank_account_number_text(@object.account).gsub('Bank Account#:', 'Bank Account: ') %></p>
                 <%end%>
