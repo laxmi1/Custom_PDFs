@@ -116,6 +116,9 @@
                <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
                <td class="dates-terms">
                   <p style="font-size:10pt;font-weight:bold;">Delivery address</p>
+                 <%if check_exist_empty('installing_address_name') != nil %>
+                <p><%= check_exist_empty('installing_address_name') %></p>
+                <%end%>
                   <% if @company.name? %>
                   <p><%= @company.name %></p>
                   <%end%>
@@ -144,7 +147,7 @@
             <tr>
                <td class="orderby"style="font-weight: bold;">
                   <p>Order no: </p>
-                  <% if @object.company.account_number %><p>Customer no: </p><% end %>
+                  <% unless @object.company.account_number.blank?%><p>Customer no: </p><% end %>
                   <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
                   <% if po_number %><p>Your PO no: </p><% end %>
                   <% if quote_information %><p>Quote no: </p><% end %>
@@ -153,14 +156,14 @@
                </td>
                <td class="orderby">
                   <p><%= txn_number_only %></p>
-                  <p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p>
+                  <% unless @object.company.account_number.blank?%><p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p><% end %>
                   <% if @company.vat_number? %>
                   <p><%= @company.vat_number %></p>
                   <% end %>
                   <p><% if po_number %><%= po_number %><% end %></p>
                   <p><% if quote_information %><%= quote_information %><% end %></p>
                   <p><% if contact_name %><%= contact_name %><%end%></p>
-                  <% if @object.primary_sales_rep%>
+                 <% if @object.primary_sales_rep%>
                  <p><%=@object.primary_sales_rep.try(:name)%></p>
                <%end%>
                </td>
