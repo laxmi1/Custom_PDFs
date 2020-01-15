@@ -125,9 +125,6 @@
                 <%if check_exist_empty('installing_address_name') != nil %>
                 <p><%= check_exist_empty('installing_address_name') %></p>
                 <%end%>
-                <% if @company.name? %>
-                <p><%= @company.name %></p>
-                <%end%>
                 <%if check_exist_empty('installing_address_attention_to') != nil %>
                 <p><%= check_exist_empty('installing_address_attention_to').gsub('Attn:', '') %></p>
                 <%end%>

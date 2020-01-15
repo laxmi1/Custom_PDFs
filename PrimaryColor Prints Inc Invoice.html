@@ -1,0 +1,180 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:6pt !important;
+         }
+         <%= page_size %>
+         <%= body_font_family %>
+         .address-logo {
+         padding: 20pt 35pt 35pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses {
+         padding: 23pt 120pt 5pt 120pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 10pt;
+         }
+         .summary {
+         margin: 0pt;
+         padding: 25pt 25pt;
+         border-bottom: 0px solid #e3e3e3;
+         background: transparent;
+         }
+         .line-items {
+         margin-top: 16pt;
+         }
+         .line-items tbody tr:first-child td {
+         border-top: 0px solid #e3e3e3;
+         padding-top: 5pt;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 30%;
+         border-left: solid 0px #e3e3e3;
+         background: transparent;
+         padding: 6pt 3pt 5pt 6pt;
+         margin: 10pt 0;
+         }
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
+         }
+         .footer-bottom {
+         float: bottom;
+         margin-bottom: 180pt;
+         }
+         @page {
+         @bottom-right {
+         content: " ";
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-address">
+               </td>
+               <td class="store-logo">
+                  <h2 class="main-title"><%= invoice_number %></h2>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="addresses">
+         <table>
+            <tr>
+               <td class="address left">
+                  <div class="address-wrapper" style="padding-top: 11pt;padding-left:8pt;">
+                     <p><%= sold_to %></p>
+                     <p><%= billing_information %></p>
+                  </div>
+               </td>
+               <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') ) %>
+               <td class="address left">
+                  <div class="address-wrapper" style="padding-left:85pt;padding-top: 11pt;">
+                     <span >
+                     <% if shipping_address_type != 'DropShip' %>
+                     <%= sold_to(show_company_name = false) %>
+                     <% end %>
+                     <%= shipping_information %>
+                     </span>
+                     <%if shipping_tracking %>
+                     <br/>
+                     <p class="title"><%= shipping_tracking_header%></p>
+                     <%= shipping_tracking %>
+                     <% end %>
+                  </div>
+               </td>
+               <% end %>
+            </tr>
+         </table>
+      </div>
+      <div class="summary">
+         <table>
+            <tr>
+               <td class="summ left">
+                  <div class="summary-wrapper">
+                     <p><span><%= invoice_date %></span><span style="padding-left: 55pt;"><% if term_code %><%= term_code %><% end %></span><span style="padding-left: 15pt;"><%= due_date %></span><span style="padding-left: 50pt;"><% if po_number %><%= po_number %><% end %></span></p>
+                     <p style="padding-top:20pt;"><%= sales_rep %></p>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <% if show_multi_currecies %>
+         <p class="currency-note">
+            All prices in (default currency) except for the final price at the bottom showing in your local currency.
+         </p>
+         <% end %>
+         <table>
+            <thead>
+               <tr>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name" colspan="1"><%= item.name %></td>
+                  <td class="quantity" style="padding-right: 50pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity"style="padding-right: 50pt;"><%= item.uom %></td>
+                  <td class="money">
+                     <%= item.unit_price %>
+                  </td>
+
+                  <td class="money">
+                     <div class="last" style="padding-left: 40pt;margin-right: -5pt">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="terms-text">
+               </div>
+            </div>
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td class="labels first footer-subtotal">
+                           <p><strong></strong></p>
+                           <p class="footer-total"><strong>&nbsp;</strong></p>
+                        </td>
+                        <td class="money last footer-subtotal">
+                           <p><strong><%= sub_total %></strong></p>
+                           <% if show_tax  %>
+                           <p><strong><%= total_tax %></strong></p>
+                           <% end %>
+                           <p class="footer-total" style="padding-top: 10pt;padding-left: 3pt;"><strong><%= final_price %></strong></p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+   </body>
+</html>
+

@@ -22,8 +22,8 @@
          }
          .address-logo .store-logo .logo,
          img.logo {
-         max-width: 90mm;
-         max-height: 20mm;
+         max-width: 45mm;
+         max-height: 8mm;
          }
          .orderby{
          padding: 10pt 0pt 10pt 0pt;
@@ -85,7 +85,7 @@
                   <img class="logo" src="<%= logo %>">
                </td>
                <td class="store-address">
-                  <p style="font-size:20pt;font-weight:bold;">Order confirmation</p>
+                  <p style="font-size:20pt;font-weight:bold;">Invoice</p>
                </td>
             </tr>
          </table>
@@ -113,10 +113,10 @@
                      <%end%>
                   </div>
                </td>
-               <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+               <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
                <td class="dates-terms">
                   <p style="font-size:10pt;font-weight:bold;">Delivery address</p>
-                 <%if check_exist_empty('installing_address_name') != nil %>
+                  <%if check_exist_empty('installing_address_name') != nil %>
                 <p><%= check_exist_empty('installing_address_name') %></p>
                 <%end%>
                   <%if check_exist_empty('installing_address_attention_to') != nil %>
@@ -142,41 +142,48 @@
          </table>
          <table>
             <tr>
-               <td class="orderby"style="font-weight: bold;">
-                  <p>Order no: </p>
-                  <% unless @object.company.account_number.blank?%><p>Customer no: </p><% end %>
-                  <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
-                  <% if po_number %><p>Your PO no: </p><% end %>
-                  <% if quote_information %><p>Quote no: </p><% end %>
-                  <% if contact_name %><p>Your contact name: </p><% end %>
-                  <% if @object.primary_sales_rep%><p>Our sales person: </p><% end %>
-               </td>
-               <td class="orderby">
-                  <p><%= txn_number_only %></p>
-                  <% unless @object.company.account_number.blank?%><p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p><% end %>
-                  <% if @company.vat_number? %>
-                  <p><%= @company.vat_number %></p>
-                  <% end %>
-                  <p><% if po_number %><%= po_number %><% end %></p>
-                  <p><% if quote_information %><%= quote_information %><% end %></p>
-                  <p><% if contact_name %><%= contact_name %><%end%></p>
-                 <% if @object.primary_sales_rep%>
-                 <p><%=@object.primary_sales_rep.try(:name)%></p>
-               <%end%>
-               </td>
-               <td class="dates-terms" style="font-weight: bold;">
-                  <p>Date:
-                  </p>
-                  <% if term_code %><p>Payment terms:
+              <td class="orderby"style="font-weight: bold;">
+               <p>Invoice no: </p>
+               <% unless @object.company.account_number.blank?%><p>Customer no: </p><% end %>
+                <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
+                <% if po_number %><p>Your PO no: </p><% end %>
+                <p>Order no: </p>
+                <% if contact_name %><p>Your contact name: </p><% end %>
+                <% if @object.primary_sales_rep%><p>Our sales person: </p><% end %>
+                <% if project_manager_name %><p>Our contact:</p><%end%>
+              </td>
+              <td class="orderby">
+                <p><%= txn_number_only %></p>
+                <% unless @object.company.account_number.blank?%><p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p><% end %>
+                <% if @company.vat_number? %>
+                <p><%= @company.vat_number %></p>
+                <% end %>
+                <p><% if po_number %><%= po_number %><% end %></p>
+                <p><%= @object.work_orders.map { |ord| ord.txn_number }.join(',') %></p>
+                <p><% if contact_name %><%= contact_name %><%end%></p>
+                <% if @object.primary_sales_rep%>
+                <p><%=@object.primary_sales_rep.try(:name)%></p>
+                <%end%>
+                <% if project_manager_name %>
+                <p><%= project_manager_name %></p>
+                <%end%>
+              </td>
+              <td class="dates-terms" style="font-weight: bold;">
+                <p>Date:
+                </p>
+                <% if term_code %><p>Payment terms:
                 </p><% end %><br>
-                  <% if ship_date %><p>Expected shipment date:
-                  </p><% end %>
-               </td>
-               <td class="dates-terms">
-                  <p><%= work_order_date %></p>
-                  <p><% if term_code %><%= term_code %><% end %></p><br>
-                  <p><% if ship_date %><%= ship_date %><% end %></p>
-               </td>
+                <p>Due Date:
+                </p>
+                <% if shipping_date %><p>Shipment date:
+                </p><% end %>
+              </td>
+              <td class="dates-terms">
+                <p><%= invoice_date %></p>
+                <p><% if term_code %><%= term_code %><% end %></p><br>
+                <p><%= due_date %></p>
+                <p><% if shipping_date %><%= shipping_date %><% end %></p>
+              </td>
             </tr>
          </table>
       </div>
@@ -202,7 +209,7 @@
                   <th class="quantity"><%= qty_header %></th>
                   <th class="money">UNIT PRICE</th>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity"><%= discount_header %> </th>
+                  <th class="quantity"><%= discount_header %>% </th>
                   <th class="quantity"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
@@ -211,77 +218,90 @@
                </tr>
             </thead>
             <tbody>
-               <% items.each_with_index do |item, index| %>
-               <tr>
-                  <td class="position" rowspan="2">
-                     <div class="first">
-                        <%= index + 1 %>
-                     </div>
-                  </td>
-                  <td class="name"><%= item.name %></td>
-                  <td class="quantity"><%= item.uom %></td>
-                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="money"><%= item.unit_price %></td>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="quantity"><%= item.discount_percentage %> </td>
-                  <td class="quantity"><%= item.unit_price_after_discount %></td>
-                  <% end %>
-                  <td class="money">
-                     <div class="last">
-                        <%= item.total_price %>
-                     </div>
-                  </td>
-               </tr>
-               <tr>
-                  <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="description" colspan="7">
-                     <% else %>
-                  <td class="description" colspan="5">
-                     <% end %>
-                     <div class="last">
-                        <% if item.table_view %>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.li_grid_html_view %>
-                        </div>
-                        <% else %>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.description %>
-                        </div>
-                        <% end %>
-                        <% if item.show_custom_fields(item.description_hash[:custom_fields]) && item.table_view%>
-                        <hr class="custom-field-separator">
-                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
-                        <hr class="custom-field-separator">
-                        <% end %>
-                        <% if item.product_picture_assets.count > 0 %>
-                        <% item.product_picture_assets.each do |asset| %>
-                        <img src="<%= asset.file_url %>" class="line-item-description-image">
-                        <% end %>
-                        <% end %>
-                        <% if item.product_image %>
-                        <img src="<%= item.product_image %>" class="line-item-description-image">
-                        <% end %>
-                        <% if item.table_view %>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.li_grid_html_view(show_child_items: true) %>
-                        </div>
-                        <% end %>
-                     </div>
-                  </td>
-               </tr>
-               <% end %>
-            </tbody>
-         </table>
-      </div>
-      <!-- Signature Note -->
-      <div class="footer-bottom">
+    <% items.each_with_index do |item, index| %>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name" colspan="1"><%= item.name %></td>
+          <td class="quantity"><%= item.uom %></td>
+          <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>          
+          <td class="money">
+            <%= item.unit_price %>
+          </td>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="quantity"><%= item.discount_percentage %> </td>
+              <td class="quantity"><%= item.unit_price_after_discount %></td>
+             <% end %>
+          <td class="money">
+            <div class="last">
+              <%= item.total_price %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="description" colspan="7">
+          <% else %>
+              <td class="description" colspan="5">
+          <% end %>
+          <div class="last">
+            <% if item.table_view %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view %>
+              </div>
+            <% else %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+            <% end %>
+
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+              <hr class="custom-field-separator">
+            <% end %>
+
+            <!--<div class='shipping_details'>-->
+                <!--<div class="text&#45;&#45;pre-line">-->
+                  <!--<%= simple_format(item.shipping_details) %>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view(show_child_items: true) %>
+                </div>
+            <% end %>
+          </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="footer-bottom">
          <div class="section">
             <div class="footer-bottom-right">
                <table>
                   <tbody>
                      <tr>
                         <td class="labels first footer-subtotal">
-                           <p><strong> Subtotal SEK: </strong></p>
+                           <p><strong> Subtotal NOK: </strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
                            <p><strong> VAT Amount: </strong></p>
@@ -292,7 +312,7 @@
                            <% if coupon_code_discount_header %>
                            <p class="footer-discount"><strong><%= coupon_code_discount_header %>:</strong></p>
                            <% end %>
-                           <p class="footer-total"><strong>Total SEK: </strong></p>
+                           <p class="footer-total"><strong>Total NOK: </strong></p>
                            <% if show_multi_currecies %>
                            <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
                            <% end %>
@@ -373,7 +393,7 @@
                <%end%>
             </td>
             <td>
-               <p>Bank: Skandinaviska Enskilda Banken</p>
+               <p>Bank: DNB Norge</p>
                <% if bank_account_number_text(@object.account) %>
                <p><%= bank_account_number_text(@object.account).gsub('Bank Account#:', 'Bank Account: ') %></p>
                <%end%>
@@ -398,6 +418,5 @@
          </tr>
        </table>
       </div>
-   </body>
+</body>
 </html>
-
