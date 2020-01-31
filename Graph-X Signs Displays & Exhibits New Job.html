@@ -150,10 +150,11 @@
                <tr>
                   <td class="address left">
                      <div class="address-wrapper">
-                        <% items.each_with_index do |item, index| %>
-                        <p style="font-size:14pt;"><strong><%= item.name %></strong></p>
+                        <% items.each_with_index do |item, index| %>                       
+                        <p style="font-size:14pt;"><b><%= index+1 %>.</b><strong><%= item.name %></strong></p>
                         <p><%= description %></p>
                         <% end %>
+                        <%= job_panel_items_table %>
                      </div>
                   </td>
                </tr>

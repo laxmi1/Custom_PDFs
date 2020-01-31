@@ -11,7 +11,7 @@
          font-size: 15px;
          }
          .address-logo {
-         padding: 40pt 5pt 5pt 35pt;
+         padding: 40pt 35pt 5pt 35pt;
          border-bottom: 0px solid #e3e3e3;
          }
          .address-logo .store-address {
@@ -64,7 +64,7 @@
          }
          .footer-bottom-right {
          float: right;
-         width: 30%;
+         width: 35%;
          border-left: solid 0px #e3e3e3;
          background: none;
          padding: 6pt 0pt 5pt 6pt;
@@ -84,12 +84,10 @@
          <%= footer_text %>
       </div>
       <!-- Store Address and Logo -->
-      <!-- Store Address and Logo -->
       <div class="address-logo">
          <table style="border: 0px solid black;">
             <tr style="border: 0px solid black;">
                <td class="store-address" style="border: 0px solid black;">
-                  <p><font size="5" style="color:#6495ED;;font-weight: bold;">PURCHASE ORDER</font></p>
                   <p><font size="5" style="color:#6495ED;;font-weight: bold;"><%= store_name %></font></p>
                   <%if store_address_street%>
                   <p><%= store_address_street %>,
@@ -110,6 +108,11 @@
                <td class="store-logo" style="border: 0px solid black;">
                   <img class="logo" src="<%= logo %>">
                </td>
+               <td class="store-logo" style="border: 0px solid black;">
+                  <p><font size="5" style="color:#6495ED;font-weight: bold;">PURCHASE ORDER</font></p><br>
+                  <p style="font-size: 21pt;"><%= purchase_order_number %></p>
+                  <p style="font-size: 12pt;">DATE: <%= po_date %></p>
+               </td>
             </tr>
          </table>
       </div>
@@ -125,9 +128,8 @@
                   <p><%= vendor_address %></p>
                </td>
                <% if drop_ship_to.present? || shipping_information.present?  %>
-               <td class="address left">
+               <td class="address left" style="padding:5pt;">
                   <div class="address-wrapper">
-                     <p class="title"><%= shipping_information_header %></p>
                      <% if drop_ship_to.present? %>
                      <%= drop_ship_to %>
                      <% else %>
