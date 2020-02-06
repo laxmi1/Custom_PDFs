@@ -154,7 +154,6 @@
                         <p style="font-size:14pt;"><b><%= index+1 %>.</b><strong><%= item.name %></strong></p>
                         <p><%= description %></p>
                         <% end %>
-                        <%= job_panel_items_table %>
                      </div>
                   </td>
                </tr>
@@ -186,7 +185,11 @@
                      </div>
                   </td>
                </tr>
+               
             </table>
+            <tr class="address left">            
+             <%= job_panel_items_table %>
+            </tr>
          </div>
          <% if has_pricing? %>
          <% if apparel_ui? %>
