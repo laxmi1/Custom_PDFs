@@ -120,13 +120,13 @@
          font-weight: normal;
          }
          }
-         .section {
-         border-top: 0px solid #e3e3e3;
-         padding: 0 35pt;
-         }
-         .terms-title *, .terms-text * {
-         font-size: 8pt;
-         }
+       .section {
+       border-top: 0px solid #e3e3e3;
+      padding: 0 35pt;
+      }
+     .terms-title *, .terms-text * {
+     font-size: 8pt;
+     }
       </style>
    </head>
    <body>
@@ -330,7 +330,23 @@
             </tbody>
          </table>
       </div>
-      
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td style="padding-left:40pt;font-size:12pt;"><%= customer_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td  style="padding-left:40pt;padding-bottom:6pt;"><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
       <!-- Signature Note -->
       <div class="termtotals">
          <table>
