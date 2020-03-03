@@ -2,39 +2,64 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
-        <%= page_size %>
-        <%= body_font_family %>
-        .store-logo {
-        text-align: left;
-        vertical-align: top;
-        }
-        .summary .summ .title {
-        text-transform: capitalize;
-        margin-top: 5pt;
-        font-size: 15px;
-        color: #6D6A6A;
-        }
-        .addresses .address .title {
-        text-transform: capitalize;
-        margin-top: 0pt;
-        font-size: 15px;
-        color: #6D6A6A;
-        }
-        .line-items thead th {
-        font-size: 15px;
-        text-transform: capitalize;
-        color: #999999;
-        padding: 5pt 5pt;
-        }
-        .line-items tbody tr td {
-        vertical-align: top;
-        font-size: 14px;
-        padding: 0 5pt;
-        }
-        .line-items tbody tr:first-child td {
-        border-top: 0px solid #e3e3e3;
-        padding-top: 10pt;
-        }
+         <%= page_size %>
+         <%= body_font_family %>
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
+         }
+         h1 {
+         font-size: 31px;
+         margin: 15pt 0;
+         font-weight: normal;
+         }
+         h1 small {
+         font-size: 21px;
+         }
+         .addresses .address {
+         vertical-align: top;
+         font-size: 12pt;
+         }
+         .summary {
+         margin: 0pt;
+         padding: 5pt 35pt;
+         border-bottom: 2px solid #e3e3e3;
+         background: #f7f7f7;
+         font-size: 12pt;
+         }
+         .summary .summ .title {
+         text-transform: capitalize;
+         margin-top: 5pt;
+         font-size: 14pt;
+         color: #6D6A6A;
+         }
+         .addresses .address .title {
+         text-transform: capitalize;
+         margin-top: 0pt;
+         font-size: 14pt;
+         color: #6D6A6A;
+         }
+         .description_area {
+         padding: 5pt 35pt;
+         border-bottom: 2px solid #e3e3e3;
+         font-size: 12pt;
+         }
+         .line-items thead th {
+         font-size: 14pt;
+         text-transform: capitalize;
+         color: #999999;
+         padding: 5pt 5pt;
+         font-weight: normal;
+         }
+         .line-items tbody tr td {
+         vertical-align: top;
+         font-size: 13pt;
+         padding: 0 5pt;
+         }
+         .line-items tbody tr:first-child td {
+         border-top: 0px solid #e3e3e3;
+         padding-top: 15pt;
+         }
       </style>
    </head>
    <body>
@@ -63,7 +88,7 @@
                      </h1>
                   </div>
                </td>
-               <td class="summ right">
+               <td class="summ left" style="border-left: 3px solid #e3e3e3;padding-left: 10pt;">
                   <div class="summary-wrapper">
                      <p class="title"><%= ordered_by_header %></p>
                      <p><%= sold_to %></p>
@@ -106,7 +131,7 @@
             <tr>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title"><%= contact_information_header %></p>
+                     <p class="title">Primary Contact</p>
                      <p><%= contact_information %></p>
                   </div>
                </td>
@@ -142,7 +167,7 @@
             <thead style="border-bottom: 2px solid #e3e3e3;">
                <tr>
                   <th class="position">
-                     <div class="first">#</div>
+                     <div class="first" style="margin-left: -5pt;">#</div>
                   </th>
                   <th class="name"><%= item_header %></th>
                   <th class="state"><%= state_header %></th>
@@ -156,7 +181,7 @@
             <tbody class='no-page-break'>
                <tr>
                   <td class="position" rowspan="2">
-                     <div class="first">
+                     <div class="first" style="margin-left: -5pt;">
                         <%= index + 1 %>
                      </div>
                   </td>

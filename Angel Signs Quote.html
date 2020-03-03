@@ -45,10 +45,13 @@
          .li-desc-fixed-width {
          max-width: 450pt;
          }
-.line-items .description {
-    font-size: 12px;
-    padding: 0 35pt 6pt 0pt;
-}
+         .line-items .description {
+         font-size: 12px;
+         padding: 0 35pt 6pt 0pt;
+         }
+         .footer-bottom {
+         float: none;
+         }
          .footer-bottom-right {
          float: right;
          width: 100%;
@@ -64,6 +67,8 @@
          margin: 2pt 0;
          border-top: 0.9pt solid #f1bc1a;
          padding-bottom: 2pt;
+         font-size: 7pt;
+         font-family: "DejaVu Sans", sans-serif;
          }
          .section {
          border-top: 0px solid #e3e3e3;
@@ -79,7 +84,7 @@
          font-size: 7pt;
          }
          .terms-text{
-         font-size:6pt !important;
+         font-size:7pt !important;
          padding: 4pt 0;
          /*padding: 5pt 35pt;*/
          }
@@ -129,7 +134,7 @@
                   <% if contact_name %>
                   <p style="font-family:'DejaVu Sans', sans-serif; font-size: 9pt;">
                    Dear <%= contact_name %>
-                  </p>
+                  </p><br>
                   <%end%>
                   <p><span style="font-family:'DejaVu Sans', sans-serif; font-size: 9pt;">
                      Thank you for the opportunity to quote, relevant costs & options are listed below. Should you need to alter this in anyway or details are incorrect, please contact us anytime. Once we receive approval to proceed (in writing, via return email) we will present design concepts. Angel Signs are proud to produce quality signage,</span>
