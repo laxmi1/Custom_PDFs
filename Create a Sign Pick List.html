@@ -9,43 +9,45 @@
          vertical-align: top;
          }
          h1 {
-         font-size: 31px;
+         font-size: 35pt;
          margin: 15pt 0;
-         font-weight: normal;
+         font-weight: bold;
          }
          h1 small {
-         font-size: 21px;
+         font-size: 20pt;
          }
          .addresses .address {
          vertical-align: top;
-         font-size: 12pt;
+         font-size: 13pt;
          }
          .summary {
          margin: 0pt;
          padding: 5pt 35pt;
          border-bottom: 2px solid #e3e3e3;
          background: #f7f7f7;
-         font-size: 12pt;
+         font-size: 15pt;
+         font-weight: bold;
          }
          .summary .summ .title {
          text-transform: capitalize;
          margin-top: 5pt;
-         font-size: 14pt;
+         font-size: 15pt;
          color: #6D6A6A;
          }
          .addresses .address .title {
          text-transform: capitalize;
          margin-top: 0pt;
-         font-size: 14pt;
+         font-size: 15pt;
          color: #6D6A6A;
          }
          .description_area {
          padding: 5pt 35pt;
          border-bottom: 2px solid #e3e3e3;
-         font-size: 12pt;
+         font-size: 15pt;
+         font-weight: bold;
          }
          .line-items thead th {
-         font-size: 14pt;
+         font-size: 13pt;
          text-transform: capitalize;
          color: #999999;
          padding: 5pt 5pt;
@@ -53,12 +55,14 @@
          }
          .line-items tbody tr td {
          vertical-align: top;
-         font-size: 13pt;
+         font-size: 14pt;
          padding: 0 5pt;
+         font-weight: bold;
          }
          .line-items tbody tr:first-child td {
          border-top: 0px solid #e3e3e3;
-         padding-top: 15pt;
+         padding-top: 14pt;
+         font-weight: bold;
          }
       </style>
    </head>
@@ -83,14 +87,14 @@
             <tr>
                <td class="summ left">
                   <div class="summary-wrapper">
-                     <h1 class="main-title"><%= pick_list_number %> <br/>
-                        <small><%= name %></small>
+                     <h1 class="main-title" style="font-size: 35pt;"><%= pick_list_number %> <br/>
+                        <small style="font-weight: normal;font-size: 20pt;"><%= name %></small>
                      </h1>
                   </div>
                </td>
                <td class="summ left" style="border-left: 3px solid #e3e3e3;padding-left: 10pt;">
-                  <div class="summary-wrapper">
-                     <p class="title"><%= ordered_by_header %></p>
+                  <div class="summary-wrapper" style="font-size: 13pt">
+                     <p class="title" style="font-weight: normal;"><%= ordered_by_header %></p>
                      <p><%= sold_to %></p>
                      <%= billing_information %>
                   </div>
@@ -102,25 +106,25 @@
          <table>
             <tr>
                <td class="address left">
-                  <div class="address-wrapper">
+                  <div class="address-wrapper" style="font-size: 18pt;">
                      <% if quote_information %>
                      <p class="title"><%= quote_information_header %></p>
-                     <p><%= quote_information %></p>
+                     <p style="font-weight: bold;"><%= quote_information %></p>
                      <% end %>
                   </div>
                </td>
                <td class="address left">
                   <div class="address-wrapper">
                      <% if po_number %>
-                     <p class="title"><%= po_number_header %></p>
-                     <p><%= po_number %></p>
+                     <p class="title" style="font-size: 18pt;"><%= po_number_header %></p>
+                     <p style="font-weight: bold;font-size: 18pt"><%= po_number %></p>
                      <% end %>
                   </div>
                </td>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title"><%= pick_list_date_header %></p>
-                     <p><%= pick_list_date %></p>
+                     <p class="title" style="font-size: 18pt;"><%= pick_list_date_header %></p>
+                     <p style="font-weight: bold;font-size: 18pt;"><%= pick_list_date %></p>
                   </div>
                </td>
             </tr>
@@ -131,16 +135,16 @@
             <tr>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title">Primary Contact</p>
-                     <p><%= contact_information %></p>
+                     <p class="title" style="font-size: 13pt;">Primary Contact</p>
+                     <p style="font-weight: bold;font-size: 13pt;"><%= contact_information %></p>
                   </div>
                </td>
                <td class="address left">
                   <div class="address-wrapper">
+                     <p class="title" style="font-weight: normal;font-size: 13pt;"><%= shipping_tracking_header%></p>
                      <%if shipping_tracking.present? %>
-                     <br/>
-                     <p class="title"><%= shipping_tracking_header%></p>
-                     <%= shipping_tracking %>
+                     <br/>                     
+                    <p style="font-weight: bold;font-size: 13pt;"><%= shipping_tracking %></p>
                      <% end %>
                   </div>
                </td>
@@ -150,11 +154,11 @@
       <% if show_about_this_desc and description.present? %>
       <div class="description_area">
          <table>
-            <tr>
-               <td class="header">
+            <tr >
+               <td class="header" style="font-size: 13pt;">
                   <%= about_this_wo_header %>:
                </td>
-               <td class="description">
+               <td class="description" style="font-size: 13pt;">
                   <%= description %>
                </td>
             </tr>
@@ -192,7 +196,11 @@
                      <div class="last"><%= item.uom %></div>
                   </td>
                </tr>
-            </tbody>
+            <tr>
+          <td class="description" colspan="1">            
+          </td>
+        </tr>
+        </tbody>
             <% end %>
             <tfoot class="no-page-break">
             </tfoot>
