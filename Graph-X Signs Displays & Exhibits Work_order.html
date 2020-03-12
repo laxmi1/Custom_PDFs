@@ -336,6 +336,13 @@
                         <% end %>
                         <% end %>
                      </div>
+
+                     <% if item.panel_description_enabled? %>
+                        <div>
+                         <%= item.panel_description %>
+                        </div>
+                     <% end %>
+                     
                      <div>
                         <div class='design_details'>
                            <div class="text--pre-line">
@@ -413,7 +420,7 @@
                         <% end %>
                      </div>
                   </td>
-               </tr>
+               </tr> 
                <% end %>-->
             </tbody>
             <% end %>

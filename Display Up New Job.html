@@ -6,6 +6,9 @@
       <style>
          <%= page_size %>
          <%= body_font_family %>
+          .job-section  {
+          margin: 0.2em 0;
+          }
          .job-section--custom-fields table th {
          text-align: left;
          }
@@ -16,7 +19,7 @@
          text-align: center;
          }
          .box__content-proof-img {
-         height: 31.4em;
+         height: 25.4em;
          width: 100%;
          display: table;
          }
@@ -51,17 +54,28 @@
             </div>
          </div>
          <!-- RUSH -->
+  <% if job_rush %>
+    <div class="job-section job-section--mb-none">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p class="job-rush"><%= job_rush_text %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
          <!-- COMPANY -->
          <!-- SHIPPING -->
          <!-- DETAILS -->
-         <div class="job-section job-pdf__details" style="margin-top: -17pt;">
+         <div class="job-section job-pdf__details" style="margin-top: -2pt;">
             <div class="container">
                <div class="row">
                   <div class="col-8" style="width: 63.66666667%;">
                      <div class="box box--grey box--border">
                         <div class="box__content box__content-proof-img text--center">
                            <div>
-                              <img src="<%= proof_image(750,360) %>">
+                              <img src="<%= proof_image(500,300) %>">
                            </div>
                         </div>
                         <div>
@@ -113,7 +127,7 @@
                      </div>
                      <% end %>
                   </div>
-                  <div class="col-4" style="width: 36%;">
+                  <div class="col-4" style="width: 36.3333333%;">
                      <div class="box box--default box--border">
                         <div class="box__title">
                            <p><%= customer_header %>: <strong><%= company_name %></strong></p>
@@ -147,7 +161,7 @@
                      <div class="col-13">
                         <div class="box box--white box--border box--margin-top">
                            <div><%= job_description_header %>:</div>
-                           <div class="box__content" style="height: 29em;">
+                           <div class="box__content">
                               <p>
                                  <%= description %>
                               </p>
@@ -161,7 +175,7 @@
          </div>
          <!-- BOM -->
          <!-- BOM - OTHERS -->
-         <div class="job-section job-section--custom-fields" style="margin-top:-9pt;">
+         <div class="job-section job-section--custom-fields">
             <div class="container">
                <div class="row">
                   <div class="col-12">
