@@ -56,6 +56,9 @@
          background: #1AC422;
          color: #fff;
          }
+.table--striped > tbody > tr:nth-of-type(odd) {
+    background-color: #CDE7CA;
+}
       </style>
    </head>
    <body>
@@ -327,6 +330,14 @@
                                           <tbody>
                                              <%= materials_bom_table(true) %>
                                           </tbody>
+                                          <% if labor_table != "" || machine_table != "" %>
+                                          <tbody>
+                                             <%= labor_table %>
+                                          </tbody>
+                                          <tbody>
+                                             <%= machine_table %>
+                                          </tbody>
+                                          <% end %>              
                                        </table>
                                        <% end %>
                                     </div>
@@ -356,39 +367,10 @@
             </div>
          </div>
          <!-- BOM -->
-         <% if has_pricing? %>
-         <div class="job-section job-section--custom-fields">
-            <div class="container">
-               <div class="row">
-                  <% if labor_table != "" || machine_table != "" %>
-                  <div class="col-12 element--margin-bottom-md">
-                     <div class="box box--white box--no-padding">
-                        <div class="box__content">
-                           <table class="table table--striped">
-                              <tbody>
-                                 <%= labor_table %>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <div class="box box--white box--no-padding">
-                        <div class="box__content">
-                           <table class="table table--striped">
-                              <tbody>
-                                 <%= machine_table %>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-                  <% end %>
-               </div>
-            </div>
-         </div>
-         <% end %>
          <!-- LINE ITEMS - DESCRIPTION -->
          <!-- WORKFLOW -->
          <% if show_workflow_on_pdf %>
+<div class="no-page-break">
          <div class="job-section job-pdf__workflows">
             <div class="container">
                <div class="row">
@@ -431,6 +413,7 @@
          </div>
          <% end %>
       </div>
+ </div>
    </body>
 </html>
 

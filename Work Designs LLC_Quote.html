@@ -36,7 +36,7 @@
   <table>
     <tr>
       <td class="store-address">
-        <p class="logo" style="margin-top:-40px;"><img class="logo" src="<%= logo %>"  width = 240></p>
+        <p class="logo" style="margin-top:-40px;margin-left:-20px;"><img class="logo" src="<%= logo %>"  width = 240></p>
        <p><b><%= store_name %></b></p>
   <%if store_address_street%><p><%= store_address_street %></p><%end%>
   <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
@@ -354,14 +354,6 @@
                           <p><strong><%= misc_charges_header %>:</strong></p>
                         <% end %>
                         <p><strong><%= subtotal_header %>:</strong></p>
-                        <% if show_tax  %>
-                            <% if use_tax_codes? %>
-                              <p><strong><%= total_tax_header %>:</strong></p>
-                            <% else %>
-                              <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
-                            <% end %>
-                        <% end %>
-                        <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
                     </td>
                     <td class="money last footer-subtotal">
                       <% if has_setup_charges? %>
@@ -377,10 +369,6 @@
                           <p><strong><%= misc_charges %></strong></p>
                       <% end %>
                       <p><strong><%= sub_total %></strong></p>
-                        <% if show_tax  %>
-                            <p><strong><%= total_tax %></strong></p>
-                        <% end %>
-                        <p class="footer-total"><strong><%= final_price %></strong></p>
                     </td>
                 </tr>
                 </tbody>
@@ -388,21 +376,6 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
-        <div class="split-tax">
-          <h4>Split Taxes</h4>
-          <table class="split-tax-table">
-            <tbody>
-            <tr>
-              <% tax_split.each do |name, rate| %>
-                  <th><%= name %>(<%= rate %>%)</th>
-                  <td><%= tax_subtotal(rate.to_f) %></td>
-              <% end %>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-    <% end %>
     <% if use_tax_codes? %>
         <div class="split-tax">
           <h4>Tax Totals</h4>

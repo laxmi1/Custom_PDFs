@@ -63,7 +63,7 @@
          }
          .footer-bottom-right {
          float: right;
-         width: 30%;
+         width: 35%;
          border-left: solid 0px #e3e3e3;
          background: none;
          padding: 6pt 0pt 5pt 6pt;
@@ -148,10 +148,13 @@
          <table style="width:25%;">
             <tr style="background-color:#6495ED;">
                <th>PO#</th>
+              <th>SHIP DATE</th>
             </tr>
             <tr>
                <td style="padding:5pt;"><% if po_number %><%= po_number %><% end %></td>
+              <td style="padding:5pt;"><% if shipping_date %><%= shipping_date %><% end %></td>
             </tr>
+
          </table>
       </div>
       <div class="line-items">

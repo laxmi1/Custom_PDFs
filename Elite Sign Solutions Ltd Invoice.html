@@ -127,11 +127,16 @@
                <td width="35%" height="90" align = "left" style="font-size: 14px;">
                   <div>
                      <strong>
-                        <p>INV No :  <%= txn_number_only %></p>
+                        <p>INV No&ensp;&nbsp;&nbsp;   :  <%= txn_number_only %></p>
                      </strong>
+<% if related_transaction %>
+                      <strong>
+                        <p>REF No&ensp;&nbsp;  :  <%= related_transaction.match(/[0-9]+/) %></p>
+                     </strong>
+<% end %>
                      <% if quote_information %>
                      <strong>
-                        <p>Ref No :  <%= quote_information %></p>
+                        <p>Quote No :    <%= quote_information %></p>
                      </strong>
                      <% end %>
                      <p>Dated  &ensp;:  <%= invoice_date %></p>

@@ -1,0 +1,273 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:10pt;
+         }
+         <%= page_size %>
+         <%= body_font_family %>
+         .footer-bottom-left {
+         width: 50%;
+         float: left;
+         text-align: justify;
+         margin-left: 20pt;
+         }
+
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-logo" width="30%">
+                  <img class="logo" src="<%= logo %>" align = "left" style="margin-top:-25px;">
+               </td>
+               <td width="5%">
+               </td>
+               <td class="address-font" width="25%" >
+                  <div align = "left" style="margin-top:-30px;">
+                     <p style="font-size: 12pt;color: black;"><strong>Head office & showroom</strong></p>
+                     <p>Unit 2/5-11 Mellor St</p>
+                     <p>West Ryde NSW 2114</p>
+                     <p>phone 1300 795 485</p>
+                     <p>fax 1300 795 486</p>
+                     <br>
+                     <p style="font-size: 12pt;color: black;"><strong>www.scfinteriors.com.au</strong></p>
+                     <p style=" font-size: 7pt;">Sydney Corian Fabricators Pty Ltd trading as SCF Interiors</p>
+                     <p style=" font-size: 7pt;">ABN 60 003 901 399 Lic. NO. 116619C</p>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="summary">
+         <table>
+            <tr>
+               <td class="summ left">
+                  <div class="summary-wrapper">
+                     <h1 class="main-title"><%= invoice_number %> <br/>
+                        <small><%= name %></small>
+                     </h1>
+                     <% if project_number %>
+                     <p class="title"><%= project_header %></p>
+                     <p><%= project_number %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <td class="summ right">
+                  <% if quote_information %>
+                  <div class="summary-wrapper">
+                     <p class="title"><%= quote_information_header %></p>
+                     <p><%= quote_information %></p>
+                  </div>
+                  <% end %>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <p class="title"><%= invoice_date_header %></p>
+                     <p><%= invoice_date %></p>
+                     <% if payment_method %>
+                     <p class="title"><%= payment_information_header %></p>
+                     <p><%= payment_method %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <p class="title"><%= due_date_header %></p>
+                     <p><%= due_date %></p>
+                     <% if po_number %>
+                     <p class="title"><%= po_number_header %></p>
+                     <p><%= po_number %></p>
+                     <% end %>
+                     <% if po_date %>
+                     <p class="title"><%= po_date_header %></p>
+                     <p><%= po_date %></p>
+                     <% end %>
+                     <% if shipping_method %>
+                     <p class="title"><%= shipping_method_header %></p>
+                     <p><%= shipping_method %></p>
+                     <% end %>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="addresses">
+         <table>
+            <tr>
+               <td class="address left">
+                  <div class="address-wrapper">
+                    <p class="title">Recipient</p>
+                     <p><%= sold_to %></p>
+                     <p><%= billing_information %></p>
+                     <% if company_vat_number.present? %>
+                     <p><b>VAT#:</b><%= company_vat_number %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') ) %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= shipping_information_header %></p>
+                     <span >
+                     <% if shipping_address_type != 'DropShip' %>
+                     <%= sold_to(show_company_name = false) %>
+                     <% end %>
+                     <%= shipping_information %>
+                     </span>
+                     <%if shipping_tracking %>
+                     <br/>
+                     <p class="title"><%= shipping_tracking_header%></p>
+                     <%= shipping_tracking %>
+                     <% end %>
+                  </div>
+               </td>
+               <% end %>
+               <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= installing_information_header %></p>
+                     <%= installing_information %></p>
+                  </div>
+               </td>
+               <% end %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= contact_information_header %></p>
+                     <p><%= contact_information %></p>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <% if show_about_this_desc and description.present? %>
+      <div class="description_area" style="padding-top:10pt;">
+         <table>
+            <tr>
+               <td class="description">
+                  <%= description %>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <% end %>
+     <div class="line-items">
+  <table>
+    <thead>
+    <tr>
+      <p style="padding-left: 35pt;">Invoice For: </p><br>
+        <p style="padding-left: 35pt;">Supply of works as per quotation (<% if quote_information %>qt# <%= quote_information %> / <% end %><% if related_transaction %>so# <%= related_transaction.match(/[0-9]+/) %><% end %> )</p>
+    </tr>
+    </thead>
+  </table>
+</div>
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="terms-text">
+                  <p>EFT Payments can be sent to:</p>
+                  <p>BSB: 082-401</p>
+                  <p>Account: 242793824</p>
+                  <p>Please enter invoice number</p>
+                  <p>(INV<%= txn_number_only %>) as a reference.</p>
+               </div>
+            </div>
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td class="labels first footer-subtotal">
+                           <% if has_setup_charges? %>
+                           <p><strong><%= setup_charges_header %>:</strong></p>
+                           <% end %>
+                           <% if has_shipping_charges? %>
+                           <p><strong><%= shipping_charges_header %>:</strong></p>
+                           <% end %>
+                           <% if has_finance_charges? %>
+                           <p><strong><%= finance_charges_header %>:</strong></p>
+                           <% end %>
+                           <% if has_misc_charges? %>
+                           <p><strong><%= misc_charges_header %>:</strong></p>
+                           <% end %>
+                           <p><strong><%= subtotal_header %>:</strong></p>
+                           <% if show_tax  %>
+                           <% if use_tax_codes? %>
+                           <p><strong><%= total_tax_header %>:</strong></p>
+                           <% else %>
+                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <% end %>
+                           <% end %>
+                           <% if coupon_code_discount_header %>
+                           <p class="footer-discount"><strong><%= coupon_code_discount_header %>:</strong></p>
+                           <% end %>
+                           <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                           <% if show_multi_currecies %>
+                           <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
+                           <% end %>
+                           <% if has_payments? || has_credits? %>
+                           <p>&nbsp;</p>
+                           <p><strong><%= payment_total_header %>:</strong></p>
+                           <% if has_credits? %>
+                           <p><strong><%= credits_header %>:</strong></p>
+                           <% end %>
+                           <p><strong><%= payment_balance_due_header %>:</strong></p>
+                           <% if show_multi_currecies %>
+                           <p><strong><%= balance_header_exchange %></strong></p>
+                           <% end %>
+                           <% end %>
+                        </td>
+                        <td class="money last footer-subtotal">
+                           <% if has_setup_charges? %>
+                           <p><strong><%= setup_charges %></strong></p>
+                           <% end %>
+                           <% if has_shipping_charges? %>
+                           <p><strong><%= shipping_charges %></strong></p>
+                           <% end %>
+                           <% if has_finance_charges? %>
+                           <p><strong><%= finance_charges %></strong></p>
+                           <% end %>
+                           <% if has_misc_charges? %>
+                           <p><strong><%= misc_charges %></strong></p>
+                           <% end %>
+                           <p><strong><%= sub_total %></strong></p>
+                           <% if show_tax  %>
+                           <p><strong><%= total_tax %></strong></p>
+                           <% end %>
+                           <% if coupon_code_discount %>
+                           <p class="footer-discount"><strong><%= coupon_code_discount %></strong></p>
+                           <% end %>
+                           <p class="footer-total"><strong><%= final_price %></strong></p>
+                           <% if show_multi_currecies %>
+                           <p class="footer-total"><strong><%= final_price_exchange %></strong></p>
+                           <% end %>
+                           <% if has_payments? || has_credits? %>
+                           <p>&nbsp;</p>
+                           <p><strong><%= total_paid %></strong></p>
+                           <% if has_credits? %>
+                           <p><strong><%= total_credit %></strong></p>
+                           <% end %>
+                           <p class="footer-total"><strong><%= balance %></strong></p>
+                           <% if show_multi_currecies %>
+                           <p class="footer-total"><strong><%= balance_price_exchange %></strong></p>
+                           <% end %>
+                           <% end %>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+   </body>
+</html>
+
