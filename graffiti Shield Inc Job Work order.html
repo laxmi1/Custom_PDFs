@@ -1,0 +1,354 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= body_font_family %>
+         <%= page_size %>
+         @page {
+         margin: 5pt 0 35pt 0;
+         }
+         @page :first {
+         margin: 0 0 35pt 0;
+         @top-left { content: none }
+         }
+         .addresses {
+         padding: 0pt 15pt 3pt 25pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 10pt;
+         }
+         .addresses .address .title {
+         text-transform: none;
+         margin-top: 0pt;
+         font-size: 10px;
+         color: black;
+         }
+         .address-logo {
+         padding: 0pt 15pt 3pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 210px;
+         max-height: 105px;
+         }
+         .line-items .first {
+         padding-left: 30pt;
+         }
+         .line-items .last {
+         padding-right: 30pt;
+         }
+         .li-desc-fixed-width {
+         max-width: 550pt;
+         }
+         .description .last p {display: inline-block;}
+         .description .last p.bom-description--custom-class {display: block;}
+      </style>
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <p style="font-size: 14pt;font-weight: bold;padding: 5pt 5pt 0pt 35pt;">Installation Work Order </p>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td style="width: 30%;">
+                  <p style="vertical-align: top; text-align: left;"><img class="logo" src="<%= logo %>"></p>
+               </td>
+               <td style="width: 37%;">
+                  <div>
+                     <div class="box__content">
+                        <table class="table table--list text--sm">
+                           <tbody>
+                              <tr>
+                                 <td style="font-size: 12pt;"><strong>Title: </strong></td>
+                                 <td><%= name %></td>
+                              </tr>
+                              <tr>
+                                 <td><strong>Install Date: </strong></td>
+                                 <% if !@object.install_date.nil? %>
+                                 <td><%= I18n.l(@object.install_date)%></td>
+                                 <% end %>
+                              </tr>
+                              <tr>
+                                 <td><strong>Install Time: </strong></td>
+                                 <td>&nbsp;</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </td>
+               <td>
+                  <div class="col-1">
+                     <div class="box__content">
+                        <table class="table table--list text--sm">
+                           <tbody>
+                              <tr>
+                                 <td><strong>SO#: </strong></td>
+                                 <td><%= txn_number_only %></td>
+                              </tr>
+                              <tr>
+                                 <% if quote_information %>
+                                 <td><strong>QT#: </strong></td>
+                                 <td><%= quote_information %></td>
+                                 <% end %>
+                              </tr>
+                              <tr>
+                                 <td><strong>Customer PO: </strong></td>
+                                 <td><%= po_number %></td>
+                              </tr>
+                              <tr>
+                                 <td><strong>Sales Rep: </strong></td>
+                                 <td><%= @object.primary_sales_rep.try(:name) %></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="addresses">
+         <table>
+            <tr>
+               <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
+               <td class="address left" style="width: 42.5%">
+                  <div class="address-wrapper">
+                     <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Install Info</b></p>
+                     <p style="font-size:9pt";>
+                        <%= installing_information %>
+                     </p>
+                     <p><%= sold_to %></p>
+                     <p><%if @object.primary_contact&.phones %>
+                     <p><%= format_phone_pdf(@object.account, @object.primary_contact.try(:phone), extension: @object.primary_contact.try(:ext)) %></p>
+                     <%end%></p>
+                  </div>
+               </td>
+               <% end %>
+               <td class="address left" style="width: 33%">
+                  <div class="address-wrapper">
+                     <p class="title" style="margin-bottom:6px;font-size:9pt;"><b>Customer Info</b></p>
+                     <p style="font-size:9pt";>
+                     <p><%= sold_to %></p>
+                     <p><%= contact_information %></p>
+                     </p>
+                  </div>
+               </td>
+               <td>
+                  <div class="col-1">
+                     <div class="box__content">
+                        <table class="table table--list text--sm">
+                           <tbody>
+                              <tr>
+                                 <td><strong>Installer1: </strong></td>
+                                 <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                 <td><strong>Installer2: </strong></td>
+                                 <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                 <td><strong>Installer3: </strong></td>
+                                 <td>&nbsp;</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr>
+                  <th class="position">
+                     <div class="first">#</div>
+                  </th>
+                  <th class="name"><%= item_header %></th>
+                  <th class="quantity">
+                     <div class="last"><%= qty_header %></div>
+                  </th>
+               </tr>
+            </thead>
+            <% items.each_with_index do |item, index| %>
+            <tbody>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first"  style="border-bottom-color: transparent;">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name" style="border-bottom-color: transparent;">
+                     <%= item.name %><br>
+                  </td>
+                  <td class="quantity" rowspan="2">
+                     <div class="last"  style="border-bottom-color: transparent;">
+                        <%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="description">
+                     <div class="last">
+                        <div class="text--pre-line li-desc-fixed-width" style="column-count: 2;">
+                           <%= item.description %>
+                        </div>
+                     </div>
+            <% if item.panel_description_enabled? %>
+              <div>
+                <%= item.panel_description %>
+              </div>
+            <% end %>
+                     <div>
+                        <div class='design_details'>
+                           <div class="text--pre-line">
+                              <%= simple_format(item.design_details )%>
+                           </div>
+                        </div>
+                        <div class='production_details'>
+                           <div class="text--pre-line">
+                              <%= simple_format(item.production_details) %>
+                           </div>
+                        </div>
+                        <div class='shipping_details'>
+                           <div class="text--pre-line">
+                              <%= simple_format(item.shipping_details) %>
+                           </div>
+                        </div>
+                        <div class='install_details'>
+                           <div class="text--pre-line">
+                              <%= simple_format(item.install_details) %>
+                           </div>
+                        </div>
+                     </div>
+                     <% if item.product_picture_assets.count > 0 %>
+                     <% item.product_picture_assets.each do |asset| %>
+                     <img src="<%= asset.file_url %>" class="line-item-description-image">
+                     <% end %>
+                     <% end %>
+                     <% if item.product_image %>
+                     <img src="<%= item.product_image %>" class="line-item-description-image">
+                     <% end %>
+                  </td>
+                  <td colspan="3">
+                     <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
+                     <% @proofs_job_ids << item.job.id %>
+                     <div class="job-attributes">
+                        <div class="proof">
+                           <div class="head">
+                              <%= item.job.proof_head %><br>
+                              <%= "#{due_date_header}: #{item.job.due_date}" %>
+                           </div>
+                           <div class="image">
+                              <img class="proof small" src="<%= item.job.proof_image(300) %>">
+                           </div>
+                        </div>
+                     </div>
+                     <% end %>
+                  </td>
+               </tr>
+               <!-- <% if item.job.present? and show_workflow_steps? %>
+                  <tr>
+                    <td colspan="5">
+                      <div class="stages">
+                        <% item.job.stages.each do |stage| %>
+                            <div class="stage">
+                              <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
+                              <div class="stage-wrapper clearfix">
+                                <% stage.steps.each do |step| %>
+                                    <% if !step.skip %>
+                                        <div class="step <%= step.state %>">
+                                          <div class="step-info clearfix">
+                                            <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
+                                            <div class="number"><%= step.num_iterations %></div>
+                                          </div>
+                                          <% unless step.assigned_to_user_initials.blank? %>
+                                              <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
+                                          <% end %>
+                                          <% unless step.scheduled_machine_name.blank? %>
+                                              <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
+                                          <% end %>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                              </div>
+                            </div>
+                        <% end %>
+                      </div>
+                    </td>
+                  </tr>
+                  <% end %> -->
+            </tbody>
+            <% end %>
+            <tfoot class="no-page-break">
+            </tfoot>
+         </table>
+      </div>
+      <% if customer_note.present? %>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <td>Installation Notes</td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td style="padding-bottom: 4pt;"><%= customer_note %></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
+      <div class="section section--border-bottom" >
+         <div class="signature terms">
+            <table class="no-page-break">
+               <tbody>
+                  <tr>
+                     <td style="width: 44%">
+                        <p>
+                        <div style="float:left;">Completed Date/Time: </div>
+                        <div style="width:100pt; border-bottom: 1px #ccc solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;</div>
+                        </p><br><br>
+                        <p> 
+                        <div style="float:left;">Inspected By: </div>
+                        <div style="width:135pt; border-bottom: 1px #ccc solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;</div>
+                        </p><br><br>
+                        <p> 
+                        <div style="float:left;">Print Name: </div>
+                        <div style="width:140pt; border-bottom: 1px #ccc solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;</div>
+                        </p><br><br>
+                        <p>
+                        <div style="float:left;">Title: </div>
+                        <div style="width:170pt; border-bottom: 1px #ccc solid;margin-bottom: 2px;float:left;margin-left:5px;">&nbsp;</div>
+                        </p>
+                     </td>
+                     <td>
+                        <p>I agree that all work is completed to satisfaction.</p>
+                        <br>
+                        <p>By signing this form you agree that Graffiti Shield can bill for work done.</p>
+                        <br>
+                        <p>Questions please call (714) 575-1100 or email orders@graffiti-shield.com </p>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>
+

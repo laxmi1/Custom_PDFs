@@ -66,8 +66,8 @@
          }
          .line-item-description-image {
          margin-top: 5px;
-         max-height: 50px;
-         width: 80px;
+         max-height: 70px;
+         width: 160px;
          }
          @page {
          @bottom-right {
@@ -290,13 +290,13 @@
                      </div>
                   </td>
                   <td class="position" rowspan="2">
-                     <div style="font-size:8px;">
+                     <div style="font-size:7pt;">
                         <%= item.sku %>
                      </div>
                   </td>
                   <td class="name"><%= item.name %></td>
                   <td class="quantity" rowspan="2"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="money" rowspan="2"><%= item.unit_price.slice(0, item.unit_price.index('.') + 3) %></td>
+                  <td class="money" rowspan="2"><%= item.custom_pdf_unit_price %></td>
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="quantity" rowspan="2"><%= item.discount_percentage %> </td>
                   <td class="quantity" rowspan="2"><%= item.unit_price_after_discount %></td>

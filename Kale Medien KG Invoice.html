@@ -7,6 +7,19 @@
          }
          <%= page_size %>
          <%= body_font_family %>
+@page {
+         margin: 20pt 0pt 45pt 0pt;
+         @bottom { 
+            border-top: 1px solid #e3e3e3;
+         content: url(https://cdn.filepicker.io/api/file/m2IYnE63R36md8EshkUz);
+         }
+            @bottom-right {
+               content: " ";
+            }
+@bottom-left {
+               content: " ";
+            }
+         }
       </style>
    </head>
    <body>
@@ -46,11 +59,6 @@
                </td>
             </tr>
          </table>
-         <% if is_past_due? %>
-         <div class="invoice-past-due-label">
-            <p><%= past_due %></p>
-         </div>
-         <% end %>
       </div>
       <div class="summary">
          <table>
@@ -144,7 +152,17 @@
                      <% if shipping_address_type != 'DropShip' %>
                      <%= sold_to(show_company_name = false) %>
                      <% end %>
-                     <%= shipping_information %>
+                     <%if check_exist_empty('shipping_address_name') != nil %> 
+                     <p> <%=check_exist_empty('shipping_address_name')%></p>
+                     <%end%>
+                     <%if check_exist_empty('shipping_address_street') != nil %>
+                     <p><%=check_exist_empty('shipping_address_street')%> <%end%>
+                        <%if check_exist_empty('shipping_address_street1') != nil %><%=check_exist_empty('shipping_address_street1')%>
+                     </p>
+                     <%end%>
+                     <p><%if check_exist_empty('shipping_address_zip') != nil %><%=check_exist_empty('shipping_address_zip')%> <%end%>
+                        <%if check_exist_empty('shipping_address_city') != nil %><%=check_exist_empty('shipping_address_city')%><%end%>
+                     </p>
                      </span>
                      <%if shipping_tracking %>
                      <br/>
@@ -518,81 +536,7 @@
             </div>
             <div class="clearfix"></div>
          </div>
-         <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
-         <div class="split-tax">
-            <h4><%= split_taxes_header %></h4>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% tax_split.each do |name, rate| %>
-                     <th><%= name %>(<%= rate %>%)</th>
-                     <td><%= tax_subtotal(rate.to_f) %></td>
-                     <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <% if use_tax_codes? %>
-         <div class="split-tax">
-            <h4><%= tax_totals_header %></h4>
-            <table class="split-tax-table">
-               <tbody>
-                  <tr>
-                     <% tax_totals_table.each do |k, value| %>
-                     <th><%= value[:name] %>(<%= value[:rate] %>%)</th>
-                     <td><%= to_pdf_dollars(value[:total]) %></td>
-                     <% end %>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <% if show_discounts %>
-         <div>
-            <table class="discount-table">
-               <tbody>
-                  <tr>
-                     <% if show_range_volume_discounts %>
-                     <% if total_range_discount >0 || total_volume_discount >0  %>
-                     <th><b><%= total_discount_header %></b></th>
-                     <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
-                     <%end%>
-                     <% if total_range_discount >0 %>
-                     <th><b><%= range_discount %></b></th>
-                     <td><%= total_range_discount_in_dollars %></td>
-                     <%end%>
-                     <% if total_volume_discount >0 %>
-                     <th><b><%= volume_discount %></b></th>
-                     <td><%= total_volume_discount_in_dollars %></td>
-                     <%end%>
-                     <% if total_discount_price != 0.0%>
-                     <th><b><%= customer_discount %></b></th>
-                     <td><%= total_discount_price_in_dollars %></td>
-                     <%end%>
-                     <%else%>
-                     <% if total_discount_price != 0.0%>
-                     <th><b><%= customer_discount %></b></th>
-                     <td><%= total_discount_price_in_dollars %></td>
-                     <%end%>
-                     <%end%>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <% end %>
-         <div class="section section--border-bottom">
-            <div class="signature terms">
-               <table>
-                  <tbody>
-                     <tr>
-                        <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
-                        <td class="date text--up text--bold"><%= date_header %>:</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </div>
+       
       </div>
    </body>
 </html>

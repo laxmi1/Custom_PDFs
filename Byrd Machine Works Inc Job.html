@@ -9,7 +9,6 @@
          table, td, th {
          border: 1px solid black;
          }
-         
          td {
          height: 20px;
          text-align: left;
@@ -21,11 +20,11 @@
          width: 100%;
          }
          .summary {
-          margin: 0pt;
-          padding: 1pt 25pt;
-          border-bottom: 0px solid #e3e3e3;
-          background-color: transparent;
-          }
+         margin: 0pt;
+         padding: 1pt 25pt;
+         border-bottom: 0px solid #e3e3e3;
+         background-color: transparent;
+         }
       </style>
    </head>
    <body>
@@ -34,34 +33,23 @@
             <table>
                <tr>
                   <td>
-                  <%= title %>
+                     <%= title %>
                   </td>
                   <td><strong>JOB DUE DATE: </strong><%= due_date %></td>
                </tr>
                <tr>
                   <td style="padding:0pt 0 0 0pt;width:1%;">
-                     <div class="col-sm-2">
-                        <div class="box box--default box--border">
-                           <div class="box__content">
-                              <div class="qr qr--default">
-                                 <div class="qr__code">
-                                    <svg style="width:55%">
-                                       <%= qr_code.as_svg %>
-                                    </svg>
-                                 </div>
-                                 <div class="qr__status" style="text-align: left;">
-                                    <p>
-                                       <strong>In progress</strong>
-                                    </p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+
                   </td>
                   <td>
                      <%= description %>
-                  </td> 
+                     <p>
+                        <strong style="text-align: bottom;"><%= order_type %># <%= order_number %></strong><br>
+                        <% if related_quotes.present? %>
+                        <strong><%= related_quotes %></strong>
+                        <% end %>
+                     </p>
+                  </td>
                </tr>
                <tr>
                   <td>
@@ -90,3 +78,4 @@
       </div>
    </body>
 </html>
+

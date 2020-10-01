@@ -1,0 +1,220 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+          .addresses {
+          padding: 5pt 0pt 5pt 5pt;
+          border-bottom: 0px solid #e3e3e3;
+          }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <!-- Store Address and Logo -->
+      <table>
+         <tr>
+            <td>
+               <!-- Sold To, Contact Info and Shipping Address -->
+               <div class="addresses">
+                  <table style="background-color: #F2F1F1;">
+                     <tr>
+                        <td class="store-logo" style="padding-bottom: 40pt;">
+                           <img class="logo" src="<%= logo %>">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="store-address" style="padding-bottom: 40pt;padding-left: 10pt;">
+                           <%= store_address %>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="padding-bottom: 40pt;padding-left: 10pt;">
+                           <div class="summary-wrapper">
+                              <p><%= sales_rep_information_header %></p>
+                              <p><%= sales_rep_information %></p>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="padding-bottom: 40pt;padding-left: 10pt;">
+                           <div class="address-wrapper">
+                              <p><%= ordered_by_header %></p>
+                              <p>
+                                 <%= sold_to %>
+                              <p>
+                                 <%= billing_information %>
+                              </p>
+                              </p>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="padding-bottom: 40pt;padding-left: 10pt;">
+                           <div class="address-wrapper">
+                              <p><%= contact_information_header %></p>
+                              <p><%= contact_information %></p>
+                           </div>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </td>
+            <td>
+               <div class="summary" style="margin-top: -90pt;">
+                  <table>
+                     <tr>
+                        <td>
+                           <h1 class="main-title"><%= quote_number %>
+                           </h1>
+                        </td>
+                        <td>
+                           <p><%= quote_date_header %></p>
+                           <p><%= quote_date %></p>
+                           <br>
+                           <% if quote_expiry_date %>
+                           <p><%= quote_expiry_date_header %></p>
+                           <p><%= quote_expiry_date%></p>
+                           <% end %><br>
+                           <% if term_code %>
+                           <p><%= term_code_header %></p>
+                           <p><%= term_code %></p>
+                           <% end %><br>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="line-items">
+                  <!--<h2 class="title"><%= items_header %></h2>-->
+                  <% if show_multi_currecies %>
+                  <p class="currency-note">
+                     All prices in (default currency) except for the final price at the bottom showing in your local currency.
+                  </p>
+                  <% end %>
+                  <table>
+                     <thead>
+                        <tr>
+                           <th class="position">
+                              <div class="first">#</div>
+                           </th>
+                           <th class="name"><%= item_header %></th>
+                           <th class="quantity"><%= qty_header %></th>
+                           <th class="money"><%= unit_price_header %></th>
+                           <% if show_discounts && total_discount_price != 0.0 %>
+                           <th class="quantity"><%= discount_header %> </th>
+                           <th class="quantity"><%= discount_price_header %> </th>
+                           <% end %>
+                           <th class="money">
+                              <div class="last"><%= total_excl_header %></div>
+                           </th>
+                           <% if use_tax_codes? %>
+                           <th class="money">
+                              <div class="last"><%= tax_header %></div>
+                           </th>
+                           <% end %>
+                           <% if show_li_total_with_tax? %>
+                           <th class="money">
+                              <div class="last"><%= total_with_tax_header %></div>
+                           </th>
+                           <% end %>
+                        </tr>
+                     </thead>
+                     <tbody class=''>
+                        <% items.each_with_index do |item, index| %>
+                        <tr>
+                           <td class="position" rowspan="2">
+                              <div class="first">
+                                 <%= index + 1 %>
+                              </div>
+                           </td>
+                           <td class="name"><%= item.name %></td>
+                           <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                           <td class="money"><%= item.unit_price %></td>
+                           <% if show_discounts && total_discount_price != 0.0 %>
+                           <td class="quantity"><%= item.discount_percentage %> </td>
+                           <td class="quantity"><%= item.unit_price_after_discount %></td>
+                           <% end %>
+                           <td class="money">
+                              <div class="last">
+                                 <%= item.total_price %>
+                              </div>
+                           </td>
+                           <% if use_tax_codes? %>
+                           <td class="money">
+                              <div class="last"><%= item.total_tax %></div>
+                           </td>
+                           <% end %>
+                           <% if show_li_total_with_tax? %>
+                           <td class="money">
+                              <div class="last"><%= item.total_with_tax %></div>
+                           </td>
+                           <% end %>
+                        </tr>
+                        <tr>
+                           <% if show_discounts && total_discount_price != 0.0 %>
+                           <td class="description" colspan="7">
+                              <% else %>
+                           <td class="description" colspan="5">
+                              <% end %>              
+                              <div>
+                                 <% if item.table_view %>
+                                 <div class="text--pre-line li-desc-fixed-width">
+                                    <%= item.li_grid_html_view %>
+                                 </div>
+                                 <% else %>
+                                 <div class="text--pre-line li-desc-fixed-width">
+                                    <%= item.description %>
+                                 </div>
+                                 <% end %>                <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                                 <hr class="custom-field-separator">
+                                 <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                                 <hr class="custom-field-separator">
+                                 <% end %>                <% if item.product_picture_assets.count > 0 %>
+                                 <% item.product_picture_assets.each do |asset| %>
+                                 <img src="<%= asset.file_url %>" class="line-item-description-image">
+                                 <% end %>
+                                 <% end %>                <% if item.product_image %>
+                                 <img src="<%= item.product_image %>" class="line-item-description-image">
+                                 <% end %>                <% if item.table_view %>
+                                 <div class="text--pre-line li-desc-fixed-width">
+                                    <%= item.li_grid_html_view(show_child_items: true) %>
+                                 </div>
+                                 <% end %>
+                              </div>
+                           </td>
+                        </tr>
+                        <% end %>
+                     </tbody>
+                  </table>
+               </div>
+               <!-- Signature Note -->
+               <div class="footer-bottom">
+                  <% if show_signature %>
+                  <div class="section section--border-bottom">
+                     <div class="signature terms">
+                        <table>
+                           <tbody>
+                              <tr>
+                                <td>&nbsp;</td>
+                                 <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
+                                 <td class="date text--up text--bold"><%= date_header %>:</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>
+

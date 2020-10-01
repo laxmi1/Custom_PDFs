@@ -147,7 +147,17 @@
                      <% if shipping_address_type != 'DropShip' %>
                      <%= sold_to(show_company_name = false) %>
                      <% end %>
-                     <%= shipping_information %>
+                    <%if check_exist_empty('shipping_address_name') != nil %> 
+                     <p> <%=check_exist_empty('shipping_address_name')%></p>
+                     <%end%>
+                     <%if check_exist_empty('shipping_address_street') != nil %>
+                     <p><%=check_exist_empty('shipping_address_street')%> <%end%>
+                        <%if check_exist_empty('shipping_address_street1') != nil %><%=check_exist_empty('shipping_address_street1')%>
+                     </p>
+                     <%end%>
+                     <p><%if check_exist_empty('shipping_address_zip') != nil %><%=check_exist_empty('shipping_address_zip')%> <%end%>
+                        <%if check_exist_empty('shipping_address_city') != nil %><%=check_exist_empty('shipping_address_city')%><%end%>
+                     </p>
                      </p>
                      <%if shipping_tracking.present? %>
                      <br/>
