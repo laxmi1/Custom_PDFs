@@ -3,6 +3,9 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          <%= page_size %>
+         body {
+         font-family: 'Arial';
+         }
          @page {
          font-family: "Arial", sans-serif;
          prince-shrink-to-fit: auto;
@@ -92,6 +95,23 @@
          font-size: 9pt;
          font-weight: bold;
          }
+         h1 {
+         font-size: 21pt;
+         margin: 15pt 0;
+         font-weight: normal;
+         }
+         h1 small {
+         font-size: 13.5pt;
+         }
+         .footer-bottom-right {
+         float: right;
+         width: 30%;
+         border-left: solid 2px #e3e3e3;
+         background: #f7f7f7;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0;
+         font-size: 8pt;
+         }
       </style>
    </head>
    <body>
@@ -120,8 +140,8 @@
             <tr>
                <td class="summ left">
                   <div class="summary-wrapper">
-                     <h1 class="main-title" style="font-family: 'Arial';font-size:21pt;"><%= quote_number %> <%= quote_version %><br/>
-                        <small style="font-family:'Arial', sans-serif; font-size: 13.5pt;"><%= name %></small>
+                     <h1 class="main-title"><%= quote_number %> <%= quote_version %><br/>
+                        <small><%= name %></small>
                      </h1>
                      <% if project_number %>
                      <p class="title"><%= project_header %></p>
@@ -132,32 +152,32 @@
                <td class="summ right">
                   <div class="summary-wrapper">
                      <p class="title"><%= sales_rep_information_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= sales_rep_information %></p>
+                     <p style="font-size: 8pt;"><%= sales_rep_information %></p>
                   </div>
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
                      <p class="title"><%= quote_date_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= quote_date %></p>
+                     <p style="font-size: 8pt;"><%= quote_date %></p>
                      <% if quote_has_due_date %>
                      <p class="title"><%= quote_due_date_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= quote_due_date%></p>
+                     <p style="font-size: 8pt;"><%= quote_due_date%></p>
                      <% end %>
                      <% if quote_expiry_date %>
                      <p class="title"><%= quote_expiry_date_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= quote_expiry_date%></p>
+                     <p style="font-size: 8pt;"><%= quote_expiry_date%></p>
                      <% end %>
                      <% if quote_ship_date %>
                      <p class="title"><%= quote_ship_date_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= quote_ship_date%></p>
+                     <p style="font-size: 8pt;"><%= quote_ship_date%></p>
                      <% end %>
                      <% if term_code %>
                      <p class="title"><%= term_code_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= term_code %></p>
+                     <p style="font-size: 8pt;"><%= term_code %></p>
                      <% end %>
                      <% if payment_method %>
                      <p class="title"><%= payment_information_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= payment_method %></p>
+                     <p style="font-size: 8pt;"><%= payment_method %></p>
                      <% end %>
                   </div>
                </td>
@@ -165,11 +185,11 @@
                   <div class="summary-wrapper">
                      <% if po_date %>
                      <p class="title"><%= po_number_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= po_number %></p>
+                     <p style="font-size: 8pt;"><%= po_number %></p>
                      <% end %>
                      <% if po_date %>
                      <p class="title"><%= po_date_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= po_date %></p>
+                     <p style="font-size: 8pt;"><%= po_date %></p>
                      <% end %>
                   </div>
                </td>
@@ -182,10 +202,10 @@
             <tr>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title" style="font-family:'Arial', sans-serif; font-size: 7pt;"><%= ordered_by_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;">
+                     <p class="title"><%= ordered_by_header %></p>
+                     <p style="font-size: 8pt;">
                         <%= sold_to %>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;">
+                     <p style="font-size: 8pt;">
                         <%= billing_information %>
                      </p>
                      </p>
@@ -219,8 +239,8 @@
                <% end %>
                <td class="address left">
                   <div class="address-wrapper">
-                     <p class="title" style="font-family:'Arial', sans-serif; font-size: 7pt;"><%= contact_information_header %></p>
-                     <p style="font-family:'Arial', sans-serif; font-size: 8pt;"><%= contact_information %></p>
+                     <p class="title"><%= contact_information_header %></p>
+                     <p style="font-size: 8pt;"><%= contact_information %></p>
                   </div>
                </td>
             </tr>
@@ -280,31 +300,31 @@
                <% items.each_with_index do |item, index| %>
                <tr>
                   <td class="position" rowspan="2">
-                     <div class="first" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;">
-                        <%= index + 1 %>
+                     <div class="first">
+                        <strong><%= index + 1 %></strong>
                      </div>
                   </td>
-                  <td class="name" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.name %></td>
-                  <td class="quantity" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.uom %></td>
-                  <td class="money" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.unit_price %></td>
+                  <td class="name"><strong><%= item.name %></strong></td>
+                  <td class="quantity"><strong><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></strong></td>
+                  <td class="quantity"><strong><%= item.uom %></strong></td>
+                  <td class="money"><strong><%= item.unit_price %></strong></td>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <td class="quantity" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.discount_percentage %> </td>
-                  <td class="quantity" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.unit_price_after_discount %></td>
+                  <td class="quantity"><strong><%= item.discount_percentage %></strong></td>
+                  <td class="quantity"><strong><%= item.unit_price_after_discount %></strong></td>
                   <% end %>
                   <td class="money">
-                     <div class="last" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;">
-                        <%= item.total_price %>
+                     <div class="last">
+                        <strong><%= item.total_price %></strong>
                      </div>
                   </td>
                   <% if use_tax_codes? %>
                   <td class="money">
-                     <div class="last" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.total_tax %></div>
+                     <div class="last"><strong><%= item.total_tax %></strong></div>
                   </td>
                   <% end %>
                   <% if show_li_total_with_tax? %>
                   <td class="money">
-                     <div class="last" style="font-family:'Arial', sans-serif; font-size: 8pt;font-weight: bold;"><%= item.total_with_tax %></div>
+                     <div class="last"><strong><%= item.total_with_tax %></strong></div>
                   </td>
                   <% end %>
                </tr>
@@ -413,27 +433,27 @@
                      <tr>
                         <td class="labels first footer-subtotal">
                            <% if has_setup_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= setup_charges_header %>:</strong></p>
+                           <p><strong><%= setup_charges_header %>:</strong></p>
                            <% end %>
                            <% if has_shipping_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= shipping_charges_header %>:</strong></p>
+                           <p><strong><%= shipping_charges_header %>:</strong></p>
                            <% end %>
                            <% if has_finance_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= finance_charges_header %>:</strong></p>
+                           <p><strong><%= finance_charges_header %>:</strong></p>
                            <% end %>
                            <% if has_misc_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= misc_charges_header %>:</strong></p>
+                           <p><strong><%= misc_charges_header %>:</strong></p>
                            <% end %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= subtotal_header %>:</strong></p>
+                           <p><strong><%= subtotal_header %>:</strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= total_tax_header %>:</strong></p>
+                           <p><strong><%= total_tax_header %>:</strong></p>
                            <% else %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
                            <% end %>
                            <% end %>
                            <% if coupon_code_discount_header %>
-                           <p class="footer-discount"><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= coupon_code_discount_header %>:</strong></p>
+                           <p class="footer-discount"><strong ><%= coupon_code_discount_header %>:</strong></p>
                            <% end %>
                            <p class="footer-total"><strong style="font-family:'Arial', sans-serif; font-size: 9pt"><%= final_price_header %>:</strong></p>
                            <% if show_multi_currecies %>
@@ -442,18 +462,18 @@
                         </td>
                         <td class="money last footer-subtotal">
                            <% if has_setup_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= setup_charges %></strong></p>
+                           <p><strong><%= setup_charges %></strong></p>
                            <% end %>
                            <% if has_shipping_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= shipping_charges %></strong></p>
+                           <p><strong><%= shipping_charges %></strong></p>
                            <% end %>
                            <% if has_finance_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= finance_charges %></strong></p>
+                           <p><strong><%= finance_charges %></strong></p>
                            <% end %>
                            <% if has_misc_charges? %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= misc_charges %></strong></p>
+                           <p><strong><%= misc_charges %></strong></p>
                            <% end %>
-                           <p><strong style="font-family:'Arial', sans-serif; font-size: 8pt"><%= sub_total %></strong></p>
+                           <p><strong><%= sub_total %></strong></p>
                            <% if show_tax  %>
                            <p><strong><%= total_tax %></strong></p>
                            <% end %>
@@ -557,8 +577,8 @@
                <table>
                   <tbody>
                      <tr>
-                        <td class="handwriting text--up text--bold" style="font-family:'Arial', sans-serif; font-size: 7.5pt; font-weight: bold;"><%= signature_header %>:</td>
-                        <td class="date text--up text--bold" style="font-family:'Arial', sans-serif; font-size: 7.5pt;font-weight: bold;"><%= date_header %>:</td>
+                        <td class="handwriting text--up text--bold" style="font-size: 7.5pt;"><%= signature_header %>:</td>
+                        <td class="date text--up text--bold" style="font-size: 7.5pt;"><%= date_header %>:</td>
                      </tr>
                   </tbody>
                </table>
