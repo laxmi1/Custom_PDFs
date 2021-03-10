@@ -20,6 +20,11 @@
     padding: 50pt 35pt 5pt 35pt;
     border-bottom: 4px solid #FF0000;
 }
+    .address-logo .store-logo .logo,
+img.logo {
+    max-width: 250px;
+    max-height: 120px;
+}
     .summary {
     margin: 0pt;
     padding: 5pt 35pt;
@@ -149,6 +154,10 @@
               <p class="title" style="font-size:24px;"><b><%= due_date_header %></b></p>
               <p style="font-size:24px;"><%= due_date %></p>
           <% end %>
+          <% if (items.size > 0 && items.first.get_job_art_due_date) %>
+                      <p class="title" style="font-size:16px;"><b>Art Due Date</b></p>
+                      <p style="font-size:16px;"><%= items.first.get_job_art_due_date.split(": ")[1] %></p>
+                      <% end %>
         </div>
       </td>
       <td class="summ right">
@@ -161,6 +170,10 @@
             <p class="title"><b><%= project_manager_header %></b></p>
             <p><%= project_manager_name %></p>
           <% end %>
+<% if contact_name %>
+<p class="title" style="font-size:16px;"><b>Art Reviewer</b></p>
+ <p style="font-size:16px;"><%= contact_name %></p>
+<% end %>
         </div>
         <br/>
       </td>
@@ -191,7 +204,7 @@
       </td>
       <td class="address left">
         <div class="address-wrapper">
-          <p class="title" style="margin-bottom: 10px;"><b>SHIPPING NOTES</b></p>
+          <p class="title" style="margin-bottom: 10px;"><b>Install Address</b></p>
           <% if shipping_method %>
               <p>Ship by:<%= shipping_method %></p>
           <% end %>
@@ -229,7 +242,7 @@
       <th class="name"><%= item_header %></th>
       <th class="quantity" style="float:left;"><%= qty_header %></th>
             <th class="quantity">
-        <div class="last" style="margin-left:-250px;">QTY PRINTED</div>
+        <div class="last" style="margin-left:-250px;">PRINTED</div>
       </th>
       <th class="state" style= "float:left;">IMAGE</th>
     </tr>
@@ -412,7 +425,7 @@
         </tr>
         </tbody>
     <% end %>
-      <div class="note">
+      <!-- <div class="note">
          <table class="no-page-break" style="margin-top:50px;margin-left:60px;">
             <thead>
                <tr>
@@ -426,7 +439,7 @@
                </tr>
             </thead>
          </table>
-      </div>
+      </div> -->
   </table>
 </div>
 <%if @object.special_notes and not @object.special_notes.blank?%>

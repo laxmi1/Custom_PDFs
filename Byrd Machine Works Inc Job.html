@@ -4,13 +4,13 @@
       <meta charset="utf-8">
       <title>Job PDF</title>
       <style>
-         @page { size: 4in 6in landscape; }
+         @page { size: 4.5in 6in landscape; }
          <%= body_font_family %>
          table, td, th {
          border: 1px solid black;
          }
          td {
-         height: 20px;
+         height: 20px
          text-align: left;
          width: 50%;
          padding: 5pt 0 0 10pt;
@@ -38,7 +38,10 @@
                   <td><strong>JOB DUE DATE: </strong><%= due_date %></td>
                </tr>
                <tr>
-                  <td style="padding:0pt 0 0 0pt;width:1%;">
+                  <td style="padding:3pt;">
+                     <img src="<%= proof_image(230,320) %>">
+
+                     <span><%= proof_footer %></span>
 
                   </td>
                   <td>
@@ -53,20 +56,6 @@
                </tr>
                <tr>
                   <td>
-                     <strong>Ship To:</strong>
-                     <address>
-                        <%= shipping_information %>
-                     </address>
-                  </td>
-                  <td>
-                     <strong>Bill To:</strong> 
-                     <address>
-                        <%= billing_information %>
-                     </address>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
                      <p><strong>QTY: <%= quantity %></strong></p>
                   </td>
                   <td>
@@ -75,6 +64,9 @@
                </tr>
             </table>
          </div>
+         <div>
+               <img src="https://cdn.filepicker.io/api/file/QMzUTfAKSFGMXyMkrAR5" style="padding-top: 15pt;">
+            </div>
       </div>
    </body>
 </html>

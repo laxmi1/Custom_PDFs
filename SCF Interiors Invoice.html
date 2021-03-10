@@ -164,7 +164,7 @@
     <thead>
     <tr>
       <p style="padding-left: 35pt;">Invoice For: </p><br>
-        <p style="padding-left: 35pt;">Supply of works as per quotation (<% if quote_information %>qt# <%= quote_information %> / <% end %><% if related_transaction %>so# <%= related_transaction.match(/[0-9]+/) %><% end %> )</p>
+        <p style="padding-left: 35pt;">Supply of works as per quotation (<% if quote_information %>QT# <%= quote_information %> / <% end %><% if related_transaction_number %> SO# <%= related_transaction_number %><% end %> )</p>
     </tr>
     </thead>
   </table>
