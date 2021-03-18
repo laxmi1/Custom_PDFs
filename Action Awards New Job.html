@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Job PDF</title>
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         /* HEADER */
+         .header {
+         position: relative;
+         margin: 20pt 35pt 0pt 35pt;
+         }
+
+         .header-details {
+         position: absolute;
+         top: 0;
+         right: 0;
+         padding: 5pt 15pt 8pt 25pt;
+         background: red;
+         color: #fff;
+         }
+
+         .header-details:before {
+         position: absolute;
+         top: 0;
+         left: -20pt;
+         content: "";
+         display: block;
+         width: 35pt;
+         height: 100%;
+         background: red;
+         transform: skew(20deg, 0);
+         }
+
+         .header-details table td {
+         padding: 1pt;
+         font-weight: bold;
+         font-size: 15pt;
+         }
+
+         .header-details1 {
+         font-weight: bold;
+         font-size: 14pt;
+         max-width: 67%;
+         border-bottom: 3px solid black;
+         }
+
+         .header-details table td:nth-child(1) {
+         text-align: right;
+         }
+
+         /* ... */
+         .summary {
+         border: none !important;
+         background-color: #ffffff;
+         }
+
+         .summary .title {
+         margin-bottom: 0;
+         font-size: 14px;
+         font-weight: bold;
+         color: #000000;
+         text-transform: capitalize;
+         }
+         
+         .line-items {
+         padding: 0 35pt !important;
+         margin-top: -4pt;
+         }
+
+         .line-items tbody tr:first-child td {
+         border-top: 0px solid #e3e3e3;
+         padding-top: 5pt;
+         }
+
+         .line-items thead th {
+         font-size: 15px;
+         text-transform: uppercase;
+         font-weight: bold;
+         color: #ffffff;
+         padding: 5pt 5pt;
+         background-color: #4b4b4b;
+         }
+
+         tbody.line-items tr:nth-child(4n + 3),
+         tbody.line-items tr:nth-child(4n + 4) {
+         background-color: #f2f2f2;
+         }
+
+         .line-items .first {
+         padding-left: 5pt;
+         }
+
+         .line-items .last {
+         padding-right: 5pt;
+         }
+
+         .row::after {
+         clear: both;
+         display: table;
+         }
+
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf" id="page-job-new">
+         <!-- HEADER -->
+         <div class="header">
+            <div class="header-details1">
+               <% if txn_title.present? %>
+               <p><%= txn_title %></p>
+               <% end %>
+            </div>
+            <div class="header-details">
+               <table>
+                  <tr>
+                     <td><%= due_header %>:</td>
+                     <td><%= due_date %></td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <!-- HEADER - END -->
+         <div class="summary">
+            <table>
+               <tr>
+                  <td class="summ left">
+                     <div class="summary-wrapper">
+                        <p class="title">Invoice To</p>
+                        <p><%= name %></p>
+                        <% if billing_information %>
+                        <p><%= billing_information %></p>
+                        <% end %>
+                     </div>
+                     <div class="summary-wrapper">
+                        <p class="title"><%= sales_rep_header %></p>
+                        <p><%= sales_rep_name %></p>
+                     </div>
+                  </td>
+                  <td class="summ left">
+                     <div class="summary-wrapper">
+                        <p class="title">Contact Info</p>
+                        <p><%= contact_info %></p>
+                     </div>
+                  </td>
+                  <td class="summ left">
+                     <div class="summary-wrapper">
+                        <p class="title"><%= shipping_to_header %></p>
+                        <span>
+                        <%= shipping_information %>
+                        </span>
+                     </div>
+                     <div class="summary-wrapper">
+                        <p class="title"><%= shipping_method_header %></p>
+                        <%= shipping_method %>
+                     </div>
+                  </td>
+                  <td style="width: 1%;">
+                     <div class="col-sm-2">
+                        <div class="box box--default box--border">
+                           <div class="box__content">
+                              <div class="qr qr--default">
+                                 <div class="qr__code">
+                                    <%= qr_code.as_svg %>
+                                 </div>
+                                 <div class="qr__status">
+                                    <p>
+                                       <strong><%= status %></strong>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <!-- LINE ITEMS - DESCRIPTION -->
+         <div class="line-items">
+            <table>
+               <thead>
+                  <tr>
+                     <th class="position">
+                        <div class="first">#</div>
+                     </th>
+                     <th class="name"><%= item_header %></th>
+                     <th class="quantity"><%= qty_header %></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <% items.each_with_index do |item, index| %>
+                  <tr>
+                     <td class="td--shrink"><%= index+1 %></td>
+                     <td>
+                        <p><strong><%= item.name %></strong></p>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% if item.table_view %> <% if item.has_bom? %>
+                        <ul class="bom_report bom_report_detail">
+                           <% item.bom_hash.keys.each do |item_type| %>
+                           <li class="bom_report bom_report_detail bom_report_first">
+                              <%= item_type %> <% if item.bom_hash[item_type].size > 0 %>
+                              <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                 <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
+                                 <li class="bom_report"><%= item_sub_type %></li>
+                                 <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                    <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
+                                    <li class="bom_report">
+                                       <% if li.is_a?(Hash) %> <%= li[:category] if li[:category] %> <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br />
+                                          " %> <%= "Part ##{li[:part_number]}<br />
+                                          " if li[:part_number].present? && show_part_number(@account) %> <% if li[:item_attr_name1] %> <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %> <% end %> <% if
+                                          li[:item_attr_name2] %> <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %> <% end %> <% if li[:sub_items] %> <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do
+                                          |sub_item| %>
+                                       <table class="li-table-view-container">
+                                          <tr>
+                                             <td class="li-table-view-name">
+                                                <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                             </td>
+                                             <td>
+                                                <table class="li-table-view">
+                                                   <tr>
+                                                      <%= sub_item[1].map{|col| "
+                                                         <th>#{col[:item_attr1]}</th>
+                                                         "}.join %>
+                                                   </tr>
+                                                   <tr>
+                                                      <%= sub_item[1].map{|col| "
+                                                         <td>#{col[:quantity].to_i}</td>
+                                                         "}.join %>
+                                                   </tr>
+                                                </table>
+                                             </td>
+                                          </tr>
+                                       </table>
+                                       <% end %> <% end %> <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                       <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image" />
+                                       <% end %> <% else %> <%= li %> <% end %>
+                                    </li>
+                                    <% end %>
+                                 </ul>
+                                 <% end %>
+                              </ul>
+                              <% end %>
+                           </li>
+                           <% end %>
+                        </ul>
+                        <% end %> <% else %> <% if item.has_bom? %>
+                        <ul class="bom_report bom_report_detail">
+                           <% item.bom_report.keys.each do |item_type| %> <% unless item_type == 'Material' && item.table_view %>
+                           <li class="bom_report bom_report_detail bom_report_first">
+                              <%= item_type %> <% if item.bom_report[item_type].size > 0 %>
+                              <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                 <% item.bom_report[item_type].keys.each do |item_sub_type| %>
+                                 <li class="bom_report"><%= item_sub_type %></li>
+                                 <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                    <% item.bom_report[item_type][item_sub_type].each do |li| %>
+                                    <li class="bom_report">
+                                       <div class="text--pre-line li-desc-fixed-width">
+                                          <%= li %>
+                                       </div>
+                                    </li>
+                                    <% end %>
+                                 </ul>
+                                 <% end %>
+                              </ul>
+                              <% end %>
+                           </li>
+                           <% end %> <% end %>
+                        </ul>
+                        <% end %> <% end %> <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image" />
+                        <% end %>
+                     </td>
+                     <td class="text--center"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true).to_s %></td>
+                  </tr>
+                  <% end %>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>
+

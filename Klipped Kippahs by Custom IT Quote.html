@@ -4,6 +4,12 @@
   <style>
     <%= page_size %>
     <%= body_font_family %>
+    body {
+    border-left: 10px solid #e3e3e3;
+    border-right: 10px solid #e3e3e3;
+    height: 100%;
+    }
+
     @page {
       margin: 165pt 0pt 110pt 0pt;
       @top {
@@ -29,10 +35,14 @@
       font-size: 17px;
       line-height: 0.8;
     }
+    .summary .summ .main-title {
+     margin: 0;
+     padding-top: 6pt;
+     }
     .summary {
       margin: 0pt;
-      padding: 5pt 15pt;
-      border-bottom: 2px solid #e3e3e3;
+      padding: 0pt 15pt;
+      border-bottom: 6pt solid #e3e3e3;
       background: none;
     }
     .summary .summ .title {
@@ -43,14 +53,14 @@
       font-weight: bold;
     }
     .summary .summ.right .summary-wrapper {
-      border-right: 3px solid #e3e3e3;
+      border-right: 0pt solid #e3e3e3;
       text-align: right;
       height: 100%;
       padding-right: 5pt;
     }
     .addresses {
-      padding: 5pt 15pt;
-      border-bottom: 2px solid #e3e3e3;
+      padding: 4pt 15pt;
+      border-bottom: 6pt solid #e3e3e3;
     }
     .addresses .address .title {
       text-transform: uppercase;
@@ -60,13 +70,13 @@
       font-weight: bold;
     }
     .addresses .address.left .address-wrapper {
-      border-left: 3px solid #e3e3e3;
+      border-left: 0pt solid #e3e3e3;
       text-align: left;
       padding-left: 5pt;
     }
     .description_area {
       padding: 5pt 15pt;
-      border-bottom: 2px solid #e3e3e3;
+      border-bottom: 6pt solid #e3e3e3;
     }
     .line-items .first {
       padding-left: 15pt;
@@ -116,7 +126,7 @@
       color: #6D6A6A;
       line-height: 1.0;
       width: 180px;
-      margin: 2px 0 2px;
+      margin: 0px 0 5px 0;
       text-align: left;
       padding-left: 3pt;
     }
@@ -158,10 +168,10 @@
           <% end %>
         </div>
       </td>
-      <td class="summ right">
-        <div class="summary-wrapper">
+      <td class="summ right" style="border-right: 6pt solid #e3e3e3;">
+        <div class="summary-wrapper" style="padding-top: 3pt;">
           <p class="title" style="font-size: 10px;"><%= sales_rep_information_header %></p>
-          <p> <strong><%= sales_rep_information %></strong> </p>
+          <p> <strong><span style="padding: 0pt 15pt"><%= sales_rep_information %></span></strong> </p>
         </div>
       </td>
       <td class="summ right">
@@ -170,14 +180,14 @@
           <p style="font-size: 25.21pt;color: #000000;"><strong><%= quote_date %></strong></p>
         </div>
       </td>
-      <td class="summ right">
-        <div class="summary-wrapper">
+      <td class="summ right" >
+        <div class="summary-wrapper" style="border-left: 3pt solid #e3e3e3;">
           <% if @object.in_hand_date %>
             <p class="title" style="font-size: 18.30pt;color: #26bfcb;">IN HANDS DATE</p>
             <p style="font-size: 25.21pt;color: #000000;"><strong><%= format_date(@object.in_hand_date) %></strong> </p>
           <% end %>
         </div>
-        <div class="custom-note1">
+        <div class="custom-note1" style="border-left: 3pt solid #e3e3e3;">
           THE <i>IN HANDS DATE</i> IS FINALIZED ONLY WHEN THE
           ORDER IS APPROVED. IF APPROVED AFTER THE
           QUOTE DATE, THE IN HANDS DATE WILL CHANGE.
@@ -203,7 +213,7 @@
         </div>
       </td>
       <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
-        <td class="address left">
+        <td class="address left" style="border-left: solid 3pt #e3e3e3;">
           <div class="address-wrapper">
             <p class="title" style="font-size: 7.5 pt;color: #26bfcb;"><strong><%= shipping_information_header %></strong></p>
             <span>
@@ -230,7 +240,7 @@
           THIS ADDRESS.
         </div>
       </td>
-      <td class="address left">
+      <td class="address left" style="border-left: solid 3pt #e3e3e3;">
         <div class="address-wrapper">
           <p class="title"><%= contact_information_header %></p>
           <strong>
@@ -460,3 +470,4 @@
 </body>
 </html>
 
+  
