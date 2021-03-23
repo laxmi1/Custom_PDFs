@@ -9,7 +9,7 @@
          /* HEADER */
          .header {
          position: relative;
-         margin: 20pt 35pt 0pt 35pt;
+         margin: 45pt 35pt 0pt 35pt;
          }
 
          .header-details {
@@ -42,7 +42,9 @@
          .header-details1 {
          font-weight: bold;
          font-size: 14pt;
-         max-width: 67%;
+         max-width: 69%;
+         padding-top: 8.9pt;
+         padding-bottom: 5pt;
          border-bottom: 3px solid black;
          }
 
@@ -54,6 +56,7 @@
          .summary {
          border: none !important;
          background-color: #ffffff;
+         padding-bottom: 9pt;
          }
 
          .summary .title {
@@ -66,7 +69,6 @@
          
          .line-items {
          padding: 0 35pt !important;
-         margin-top: -4pt;
          }
 
          .line-items tbody tr:first-child td {
@@ -109,7 +111,7 @@
          <div class="header">
             <div class="header-details1">
                <% if txn_title.present? %>
-               <p><%= txn_title %></p>
+               <%= txn_title %>
                <% end %>
             </div>
             <div class="header-details">
@@ -128,20 +130,20 @@
                   <td class="summ left">
                      <div class="summary-wrapper">
                         <p class="title">Invoice To</p>
-                        <p><%= name %></p>
+                        <%= company_name %>
                         <% if billing_information %>
                         <p><%= billing_information %></p>
                         <% end %>
-                     </div>
-                     <div class="summary-wrapper">
-                        <p class="title"><%= sales_rep_header %></p>
-                        <p><%= sales_rep_name %></p>
                      </div>
                   </td>
                   <td class="summ left">
                      <div class="summary-wrapper">
                         <p class="title">Contact Info</p>
                         <p><%= contact_info %></p>
+                     </div>
+                     <div class="summary-wrapper">
+                        <p class="title"><%= sales_rep_header %></p>
+                        <p><%= sales_rep_name %></p>
                      </div>
                   </td>
                   <td class="summ left">
@@ -185,99 +187,118 @@
                      <th class="position">
                         <div class="first">#</div>
                      </th>
-                     <th class="name"><%= item_header %></th>
+                     <th class="name"><%= line_items_details_header %></th>
                      <th class="quantity"><%= qty_header %></th>
                   </tr>
                </thead>
                <tbody>
-                  <% items.each_with_index do |item, index| %>
-                  <tr>
-                     <td class="td--shrink"><%= index+1 %></td>
-                     <td>
-                        <p><strong><%= item.name %></strong></p>
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.description %>
-                        </div>
-                        <% if item.table_view %> <% if item.has_bom? %>
-                        <ul class="bom_report bom_report_detail">
-                           <% item.bom_hash.keys.each do |item_type| %>
-                           <li class="bom_report bom_report_detail bom_report_first">
-                              <%= item_type %> <% if item.bom_hash[item_type].size > 0 %>
-                              <ul class="bom_report bom_report_detail bom_report_detail_level">
-                                 <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
-                                 <li class="bom_report"><%= item_sub_type %></li>
-                                 <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
-                                    <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
-                                    <li class="bom_report">
-                                       <% if li.is_a?(Hash) %> <%= li[:category] if li[:category] %> <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br />
-                                          " %> <%= "Part ##{li[:part_number]}<br />
-                                          " if li[:part_number].present? && show_part_number(@account) %> <% if li[:item_attr_name1] %> <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %> <% end %> <% if
-                                          li[:item_attr_name2] %> <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %> <% end %> <% if li[:sub_items] %> <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do
-                                          |sub_item| %>
-                                       <table class="li-table-view-container">
-                                          <tr>
-                                             <td class="li-table-view-name">
-                                                <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
-                                             </td>
-                                             <td>
-                                                <table class="li-table-view">
-                                                   <tr>
-                                                      <%= sub_item[1].map{|col| "
-                                                         <th>#{col[:item_attr1]}</th>
-                                                         "}.join %>
-                                                   </tr>
-                                                   <tr>
-                                                      <%= sub_item[1].map{|col| "
-                                                         <td>#{col[:quantity].to_i}</td>
-                                                         "}.join %>
-                                                   </tr>
-                                                </table>
-                                             </td>
-                                          </tr>
-                                       </table>
-                                       <% end %> <% end %> <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
-                                       <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image" />
-                                       <% end %> <% else %> <%= li %> <% end %>
-                                    </li>
+                    <% items.each_with_index do |item, index| %>
+                      <tr>
+                        <td class="td--shrink"><%= index+1 %></td>
+                        <td >
+                         <strong><%= item.name %></strong>
+                          <div class="text--pre-line li-desc-fixed-width">
+                            <%= item.description %>
+                          </div>
+                          <% if item.table_view %>
+                              <% if item.has_bom? %>
+                                  <ul class="bom_report bom_report_detail">
+                                    <% item.bom_hash.keys.each do |item_type| %>
+                                        <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                                          <% if item.bom_hash[item_type].size > 0 %>
+                                              <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                                <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
+                                                    <li class="bom_report"><%= item_sub_type %></li>
+                                                    <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                                      <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
+                                                          <li class="bom_report">
+                                                            <% if li.is_a?(Hash) %>
+                                                                <%= li[:category] if li[:category] %>
+                                                                <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br>" %>
+                                                                <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
+                                                                <% if li[:item_attr_name1] %>
+                                                                    <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %>
+                                                                <% end %>
+                                                                <% if li[:item_attr_name2] %>
+                                                                    <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %>
+                                                                <% end %>
+                                                                <% if li[:sub_items] %>
+                                                                    <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                                                        <table class='li-table-view-container'>
+                                                                          <tr>
+                                                                            <td class='li-table-view-name'>
+                                                                              <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                                                            </td>
+                                                                            <td>
+                                                                              <table class='li-table-view'>
+                                                                                <tr>
+                                                                                  <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <%= sub_item[1].map{|col| "<td>#{col[:quantity].to_i}</td>"}.join %>
+                                                                                </tr>
+                                                                              </table>
+                                                                            </td>
+
+                                                                          </tr>
+                                                                        </table>
+                                                                    <% end %>
+                                                                <% end %>
+                                                                <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                                                    <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image">
+                                                                <% end %>
+                                                            <% else %>
+                                                                <%= li %>
+                                                            <% end %>
+                                                          </li>
+                                                      <% end %>
+                                                    </ul>
+                                                <% end %>
+
+                                              </ul>
+                                          <% end %>
+                                        </li>
                                     <% end %>
-                                 </ul>
-                                 <% end %>
-                              </ul>
+                                  </ul>
                               <% end %>
-                           </li>
-                           <% end %>
-                        </ul>
-                        <% end %> <% else %> <% if item.has_bom? %>
-                        <ul class="bom_report bom_report_detail">
-                           <% item.bom_report.keys.each do |item_type| %> <% unless item_type == 'Material' && item.table_view %>
-                           <li class="bom_report bom_report_detail bom_report_first">
-                              <%= item_type %> <% if item.bom_report[item_type].size > 0 %>
-                              <ul class="bom_report bom_report_detail bom_report_detail_level">
-                                 <% item.bom_report[item_type].keys.each do |item_sub_type| %>
-                                 <li class="bom_report"><%= item_sub_type %></li>
-                                 <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
-                                    <% item.bom_report[item_type][item_sub_type].each do |li| %>
-                                    <li class="bom_report">
-                                       <div class="text--pre-line li-desc-fixed-width">
-                                          <%= li %>
-                                       </div>
-                                    </li>
+                          <% else %>
+                              <% if item.has_bom? %>
+                                  <ul class="bom_report bom_report_detail">
+                                    <% item.bom_report.keys.each do |item_type| %>
+                                        <% unless item_type == 'Material' && item.table_view %>
+                                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                                              <% if item.bom_report[item_type].size > 0 %>
+                                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                                    <% item.bom_report[item_type].keys.each do |item_sub_type| %>
+                                                        <li class="bom_report"><%= item_sub_type %></li>
+                                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                                          <% item.bom_report[item_type][item_sub_type].each do |li| %>
+                                                              <li class="bom_report">
+                                                                <div class="text--pre-line li-desc-fixed-width">
+                                                                  <%= li %>
+                                                                </div>
+                                                              </li>
+                                                          <% end %>
+                                                        </ul>
+                                                    <% end %>
+
+                                                  </ul>
+                                              <% end %>
+                                            </li>
+                                        <% end %>
                                     <% end %>
-                                 </ul>
-                                 <% end %>
-                              </ul>
+                                  </ul>
                               <% end %>
-                           </li>
-                           <% end %> <% end %>
-                        </ul>
-                        <% end %> <% end %> <% if item.product_image %>
-                        <img src="<%= item.product_image %>" class="line-item-description-image" />
-                        <% end %>
-                     </td>
-                     <td class="text--center"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true).to_s %></td>
-                  </tr>
-                  <% end %>
-               </tbody>
+                          <% end %>
+
+                          <% if item.product_image %>
+                              <img src="<%= item.product_image %>" class="line-item-description-image">
+                          <% end %>
+                        </td>
+                        <td class="text--center"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true).to_s %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
             </table>
          </div>
       </div>

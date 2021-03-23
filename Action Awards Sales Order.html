@@ -84,6 +84,7 @@
     .summary {
       border: none !important;
       background-color: #FFFFFF;
+      padding-bottom: 5pt;
     }
 
     .summary .title {
@@ -224,7 +225,7 @@
     <tr>
       <td class="summ left">
         <div class="summary-wrapper">
-          <p class="title">Sales Order To</p>
+          <p class="title">Ordered By</p>
           <p><%= name %></p>
           <% if billing_information %>
             <p><%= billing_information %></p>
@@ -293,12 +294,10 @@
     </tr>
   </table>
 </div>
-<% if show_about_this_desc && strip_tags(description).present? %>
-  <div class="description_area">
-    <div class="description"> <%= description %></div>
-  </div>
-<% end %>
 
+  <div class="description_area">
+    <div class="description"> <%= name %></div>
+  </div>
 
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
