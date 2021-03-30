@@ -5,67 +5,55 @@
          <%= body_font_family %>
          <%= page_size %>
          @page {
-          margin: 5pt 0 35pt 0;
+         margin: 5pt 0 35pt 0;
          }
-
          @page :first {
-          margin: 0 0 35pt 0;
-          @top-left { content: none }
+         margin: 0 0 35pt 0;
+         @top-left { content: none }
          }
-
          .addresses {
-          padding: 0pt 15pt 3pt 25pt;
-          border-bottom: 0px solid #e3e3e3;
+         padding: 0pt 15pt 3pt 25pt;
+         border-bottom: 0px solid #e3e3e3;
          }
-
          .addresses .address.left .address-wrapper {
-          border-left: 0px solid #e3e3e3;
-          text-align: left;
-          padding-left: 10pt;
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 10pt;
          }
-
          .addresses .address .title {
-          text-transform: none;
-          margin-top: 0pt;
-          font-size: 10px;
-          color: black;
+         text-transform: none;
+         margin-top: 0pt;
+         font-size: 10px;
+         color: black;
          }
-
          .address-logo {
-          padding: 0pt 15pt 3pt 35pt;
-          border-bottom: 0px solid #e3e3e3;
+         padding: 0pt 15pt 3pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
          }
-
          .store-logo {
          text-align: left;
          vertical-align: top;
          }
-
          .address-logo .store-logo .logo,
          img.logo {
-          width: 120px;
-          height: 80px;
-          padding-top: 10pt;
+         width: 120px;
+         height: 80px;
+         padding-top: 10pt;
          }
-
          .line-items .first {
-          padding-left: 30pt;
+         padding-left: 30pt;
          }
-
          .line-items .last {
-          padding-right: 30pt;
+         padding-right: 30pt;
          }
-
          .li-desc-fixed-width {
-          max-width: 550pt;
+         max-width: 550pt;
          }
-
          .description .last p {
-          display: inline-block;
+         display: inline-block;
          }
-
          .description .last p.bom-description--custom-class {
-          display: block;
+         display: block;
          }
       </style>
       </style>
@@ -224,12 +212,16 @@
                </tr>
                <tr>
                   <td class="description" style="column-count: 2;">
+                     <% if item.job_description %>
+                     <div class='job_description'>
+                        <div class="text--pre-line">
+                           <%= item.job_description %>
+                        </div>
+                     </div>
+                     <% end %><br>
                      <div class="last">
-                        <div class="text--pre-line li-desc-fixed-width" >
+                        <div class="text--pre-line li-desc-fixed-width">
                            <%= item.description %>
-                           <% if item.job_description %>
-                            <%= item.job_description %>
-                           <% end %>
                         </div>
                      </div>
                      <% if item.panel_description_enabled? %>
@@ -285,37 +277,6 @@
                      <% end %>
                   </td>
                </tr>
-               <!-- <% if item.job.present? and show_workflow_steps? %>
-                  <tr>
-                    <td colspan="5">
-                      <div class="stages">
-                        <% item.job.stages.each do |stage| %>
-                            <div class="stage">
-                              <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
-                              <div class="stage-wrapper clearfix">
-                                <% stage.steps.each do |step| %>
-                                    <% if !step.skip %>
-                                        <div class="step <%= step.state %>">
-                                          <div class="step-info clearfix">
-                                            <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
-                                            <div class="number"><%= step.num_iterations %></div>
-                                          </div>
-                                          <% unless step.assigned_to_user_initials.blank? %>
-                                              <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
-                                          <% end %>
-                                          <% unless step.scheduled_machine_name.blank? %>
-                                              <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
-                                          <% end %>
-                                        </div>
-                                    <% end %>
-                                <% end %>
-                              </div>
-                            </div>
-                        <% end %>
-                      </div>
-                    </td>
-                  </tr>
-                  <% end %> -->
             </tbody>
             <% end %>
             <tfoot class="no-page-break">

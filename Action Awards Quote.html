@@ -2,7 +2,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
-      <%= page_size %>
+    <%= page_size %>
     <%= body_font_family %>
 
     .terms-title *, .terms-text * {
@@ -46,21 +46,22 @@
       position: absolute;
       top: 0;
       right: 0;
-      padding: 10pt 15pt 10pt 40pt;
+      padding: 5pt 15pt 3pt 5pt;
       background: red;
       color: #fff;
     }
 
-    .header-details:before {
+    .header-details::before {
       position: absolute;
       top: 0;
-      left: -20pt;
+      left: -32pt;
       content: '';
       display: block;
-      width: 35pt;
+      width: 65pt;
       height: 100%;
       background: red;
-      transform: skew(14deg, 0);
+      transform: skew(29deg, 0);
+      z-index: 0;
     }
 
     .header-details table th {
@@ -68,6 +69,23 @@
       font-weight: bold;
       text-transform: uppercase;
       text-align: right;
+      padding: 0;
+      margin: 0;
+    }
+
+   .header-details-table {
+      z-index: 10;
+      position: relative;
+    }
+
+    .header-details table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    .header-details-txn-number {
+      line-height: 22pt;
+      padding-bottom: 12pt !important;
     }
 
     .header-details table td {
@@ -84,7 +102,7 @@
     .summary {
       border: none !important;
       background-color: #FFFFFF;
-      padding-bottom: 5pt;
+      padding-bottom: 10pt;
     }
 
     .summary .title {
@@ -98,6 +116,8 @@
     .description_area {
       border: none !important;
       margin: 0 auto !important;
+      position: relative;
+      overflow: hidden;
     }
 
     .description_area .description {
@@ -105,8 +125,20 @@
       font-weight: bold;
       color: #FFFFFF;
       padding: 10px;
-      background-image: linear-gradient(55deg, #4B4B4B 50%, #FFFFFF 0%);
+      background: rgba(75,75,75,1);
       margin: 0 auto !important;
+    }
+
+    .description_area .description-angle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      content: '';
+      display: block;
+      width: 100%;
+      height: 51px;
+      background: white;
+      transform: skew(29deg, 0);
     }
 
     .line-items {
@@ -199,24 +231,26 @@
     <img src="https://cdn.filepicker.io/api/file/E6tFQYRbTiODC1Y0w5c8" class="img-logo" />
   </div>
   <div class="header-details">
-    <table>
-      <tr>
-        <th colspan="2">Quote</th>
-      </tr>
-      <tr>
-        <th colspan="2"><%= txn_number_only %></th>
-      </tr>
-      <tr>
-        <td>Quote Date: </td>
-        <td><%= quote_date %></td>
-      </tr>
-      <tr>
-       <% if quote_expiry_date %>
-        <td>Expiry Date: </td>
-        <td><%= quote_expiry_date%></td>
-        <% end %>
-      </tr>
-    </table>
+    <div class="header-details-table">
+      <table>
+        <tr>
+          <th colspan="2">Quote</th>
+        </tr>
+        <tr>
+          <th colspan="2" class="header-details-txn-number"><%= txn_number_only %></th>
+        </tr>
+        <tr>
+          <td>Quote Date: </td>
+          <td><%= quote_date %></td>
+        </tr>
+        <tr>
+         <% if quote_expiry_date %>
+          <td>Expiry Date: </td>
+          <td><%= quote_expiry_date%></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
 <!-- HEADER - END -->
@@ -227,7 +261,7 @@
       <td class="summ left">
         <div class="summary-wrapper">
           <p class="title">Ordered By</p>
-          <p><%= name %></p>
+          <p><%= sold_to %></p>
           <% if billing_information %>
             <p><%= billing_information %></p>
           <% end %>
@@ -286,6 +320,7 @@
 
   <div class="description_area">
     <div class="description"> <%= name %></div>
+    <div class="description-angle"></div>
   </div>
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->

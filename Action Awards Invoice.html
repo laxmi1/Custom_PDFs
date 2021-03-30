@@ -30,12 +30,12 @@
     /* HEADER */
     .header {
       position: relative;
-      margin: 20pt 35pt 20pt 35pt;
+      margin: 20pt 35pt 15pt 35pt;
     }
 
     .header-logo {
       background: #4b4b4b;
-      padding: 8pt 0;
+      padding: 10pt 0;
     }
 
     .header-logo .img-logo {
@@ -46,28 +46,46 @@
       position: absolute;
       top: 0;
       right: 0;
-      padding: 10pt 15pt 10pt 25pt;
+      padding: 5pt 15pt 3pt 5pt;
       background: red;
       color: #fff;
     }
 
-    .header-details:before {
+    .header-details::before {
       position: absolute;
       top: 0;
-      left: -20pt;
+      left: -32pt;
       content: '';
       display: block;
-      width: 35pt;
+      width: 65pt;
       height: 100%;
       background: red;
-      transform: skew(16deg, 0);
+      transform: skew(29deg, 0);
+      z-index: 0;
     }
 
     .header-details table th {
-      font-size: 24pt;
+      font-size: 22pt;
       font-weight: bold;
       text-transform: uppercase;
       text-align: right;
+      padding: 0;
+      margin: 0;
+    }
+
+   .header-details-table {
+      z-index: 10;
+      position: relative;
+    }
+
+    .header-details table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    .header-details-txn-number {
+      line-height: 22pt;
+      padding-bottom: 12pt !important;
     }
 
     .header-details table td {
@@ -79,17 +97,18 @@
       text-align: right;
     }
 
+    /* ... */
     .stamp {
       z-index: 100;
       top: 15pt;
-      left: -110pt;
+      left: -120pt;
     }
 
     .invoice-past-due-label span {
       display: inline-block;
       background: red;
-      transform: skew(20deg, 0);
-      margin-top:-20pt;
+      transform: skew(29deg, 0);
+      margin-top:-22pt;
 
     }
 
@@ -99,15 +118,15 @@
       padding: 5pt 10pt;
       text-transform: uppercase;
       background: transparent;
-      transform: skew(-20deg, 0);
+      transform: skew(-29deg, 0);
       font-weight: bold;
       color: #fff;
-    }
-    /* ... */
+    }     
 
     .summary {
       border: none !important;
       background-color: #FFFFFF;
+      padding-bottom: 10pt;
     }
 
     .summary .title {
@@ -121,6 +140,8 @@
     .description_area {
       border: none !important;
       margin: 0 auto !important;
+      position: relative;
+      overflow: hidden;
     }
 
     .description_area .description {
@@ -128,13 +149,25 @@
       font-weight: bold;
       color: #FFFFFF;
       padding: 10px;
-      background-image: linear-gradient(55deg, #4B4B4B 50%, #FFFFFF 0%);
+      background: rgba(75,75,75,1);
       margin: 0 auto !important;
+    }
+
+    .description_area .description-angle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      content: '';
+      display: block;
+      width: 100%;
+      height: 51px;
+      background: white;
+      transform: skew(29deg, 0);
     }
 
     .line-items {
       padding: 0 35pt !important;
-      margin-top: -4pt;
+      margin-top: -5pt;
     }
     .line-items tbody tr:first-child td {
       border-top: 0px solid #e3e3e3;
@@ -203,7 +236,6 @@
       clear: both;
       display: table;
     }
-
   </style>
 </head>
 <body>
@@ -229,27 +261,29 @@
       </div>
     <% end %>
   <div class="header-details">
-    <table>
-      <tr>
-        <th colspan="2">Invoice</th>
-      </tr>
-      <tr>
-        <th colspan="2"><%= txn_number_only %></th>
-      </tr>
-      <tr>
-        <td>Invoice Date: </td>
-        <td><%= invoice_date %></td>
-      </tr>
-      <tr>
-        <td>Invoice Due Date: </td>
-        <td><%= due_date %></td>
-      </tr>
-    </table>
-    <% if is_paid? %>
-      <p class="stamp">
-        <img src="<%="#{Rails.root}/app/assets/images/pages/stamp-paid-big-white.png"%>" alt="Paid"/>
-      </p>
-    <% end %>
+    <div class="header-details-table">
+      <table>
+        <tr>
+          <th colspan="2">Invoice</th>
+        </tr>
+        <tr>
+          <th colspan="2" class="header-details-txn-number"><%= txn_number_only %></th>
+        </tr>
+        <tr>
+          <td>Invoice Date: </td>
+          <td><%= invoice_date %></td>
+        </tr>
+        <tr>
+          <td>Invoice Due Date: </td>
+          <td><%= due_date %></td>
+        </tr>
+      </table>
+        <% if is_paid? %>
+          <p class="stamp">
+            <img src="<%="#{Rails.root}/app/assets/images/pages/stamp-paid-big-white.png"%>" alt="Paid"/>
+          </p>
+        <% end %>
+    </div>
   </div>
 </div>
 <!-- HEADER - END -->
@@ -260,7 +294,7 @@
       <td class="summ left">
         <div class="summary-wrapper">
           <p class="title">Invoice To</p>
-          <p><%= name %></p>
+          <p><%= sold_to %></p>
           <% if billing_information %>
             <p><%= billing_information %></p>
           <% end %>
@@ -328,11 +362,12 @@
     </tr>
   </table>
 </div>
-<% if show_about_this_desc && strip_tags(description).present? %>
-  <div class="description_area">
-    <div class="description"> <%= description %></div>
+
+ <div class="description_area">
+    <div class="description"> <%= name %></div>
+    <div class="description-angle"></div>
   </div>
-<% end %>
+
 <div class="line-items">
   <table>
     <thead>

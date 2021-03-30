@@ -44,8 +44,8 @@
          font-size: 14pt;
          max-width: 69%;
          padding-top: 8.9pt;
-         padding-bottom: 5pt;
-         border-bottom: 3px solid black;
+        padding-bottom: 5pt;
+        border-bottom: 3px solid black;
          }
 
          .header-details table td:nth-child(1) {
@@ -71,9 +71,9 @@
          padding: 0 35pt !important;
          }
 
-         .line-items tbody tr:first-child td {
+         .line-items tbody tr td {
          border-top: 0px solid #e3e3e3;
-         padding-top: 5pt;
+         padding-top: 6pt;
          }
 
          .line-items thead th {
@@ -195,8 +195,8 @@
                     <% items.each_with_index do |item, index| %>
                       <tr>
                         <td class="td--shrink"><%= index+1 %></td>
-                        <td >
-                         <strong><%= item.name %></strong>
+                        <td>
+                         <strong style="font-size: 15px;"><%= item.name %></strong>
                           <div class="text--pre-line li-desc-fixed-width">
                             <%= item.description %>
                           </div>
