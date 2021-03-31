@@ -3,7 +3,6 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       <%= page_size %>
-
   .no-li-br{
    page-break-inside: avoid;
     }
@@ -13,20 +12,16 @@
   </style>
 </head>
 <body>
-
-
 <table style="width:97%;" border="1" cellpadding="6">
  
   <tr>
     <td style="width:30%;"><strong>JOB INFO:</strong> 
     </td>
-
     <%if proof_image%>
      <td rowspan="2" style="width:8%;" valign="top">
      <%else%>
      <td rowspan="2" style="width:30%;" valign="top">
      <%end%>
-
     
     <div class="">
       <% stages.each do |stage| %>
@@ -57,7 +52,6 @@
       <% end %>
     </div>
     </td>
-
     <td>
     <strong>JOB DETAILS:</strong>
     </td> 
@@ -104,7 +98,6 @@
         </div>
       </div>
   <% end %>
-
   <% if (install_details && is_form_field_visible?('install_details')) || (production_details && is_form_field_visible?('production_details')) %>
       <div class='half_details'>
         <div class='install_details'>
@@ -119,7 +112,6 @@
         </div>
       </div>
   <% end %>
-
   <% if shipping_details && is_form_field_visible?('shipping_details') %>
       <div class='details'>
         <div class='shipping_details'>
@@ -129,7 +121,6 @@
         </div>
       </div>
   <% end %>
-
    <div style="border-top:1px #000 solid;">
     <p>
     <% if bom_details && is_form_field_visible?('bom_details') %>
@@ -140,10 +131,8 @@
       </div>
   <% end %>
   </p>
-
   </td>
  </tr>
-
  <%if proof_image%>
  <tr>
   <td colspan="2" class="no-li-br" align="center">
@@ -159,14 +148,12 @@
 </td>
  </tr>
  <%end%>
-
  <tr>
   <td valign="top" style="width:35%;"> <strong><u>Description:</u></strong><br>
     <% if is_form_field_visible?('description') %>
         <p class="text--pre-line"><%= simple_format(description) %></p>
     <% end %>
   </td>
-
   <td valign="top" colspan ="2"> 
   <table>
     <tr>
@@ -185,7 +172,6 @@
       <span class='left'><b><%= project_manager_header %>:</b> <%= project_manager_name %></span>
     <% end %>
   </div>
-
       </td>
       <td>
           <table cellspacing="6" valign="middle">
@@ -199,11 +185,11 @@
             <% qr_code.modules.each_index do |x| %>
             <tr>
               <% @qr_code.modules.each_index do |y| %>
-                  <% if @qr_code.dark?(x, y) %>
-                      <td class="black" style="border"/>
-                  <% else %>
-                      <td class="white"/>
-                  <% end %>
+                  <% if qr_code.modules[x][y] %>
+  <td class="black" style="border"/>
+<% else %>
+  <td class="white" />
+<% end %>
                 <% end %>
               </tr>
               <% end %>
@@ -216,13 +202,10 @@
     </tr>
   </table>
  
-
   </td>
   
  </tr>
  
-
 </table>
-
 </body>
 </html>

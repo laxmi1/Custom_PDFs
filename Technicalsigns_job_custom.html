@@ -112,11 +112,11 @@
       <% qr_code.modules.each_index do |x| %>
           <tr>
             <% @qr_code.modules.each_index do |y| %>
-                <% if @qr_code.dark?(x, y) %>
-                    <td class="black"/>
-                <% else %>
-                    <td class="white"/>
-                <% end %>
+                <% if qr_code.modules[x][y] %>
+   <td class="black" />
+<% else %>
+   <td class="white" />
+<% end %>
             <% end %>
           </tr>
       <% end %>
@@ -146,7 +146,7 @@
                         <p style="font-size: 20px;">
                            <%= @object.company.try(:name) %>
                         </p>
-                        <br>
+                        <br>                            
                         <% if contact.present? && is_form_field_visible?('contact_id') %>
                         <p>
                            <%= contact %>
@@ -219,7 +219,7 @@
       <div class="image">
          <img class="proof" src="<%= image %>" style="height:240px;width:42%;margin:33px;">
       </div>
-      <% end %>
+      <% end %>      
       <%end%>
    </body>
 </html>
