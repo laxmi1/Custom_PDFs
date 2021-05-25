@@ -9,15 +9,10 @@
       font-size:8pt;
     }
 
-
     /* PAGE */
     @page {
-       margin: 0pt 0pt 60pt 0pt;
-      @bottom {
-        margin-bottom: 20pt;
-        width: 88%;
-        content: url(https://cdn.filepicker.io/api/file/eo9CdBBaTpCRhx5bRcG9);
-      }
+       margin: 0pt 0pt 10pt 0pt;            
+
       @bottom-left {
         content: " ";
       }
@@ -47,7 +42,7 @@
       top: 0;
       right: 0;
       padding: 5pt 15pt 3pt 5pt;
-      background: red;
+      background: #CE0E2D;
       color: #fff;
     }
 
@@ -59,7 +54,7 @@
       display: block;
       width: 65pt;
       height: 100%;
-      background: red;
+      background: #CE0E2D;
       transform: skew(29deg, 0);
       z-index: 0;
     }
@@ -125,42 +120,44 @@
       font-weight: bold;
       color: #FFFFFF;
       padding: 10px;
-      background: rgba(75,75,75,1);
+      background: #464646;
       margin: 0 auto !important;
     }
 
     .description_area .description-angle {
       position: absolute;
       top: 0;
-      left: 50%;
+      left: 100%;
       content: '';
       display: block;
       width: 100%;
       height: 51px;
       background: white;
-      transform: skew(29deg, 0);
+      transform: skew(0deg, 0);
     }
 
     .line-items {
       padding: 0 35pt !important;
       margin-top: -5pt;
     }
+
     .line-items tbody tr:first-child td {
       border-top: 0px solid #e3e3e3;
       padding-top: 5pt;
     }
+
     .line-items thead th {
       font-size: 15px;
       text-transform: uppercase;
       font-weight: bold;
-      color: #FFFFFF;
+      color: black;
       padding: 5pt 5pt;
-      background-color: red;
+      background-color: #EDEDED;
     }
 
     tbody.line-items tr:nth-child(4n + 3),
     tbody.line-items tr:nth-child(4n + 4){
-      background-color: #f2f2f2;
+      background-color: #EDEDED;
     }
 
     .line-items .first {
@@ -228,7 +225,7 @@
 <!-- HEADER -->
 <div class="header">
   <div class="header-logo">
-    <img src="https://cdn.filepicker.io/api/file/E6tFQYRbTiODC1Y0w5c8" class="img-logo" />
+    <img src="https://cdn.filestackcontent.com/gjjPI8dgSqianbNmX7FE" class="img-logo" />
   </div>
   <div class="header-details">
     <div class="header-details-table">
@@ -323,13 +320,7 @@
     <div class="description-angle"></div>
   </div>
 <div class="line-items">
-  <!--<h2 class="title"><%= items_header %></h2>-->
-  <% if show_multi_currecies %>
-    <p class="currency-note">
-      All prices in (default currency) except for the final price at the bottom showing in your local currency.
-    </p>
-  <% end %>
-  <table>
+    <table>
     <thead>
     <tr>
       <th class="position">
@@ -359,7 +350,7 @@
     </tr>
     </thead>
 
-    <tbody class=''>
+    <tbody class='line-items'>
         <% items.each_with_index do |item, index| %>
           <tr>
             <td class="position" rowspan="2">
@@ -512,6 +503,11 @@
         </tbody>
       </table>
     </div>
+    <div class="clearfix"></div>
+  </div>
+  <div>
+    <img src="https://cdn.filepicker.io/api/file/eo9CdBBaTpCRhx5bRcG9" style="width: 88%;margin-left: 35pt;">
+  </div>
     <div class="clearfix"></div>
   </div>
 </div>

@@ -44,8 +44,8 @@
          font-size: 14pt;
          max-width: 69%;
          padding-top: 8.9pt;
-        padding-bottom: 5pt;
-        border-bottom: 3px solid black;
+         padding-bottom: 5pt;
+         border-bottom: 3px solid black;
          }
 
          .header-details table td:nth-child(1) {
@@ -65,6 +65,13 @@
          font-weight: bold;
          color: #000000;
          text-transform: capitalize;
+         }
+
+         .special-info {
+          font-size: 14pt;
+          color: red;
+          margin-left: 37pt;
+         font-weight: bold;
          }
          
          .line-items {
@@ -177,6 +184,13 @@
                      </div>
                   </td>
                </tr>
+            </table>
+         </div>
+         <div class="special-info">
+            <table>
+              <tr>
+                <%= order_special_info %>                
+              </tr>
             </table>
          </div>
          <!-- LINE ITEMS - DESCRIPTION -->

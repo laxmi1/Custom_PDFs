@@ -142,48 +142,44 @@
          </table>
          <table>
             <tr>
-              <td class="orderby"style="font-weight: bold;">
-               <p>Invoice no: </p>
-               <% unless @object.company.account_number.blank?%><p>Customer no: </p><% end %>
-                <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
-                <% if po_number %><p>Your PO no: </p><% end %>
-                <p>Order no: </p>
-                <% if contact_name %><p>Your contact name: </p><% end %>
-                <% if @object.primary_sales_rep%><p>Our sales person: </p><% end %>
-                <% if project_manager_name %><p>Our contact:</p><%end%>
-              </td>
-              <td class="orderby">
-                <p><%= txn_number_only %></p>
-                <% unless @object.company.account_number.blank?%><p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p><% end %>
-                <% if @company.vat_number? %>
-                <p><%= @company.vat_number %></p>
-                <% end %>
-                <p><% if po_number %><%= po_number %><% end %></p>
-                <p><%= @object.work_orders.map { |ord| ord.txn_number }.join(',') %></p>
-                <p><% if contact_name %><%= contact_name %><%end%></p>
-                <% if @object.primary_sales_rep%>
-                <p><%=@object.primary_sales_rep.try(:name)%></p>
-                <%end%>
-                <% if project_manager_name %>
-                <p><%= project_manager_name %></p>
-                <%end%>
-              </td>
-              <td class="dates-terms" style="font-weight: bold;">
-                <p>Date:
-                </p>
-                <% if term_code %><p>Payment terms:
-                </p><% end %><br>
-                <p>Due Date:
-                </p>
-                <% if shipping_date %><p>Shipment date:
-                </p><% end %>
-              </td>
-              <td class="dates-terms">
-                <p><%= invoice_date %></p>
-                <p><% if term_code %><%= term_code %><% end %></p><br>
-                <p><%= due_date %></p>
-                <p><% if shipping_date %><%= shipping_date %><% end %></p>
-              </td>
+               <td class="orderby"style="font-weight: bold;">
+                 <p>Invoice no: </p>
+                 <% unless @object.company.account_number.blank?%><p>Customer no: </p><% end %>
+                  <% if @company.vat_number? %><p>Customer VAT no: </p><% end %>
+                  <% if po_number %><p>Your PO no: </p><% end %>
+                  <p>Order no: </p>
+                  <% if contact_name %><p>Your contact name: </p><% end %>
+                  <% if @object.primary_sales_rep%><p>Our sales person: </p><% end %>
+               </td>
+               <td class="orderby">
+                  <p><%= txn_number_only %></p>
+                  <% unless @object.company.account_number.blank?%><p><%= @object.company.account_number.present? ? @object.company.account_number : '' %></p><% end %>
+                  <% if @company.vat_number? %>
+                  <p><%= @company.vat_number %></p>
+                  <% end %>
+                  <p><% if po_number %><%= po_number %><% end %></p>
+                  <p><%= @object.work_orders.map { |ord| ord.txn_number }.join(',') %></p>
+                  <p><% if contact_name %><%= contact_name %><%end%></p>
+                  <% if @object.primary_sales_rep%>
+                 <p><%=@object.primary_sales_rep.try(:name)%></p>
+               <%end%>
+               </td>
+               <td class="dates-terms" style="font-weight: bold;">
+                  <p>Date:
+                  </p>
+                  <% if term_code %><p>Payment terms:
+                  </p><% end %><br>
+                  <p>Due Date:
+                  </p>
+                  <% if shipping_date %><p>Shipment date:
+                  </p><% end %>
+               </td>
+               <td class="dates-terms">
+                  <p><%= invoice_date %></p>
+                  <p><% if term_code %><%= term_code %><% end %></p><br>
+                  <p><%= due_date %></p>
+                  <p><% if shipping_date %><%= shipping_date %><% end %></p>
+               </td>
             </tr>
          </table>
       </div>
@@ -209,7 +205,7 @@
                   <th class="quantity"><%= qty_header %></th>
                   <th class="money">UNIT PRICE</th>
                   <% if show_discounts && total_discount_price != 0.0 %>
-                  <th class="quantity"><%= discount_header %>% </th>
+                  <th class="quantity"><%= discount_header %> </th>
                   <th class="quantity"><%= discount_price_header %> </th>
                   <% end %>
                   <th class="money">
@@ -301,7 +297,7 @@
                   <tbody>
                      <tr>
                         <td class="labels first footer-subtotal">
-                           <p><strong> Subtotal NOK: </strong></p>
+                           <p><strong> Subtotal DKK: </strong></p>
                            <% if show_tax  %>
                            <% if use_tax_codes? %>
                            <p><strong> VAT Amount: </strong></p>
@@ -312,7 +308,7 @@
                            <% if coupon_code_discount_header %>
                            <p class="footer-discount"><strong><%= coupon_code_discount_header %>:</strong></p>
                            <% end %>
-                           <p class="footer-total"><strong>Total NOK: </strong></p>
+                           <p class="footer-total"><strong>Total DKK: </strong></p>
                            <% if show_multi_currecies %>
                            <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
                            <% end %>
@@ -393,7 +389,7 @@
                <%end%>
             </td>
             <td>
-               <p>Bank: DNB Norge</p>
+               <p>Bank: Ringkjøbing Landbobank</p>
                <% if bank_account_number_text(@object.account) %>
                <p><%= bank_account_number_text(@object.account).gsub('Bank Account#:', 'Bank Account: ') %></p>
                <%end%>
