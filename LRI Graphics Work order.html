@@ -90,6 +90,7 @@ img.logo {
     width: 1%;
     white-space: nowrap;
     margin-left: -200px;
+  }
     /* start - job related things are used in WO */
     .job-attributes {
     float: left;
@@ -111,6 +112,7 @@ img.logo {
     padding: 15px;
     margin-left: 20px;
 }
+
   
   </style>
 </head>
@@ -129,6 +131,15 @@ img.logo {
     <tr>
       <td class="store-address">
         <img class="logo" style="margin-left:-40px;margin-top:-60px;" src="<%= logo %>">
+      </td>
+      <td class="store-logo">
+        <p style="border-top: 1px solid black; padding-top: 3pt;width: 45pt;"><strong>PRINTED</strong></p>
+      </td>
+      <td class="store-address">
+        <p style="border-top: 1px solid black; padding-top: 3pt;width: 55pt;"><strong>FINISHED</strong></p>
+      </td>
+      <td class="store-address">
+        <p style="border-top: 1px solid black; padding-top: 3pt; width: 55pt;"><strong>PACKAGED</strong></p>
       </td>
     </tr>
   </table>
@@ -257,7 +268,7 @@ img.logo {
             </div>
           </td>
           <td class="name"><%= item.name %></td>
-          <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+          <td class="quantity" style="font-size: 13pt;"> <strong><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></strong></td>
           <td></td>
         </tr>
         <tr>
@@ -378,9 +389,12 @@ img.logo {
               <% end %>
             </div>
             <br>
+            <div style="font-size: 12pt;">
             <p><b>Printer: </b></p>
-            <p><b>Art Size: </b></p>
+            <p><b>Art Size: </b>&nbsp;&nbsp;&nbsp;&nbsp;<span style="border:2px solid black;height: 30px;width: 30px;padding-left: 30pt;"></span><b> RIP</b></p>
             <p><b>Art %: </b></p>
+          </div>
+            
             <div>
               <div class='design_details'>
                 <div class="text--pre-line">
@@ -425,21 +439,6 @@ img.logo {
         </tr>
         </tbody>
     <% end %>
-      <!-- <div class="note">
-         <table class="no-page-break" style="margin-top:50px;margin-left:60px;">
-            <thead>
-               <tr>
-                  <td>
-                     <p><b>RIP Settings :</p><br>
-                     <p><b>Printer Settings: </p><br>
-                     <p>Cutter/Welder Settings: </p><br>
-                     <p>Pantone/Colors: </b></p><br>
-                     <p>Finishing Instructions: </b></p>
-                  </td>
-               </tr>
-            </thead>
-         </table>
-      </div> -->
   </table>
 </div>
 <%if @object.special_notes and not @object.special_notes.blank?%>
