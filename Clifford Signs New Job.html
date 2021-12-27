@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         <%=page_size %>
+         <%=body_font_family %>
+         @page {
+         margin: 140px 0 5px 0 !important;
+         }
+
+         @page {
+         @top {
+         content: flow(header);
+         }
+         }
+
+         #header {
+         position: relative;
+         flow: static(header);
+         border-bottom: 3px solid #c2c2c2;
+         }
+
+         @page {
+         @top-left {
+         content: string(doc_header);
+         padding: 0pt 0pt 0pt 6pt;
+         }
+         }
+
+         .box__content-proof-img {
+         height: 52em;
+         width: 100%;
+         display: table;
+         }
+
+         .address-logo {
+         padding: 5pt 0pt 0pt 2pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+         
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 220px;
+         max-height: 110px;
+         }
+         
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf">
+         <div id="header">
+            <table>
+               <tr>
+                  <td style="width: 46%">
+                     <div class="box box--default box--border" style="padding-bottom:10pt; padding-right:10pt;">
+                        <div class="box__title">
+                           <p><strong style="font-size: 14pt;">
+                              <%= @object.order.txn_number%></strong>
+                           </p>
+                        </div>
+                        <div class="box__content">
+                           <p><strong style="font-size: 15pt;"><%= company_name %></strong></p>
+                           <% if txn_title.present? %>
+                           <p style="font-size: 12pt;"><%= txn_title %></p>
+                           <% end %>
+                        </div>
+                     </div>
+                  </td>
+                  <td>
+                     <div class="box__content" style="border-right: 2px solid #c2c2c2;padding: 5pt;border-left: 2px solid #c2c2c2;">
+                        <table class="table table--list"  >
+                           <tbody>
+                              <tr style="font-size:10px;">
+                                 <td style="border-right: 2px solid #c2c2c2;padding-right: 5pt;">
+                                    <p><%= customer_po_header %></p>
+                                    <p><strong><%= customer_po %></strong> </p>
+                                 </td>
+                                 <td>
+                                    <p><%= sales_rep_header %></p>
+                                    <p> <strong><%= sales_rep_name %></strong> </p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                    
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <td style="border-top: 2px solid #c2c2c2;padding-top: 5pt;text-align: center;">
+                                    <p style="font-size:10px;">Install Date</p>
+                                    <p> <strong style="font-size:15pt;"><%= install_date %></strong> </p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </td>
+                  <td>
+                     <div class="address-logo">
+                        <table>
+                           <tr>
+                              <td class="store-logo">
+                                 <img class="logo" src="<%= logo %>">
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <!-- SHIPPING -->
+         <div class="job-section job-pdf__shipping">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <% if ui_field_visibility('job/installing_address_id') and installing_information.present? %>
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p><%= install_to_header %>:</p>
+                        </div>
+                        <div class="box__content">
+                           <address>
+                              <%= installing_information %>
+                           </address>
+                        </div>
+                     </div>
+                     <% end %>
+                  </div>
+                  <div class="col-6">
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p>Main Contact:</p>
+                        </div>
+                        <div class="box__content">
+                           <address>
+                              <%= contact_info %>
+                           </address>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- PROOF -->
+         <div class="col-12">
+            <div class="box box--grey box--border">
+               <div class="box__content box__content-proof-img text--center">
+                  <div>
+                     <img src="<%= proof_image(1000,700) %>">
+                  </div>
+               </div>
+               <div>
+                  <%= proof_local_file_path %>
+               </div>
+               <div class="box__title">
+                  <%= proof_footer %>
+               </div>
+            </div>
+         </div>
+        <div class="no-page-break">
+         <div class="col-12">
+            <div class="box box--grey box--border box--margin-top">
+               <div class="box__title">
+                  <div class="row">
+                     <div class="col-12">
+                        <p>Production details:</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="box__content">
+                  <div class="row">
+                     <div class="col-12">
+                        <p>
+                           <%= production_details %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+         <div class="col-12">
+            <div class="box box--grey box--border box--margin-top">
+               <div class="box__title">
+                  <div class="row">
+                     <div class="col-12">
+                        <p>Installation details:</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="box__content">
+                  <div class="row">
+                     <div class="col-12">
+                        <p>
+                           <%= install_details %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-12">
+            <div class="box box--grey box--border box--margin-top">
+               <div class="box__title">
+                  <div class="row">
+                     <div class="col-12">
+                        <p><%= special_instruction_header %>:</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="box__content">
+                  <div class="row">
+                     <div class="col-12">
+                        <p>
+                           <%= special_instruction %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM -->
+         <% if has_pricing? %>
+         <!-- BOM - OTHERS -->
+         <div class="job-section job-section--custom-fields box--margin-top">
+            <div class="container">
+               <div class="row">
+                  <% if custom_field_items.size > 0 %>
+                  <div class="col-12">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <% if order_custom_field_items.size > 0 %>
+                  <div class="col-12">
+                     <div class="box box--white box--border box--margin-top">
+                        <div class="box__title"><%= order_custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= order_custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+            </div>
+         </div>
+         <% else %>
+         <% if custom_field_items.size > 0 %>
+         <div class="job-section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding table--th-text-right">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% end %>
+         <!-- LINE ITEMS - DESCRIPTION -->
+         <!-- WORKFLOW -->
+         <% if show_workflow_on_pdf %>
+         <div class="job-section job-pdf__workflows">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__title"><%= workflow_header %>: <%= template_name %></div>
+                        <div class="box__content">
+                           <div class="job-pdf__workflows">
+                              <% stages.each do |stage| %>
+                              <div class="job-pdf__workflow job-pdf__workflow--default">
+                                 <div class="job-pdf__workflow-title">
+                                    <p><strong><%= stage.name %></strong></p>
+                                 </div>
+                                 <div class="job-pdf__workflow-content">
+                                    <ol>
+                                       <% stage.steps.each do |step| %>
+                                       <li>
+                                          <span class="clearfix">
+                                          <span>
+                                          <strong><%= step.name %></strong>
+                                          </span>
+                                          <span class="element--right">
+                                          <em><%= step.assigned_to_user_initials %></em>
+                                          <time><%= step.date %></time>
+                                          <i></i>
+                                          </span>
+                                          </span>
+                                       </li>
+                                       <% end %>
+                                    </ol>
+                                 </div>
+                              </div>
+                              <% end %>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+      </div>
+   </body>
+</html>
+

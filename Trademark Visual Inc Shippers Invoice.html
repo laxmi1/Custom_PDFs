@@ -1,0 +1,312 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .addresses {
+         padding: 5pt 27pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 0pt;
+         width: 95%;
+         }
+
+         .addresses .address .title {
+         text-transform: uppercase;
+         margin-top: 0pt;
+         font-size: 7pt;
+         color:  #a5a5a5;
+         font-weight: bold;
+         }
+
+         .summary .summ .title {
+         text-transform: uppercase;
+         margin-top: 5pt;
+         font-size: 10px;
+         color: #6D6A6A;
+         font-weight: bold;
+         }
+
+         .color_qtdate {
+         color: #a5a5a5;
+         font-size: 7pt;
+         font-weight: bold;
+         }
+
+         .color_black {
+         color: black;
+         font-size: 7pt;
+         }
+
+         .addresses .address.right .address-wrapper {
+         border-right: 0px solid #e3e3e3;
+         text-align: right;
+         padding-right: 0pt;
+         }
+
+         .description_area {
+         padding: 5pt 27pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+
+         .line-items thead th {
+         font-size: 10px;
+         text-transform: uppercase;
+         color: #999999;
+         padding: 5pt 5pt;
+         }
+
+         .line-items tbody tr td {
+         vertical-align: center;
+         padding: 0 5pt;
+         }
+
+         .line-items .first {
+         padding-left: 0pt;
+         padding-bottom: 3pt;      
+         }
+
+         .line-items .last {
+         padding-right: 0pt;
+         }
+
+         .line-items tbody tr:first-child td {
+         border-top: 0px solid #e3e3e3;
+         padding-top: 5pt;
+         }
+
+         .line-items .name {
+         text-align: left;
+         font-weight: bold;
+         padding-bottom: 8pt;
+         }
+
+         .line-items .quantity {
+         text-align: center;
+         width: 1%;
+         white-space: nowrap;
+         padding-bottom: 8pt;
+         }
+
+         .line-items .money {
+         text-align: right;
+         width: 1%;
+         white-space: nowrap;
+         padding-bottom: 8pt;
+         }
+
+         @page {
+         @bottom-left {
+         content: " ";
+         }
+
+         @bottom-right {
+         content: " ";
+         }
+
+         @top-left {
+         content: " ";
+         }
+         } 
+
+         @page {
+         margin: 110px 0  80px 0;
+         position: relative;
+         @bottom {
+         width: 100%;
+         content: url(https://cdn.filestackcontent.com/VT3JG8clTtOVhzojuUgC);
+         }
+
+         @prince-overlay {          
+         content: " Page " counter(page) " of " counter(pages);
+         font-size: 9pt;
+         font-weight: normal;          
+         vertical-align: top;
+         margin-top: -55px;
+         margin-left: 688px;
+         }
+         }
+
+         @page {
+         @top { content: flow(header); }
+         }
+
+         #header {
+         position:relative;
+         padding-top: 27pt;
+         flow: static(header);
+         }
+
+         #header td {
+          vertical-align: top;
+         }
+
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <!-- Store Address and Logo -->
+      <div id="header">
+         <table>
+            <tr>
+               <td  style="position: relative;top: -6px;">
+                  <img src="https://cdn.filestackcontent.com/K3SILmSCRJRlIEXqB2Uj" align="left"; style="margin-left: -40pt;" />
+               </td>
+               <td style="position: relative; top: -10px;">
+                  <table>
+                     <tr>
+                        <td class="color_qtdate">Invoice Date:</td>
+                        <td class="color_black"><%= invoice_date %></td>
+                     </tr>
+                     <tr>
+                        <td class="color_qtdate">Salesperson:</td>
+                        <% if @object.primary_sales_rep%>
+                        <td class="color_black"><%=@object.primary_sales_rep.try(:name)%></td>
+                        <%end%>
+                     </tr>
+                     <tr>
+                        <td class="color_qtdate">Email:</td>
+                        <% if @object.primary_sales_rep%>
+                        <td class="color_black"><%=@object.primary_sales_rep.try(:email)%></td>
+                        <%end%>
+                     </tr>
+                     <tr>
+                        <td class="color_qtdate">Phone:</td>
+                        <%if sales_rep_phone%>
+                        <td class="color_black"><%= sales_rep_phone %></td>
+                        <%end%>
+                     </tr>
+                  </table>
+               </td>
+               <td>
+                  <p style="text-align: right; position: relative; top: -14px; margin-right: -40pt;font-weight: bold;font-size: 13.5pt;color: #a5a5a5;">Packing Slip </span><span style="font-weight: bold;font-size: 13.5pt;color: black;"> <%= txn_number_only %></span>
+                  </p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <!-- Sold To, Contact Info and Shipping Address -->
+      <div class="addresses">
+         <table>
+            <tr>
+               <td style="position: relative;">
+                  <table>
+                     <tr>
+                        <td class="color_qtdate">Quote # </td>
+                        <% if quote_information %>
+                        <td class="color_black"><%= quote_information %></td>
+                        <%end%>
+                     </tr>
+                     <tr>
+                        <td class="color_qtdate">PO# </td>
+                        <% if po_number %>
+                        <td class="color_black"><%= po_number %></td>
+                        <%end%>
+                     </tr>
+                     <tr>
+                        <td class="color_qtdate">PO Date </td>
+                        <% if po_date %>
+                        <td class="color_black"><%= po_date %></td>
+                        <%end%>
+                     </tr>
+                     <tr>
+                        <td class="color_qtdate">Payment Due </td>
+                        <td class="color_black"><%= due_date %></td>
+                     </tr>
+                  </table>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title">ORDERED BY</p>
+                     <%if @object.primary_contact&.phones %>
+                     <p style="font-size: 8pt;color: black;"><%= @object.primary_contact.try(:name) %></p>
+                     <p style="font-size: 8pt;color: black;"><%= format_phone_pdf(@object.account, @object.primary_contact.try(:phone), extension: @object.primary_contact.try(:ext)) %></p>
+                     <p style="font-size: 8pt;color: black;"><%= @object.primary_contact.try(:email) %></p>
+                     <%end%>
+                  </div>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title" >BILL TO</p>
+                     <p style="font-size: 8pt;color: black;">
+                        <%= sold_to %><br>
+                        <%= billing_information %>
+                     </p>
+                  </div>
+               </td>
+               <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title">SHIP TO</p>
+                     <span style="font-size: 8pt;color: black;">
+                     <% if shipping_address_type != 'DropShip' %>
+                     <%= sold_to(show_company_name = false) %>
+                     <% end %>
+                     <%= shipping_information %>
+                     </span>
+                     <%if shipping_tracking %>
+                     <br/>
+                     <p class="title"><%= shipping_tracking_header%></p>
+                     <p style="font-size: 8pt;color: black;"><%= shipping_tracking %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <% end %>
+            </tr>
+         </table>
+      </div>
+      <div class="description_area">
+         <table>
+            <tr>
+               <td>
+                  <strong>FOR: <%= name %></strong>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items" style="width: 92%;margin-left: 22pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="border-bottom: solid 2px #e3e3e3;">
+                  <th class="position">
+                     <div class="first">ITEM</div>
+                  </th>
+                  <th class="name">DESCRIPTION</th>
+                  <th class="quantity" style="padding-right:35pt;"><%= qty_header %></th>
+                  <th class="money">
+                     <div class="last"><%= uom_header %></div>
+                  </th>
+               </tr>
+            </thead>
+            <% items.each_with_index do |item, index| %>
+            <tbody style="border-bottom: solid 2px #e3e3e3;">
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first" style="margin-bottom: 6pt;">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name" style="font-size: 9pt;font-weight: bold;color: black;"><%= item.name %></td>
+                  <td class="quantity" style="font-size: 9pt;font-weight: bold;color: black;padding-right:35pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money">
+                     <div class="last" style="font-size: 9pt;font-weight: bold;color: black;"><%= item.uom %></div>
+                  </td>
+               </tr>
+            </tbody>
+            <% end %>
+         </table>
+      </div>
+   </body>
+</html>
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .summary {
+         margin: 0pt;
+         padding: 10pt 0pt;
+         border-bottom: 0px solid #e3e3e3;
+         background: none;
+         }
+
+         table, td, th {
+         border: solid 0.05em #c2c2c2;
+         }
+
+         table {
+         border-collapse: collapse;
+         width: 100%;
+         }
+
+         td {
+         height: 25px;
+         vertical-align: center;
+         text-align: center;
+         }
+
+         th {
+         height: 20px;
+         }
+         
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf" id="page-job-new">
+         <!-- INFO -->
+         <div class="job-section job-pdf__info">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <h1 class="job-pdf__info-title">
+                        <%= company_name %>
+                     </h1>
+                  </div>
+                  <div class="col-6">
+                     <h1 class="job-pdf__info-title" style="text-align:right;">
+                        SERVICE ORDER
+                     </h1>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- COMPANY -->
+         <div class="job-section job-pdf__company">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--white box--border box--margin-top">
+                        <div class="box__title">
+                           <p><%= customer_header %>: <strong><%= company_name %></strong></p>
+                           <% if print_line_item_in_job_pdf %>
+                           <%= line_item_number_position %>
+                           <% end %>
+                        </div>
+                        <div class="box__content">
+                           <p>
+                              <%= contact_info %>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <div class="summary">
+                        <table>
+                           <tr>
+                              <th>P.O No.</th>
+                              <th>Date</th>
+                              <th>Order Number</th>
+                           </tr>
+                           <tr>
+                              <td><% if po_number %><%= po_number %><% end %></td>
+                              <td style="padding:5pt;"><%= install_date %></td>
+                              <td style="padding:5pt;"><% if order_number %><%= order_type %># <%= order_number %><% end %></td>
+                           </tr>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <div class="box box--white box--border box--margin-top">
+                        <div class="box__content">
+                           <% if txn_title.present? %>
+                           <p>Job: <%= txn_title %></p>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- SHIPPING -->
+         <div class="job-section job-pdf__shipping">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--white box--border box--margin-top">
+                        <div class="box__title">
+                           <p>Name / Address:</p>
+                        </div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-6">
+                                 <address>
+                                    <%= billing_information %>
+                                 </address>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-6">
+                     <% if ui_field_visibility('job/installing_address_id') and installing_information.present? %>
+                     <div class="box box--white box--border box--margin-top">
+                        <div class="box__title">
+                           <p>For Work at:</p>
+                        </div>
+                        <div class="box__content">
+                           <address>
+                              <%= installing_information %>
+                           </address>
+                        </div>
+                     </div>
+                     <% end %>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- DETAILS -->
+         <div class="job-section job-pdf__details">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--grey box--border box--margin-top">
+                        <div class="box__title">Description of Work to be Performed:</div>
+                        <div class="box__content">
+                           <p>
+                              <%= description %>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM -->
+         <div class="job-section">
+            <div class="col-12">
+               <img src="https://shopvox-production-files.s3.amazonaws.com/accounts/6ca58f71-0f9a-4cb9-b02e-1fbf3778eb34/custom_pdfs/Test1.svg" max-width: 100%;  >
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
+

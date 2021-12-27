@@ -1,0 +1,254 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    <%= page_size %>
+    <%= body_font_family %>
+    @page {
+      margin: 200pt 0 35pt 0;
+      @top {
+        content: url(https://shopvox-production-files.s3.amazonaws.com/accounts/cba0cc78-546e-489f-ae8d-7b1f5b501ba4/custom_pdfs/MPL_Template-Header.svg);
+        width: 100%;
+      }
+
+      @bottom {
+        content: url(https://shopvox-production-files.s3.amazonaws.com/accounts/cba0cc78-546e-489f-ae8d-7b1f5b501ba4/custom_pdfs/MPL_Template-Footer.svg);
+      }
+
+      @bottom-left {
+        content: " ";
+      }
+
+      @bottom-right {
+        content: " ";
+      }
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 5pt 0;
+      font-weight: normal;
+    }
+
+    h1 small {
+      font-size: 11pt;
+    }
+
+    .summary {
+      margin: 0pt;
+      padding: 5pt 35pt;
+      border-bottom: 0px solid #e3e3e3;
+      background: transparent;
+    }
+
+    .line-items .last {
+      padding-right: 0pt;
+    }
+
+    .line-items .first {
+      padding-left: 0pt;
+    }
+
+    .line-items .position{
+      padding-top: 7pt;
+    }
+
+    .line-items .quantity{
+      padding-top: 7pt;
+    }
+
+    .line-items .name{
+      padding-top: 7pt;
+    }
+
+    .line-items .money{
+      padding-top: 7pt;
+    }
+
+    .li-desc-fixed-width {
+      max-width: 450pt;
+    }
+
+    .line-items tbody tr:first-child td {
+      border-top: 1px solid #F4B223;
+      padding-top: 6pt;
+    }
+
+    .line-items thead th {
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: capitalize;
+      color: black;
+      padding: 5pt 5pt;
+      border-right: 1px solid #F4B223;
+    }
+
+    .line-items tbody tr td {
+      vertical-align: top;
+      font-size: 9pt;
+      padding: 0 5pt;
+      border-right: 1px solid #F4B223;
+    }
+    .line-items tfoot tr td:last-child {
+      border-right: 0;
+    }
+
+    .line-items tfoot td {
+      font-size: 14px;
+      background-color: #FFFFFF;
+      text-transform: capitalize;
+      color: black;
+      padding: 15pt 5pt;
+      border-right: 1px solid #F4B223;
+      border-bottom: 1px solid #F4B223;
+      border-top: 1px solid #F4B223;
+    }
+
+
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+<!-- Footer Text for Page footter-->
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+<!-- Store Address and Logo -->
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1>
+            <strong><%= quote_number %></strong>
+            <small>
+              <p><strong>Quote Date: </strong><%= quote_date %></p>
+              <p><strong>Client: </strong><%= company_name %></p>
+              <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
+                <p><strong>Site Address: <%if check_exist_empty('installing_address_street') != nil %>
+                  <%= check_exist_empty('installing_address_street') %>,
+                <%end%>
+                <%if check_exist_empty('installing_address_street1') != nil %>
+                  <%= check_exist_empty('installing_address__street1') %>,
+                <%end%>
+                <%if check_exist_empty('installing_address_zip') != nil %>
+                  <%= check_exist_empty('installing_address_zip') %>,<%end%>
+                <%if check_exist_empty('installing_address_city') != nil %><%=
+              check_exist_empty('installing_address_city') %>,
+
+                <%end%>
+                <%if check_exist_empty('installing_address_country') != nil %>
+                  <%= check_exist_empty('installing_address_country') %>
+                <%end%></strong></p>
+              <% end %>
+              <p><strong>Contact Person: </strong><% if contact_name %><%= contact_name %><%end%></p>
+            </small>
+
+
+            <small><strong style="color: #822C41;padding-top:10pt;font-size: 13pt;"><%= name %></strong></small>
+
+          </h1>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<!-- Sold To, Contact Info and Shipping Address -->
+<div class="line-items" style = "border-top: 1px solid #F4B223;width: 89%;margin-left: 35pt;">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name">Item Description</th>
+      <th class="money">Unit Price</th>
+      <th class="quantity">Qty.</th>
+      <th class="money" style="border-right: 0px solid #e3e3e3;">
+        <div class="last">Total</div>
+      </th>
+    </tr>
+    </thead>
+    <tbody class='' style="border-bottom: 1px solid #F4B223;margin-bottom: 5pt;">
+    <% items.each_with_index do |item, index| %>
+      <tr>
+        <td class="position" rowspan="2">
+          <div class="first">
+            <%= index + 1 %>
+          </div>
+        </td>
+        <td class="name"><%= item.name %></td>
+        <td class="money" rowspan="2"><%= item.custom_pdf_unit_price %></td>
+        <td class="quantity" rowspan="2"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+        <td class="money" rowspan="2" style="border-right: 0px solid #e3e3e3;">
+          <div class="last">
+            <%= item.total_price %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <% if show_discounts && total_discount_price != 0.0 %>
+          <td class="description" colspan="7">
+        <% else %>
+          <td class="description" colspan="5">
+        <% end %>
+        <div>
+          <% if item.table_view %>
+            <div class="text--pre-line li-desc-fixed-width">
+              <%= item.li_grid_html_view %>
+            </div>
+          <% else %>
+            <div class="text--pre-line li-desc-fixed-width">
+              <%= item.description %>
+            </div>
+          <% end %>
+          <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+            <hr class="custom-field-separator">
+            <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+            <hr class="custom-field-separator">
+          <% end %>
+          <% if item.product_picture_assets.count > 0 %>
+            <% item.product_picture_assets.each do |asset| %>
+              <img src="<%= asset.file_url %>" class="line-item-description-image">
+            <% end %>
+          <% end %>
+          <% if item.product_image %>
+            <img src="<%= item.product_image %>" class="line-item-description-image">
+          <% end %>
+          <% if item.table_view %>
+            <div class="text--pre-line li-desc-fixed-width">
+              <%= item.li_grid_html_view(show_child_items: true) %>
+            </div>
+          <% end %>
+        </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="4">
+        Sub Total:<br>
+        GST (<%= tax_rate %>):
+      </td>
+      <td>
+        <%= sub_total %><br>
+        <%= total_tax %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" >
+        <b>Total:</b>
+      </td>
+      <td>
+        <b><%= final_price %></b>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</div>
+</body>
+</html>

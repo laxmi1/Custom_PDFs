@@ -35,7 +35,7 @@
               <%= store_address %>
               <% if is_paid? %>
                 <p class="stamp">
-                  <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
+                 <image src="https://cdn.filestackcontent.com/3Grjs4IfQ0mlA4LCRFJj" alt="Paid"/>
                 </p>
               <% end %>
             </td>
@@ -60,8 +60,11 @@
                        <h1 class="main-title"><%= invoice_number %> <br/>
                           <small><%= name %></small>
                        </h1><br>
-                       <% unless company_vat_number.present? %>
-                       <p><b>UW BTW NUMMER: </b><%= company_vat_number %></p>
+                       
+                       
+<% if company_vat_number.present? %>
+<p><b>Your VAT number :  </b>
+<font color="white"> <%= company_vat_number %></font></p>
                        <% end %>
                     </div>
                  </td>
@@ -125,7 +128,10 @@
 <% if billing_address_name %><%= billing_address_name %><br> <%end%>
 <% if billing_address_street %><p><%= billing_address_street %><br> <%end%>
 <% if billing_address_zip %><%= billing_address_zip %>  <%end%> &nbsp;
-<span style="text-transform: uppercase;">  <% if billing_address_city %><%= billing_address_city %><%end%></span></p>
+<span style="text-transform: uppercase;">  <% if billing_address_city %><%= billing_address_city %><%end%></span></br>
+<% if billing_address_country %>
+                     <%= billing_address_country %>
+                     <%end%></p>
 </div>
                  </td>
                  <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('invoice/shipping_address_id') ) %>

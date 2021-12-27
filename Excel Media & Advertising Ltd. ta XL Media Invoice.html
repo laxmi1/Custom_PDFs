@@ -13,8 +13,8 @@
          }
          .address-logo .store-logo .logo,
          img.logo {
-           max-width: 230px;
-            max-height: 120px;
+           max-width: 250px;
+            max-height: 130px;
            }
          .orderby{
          padding: 10pt 0pt 30pt 40pt;
@@ -62,11 +62,11 @@
          @page {
          margin: 10px 20px 45px 20px;
          @bottom { 
-         width: 67%;
+         width: 70%;
          font-size: 12px;
-         padding-right: 100pt;
+         padding-right: 80pt;
          padding-left: 100pt;
-         content: "Signature Projects Ltd. t/a Big Picture, Argyle Square, Donnybrook, Dublin 4, D04 T6Y2, Ireland. accounts@bigpicture.ie | VAT No: IE3799865EH | bigpicture.ie";
+         content: "Excel Media & Advertising Ltd t/a XL Media, Argyle Square, Donnybrook, Dublin 4, D04 T6Y2, Ireland. accounts@XLmedia.ie  \00a0 \00a0\00a0|\00a0\00a0\00a0 VAT No: IE3799855BH \00a0\00a0\00a0|\00a0\00a0\00a0  XLmedia.ie";
          } 
          }
          @page {
@@ -106,7 +106,7 @@
                   <% end %>
                </div>
             </td>
-            <td class="dates-terms" align="left" width="65%" style="padding-top:10px;">
+            <td class="dates-terms" align="left"  width="66%" style="padding-top:10px;">
                <p>Invoice No:
                   <b><%= txn_number_only %></b>
                <p>
@@ -127,11 +127,10 @@
                   <%= po_number %>
                </p>
                <% end %>
-               <p>Ordered By:
-                  <%= company_name %>
+<% if related_transaction_number %>
+               <p style="margin-boottom:30px;">SO Number: <%= related_transaction_number %>
                </p>
-               <p style="margin-boottom:30px;">Our Ref:
-               </p>
+<% end %>
             </td>
          </tr>
       </table>
