@@ -1,0 +1,301 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    .terms-title *, .terms-text * {
+      font-size:6pt !important;
+    }
+    <%= page_size %>
+    <%= body_font_family %>
+    summary {
+      margin: 0pt;
+      padding: 10pt 35pt;
+      border-bottom: 1px solid black;
+      background: #E3E3E3;
+      }
+
+      .summary .summ.right .summary-wrapper {
+      border-right: 2px solid black;
+      text-align: right;
+      padding-right: 10pt;
+      }
+
+      .address-logo {
+      padding: 0pt 0pt 5pt 0pt;
+      border-bottom: 1px solid black;
+      }
+
+      .footer-bottom-right {
+      float: right;
+      width: 30%;
+      border-left: solid 2px #e3e3e3;
+      background: #e3e3e3;
+      padding: 6pt 6pt 5pt 6pt;
+      margin: 10pt 0;
+      }
+
+      .addresses {
+      padding: 10pt 35pt;
+      border-bottom: 2px solid #e3e3e3;
+      }
+
+      @page {
+        @bottom-left {
+          content: " ";
+        }
+      }
+
+      .section {
+      border-top: 0px solid #e3e3e3;
+      padding: 0 35pt;
+      }
+  </style>
+</head>
+<body>
+
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<div class="address-logo">
+  <table>
+    <tr>
+      <td>
+      <img src="https://assets.shopvox.com/accounts/bd45f6f9-54af-41db-93af-6469f855f78f/custom_pdfs/Header+for+all+PDFs+(1).svg">
+      </td>   
+    </tr>
+  </table>
+</div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title">Packing Slip #<%= txn_number_only %> <br/>
+            <small><%= name %></small>
+          </h1>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
+        </div>
+        <% if quote_information %>
+          <div class="summary-wrapper">
+            <p class="title"><%= quote_information_header %></p>
+            <p><%= quote_information %></p>
+          </div>
+        <% end %>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title"><%= invoice_date_header %></p>
+          <p><%= invoice_date %></p>
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+          
+
+        </div>
+      </td>
+
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <% if po_number %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+
+          <% if shipping_method %>
+              <p class="title"><%= shipping_method_header %></p>
+              <p><%= shipping_method %></p>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="addresses">
+  <table>
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_by_header %></p>
+
+          <p><%= sold_to %></p>
+          <p><%= billing_information %></p>
+        </div>
+      </td>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= contact_information_header %></p>
+
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+   <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) || shipment_details.present? %>
+     <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= shipping_information_header %></p>
+
+          <% if shipping_address_type != 'DropShip' %>
+              <%= sold_to(show_company_name = false) %>
+          <% end %>
+          <%= shipping_information %>
+          </p>
+          <p><%= shipment_details %></p>
+          <%if shipping_tracking.present? %>
+           <br/>
+           <p class="title"><%= shipping_tracking_header%></p>
+           <%= shipping_tracking %>
+          <% end %>
+        </div>
+      </td>
+    <% end %>
+       <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= installing_information_header %></p>
+          <%= installing_information %></p>
+        </div>
+      </td>
+      <% end %>
+    </tr>
+  </table>
+</div>
+
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="last"><%= qty_header %></th>
+    </tr>
+    </thead>
+
+    <% items.each_with_index do |item, index| %>
+        <tbody class='no-page-break'>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name"><%= item.name %></td>
+          <td class="last"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+
+        </tr>
+        <tr>
+          <td class="description" colspan="1">
+            <% if item.table_view %>
+                <div class="shippers-invoice-pdf-grid-view">
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(hide_prices: true) %>
+                  </div>
+                </div>
+            <% else %>
+                <div class="last text--pre-line li-desc-fixed-width">
+                  <%= item.description %>
+                </div>
+            <% end %>
+
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+                <hr class="custom-field-separator">
+                <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                <hr class="custom-field-separator">
+            <% end %>
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                  <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view(show_child_items: true) %>
+                </div>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+    <% end %>
+
+    <tfoot class="no-page-break">
+    </tfoot>
+  </table>
+</div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= customer_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <th><%= cover_note_header %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+  <div class="section">
+    <div class="footer-bottom-left full-width">
+      <div class="terms-text">
+        <%= terms_conditions %>
+      </div>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+</div>
+
+</body>
+</html>

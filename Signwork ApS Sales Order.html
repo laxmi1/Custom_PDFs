@@ -15,7 +15,7 @@
         }
 
        h2 small {
-        font-size: 15px;
+        font-size: 13px;
        }
 
         .summary {
@@ -27,7 +27,7 @@
 
         .summary .summ .title {
          margin-top: 5pt;
-         font-size: 9pt;
+         font-size: 8pt;
          font-weight: bold;
          text-transform: capitalize;
          color: black;
@@ -35,7 +35,7 @@
 
         .addresses .address .title {
          margin-top: 0pt;
-         font-size: 10px;
+         font-size: 8px;
          text-transform: capitalize;
          color: black;
         }
@@ -55,9 +55,8 @@
         @page {
          margin: 0px 0px 45px 0px;
           @bottom {
-           width: 55%;
-           font-size: 9px;
-           content: "Vi tager forbehold for trykfejl. Læs ydeligere handelsbetingelser på vores hjemmeside: www.signwork.dk Signwork Aps | Baltorpbakken 5-7, 2750, Ballerup, Danmark | CVR nr.: 33 75 66 23 | Tlf.: 59 47 20 20 | Mail: info@signwork.dk";
+           width: 70%;
+           content: url(https://cdn.filestackcontent.com/AxCRVXfsQJqsZoQBMJBV);
           } 
         }
 
@@ -131,73 +130,67 @@
                      <h2 class="main-title">Ordre nr. <%= txn_number_only %> <br/>
                         <small><%= name %></small>
                      </h2>
-                     <p>Ordre dato: <%= work_order_date %></p>
-                     <p>Leveringsdato: <%= due_date %></p>
+                     <p style="font-size: 8pt;">Ordre dato: <%= work_order_date %></p>
+                     <p style="font-size: 8pt;">Leveringsdato: <%= due_date %></p>
                   </div>
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
                      <p class="title"><%= sales_rep_information_header %></p>
                      <% if @object.primary_sales_rep%>
-                       <p><%=@object.primary_sales_rep.try(:name)%></p>
-                       <p><%=@object.primary_sales_rep.try(:email)%></p>
-                       <%= sales_rep_phone %>              
+                       <p style="font-size: 8pt;"><%=@object.primary_sales_rep.try(:name)%></br>
+                       <%=@object.primary_sales_rep.try(:email)%></br>
+                       <%= sales_rep_phone %></p>           
                      <%end%>
                   </div>
-                  <% if quote_information %>
-                  <div class="summary-wrapper">
-                     <p class="title"><%= quote_information_header %></p>
-                     <p><%= quote_information %></p>
-                  </div>
-                  <% end %>
                </td>
                <td class="summ left" style="padding-left: 10pt;">
                   <div class="summary-wrapper">
                      <p class="title">Kunde kontaktperson</p>
-                     <p><%= contact_information %></p>
+                     <p style="font-size: 8pt;"><%= contact_information %></p>
                   </div>
                </td>
             </tr>
             <tr>
                <td class="summ left">
-                  <div class="summary-wrapper" style="padding-top: 3pt;">
+                  <div class="summary-wrapper">
                      <% if show_about_this_desc and description.present? %>
-                     <p class="title" style="text-transform: none;"><%= about_this_so_header %>:</p>
-                     <p><%= description %></p>
+                     <p class="title" style="text-transform: none;padding-top: 3pt;font-size: 8pt;"><%= about_this_so_header %>:</br>
+                     <%= description %></p>
                      <% end %>
                   </div>
                </td>
                <td class="summ right">
-                  <div class="summary-wrapper">
+                  <div class="summary-wrapper" style="margin-top: -10pt;">
                      <p class="title">Betalingsbetingelser</p>
                      <% if term_code %>
-                     <p><%= term_code %></p>
-                     <% end %><br>
+                     <p style="font-size: 8pt;"><%= term_code %></p>
+                     <% end %>
                      <% if @company.vat_number? %>
                      <p class="title">EAN</p>
-                     <p><%= @company.vat_number %></p>
+                     <p style="font-size: 8pt;"><%= @company.vat_number %></p>
                      <% end %>
                   </div>
                </td>
                <td class="summ left" style="padding-left: 10pt;">
-                  <div class="summary-wrapper">
-                     <p class="title">Leveringsadresse</p>
+                  <div class="summary-wrapper" style="margin-top: -10pt;">
+                     <p class="title">Leveringsadresse</br>
                      <%if check_exist_empty('shipping_address_street') != nil %>
-                     <p><%=check_exist_empty('shipping_address_street')%><%end%>
+                     <p style="font-size: 8pt;"><%=check_exist_empty('shipping_address_street')%><%end%>
                         <%if check_exist_empty('shipping_address_street1') != nil %> ,<%=check_exist_empty('shipping_address_street1')%>
-                     </p>
+                     </br>
                      <%end%>
                      <%if check_exist_empty('shipping_address_zip') != nil %>
-                     <p><%=check_exist_empty('shipping_address_zip')%>,<%end%>
+                    <%=check_exist_empty('shipping_address_zip')%>,<%end%>
                         <%if check_exist_empty('shipping_address_city') != nil %><%=check_exist_empty('shipping_address_city')%>
-                     </p>
+                     </br>
                      <%end%>
-                     </p>
+                    
                      <%if check_exist_empty('shipping_address_attention_to') != nil %>
-                     <p><%=check_exist_empty('shipping_address_attention_to')%></p>
+                     <%=check_exist_empty('shipping_address_attention_to')%></br>
                      <%end%>
                      <% if shipping_method %>
-                     <p>Metode: <%= shipping_method %></p>
+                     Metode: <%= shipping_method %></p>
                      <%end%>
                   </div>
                </td>
@@ -481,5 +474,4 @@
       </div>
    </body>
 </html>
-
 

@@ -269,43 +269,6 @@
 
 
 <!-- HEADER -->
-<div class="header">
-  <div class="header-logo">
-    <img src="https://cdn.filestackcontent.com/gjjPI8dgSqianbNmX7FE" class="img-logo" />
-  </div>
-  <% if is_past_due? %>
-      <div class="invoice-past-due-label">
-       <span>
-          <p><%= past_due %></p>
-       </span>
-      </div>
-    <% end %>
-  <div class="header-details">
-    <div class="header-details-table">
-      <table>
-        <tr>
-          <th colspan="2">Invoice</th>
-        </tr>
-        <tr>
-          <th colspan="2" class="header-details-txn-number"><%= txn_number_only %></th>
-        </tr>
-        <tr>
-          <td>Invoice Date: </td>
-          <td><%= invoice_date %></td>
-        </tr>
-        <tr>
-          <td>Invoice Due Date: </td>
-          <td><%= due_date %></td>
-        </tr>
-      </table>
-        <% if is_paid? %>
-          <p class="stamp">
-            <img src="<%="#{Rails.root}/app/assets/images/pages/stamp-paid-big-white.png"%>" alt="Paid"/>
-          </p>
-        <% end %>
-    </div>
-  </div>
-</div>
 <!-- HEADER - END -->
 
 <div class="summary">

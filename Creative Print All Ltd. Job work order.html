@@ -1,0 +1,384 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    <%= page_size %>
+    <%= body_font_family %>
+    .address-logo {
+    padding: 50pt 35pt 5pt 35pt;
+    border-bottom: 0px solid #e3e3e3;
+}
+    .address-logos {
+    padding: 0pt 35pt 0pt 35pt;
+    background: #f7f7f7;
+}
+h1 {
+    font-size: 24px;
+    margin: 0pt 0;
+   margin-top: 5pt;
+    font-weight: bold;
+}
+.summary {
+    margin: 0pt;
+    padding: 1pt 35pt;
+    border-bottom: 2px solid #e3e3e3;
+    background: #f7f7f7;
+}
+.summary .summ .title {
+    text-transform: uppercase;
+    margin-top: 1pt;
+    font-size: 13px;
+    color: #6D6A6A;
+}
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<div class="address-logo">
+  <% if show_address_logo_on_work_order %>
+    <table>
+      <tr>
+        <td class="store-address">
+          <%= store_address(show_tax_id: false) %>
+        </td>
+        <td class="store-logo">
+          <img class="logo" src="<%= logo %>">
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>
+<div class="address-logos">
+    <table>
+      <tr>
+        <td>
+          <h1><%= sold_to %></h1>
+            <p style="font-weight: normal;"><%= name %></p>          
+        </td>
+        <td>
+          <h1 style="text-align: right;">WO # <%= txn_number_only %></h1>
+          <% if @object.primary_sales_rep%>
+            <p style="text-align: right;font-weight: normal;"><%=@object.primary_sales_rep.try(:name)%></p>
+          <%end%>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">          
+          <p class="title" style="border-bottom: 1px solid black;"><%= contact_information_header %></p>
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title">Proof Date</p>
+          
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title">Approval Date</p>
+          
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title"><%= work_order_date_header %></p>
+          <p><%= work_order_date %></p>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <% if due_date %>
+            <p class="title"><%= due_date_header %></p>
+            <p><%= due_date %></p>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="line-items" style ="padding-left:35pt;">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">#</th>
+      <th class="job-name"><%= item_header %></th>
+      <th class="proof">
+        <div class="last">
+          <%= proof_header %>
+        </div>
+      </th>
+    </tr>
+    </thead>
+
+    <% items.each_with_index do |item, index| %>
+        <tbody>
+        <tr>
+          <td class="position"><%= index + 1 %></td>
+
+          <td class="job-name">
+            <div>
+              <div class="job_name">
+                <div class="text--pre-line">
+                  <%= item.job_name %>
+                </div>
+              </div>             
+
+              <div class='job_qty'>
+              <div class="text--pre-line">
+              <%= item.job_qty %>
+              </div>
+              </div>
+
+              <div class='job_pjm'>
+                  <%= item.job_pjm %>
+              </div>
+
+               <div class='job_pdm'>
+                  <%= item.job_pdm %>
+              </div>
+
+              
+              <div class='job_due_time'>
+                <div class="text--pre-line">
+                  <%= item.job_due_time %>
+                </div>
+              </div>
+            </div>
+            <div>
+              <% if item.job_description %>
+                <div class='job_description'>
+                  <div class="text--pre-line">
+                    <%= item.job_description %>
+                  </div>
+                </div>
+              <% end %>
+              <% if item.design_details %>
+                <div class='design_details'>
+                  <div class="text--pre-line">
+                    <%= item.design_details %>
+                  </div>
+                </div>
+              <% end %>
+              <% if item.production_details %>
+                <div class='production_details'>
+                  <div class="text--pre-line">
+                    <%= item.production_details %>
+                  </div>
+                </div>
+              <% end %>
+              <% if item.shipping_details %>
+                <div class='shipping_details'>
+                  <div class="text--pre-line">
+                    <%= item.shipping_details %>
+                  </div>
+                </div>
+              <% end %>
+              <% if item.install_details %>
+                  <div class='install_details'>
+                    <div class="text--pre-line">
+                      <%= item.install_details %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+            <div class="job_local_file_path">
+              <strong>Job File Location:</strong>
+              <%= item.local_file_path %>
+            </div>
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+            <div class="job_created_by_and_at not-important">
+              <small><%= item.job_created_by_and_at %></small>
+            </div>
+          
+            <div>
+            <div class="text--pre-line li-desc-fixed-width">
+              <%= item.description %>
+            </div>
+
+              <% if item.table_view %>
+                  <% if item.has_bom? %>
+                      <ul class="bom_report bom_report_detail">
+                        <% item.bom_hash.keys.each do |item_type| %>
+                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                              <% if item.bom_hash[item_type].size > 0 %>
+                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                    <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
+                                        <%if item_type != "Material" %>
+                                          <li class="bom_report"><%= item_sub_type %></li>
+                                        <% end %>
+                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                          <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
+                                              <li class="bom_report">
+                                                <% if li.is_a?(Hash) %>
+                                                   <%if item_type != "Material" %>
+                                                     <%= li[:category] if li[:category] %>
+                                                    <% end %>
+                                                    <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br>" %>
+                                                    <%= "Style ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
+                                                    <% if li[:sub_items] %>
+                                                        <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                                            <table class='li-table-view-container'>
+                                                              <tr>
+                                                                <td class='li-table-view-name'>
+                                                                  <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                                                </td>
+                                                                <td>
+                                                                  <table class='li-table-view'>
+                                                                    <tr>
+                                                                      <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <%= sub_item[1].map{|col| "<td>#{col[:quantity]}</td>"}.join %>
+                                                                    </tr>
+                                                                  </table>
+                                                                </td>
+
+                                                              </tr>
+                                                            </table>
+                                                        <% end %>
+                                                    <% end %>
+                                                    <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                                      <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image">
+                                                    <% end %>
+                                                <% else %>
+                                                    <%= li %>
+                                                <% end %>
+                                              </li>
+                                          <% end %>
+                                        </ul>
+                                    <% end %>
+
+                                  </ul>
+                              <% end %>
+                            </li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% else %>
+                  <% if item.has_bom? %>
+                      <ul class="bom_report bom_report_detail">
+                        <% item.bom_report.keys.each do |item_type| %>
+                            <% unless item_type == 'Material' && item.table_view %>
+                                <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                                  <% if item.bom_report[item_type].size > 0 %>
+                                      <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                        <% item.bom_report[item_type].keys.each do |item_sub_type| %>
+                                            <%if item_type != "Material" %>
+                                              <li class="bom_report"><%= item_sub_type %></li>
+                                            <% end %>
+                                            <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                              <% item.bom_report[item_type][item_sub_type].each do |li| %>
+                                                  <li class="bom_report">
+                                                    <div class="text--pre-line li-desc-fixed-width">
+                                                      <%= li %>
+                                                    </div>
+                                                  </li>
+                                              <% end %>
+                                            </ul>
+                                        <% end %>
+
+                                      </ul>
+                                  <% end %>
+                                </li>
+                            <% end %>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <% if item.job.present? %>
+              <div class="last">
+                <div class="job-attributes">
+                  <div class="proof">
+                    <div class="head">
+                      <%= item.job.proof_head %><br>
+                      <%= "#{due_date_header}: #{item.job.due_date}" %>
+                    </div>
+
+                    <% item.job.all_proof_images(300).each do |url| %>
+                      <div class="clearfix"><img class="proof small" src="<%= url %>" /></div>
+                    <% end %>
+                  </div>
+                  <% if item.has_job_custom_fields? %>
+                      <div class='details'>
+                        <div class='custom_fields'>
+                          <%= item.job_custom_fields %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        <% if item.job.present? and show_workflow_steps? %>
+          <tr>
+            <td colspan="4">
+              <div class="stages">
+                <% item.job.stages.each do |stage| %>
+                    <div class="stage">
+                      <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
+                      <div class="stage-wrapper clearfix">
+                        <% stage.steps.each do |step| %>
+                            <% if !step.skip %>
+                                <div class="step <%= step.state %>">
+                                  <div class="step-info clearfix">
+                                    <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
+                                    <div class="number"><%= step.num_iterations %></div>
+                                  </div>
+                                  <% unless step.assigned_to_user_initials.blank? %>
+                                      <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
+                                  <% end %>
+                                  <% unless step.scheduled_machine_name.blank? %>
+                                      <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
+                                  <% end %>
+                                </div>
+                            <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+    <% end %>
+    <tfoot class="no-page-break">
+    </tfoot>
+  </table>
+</div>
+</body>
+</html>

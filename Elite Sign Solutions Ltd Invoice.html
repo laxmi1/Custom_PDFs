@@ -265,6 +265,18 @@
                   <b><%= final_price %></b>
                </td>
             </tr>
+            <tr>
+               <% if has_payments? %>
+               <td width="75%"></td>
+               <td colspan="2" style="border: 2px solid #e3e3e3;"><b><%= payment_total_header %>:</b></td>
+               <td style="border: 2px solid #e3e3e3;"><%= total_paid %></td>
+               <% end %>
+            </tr>
+            <tr>
+               <td width="75%"></td>
+               <td colspan="2" style="border: 2px solid #e3e3e3;"><b><%= payment_balance_due_header %>:</b></td>
+               <td style="border: 2px solid #e3e3e3;"><%= balance %></td>
+            </tr>
          </table>
       </div>
       <!-- Signature Note -->
