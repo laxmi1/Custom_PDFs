@@ -1,0 +1,599 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      <%= page_size %>
+      <%= body_font_family %>
+.terms-title *, .terms-text * {
+          font-size:7.2pt !important;
+          font-family: Arial, serif;
+      }
+.footer-bottoms {
+  margin-top: 40pt;
+  padding-left:35pt;
+  width: 90%;
+  font-size:9pt; 
+  font-family: Arial, serif;
+
+}
+.footer-bottom-left {
+  width: 88%;
+  float: left;
+  text-align: justify;
+  padding-left:35pt;
+ font-family: Arial, serif;
+}
+.footer-bottom-right {
+  float: right;
+  width: 40%;
+  border-left: solid 0px #e3e3e3;
+  background: transparent;
+  padding: 6pt 50pt 5pt 6pt;
+  margin: 10pt 0;
+ font-size: 9pt;
+ font-family: Arial, serif;
+}
+  </style>
+</head>
+<body>
+
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<!-- Footer Text for Page footter-->
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<!-- Store Address and Logo -->
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-address">
+        <%= store_address %>
+      </td>
+      <td class="store-logo">
+        <img class="logo" src="<%= logo %>">
+      </td>
+
+    </tr>
+  </table>
+</div>
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title">Estimate <%= txn_number_only %><%= quote_version %><br/>
+            <small><%= name %></small>
+          </h1>
+
+          <% if project_number %>
+              <p class="title"><%= project_header %></p>
+              <p><%= project_number %></p>
+          <% end %>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title"><%= quote_date_header %></p>
+          <p><%= quote_date %></p>
+          <% if quote_has_due_date %>
+              <p class="title"><%= quote_due_date_header %></p>
+              <p><%= quote_due_date%></p>
+          <% end %>
+
+          <% if quote_expiry_date %>
+              <p class="title"><%= quote_expiry_date_header %></p>
+              <p><%= quote_expiry_date%></p>
+          <% end %>
+
+          <% if quote_ship_date %>
+              <p class="title"><%= quote_ship_date_header %></p>
+              <p><%= quote_ship_date%></p>
+          <% end %>
+
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+
+          <% if payment_method %>
+          <p class="title"><%= payment_information_header %></p>
+          <p><%= payment_method %></p>
+          <% end %>
+        </div>
+      </td>
+
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <% if po_date %>
+            <p class="title"><%= po_number_header %></p>
+            <p><%= po_number %></p>
+          <% end %>
+
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Sold To, Contact Info and Shipping Address -->
+<div class="addresses">
+  <table>
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_by_header %></p>
+
+          <p>
+            <%= sold_to %>
+            <p>
+              <%= billing_information %>
+            </p>
+          </p>
+        </div>
+      </td>
+      <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present? ) || shipping_tracking.present? ||  (shipping_information.present? && ui_field_visibility('quote/shipping_address_id')) %>
+        <td class="address left">
+          <div class="address-wrapper">
+            <p class="title"><%= shipping_information_header %></p>
+            <span>
+              <% if shipping_address_type != 'DropShip' %>
+                <%= sold_to(show_company_name = false) %>
+              <% end %>
+              <%= shipping_information %>
+            </span>
+            <%if shipping_tracking %>
+              <br/>
+              <p class="title"><%= shipping_tracking_header%></p>
+              <%= shipping_tracking %>
+            <% end %>
+          </div>
+        </td>
+      <% end %>
+      <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
+        <td class="address left">
+          <div class="address-wrapper">
+            <p class="title"><%= installing_information_header %></p>
+            <%= installing_information %></p>
+          </div>
+        </td>
+      <% end %>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= contact_information_header %></p>
+
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<% if show_about_this_desc and description.present? %>
+  <div class="description_area">
+    <table>
+        <tr>
+            <td class="header">
+             <%= about_this_quote_header %>:
+            </td>
+            <td class="description page-break-after">
+              <%= description %>
+            </td>
+        </tr>
+    </table>
+  </div>
+<% end %>
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <% if show_multi_currecies %>
+    <p class="currency-note">
+      All prices in (default currency) except for the final price at the bottom showing in your local currency.
+    </p>
+  <% end %>
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="quantity"><%= qty_header %></th>
+      <th class="quantity"><%= uom_header %></th>
+      <th class="money"><%= unit_price_header %></th>
+      <% if show_discounts && total_discount_price != 0.0 %>
+        <th class="quantity"><%= discount_header %> </th>
+        <th class="quantity"><%= discount_price_header %> </th>
+      <% end %>
+      <th class="money"><%= total_excl_header %></th>
+      <% if use_tax_codes? %>
+        <th class="money"><%= tax_header %></th>
+      <% end %>
+      <% if show_li_total_with_tax? %>
+        <th class="money"><%= total_with_tax_header %></th>
+      <% end %>
+      <th class="quantity">
+        <div class="last"><%= taxable_header %></div>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class=''>
+        <% items.each_with_index do |item, index| %>
+          <tr>
+            <td class="position" rowspan="2">
+              <div class="first">
+                <%= index + 1 %>
+              </div>
+            </td>
+            <td class="name"><%= item.name %></td>
+            <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+            <td class="quantity"><%= item.uom %></td>
+            <td class="money"><%= item.unit_price %></td>
+            <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="quantity"><%= item.discount_percentage %> </td>
+              <td class="quantity"><%= item.unit_price_after_discount %></td>
+            <% end %>
+            <td class="money"><%= item.total_price %></td>
+            <% if use_tax_codes? %>
+              <td class="money"><%= item.total_tax %></td>
+            <% end %>
+            <% if show_li_total_with_tax? %>
+              <td class="money"><%= item.total_with_tax %></td>
+            <% end %>
+            <td class="quantity">
+              <div class="last"><%= item.taxable %></div>
+            </td>
+          </tr>
+          <tr>
+            <% if show_discounts && total_discount_price != 0.0 %>
+                <td class="description" colspan="7">
+            <% else %>
+                <td class="description" colspan="5">
+            <% end %>
+
+              <div>
+                <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view %>
+                  </div>
+                <% else %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.description %>
+                  </div>
+                <% end %>
+
+                <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                  <hr class="custom-field-separator">
+                  <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                  <hr class="custom-field-separator">
+                <% end %>
+
+                <% if item.product_picture_assets.count > 0 %>
+                  <% item.product_picture_assets.each do |asset| %>
+                    <img src="<%= asset.file_url %>" class="line-item-description-image">
+                  <% end %>
+                <% end %>
+
+                <% if item.product_image %>
+                  <img src="<%= item.product_image %>" class="line-item-description-image">
+                <% end %>
+
+                <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(show_child_items: true) %>
+                  </div>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= customer_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Internal Note -->
+<% if internal_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= internal_note_header %></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= internal_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <th><%= cover_note_header %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= cover_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+
+
+
+<!-- Signature Note -->
+<div>
+    <div class="section">
+        <div class="footer-bottom-left">
+          
+        </div>
+        <div class="footer-bottom-right">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="labels first footer-subtotal">
+                        <% if has_setup_charges? %>
+                          <p><strong><%= setup_charges_header %>:</strong></p>
+                        <% end %>
+                        <% if has_shipping_charges? %>
+                          <p><strong><%= shipping_charges_header %>:</strong></p>
+                        <% end %>
+                        <% if has_finance_charges? %>
+                          <p><strong><%= finance_charges_header %>:</strong></p>
+                        <% end %>
+                        <% if has_misc_charges? %>
+                          <p><strong><%= misc_charges_header %>:</strong></p>
+                        <% end %>
+                        <p><strong><%= subtotal_header %>:</strong></p>
+                        <% if show_tax  %>
+                            <% if use_tax_codes? %>
+                              <p><strong><%= total_tax_header %>:</strong></p>
+                            <% else %>
+                              <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                            <% end %>
+                        <% end %>
+                        <% if coupon_code_discount_header %>
+                            <p class="footer-discount"><strong><%= coupon_code_discount_header %>:</strong></p>
+                        <% end %>
+                      <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                       <% if show_downpayment %>
+                            <p><strong><%= downpayment_header %></strong></p>
+                        <% end %>
+                      <% if show_multi_currecies %>
+                        <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
+                      <% end %>
+                    </td>
+                    <td class="money last footer-subtotal">
+                      <% if has_setup_charges? %>
+                        <p><strong><%= setup_charges %></strong></p>
+                      <% end %>
+                      <% if has_shipping_charges? %>
+                          <p><strong><%= shipping_charges %></strong></p>
+                      <% end %>
+                      <% if has_finance_charges? %>
+                        <p><strong><%= finance_charges %></strong></p>
+                      <% end %>
+                      <% if has_misc_charges? %>
+                          <p><strong><%= misc_charges %></strong></p>
+                      <% end %>
+                      <p><strong><%= sub_total %></strong></p>
+                        <% if show_tax  %>
+                            <p><strong><%= total_tax %></strong></p>
+                        <% end %>
+
+                        <% if coupon_code_discount %>
+                            <p class="footer-discount"><strong><%= coupon_code_discount %></strong></p>
+                        <% end %>
+                      <p class="footer-total"><strong><%= final_price %></strong></p>
+                          <% if show_downpayment %>
+                            <p><strong><%= downpayment_total %></strong></p>
+                        <% end %>
+                      <% if show_multi_currecies %>
+                        <p class="footer-total"><strong><%= final_price_exchange %></strong></p>
+                      <% end %>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+<div class="footer-bottoms">
+                <p style="padding:10pt;font-weight:bold;font-family: Arial, serif;">We appreciate the opportunity to provide you with this estimate. This estimate covers only the products and services outlined above. If the scope of the work changes from the original estimate, approved revisions and additions will be charged accordingly.</p>
+
+<p style="padding:10pt;font-weight:bold;font-family: Arial, serif;">All orders under $500 require full payment up-front; All orders over $500 require a 50% deposit at time of order, and 50% upon completion. To move forward with your order, please approve the estimate, either online via your customer portal or via email.</p>
+
+<p style="padding:10pt;font-weight:bold;font-family: Arial, serif;">We will closely match your design colors, however not all colors can be exactly duplicated with digital printing due to the limitations and the sensitivity of the various substrates. If you have specific colors you wish to be printed, please let us know and we will provide a proof for you to approve before production, otherwise reproduction of colors will be at our discretion.</p>
+
+<p style="padding:10pt;font-weight:bold;font-family: Arial, serif;">If you have any questions please contact us at 470-481-3928. 
+
+</p>
+</div>
+    <% if (not use_tax_codes?) and has_tax_split? and show_tax_split? %>
+      <div class="split-tax">
+        <h4><%= split_taxes_header %></h4>
+        <% tax_split.each_with_index do |(name, rate), i| %>
+          <div class="split-tax-parent-cell">
+            <div class="split-tax-cell">
+              <%= name %>(<%= rate %>%)
+            </div>
+            <div class="split-tax-cell" style="font-weight: normal">
+              <%= tax_subtotal(rate.to_f) %>
+            </div>
+          </div>
+        <% end %>
+        <div class="clearfix"></div>
+      </div>
+    <% end %>
+    <% if use_tax_codes? %>
+        <div class="split-tax">
+          <h4><%= tax_totals_header %></h4>
+          <% tax_totals_table.each do |k, value| %>
+            <div class="split-tax-parent-cell">
+              <div class="split-tax-cell">
+                <%= value[:name] %>(<%= value[:rate] %>%)
+              </div>
+              <div class="split-tax-cell" style="font-weight: normal">
+                <%= to_pdf_dollars(value[:total]) %>
+              </div>
+            </div>
+          <% end %>
+          <div class="clearfix"></div>
+        </div>
+    <% end %>
+  <% if show_discounts %>
+    <div>
+      <table class="discount-table">
+        <tbody>
+          <tr>
+          <% if show_range_volume_discounts %>
+            <% if total_range_discount >0 || total_volume_discount >0  %>
+              <th><b><%= total_discount_header %></b></th>
+              <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
+            <%end%>
+            <% if total_range_discount >0 %>
+              <th><b><%= range_discount %></b></th>
+              <td><%= total_range_discount_in_dollars %></td>
+            <%end%>
+            <% if total_volume_discount >0 %>
+              <th><b><%= volume_discount %></b></th>
+              <td><%= total_volume_discount_in_dollars %></td>
+            <%end%>
+            <% if total_discount_price != 0.0%>
+              <th><b><%= customer_discount %></b></th>
+              <td><%= total_discount_price_in_dollars %></td>
+            <%end%>
+          <%else%>
+            <% if total_discount_price != 0.0%>
+              <th><b><%= customer_discount %></b></th>
+              <td><%= total_discount_price_in_dollars %></td>
+            <%end%>
+          <%end%>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+  <% end %>
+</div>
+
+<% if sage_products %>
+
+  <% sage_products.each do |sage_product| %>
+    <div class="page-break-before promo-layout" style="padding: 5pt 35pt; margin-top:56px">
+      <div style="margin-right:16px">
+          <img class="logo promo-img " src="<%= sage_product.details['image_url'] %>">
+      </div>
+      <div>
+          <h3 style="margin-top:0px">
+              <%= sage_product.name %>
+          </h3>
+
+          <div>
+              <p class="promo-description">Item Number:</p>
+              <p>
+                  <%= sage_product.part_number%>
+              </p>
+          </div>
+
+          <div>
+              <p class="promo-description">Description:</p>
+              <p>
+                  <%= sage_product.details['description'] %>
+              </p>
+          </div>
+
+          <div>
+              <p class="promo-description">Colors:</p>
+              <p>
+                  <%= sage_product.details['colors']&.join(', ') %>
+              </p>
+          </div>
+
+          <div>
+              <p class="promo-description">Decoration Information:</p>
+              <p>
+                  <%= sage_product.details['dimensions'] %>
+              </p>
+          </div>
+
+          <div style="margin-top:8px">
+              <table class='li-table-view' style="float:none">
+                  <thead>
+                      <tr>
+                          <th>Quantity</th>
+                          <th>Price</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% sage_product.prices.each do |price| %>
+                          <tr>
+                              <td>
+                                  <%= price['quantity'] %>
+                              </td>
+                              <td>
+                                  <%= price['price'] %>
+                              </td>
+                          </tr>
+                          <% end %>
+                  </tbody>
+              </table>
+          </div>
+          <div>
+              <p class="promo-description">Price Includes:</p>
+              <p>
+                  <%= sage_product.details['price_includes'] %>
+              </p>
+          </div>
+      </div>
+    </div>
+  <% end %>
+<%end%>
+<div class="no-page-break">
+ <div class="footer-bottom-left">
+        <div class="terms-text" style="font-family: Arial, serif;">
+                <%= terms_conditions %>
+            </div>
+  </div>
+</div>
+</body>
+</html>
