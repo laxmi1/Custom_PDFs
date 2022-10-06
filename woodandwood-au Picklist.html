@@ -1,0 +1,398 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+    <%= page_size %>
+    <%= body_font_family %>
+  </style>
+</head>
+<body>
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-address">
+        <%= store_address(show_tax_id: false) %>
+      </td>
+      <td class="store-logo">
+        <img class="logo" src="<%= logo %>">
+      </td>
+
+    </tr>
+  </table>
+</div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title"><%= pick_list_number %> <br/>
+            <small><%= name %></small>
+          </h1>
+          <% if project_number %>
+            <p class="title"><%= project_header %></p>
+            <p><%= project_number %></p>
+          <% end %>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+<% unless sales_rep_information.blank?%>
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
+<% end %>
+        </div>
+        <% if quote_information %>
+          <div class="summary-wrapper">
+            <p class="title"><%= quote_information_header %></p>
+            <p><%= quote_information %></p>
+          </div>
+        <% end %>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <p class="title"><%= pick_list_date_header %></p>
+          <p><%= pick_list_date %></p>
+
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+
+          <% if ship_date %>
+          <p class="title"><%= shipping_date_header %></p>
+          <p><%= ship_date %></p>
+        <% end %>
+
+        <% if due_date %>
+          <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+        <% end %>
+         <% if shipping_method %>
+          <p class="title"><%= shipping_method_header %></p>
+          <p><%= shipping_method %></p>
+        <% end %>
+
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <% if po_number %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
+          <% if po_date %>
+              <p class="title"><%= po_date_header %></p>
+              <p><%= po_date %></p>
+          <% end %>
+        </div>
+        <br/>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="addresses">
+  <table>
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_by_header %></p>
+
+          <p><%= sold_to %></p>
+          <%= billing_information %>
+        </div>
+      </td>
+      <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? || (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
+
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= shipping_information_header %></p>
+          <% if shipping_address_type != 'DropShip' %>
+              <%= sold_to(show_company_name = false) %>
+          <% end %>
+            <%= shipping_information %>
+          </p>
+          <%if shipping_tracking.present? %>
+           <br/>
+           <p class="title"><%= shipping_tracking_header%></p>
+           <%= shipping_tracking %>
+          <% end %>
+        </div>
+      </td>
+      <% end %>
+        <% if ui_field_visibility('invoice/installing_address_id') and installing_information.present? %>
+       <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= installing_information_header %></p>
+          <%if check_exist_empty('installing_address_name') != nil %>
+                <p><%= check_exist_empty('installing_address_name') %></p>
+                <%end%>
+                  <%if check_exist_empty('installing_address_attention_to') != nil %>
+                  <p><%= check_exist_empty('installing_address_attention_to').gsub('Attn:', '') %></p>
+                  <%end%>
+                  <%if check_exist_empty('installing_address_street') != nil %>
+                  <p><%= check_exist_empty('installing_address_street') %></p>
+                  <%end%>
+                  <%if check_exist_empty('installing_address_street1') != nil %>
+                  <p><%= check_exist_empty('installing_address__street1') %></p>
+                  <%end%>
+ <p><%if check_exist_empty('installing_address_city') != nil %><%=check_exist_empty('installing_address_city')%>,<%end%>
+            <%if check_exist_empty('installing_address_state') != nil %><%=check_exist_empty('installing_address_state')%>, <%end%>
+                  <%if check_exist_empty('installing_address_zip') != nil %>
+                  <p><%= check_exist_empty('installing_address_zip') %>
+                  </p>
+                  <%end%>
+                  <%if check_exist_empty('installing_address_country') != nil %>
+                  <p><%= check_exist_empty('installing_address_country') %></p>
+                  <%end%>
+        </div>
+       </td>
+      <% end %>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= contact_information_header %></p>
+
+          <p><%= contact_information %></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<% if show_about_this_desc and description.present? %>
+  <div class="description_area">
+    <table>
+        <tr>
+            <td class="header">
+             <%= about_this_wo_header %>:
+            </td>
+            <td class="description">
+              <%= description %>
+            </td>
+        </tr>
+    </table>
+  </div>
+<% end %>
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="state">QTY PACKED</th>
+      <th class="state">LOCATION</th>
+      <th class="state">CHECKED</th>
+      <th class="state"><%= state_header %></th>
+      
+      <th class="quantity">
+        <div class="last"><%= qty_header %></div>
+      </th>
+    </tr>
+    </thead>
+
+    <% items.each_with_index do |item, index| %>
+        <tbody class='no-page-break'>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+
+          <td class="name"><%= item.name %></td>
+          <td class="state"></td>
+ <td class="state"></td>
+ <td class="state"></td>
+ <td class="state"><%= item.state %></td>
+          <td class="quantity">
+            <div class="last"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="description" colspan="1">
+            <div class="last">
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+              <% if item.table_view %>
+                  <% if item.has_bom? %>
+                      <ul class="bom_report bom_report_detail">
+                        <% item.bom_hash.keys.each do |item_type| %>
+                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                              <% if item.bom_hash[item_type].size > 0 %>
+                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                    <% item.bom_hash[item_type].keys.each do |item_sub_type| %>
+                                       <% if item_type != 'Material' %>
+                                        <li class="bom_report"><%= item_sub_type %></li>
+                                        <% end %>
+                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                          <% item.bom_hash[item_type][item_sub_type].compact.each do |li| %>
+                                              <li class="bom_report">
+                                                <% if li.is_a?(Hash) %>
+                                                 <% if item_type != 'Material' %>
+                                                  <%= li[:category] if li[:category] %>
+                                                 <% end %>
+                                                  <%= "#{li[:name]} #{li[:quantity]} #{li[:units]}<br>" %>
+                                                  <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
+                                                  <% if li[:sub_items] %>
+                                                    <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                                        <table class='li-table-view-container'>
+                                                          <tr>
+                                                            <td class='li-table-view-name'>
+                                                              <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                                            </td>
+                                                            <td>
+                                                              <table class='li-table-view'>
+                                                                <tr>
+                                                                  <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                                </tr>
+                                                                <tr>
+                                                                  <%= sub_item[1].map{|col| "<td>#{col[:quantity].to_i}</td>"}.join %>
+                                                                </tr>
+                                                              </table>
+                                                            </td>
+
+                                                          </tr>
+                                                        </table>
+                                                    <% end %>
+                                                  <% end %>
+                                                  <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                                    <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image">
+                                                  <% end %>
+                                                <% else %>
+                                                    <%= li %>
+                                                <% end %>
+                                              </li>
+                                          <% end %>
+                                        </ul>
+                                    <% end %>
+
+                                  </ul>
+                              <% end %>
+                            </li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% else %>
+                  <% if item.has_bom? %>
+                      <ul class="bom_report bom_report_detail">
+                        <% item.bom_report.keys.each do |item_type| %>
+                            <li class="bom_report bom_report_detail bom_report_first"><%= item_type %>
+                              <% if item.bom_report[item_type].size > 0 %>
+                                  <ul class="bom_report bom_report_detail bom_report_detail_level">
+                                    <% item.bom_report[item_type].keys.each do |item_sub_type| %>
+                                        <% if item_type != 'Material'%>
+                                          <li class="bom_report"><%= item_sub_type %></li>
+                                        <% end %>
+                                        <ul class="bom_report bom_report_detail bom_report_detail_level bom_report_detail_last">
+                                          <% item.bom_report[item_type][item_sub_type].each do |li| %>
+                                              <li class="bom_report"><%= li %></li>
+                                          <% end %>
+                                        </ul>
+                                    <% end %>
+
+                                  </ul>
+                              <% end %>
+                            </li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+              <% end %>
+              <div class="custom-fields">
+                <%= item.custom_fields %>
+              </div>
+
+              <% if item.panel_description_enabled? %>
+                <div>
+                  <%= item.panel_description %>
+                </div>
+              <% end %>
+
+              <% if item.product_picture_assets.count > 0 %>
+                <% item.product_picture_assets.each do |asset| %>
+                  <img src="<%= asset.file_url %>" class="line-item-description-image">
+                <% end %>
+              <% end %>
+
+              <% if item.product_image %>
+                <img src="<%= item.product_image %>" class="line-item-description-image">
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+    <% end %>
+
+    <tfoot class="no-page-break">
+    </tfoot>
+  </table>
+</div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= customer_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<% if internal_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= internal_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= internal_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<% if cover_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <th><%= cover_note_header %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+</body>
+</html>

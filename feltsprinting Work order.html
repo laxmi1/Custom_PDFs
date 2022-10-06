@@ -28,8 +28,8 @@
     }
 
     .footer-bottom {
-    float: bottom;
-    margin-bottom: 60pt;
+    float: none;
+    margin-top: 20pt;
     }
 
   </style>
@@ -248,7 +248,7 @@
           <td class="name">
             <%= item.name %><br>
             <div class="title-dates">
-              <%= item.get_job_art_due_date %>
+              <%= item.job_art_due_date %>
             </div>
           </td>
           <td class="state"><%= item.state_wo_in %></td>
