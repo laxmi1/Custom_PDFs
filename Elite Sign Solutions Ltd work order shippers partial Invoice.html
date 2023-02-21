@@ -62,7 +62,7 @@
          font-size: 11px;
          padding-right: 100pt;
          padding-left: 100pt;
-         content: "Elite Sign Solutions Ltd, First Floor Morton Mill, Morton Street, Failsworth, Manchester, M35 0BN, United Kingdom Telephone : 0161 425 8455  Fax: 0161 850 0540  Web: www.elitesignsolutions.co.uk  Registration No: 06983765  VAT NO: 980 0703 32";
+         content: "Elite Sign Solutions Ltd, Unit 45 Stakehill Industrial Estate,Touchet Hall Road,Middleton, Manchester M24 2FL,United Kingdom Telephone : 0161 425 8455  Fax: 0161 850 0540  Web: www.elitesignsolutions.co.uk  Registration No: 06983765  VAT NO: 980 0703 32";
          } 
          }
          @page {
@@ -161,6 +161,7 @@
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
+            <% next unless line_item_ids_to_show.include?(item.line_item_id) %>
             <tbody class='no-page-break'>
                <tr style="border-top:2px solid #e3e3e3;">
                   <td class="position" rowspan="2">

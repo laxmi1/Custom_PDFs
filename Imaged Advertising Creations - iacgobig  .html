@@ -3,75 +3,105 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          .terms-title *, .terms-text * {
-          font-size:8pt !important;
-          }
-        <%= page_size %>
-       @page {
-        font-family: "Helvetica", sans-serif;
-        prince-shrink-to-fit: auto;
-       }
+         font-size:8pt !important;
+         }
 
-       body {
-        font-family: "Helvetica";
-       }
+         <%= page_size %>
+         @page {
+         font-family: "Inter", sans-serif;
+         prince-shrink-to-fit: auto;
+         }
 
-       .address-logo {
-        padding: 20pt 35pt 5pt 40pt;
-        border-bottom: 2px solid #e3e3e3;
-       }
+         body {
+         font-family: "Inter", sans-serif;
+         }
 
-       .address-logo .store-address {
+         .address-logo {
+         padding: 20pt 35pt 5pt 40pt;
+         border-bottom: 2px solid #e3e3e3;
+         }
+
+         .address-logo .store-address {
          text-align: left;
          vertical-align: top;
          font-size: 13px;
-        }
+         }
 
-       .store-logo {
-        text-align: left;
-        vertical-align: top;
-       }
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 200px;
+         max-height: 100px;
+         }
 
-       .store-logo1 {
-        text-align: right;
-        vertical-align: top;
-       }
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
+         }
 
-       .address-logo .store-logo1 .title {
-        text-transform: uppercase;
-        margin-top: 5pt;
-        font-size: 10px;
-        color: #6d6a6a;
-        text-align: right;
-       }
+         .store-logo1 {
+         text-align: right;
+         vertical-align: top;
+         }
 
-       .h1 {
-        font-size: 22px;
-        margin: 15pt 0;
-        padding-left: -10pt;
-        font-weight: bold;
-       }
+         .address-logo .store-logo1 .title {
+         text-transform: uppercase;
+         margin-top: 5pt;
+         font-size: 10px;
+         color: #6d6a6a;
+         text-align: right;
+         }
 
-       .summary .summ.left .summary-wrapper {
-        border-right: 3px solid #e3e3e3;
-        text-align: left;
-        padding-left: 8pt;
-       }
+         .h1 {
+         font-size: 22px;
+         margin: 15pt 0;
+         padding-left: -10pt;
+         font-weight: bold;
+         }
 
-       .summary {
-        margin: 0pt;
-        padding: 5pt 35pt 5pt 30pt;
-        border-bottom: 2px solid #e3e3e3;
-        background: #f7f7f7;
-       }
-      .line-items .last {
-       padding-right: 30pt;
-      }
-      .line-items .quantity {
-       text-align: center !important;
-       width: 1%;
-       white-space: nowrap;
-       padding-right: 40pt;
-      }
+         .summary .summ.left .summary-wrapper {
+         border-right: 3px solid #e3e3e3;
+         text-align: left;
+         padding-left: 8pt;
+         }
+
+         .summary {
+         margin: 0pt;
+         padding: 5pt 35pt 5pt 32pt;
+         border-bottom: 2px solid #e3e3e3;
+         background: #f7f7f7;
+         font-size: 9px;
+         }
+
+         h1 small {
+         font-size: 10pt;
+         }
+
+         .line-items .position{
+         padding-top: 4pt; 
+         }
+
+         .line-items .quantity{
+         padding-top: 4pt; 
+         }
+
+         .line-items .name{
+         padding-top: 4pt; 
+         }
+
+         .line-items .money{
+         padding-top: 4pt; 
+         }
+
+         .line-items .last {
+         padding-right: 30pt;
+         }
+         
+         .line-items .quantity {
+         text-align: center !important;
+         width: 1%;
+         white-space: nowrap;
+         padding-right: 40pt;
+         }
       </style>
    </head>
    <body>
@@ -86,13 +116,34 @@
                <td class="store-logo">
                   <img class="logo" src="https://assets.shopvox.com/accounts/6a46da2c-6185-42f0-a3a7-a57e40327abf/custom_pdfs/IACLogos.svg">
                </td>
-               <td class="store-address"><%= store_address %></td>
-<td style="width: 20%;">&nbsp;</td>
+               <td class="store-address">
+                  <p><%= store_name %></p>
+                  <%if store_address_street%>
+                  <p><%= store_address_street %>,
+                     <%end%>
+                     <%if store_address_street1%>
+                     <%= store_address_street1 %>
+                     <%end%>
+                     <%if store_address_city%><%= store_address_city %>,<%end%>
+                     <%if store_address_state %> <%= store_address_state %><%end%>
+                  </p>
+                  <p><%if store_address_zip %> <%= store_address_zip %><%end%>, <%if @object.account.settings.addresses.find_by(address_type: 'Primary').country %><%= @object.account.settings.addresses.find_by(address_type: 'Primary').country %><%end%></p>
+                  <% if store_email%>
+                  <p><%=store_email%></p>
+                  <%end%>
+                  <% if store_phone%>
+                  <p><%=store_phone%></p>
+                  <%end%>
+                  <% if @object.account.website %>
+                  <p><%= @object.account.website %></p>
+                  <%end%>
+               </td>
+               <td style="width: 20%;">&nbsp;</td>
                <td class="store-logo1">
-                  <p class="title"><%= quote_date_header %></p>
+                  <p class="title">Estimate Date</p>
                   <p ><%= quote_date %></p>
                   <% if quote_expiry_date %>
-                  <p class="title"><%= quote_expiry_date_header %></p>
+                  <p class="title">Estimate Expiry Date</p>
                   <p><%= quote_expiry_date%></p>
                   <% end %>
                   <% if term_code %>
@@ -132,10 +183,10 @@
                </td>
                <td class="summ left">
                   <div class="summary-wrapper" style="border-right: 0px solid #e3e3e3;">
-                   
+                     <% unless sales_rep_information.blank?%>
                      <p class="title"><%= sales_rep_information_header %></p>
                      <p><%= sales_rep_information %></p>
-                   
+                     <% end %>
                   </div>
                </td>
             </tr>
@@ -173,7 +224,7 @@
                   <th class="quantity"><%= qty_header %></th>
                   <th class="money" style="padding-right:25pt;"><%= unit_price_header %></th>
                   <th class="money">
-                   <div class="last">SUBTOTAL</div>
+                     <div class="last">SUBTOTAL</div>
                   </th>
                </tr>
             </thead>
@@ -185,15 +236,14 @@
                         <%= index + 1 %>
                      </div>
                   </td>
-                  <td class="name"><%= item.name %></td>
+                  <td class="name" style="font-weight:bold"><%= item.name %></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="money" style="padding-right:25pt;"><%= item.show_hide_unit_price %></td>
                   <td class="money">
-                    <div class="last"><%= item.total_price %></div>
+                     <div class="last"><%= item.total_price %></div>
                   </td>
-                  
                </tr>
-               <tr>
+               <tr style="border-bottom: 2px solid #e3e3e3;">
                   <% if show_discounts && total_discount_price != 0.0 %>
                   <td class="description" colspan="7">
                      <% else %>
