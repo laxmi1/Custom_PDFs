@@ -1,0 +1,346 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+      .terms-title *, .terms-text * {
+          font-size:6pt !important;
+      }
+      <%= page_size %>
+      <%= body_font_family %>
+          @page {
+          @bottom-left {
+          content: " ";
+          }
+          }
+
+          .address-logo {
+          padding: 15pt 5pt 5pt 25pt;
+          border-bottom: 0px solid #e3e3e3;
+          }
+
+          .address-logo .store-logo .logo,
+          img.logo {
+          max-width: 150px;
+          max-height: 80px;
+          }
+
+          .summary {
+          margin: 0pt;
+          padding: 5pt 35pt;
+          border-bottom: 0px solid #e3e3e3;
+          background: transparent;
+          }
+
+          .summary .summ.right .summary-wrapper {
+          border-right: 0px solid #e3e3e3;
+          text-align: left;
+          padding-right: 10pt;
+          }
+
+          .line-items .title {
+          color: transparent;
+          margin-top: 5pt-;
+          margin-bottom: 0;
+          font-weight: normal;
+          }
+
+          .line-items thead th {
+          font-size: 10px;
+          text-transform: uppercase;
+          color: black;
+          padding: 5pt 5pt;
+          font-weight: normal;
+          }
+          .line-items .last {
+          padding-right: 0pt;
+
+          }
+
+          .line-items .first {
+          padding-left: 0pt;
+
+          }
+
+          .line-items .position{
+          padding-top: 7pt;
+
+          }
+
+          .line-items .quantity{
+          padding-top: 7pt;
+
+          }
+
+          .line-items .name{
+          padding-top: 7pt;
+
+          }
+
+          .line-items .money{
+          padding-top: 7pt;
+
+          }
+
+          .li-desc-fixed-width {
+          max-width: 350pt;
+          }
+
+          .line-items tfoot td {
+          font-size: 14px;
+          background-color: #FFFFFF;
+          text-transform: capitalize;
+          color: black;
+          padding: 8pt 5pt;
+          border-bottom: 0px solid #e3e3e3;
+          border-top: 2px solid #e3e3e3;
+
+          }
+
+          .footersec {
+          width: 55%;
+          float:left;
+          }
+
+          .footercus {
+          width:90%;
+          margin-left:35pt;
+          }
+
+          .bottom-border{
+          border-top-width: 0px !important;
+          }
+
+          .footer-bottom-right {
+          float: right;
+          width: 42%;
+          border-left: solid 0px #e3e3e3;
+          background: transparent;
+          padding: 2pt 6pt 5pt 6pt;
+          margin: 10pt 0;
+          }
+
+  </style>
+</head>
+<body>
+
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<div class="address-logo">
+  <table>
+    <tr>
+      <td class="store-address">
+      &nbsp;
+      </td>
+      <td class="store-logo" style="padding-right:35pt;">
+        <img class="logo" src="<%= logo %>">
+      </td>
+
+    </tr>
+  </table>
+</div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left" style="width: 38%;">
+        <div class="summary-wrapper">
+          <h1 class="main-title">Deposit invoice </h1><br/>
+<p><%= billing_information %></p>
+                   
+        </div>
+      </td>
+      <td class="summ right" style="width: 30%;">
+        <div class="summary-wrapper">
+
+          <p><strong><%= work_order_date_header %></strong></p>
+          <p style="padding-bottom:5pt";><%= work_order_date %></p>
+
+          <p><strong>Invoice Number</strong></p>
+          <p style="padding-bottom:5pt";>DI-<%= txn_number_only %></p>
+          <% if quote_information %>
+           <p><strong>Reference</strong></p>
+           <p style="padding-bottom:5pt";><%= quote_information %></p>
+          <% end %>
+          <% if po_number %>
+              <p><strong>Customer PO</strong></p>
+              <p><%= po_number %></p>
+          <% end %>
+
+        </div>
+      </td>
+<td class="summ right">
+        <div class="summary-wrapper">
+   <%= store_address %>
+        </div>        
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="line-items" style="width: 88%;margin-left:35pt;">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <% if show_multi_currecies %>
+    <p class="currency-note">
+      All prices in (default currency) except for the final price at the bottom showing in your local currency.
+    </p>
+  <% end %>
+  <table>
+    <thead>
+    <tr>
+      <th class="name" colspan="1">Description</th>
+      <th class="quantity">Quantity</th>
+      <th class="money">Unit Price</th>
+      
+      <% if use_tax_codes? %>
+          <th class="money">
+            <div class="last"><%= tax_header %></div>
+          </th>
+      <% end %>
+      <th class="money">
+        <div class="last">Amount USD</div>
+      </th>
+
+    </tr>
+    </thead>
+
+    <tbody class=''>
+    <% items.each_with_index do |item, index| %>
+        <tr>
+          <td class="name" colspan="1"><%= item.name %></td>
+          <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+          <td class="money">
+            <%= item.unit_price %>
+          </td>
+          <% if use_tax_codes? %>
+              <td class="money">
+                <div class="last"><%= item.total_tax %></div>
+              </td>
+          <% end %>
+          <td class="money">
+            <div class="last">
+              <%= item.total_price %>
+            </div>
+          </td>
+        </tr>
+      <tr style="border-bottom: 1px solid #e3e3e3;margin-top: 10pt;">
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="description" colspan="7">
+          <% else %>
+              <td class="description" colspan="5">
+          <% end %>
+          <div class="last">
+            <% if item.table_view %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view %>
+              </div>
+            <% else %>
+              <div class="text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
+            <% end %>
+
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+              <hr class="custom-field-separator">
+            <% end %>
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view(show_child_items: true) %>
+                </div>
+            <% end %>
+          </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="3">
+        <% if has_misc_charges? %>
+          <%= misc_charges_header %>:<br>
+        <% end %>
+        Sub Total:<br>
+        Sales Tax :
+      </td>
+      <td>
+        <% if has_misc_charges? %>
+        <%= misc_charges %><br>
+        <% end %>
+        <%= sub_total %><br>
+        <%= total_tax %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <b>TOTAL USD:</b>
+      </td>
+      <td>
+        <b><%= final_price %></b>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</div>
+
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+          <div class="footer-bottom footercus">
+            <img src="http://content.screencast.com/users/LaxmiKanth1234/folders/Default/media/0703312b-a70d-4557-aeae-ce46e280ae1c/Davie_cut_symbol.png" width="100%">
+            <div class="footersec">
+               <p style="font-size:18pt;font-weight:bold;padding:5px;padding-left:0px;">PAYMENT ADVICE</p>               
+               <%= store_address %>
+            </div>
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td><b>Customer </b></td>
+                        <td><%= company_name %></td>
+                     </tr>
+                     <tr style="border-bottom: 1px solid #e3e3e3;  line-height: 1.8;">
+                        <td><b>Invoice Number </td>
+                        <td>DI-<%= txn_number_only%></td>
+                     </tr>
+                     <tr style="line-height: 1.8;">
+                        <td><b>Down Payment %:</b></td>
+                      <% if @object.downpayment_percent %>
+                        <td><%= @object.downpayment_percent %></td>
+                      <%end%>
+                     </tr>
+                     <tr style="line-height: 1.8;">
+                        <td><b>Amount Due</b></td>
+                        <td><%= downpayment_total %></td>
+                     </tr>
+         
+                     
+                     <tr style="line-height: 1.8;">
+                        <td><b>Amount Enclosed</b></td>
+                        <td style="border-bottom: 1px solid #e3e3e3;">&nbsp;</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+      </div>
+</body>
+</html>

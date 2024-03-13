@@ -17,7 +17,7 @@
          }
 
          .address-logo {
-         padding: 20pt 35pt 5pt 40pt;
+         padding: 10pt 35pt 5pt 40pt;
          border-bottom: 2px solid #e3e3e3;
          }
 
@@ -56,6 +56,29 @@
          margin: 15pt 0;
          padding-left: -10pt;
          font-weight: bold;
+         }
+@page { margin: 170pt 0  10px 0; }
+         @page {  
+         @top { content: flow(header); }  
+         }
+@page {
+    @top-left {
+        content: " ";
+    }
+}
+         #header {      
+         position:relative;  
+         padding: 10pt 0pt 0pt 0pt;
+         flow: static(header);  
+         }
+@page {
+         @top-left {
+         content: string(doc_header);
+         padding-left: 0pt;
+         font-size: 8px;
+         text-transform: uppercase;
+         font-weight: normal;
+         }
          }
 
          .summary .summ.left .summary-wrapper {
@@ -105,13 +128,12 @@
       </style>
    </head>
    <body>
-      <div style="display:none" class="document-header">
-         <%= header_text %>
-      </div>
+      
       <!-- Footer Text for Page footter-->
       <!-- Store Address and Logo -->
+      <div id="header">
       <div class="address-logo">
-         <table>
+         <table style="width: 100%">
             <tr>
                <td class="store-logo">
                   <img class="logo" src="https://assets.shopvox.com/accounts/6a46da2c-6185-42f0-a3a7-a57e40327abf/custom_pdfs/IACLogos.svg">
@@ -192,6 +214,7 @@
             </tr>
          </table>
       </div>
+      </div>
       <!-- Sold To, Contact Info and Shipping Address -->
       <% if show_about_this_desc and description.present? %>
       <div class="description_area">
@@ -228,8 +251,8 @@
                   </th>
                </tr>
             </thead>
-            <tbody class=''>
                <% items.each_with_index do |item, index| %>
+               <tbody class="no-page-break">
                <tr>
                   <td class="position" rowspan="2">
                      <div class="first">
@@ -279,9 +302,9 @@
                         <% end %>
                      </div>
                   </td>
-               </tr>
-               <% end %>
+               </tr>          
             </tbody>
+          <% end %>
          </table>
       </div>
       <% if customer_note.present? %>

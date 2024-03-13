@@ -1,0 +1,393 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+       <%= page_size %>
+       <%= body_font_family %>
+       .address-logo {
+       padding: 30pt 30pt 5pt 35pt;
+       border-bottom: 2px solid #e3e3e3;
+       }
+
+       .address-logo {
+       text-align: left;
+       vertical-align: top;
+       }
+
+       .store-logo {
+       text-align: right;
+       vertical-align: top;
+       font-size: 7pt;
+       }
+
+       .address-logo .store-address {
+       text-align: left;
+       vertical-align: top;
+       font-size: 9pt;
+       }
+
+       .address-logo .store-logo .logo,
+       img.logo {
+       max-width: 300px;
+       max-height: 150px;
+       margin-top: -9pt;
+       }
+
+      .summary {
+      margin: 0pt;
+      padding: 5pt 25pt 5pt 35pt;
+      border-bottom: 2px solid #e3e3e3;
+      background: #f7f7f7;
+      }
+
+.small {
+  font-size: 16px;
+}
+
+       .addresses {
+  padding: 5pt 35pt;
+  border-bottom: 0px solid #e3e3e3;
+}
+
+       .addresses .address .title {
+       text-transform: uppercase;
+       margin-top: 0pt;
+       font-size: 10px;
+       color: #6D6A6A;
+       padding-bottom: 5pt;
+       }
+
+       .line-items {
+       margin-top: 5pt;
+       border-top: 1px solid #e3e3e3;
+       }
+
+       .li-desc-fixed-width {
+       max-width: 350pt;
+       margin-top: -7pt;
+       margin-bottom: 6pt;
+       }
+
+       .line-items .description {
+       font-size: 12px;
+       padding: 0 35pt 5pt 15pt;
+       }
+
+       .description_area {
+       padding: 5pt 35pt;
+       border-bottom: 0px solid #e3e3e3;
+       min-height: 20pt;
+       }
+
+       .footer-bottom-left {
+       width: 98%;
+       float: left;
+       text-align: justify;
+       }
+
+       .footer-total {
+       font-size: 11pt;
+       padding-bottom: 6pt;
+       border-bottom: 1px solid #e3e3e3;
+       }
+
+       .footer-bottom-right {
+       float: right;
+       width: 30%;
+       border-left: solid 2px #e3e3e3;
+       background: white;
+       padding: 6pt 6pt 5pt 6pt;
+       margin: 10pt 0;
+       }
+
+       .signature {
+       margin: 10pt 0;
+       min-height: 30pt;
+       }
+
+       @page {
+       margin: 30pt 0 35pt 0;
+       @top-left {style="padding-top:10px;"
+       content: string(doc_header);
+       padding-right: 35pt;
+       font-size: 8px;
+       text-transform: uppercase;
+       font-weight: normal;
+       text-align: right;
+       }
+       }
+
+       @page :first {
+       margin: 0 0 35pt 0;
+       @top-left { content: none }
+       @top-left { content: normal }
+       }
+
+      </style>
+</head>
+<body>
+
+<div style="display:none" class="document-header">
+  <%= header_text %>
+</div>
+
+<div style="display:none" class="document-footer">
+  <%= footer_text %>
+</div>
+
+<!-- Store Address and Logo -->
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-address">
+                  <p><b><%= store_name %></b></p>
+                  <%if store_address_street%>
+                  <p><%= store_address_street %>,<%end%>
+                     <%if store_address_street1%><%= store_address_street1 %><%end%>
+                     <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%>,<%end%>
+                     <%if store_address_zip %> <%= store_address_zip%>
+                  </p>
+                  <%end%>
+                  <% if store_phone%>
+                  <p><%=store_phone%>&nbsp;&nbsp;&nbsp;800-268-7744</p>
+                  <%end%>
+                  <% if @object.account.website %> 
+                  <p style="color: #1883b5"><%= @object.account.website %></p>
+                  <%end%>
+               </td>
+    
+               <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+                  <p style="margin-right:6pt;"><% if dir_number_text(@object.account) %>
+                     <%= dir_number_text(@object.account) %>
+                     <%end%>&nbsp;<% if license_number_text(@object.account) %> 
+                     <%= license_number_text(@object.account).gsub('License #:', 'LIC.# ') %>
+                     <%end%>&nbsp;<%if @object.account and not @object.account.ein_number.blank?%>
+                     EIN# <%= @object.account.ein_number %>
+                     <%end%>&nbsp;<% if tax_code_number_text(@object.account) %>
+                     <%= tax_code_number_text(@object.account) %><%end%>
+                  </p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="summary">
+         <table>
+            <tr>
+               <td class="summ left">
+                  <div class="summary-wrapper">
+                     <h1 class="main-title"><%= invoice_number %>
+                     </h1><br/>
+                    <small><%= name %></small>
+                     <% if project_number %>
+                     <p class="title"><%= project_header %></p>
+                     <p><%= project_number %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <td class="summ right" style="border-left: 3px solid #e3e3e3;padding-left: 5pt;">
+                  <div class="summary-wrapper">
+                     <p class="title">ACCOUNT REP</p>
+                     <p><%= sales_rep_information %></p>
+                  </div>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <p class="title">DATE</p>
+                     <p><%= ::Formatters::DateTime.call(@object.account, Date.current, only_date: true).result %></p>
+                     <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+                     <% if term_code %>
+                     <p class="title"><%= term_code_header %></p>
+                     <p><%= term_code %></p>
+                     <% end %>
+                     <% if shipping_method %>
+              <p class="title"><%= shipping_method_header %></p>
+              <p><%= shipping_method %></p>
+          <% end %>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <!-- Sold To, Contact Info and Shipping Address -->
+      <div class="addresses">
+         <table>
+            <tr>
+               <td class="address left" style="width: 64%;">
+                  <div class="address-wrapper">
+                     <p class="title"><%= ordered_by_header %></p>
+                     <p>
+                        <%= sold_to %>
+                     <p>
+                        <%= billing_information %>
+                     </p>
+                     </p>
+                  </div>
+               </td>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title"><%= contact_information_header %></p>
+                     <p><%= contact_information %></p>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="quantity-ordered"><%= quantity_ordered_header %></th>
+      <th class="quantity">
+        <div class="last">
+          <%= qty_header %>
+        </div>
+      </th>
+    </tr>
+    </thead>
+
+    <% items.each_with_index do |item, index| %>
+        <tbody class='no-page-break'>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first" style="padding-top:5px;">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name"></td>
+          <td class="quantity-ordered">
+            <%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %>
+          </td>
+          <td class="quantity">
+            <div class="last">
+              <%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="description" colspan="1">
+            <% if item.table_view %>
+                <div class="shippers-invoice-pdf-grid-view">
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(hide_prices: true) %>
+                  </div>
+                </div>
+            <% else %>
+                <div class="last text--pre-line li-desc-fixed-width">
+                  <%= item.description %>
+                </div>
+            <% end %>
+
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+                <hr class="custom-field-separator">
+                <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                <hr class="custom-field-separator">
+            <% end %>
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+
+            <% if item.product_image %>
+              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% end %>
+
+            <% if item.table_view %>
+                <div class="text--pre-line li-desc-fixed-width">
+                  <%= item.li_grid_html_view(show_child_items: true) %>
+                </div>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+    <% end %>
+
+    <tfoot class="no-page-break">
+    </tfoot>
+  </table>
+</div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td><%= customer_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <th>cover_note_header</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+  <div class="section">
+    <div class="footer-bottom-left full-width">
+      <div class="terms-text">
+        <%= terms_conditions %>
+      </div>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="section section--border-bottom">
+    <div class="signature terms">
+      <table>
+        <tbody>
+        <tr>
+          <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
+          <td class="date text--up text--bold"><%= date_header %>:</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<br/><br/>
+<div class="note">
+  <table class="no-page-break">
+    <tbody>
+    <tr>
+      <td>
+        <%= received_header %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

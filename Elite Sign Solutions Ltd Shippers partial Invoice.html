@@ -161,6 +161,7 @@
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
+            <%next unless line_item_ids_to_show.include?(item.line_item_id)%>
             <tbody class='no-page-break'>
                <tr style="border-top:2px solid #e3e3e3;">
                   <td class="position" rowspan="2">

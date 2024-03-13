@@ -1,0 +1,410 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .terms-title *, .terms-text * {
+          font-size:9pt !important;
+          }
+
+         h1 {
+          font-size: 28px;
+          margin: 5pt 0 10pt 0;
+          font-weight: bold;
+         }
+
+         .size {
+          font-size: 14px;
+          font-weight: normal;
+          margin-top: 5pt;
+         }
+
+         .address-logo {
+          padding: 20pt 15pt 0pt 15pt;
+          border-bottom: 0px solid #e3e3e3;
+         }
+
+         .summary {
+          margin: 0pt;
+          padding: 5pt 35pt;
+          border-bottom: 1px solid black;
+          background: transparent;
+         }
+
+         .summary .summ.right .summary-wrapper {
+          border-right: 1px solid black;
+          text-align: right;
+          padding-right: 5pt;
+         }
+         .summary .summ.left .summary-wrapper .size{
+          font-size: 14px;
+         }
+
+         .summary .summ .title {
+          text-transform: uppercase;
+          margin-top: 5pt;
+          font-size: 10px;
+          color: black;
+         }
+
+         .addresses {
+          padding: 5pt 35pt;
+          border-bottom: 1px solid black;
+         }
+
+         .addresses .address.left .address-wrapper {
+          border-left: 1px solid black;
+          text-align: left;
+          padding-left: 10pt;
+         }
+
+         .addresses .address.right .address-wrapper {
+          border-right: 1px solid black;
+          text-align: right;
+          padding-right: 10pt;
+         }
+
+         .addresses .address .title {
+          text-transform: uppercase;
+          margin-top: 0pt;
+          font-size: 10px;
+          color: black;
+         }
+
+         .line-items tbody tr:first-child td {
+          border-top: 0px solid #e3e3e3;
+          padding-top: 5pt;
+         }
+
+         .line-items tfoot td {
+          border-bottom: 0px solid #e3e3e3;
+          border-top: 0px solid #e3e3e3;
+          background: #f7f7f7;
+          text-align: right;
+          padding: 5pt 5pt;
+         }
+
+         .line-items .title {
+          color: black;
+          margin-top: 5pt;
+          margin-bottom: 0;
+         }
+
+         .line-items thead th {
+          font-size: 10px;
+          text-transform: uppercase;
+          color: black;
+          padding: 5pt 5pt;
+          font-weight: normal;
+         }
+
+         .section {
+          border-top: 1px solid black;
+          padding: 0 35pt;
+         }
+
+         .footer-bottom-right {
+          float: right;
+          width: 30%;
+          border-left: solid 0px;
+          background: transparent;
+          padding: 6pt 6pt 5pt 6pt;
+          margin: 10pt 0;
+         }
+
+         .section--border-bottom {
+          border-bottom: 1px solid black;
+         }
+
+         .text--bold {
+          font-weight: normal;
+          padding-top: 15pt;
+         }
+
+         .discount-table th,
+         .discount-table td {
+          border: 1px solid black;
+          padding: 2pt 2pt;
+          text-align: left;
+          padding-top: 5pt;
+          padding-left: 35pt;
+          font-weight: normal;
+         }
+         .note {
+          margin-top: 30pt;
+          text-align: left;
+        }
+        .note thead td {
+         text-transform: uppercase;
+         color: black;
+         font-size: 10px;
+         border-bottom: 1px solid black;
+         padding-top: 0pt;
+         padding-bottom: 2pt;
+        }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td>
+                 <img src="https://assets.shopvox.com/accounts/ac56d25a-2acd-4b01-afa7-aa265a0bdb37/custom_pdfs/TK+Graphics+Header+1.svg" width="750">
+               </td>
+            </tr>
+         </table>
+      </div>
+
+<div class="summary">
+  <table>
+    <tr>
+      <td class="summ left">
+        <div class="summary-wrapper">
+          <h1 class="main-title"><%= purchase_order_number %> <br/>
+            <% if has_project? %>
+              <small><%= purchase_order_project_number%></small>
+              <br>
+            <% end %>
+            <small><%= name %></small>
+          </h1>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title">ORDERED BY</p>
+          <p><%= created_by_information[:name] %></p>
+        </div>
+      </td>
+      <td class="summ right">
+        <div class="summary-wrapper">
+          <p class="title"><%= po_date_header %></p>
+          <p><%= po_date %></p>
+          <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="addresses">
+  <table>
+    <tr>
+      <td class="address left">
+        <div class="address-wrapper">
+          <p class="title"><%= ordered_from_header %></p>
+
+          <p><%= sold_to %></p>
+          <p><%= vendor_address %></p>
+        </div>
+      </td>
+      <% if drop_ship_to.present? || shipping_information.present?  %>
+        <td class="address left">
+          <div class="address-wrapper">
+            <p class="title">SHIPPED TO</p>
+            <% if drop_ship_to.present? %>
+             <%= drop_ship_to %>
+            <% else %>
+              <!--<p><%= store_name %></p>-->
+            <% end %>
+            <p><%= shipping_information %></p>
+          </div>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</div>
+
+<!-- Items Table -->
+
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <% if show_multi_currecies %>
+    <p class="currency-note">
+      All prices in (default currency) except for the final price at the bottom showing in your local currency.
+    </p>
+  <% end %>
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first">#</div>
+      </th>
+      <th class="name" colspan="2"><%= item_header %></th>
+      <th class="quantity" colspan="0"><%= qty_header %></th>
+      <th class="quantity" colspan="0"><%= uom_header %></th>
+      <th class="money"><%= unit_price_header %></th>
+      <th class="money">
+        <div class="last"><%= total_excl_header %></div>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class=''>
+    <% items.each_with_index do |item, index| %>
+      <tr>
+        <td class="position" rowspan="2">
+          <div class="first">
+            <%= index + 1 %>
+          </div>
+        </td>
+        <td colspan="2">
+          <div class="name">
+            <%= item.name %>
+          </div>
+          <div>
+            <% if item.part_number.present? && item.part_number != 'none' %>
+                <strong>Part#:</strong> <%= item.part_number %>
+            <% end %>
+            <% if item.part_name.present? %>
+                <strong>Vendor Part Name:</strong> <%= item.part_name %>
+            <% end %>
+            <% if item.item_attr1.present? && item.item_attr1 != 'none' %>
+                <strong><%= item.item_attr_name1 || 'Size' %>:</strong> <%= item.item_attr1 %>
+            <% end %>
+            <% if item.item_attr2.present? && item.item_attr2 != 'none' %>
+                <strong><%= item.item_attr_name2 || 'Color' %>:</strong> <%= item.item_attr2 %>
+            <% end %>
+          </div>
+        </td>
+        <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+      <td class="quantity"><%= item.uom %></td>
+        <td class="money"><%= item.unit_price %></td>
+        <td class="money">
+          <div class="last"><%= item.total_price %></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="description" colspan="6">
+          <div class="last text--pre-line li-desc-fixed-width">
+            <%= item.format_description(html: true) %>
+
+            <%= item.notes %>
+
+            <% if item.product_picture_assets.count > 0 %>
+              <% item.product_picture_assets.each do |asset| %>
+                <img src="<%= asset.file_url %>" class="line-item-description-image">
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+
+
+    <% end %>
+    </tbody>
+
+    <!--<tfoot class="no-page-break tfoot-one">-->
+    <!--<tr>-->
+      <!--<td colspan="6" class="labels first">-->
+        <!--<p><%= subtotal_header %></p>-->
+
+        <!--<% if show_tax  %>-->
+          <!--<p><%= total_tax_header %></p>-->
+        <!--<% end %>-->
+
+        <!--<p><%= final_price_header %></p>-->
+      <!--</td>-->
+      <!--<td class="money last">-->
+        <!--<p><%= sub_total %></p>-->
+
+        <!--<% if show_tax  %>-->
+          <!--<p><%= total_tax %></p>-->
+        <!--<% end %>-->
+       <!---->
+        <!--<p><%= final_price %></p>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--</tfoot>-->
+  </table>
+</div>
+
+
+<!-- Special Note -->
+<%if @object.special_notes and not @object.special_notes.blank?%>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td>NOTES</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @object.special_notes %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <th><%= cover_note_header %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= cover_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section">
+        <div class="footer-bottom-left">
+            <div class="terms-text" >
+                <%= terms_conditions %>
+            </div>
+        </div>
+        <div class="footer-bottom-right">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="labels first footer-subtotal">
+                        <p><%= subtotal_header %>:</p>
+                        <% if show_tax  %>
+                            <p><%= total_tax_header %> (<%= tax_rate %>):</p>
+                        <% end %>
+                        <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
+                      <% if show_multi_currecies %>
+                        <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
+                      <% end %>
+                    </td>
+                    <td class="money last footer-subtotal">
+                        <p><%= sub_total %></p>
+                        <% if show_tax  %>
+                            <p><%= total_tax %></p>
+                        <% end %>
+                        <p class="footer-total"><strong><%= final_price %></strong></p>
+                      <% if show_multi_currecies %>
+                        <p class="footer-total"><strong><%= final_price_exchange %></strong></p>
+                      <% end %>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</body>
+</html>

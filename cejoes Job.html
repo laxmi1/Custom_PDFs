@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+     <%= page_size %>
+
+      @page {
+      font-family: "Arial", sans-serif;
+      prince-shrink-to-fit: auto;
+      }
+
+      body {
+      font-family: "Arial", sans-serif;
+      }
+
+    .job-pdf__info-title {
+     line-height: 1.2;
+     margin: 0;
+     color: #002856;
+     font-weight: 900;
+    }
+
+    .box__order {
+     padding: 0.5em 0.5em;
+     margin-top: -8pt;
+     line-height: 1.4;
+     color:#002856; 
+     font-size: 15pt;
+     font-weight: bold;
+     background-color: #93D500;
+    }
+
+    .box--default .box__title {
+     background: #002856;
+     color: #fff;
+     font-weight: bold;
+    }
+
+    .box--grey .box__title {
+     background: #002856;
+     color: #fff;
+     font-weight: bold;
+    }
+
+    .box--white .box__title {
+     background: #002856;
+     color: #fff;
+     font-weight: bold;
+    }
+
+    .box__content {
+     padding: 0.7em;
+     color:#002856;
+     font-weight: bold;
+    }
+
+    .job-section {
+     margin: 0.8em 0;
+    }
+
+    .element--margin-bottom-md {
+     margin-bottom: 5pt;
+     margin-left: -5pt;
+     padding-right: -10pt;
+    }
+
+   .qr--default .qr__status {
+    color: #93D500;
+    }
+
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf" id="page-job-new">
+         <!-- INFO -->
+         <div class="job-section job-pdf__info">
+            <div class="container">
+               <div class="row">
+                  <div class="col-2">                  
+                    <img src="https://assets.shopvox.com/accounts/ac10a28f-4f71-44aa-ac5a-41744786ac82/custom_pdfs/CEJ+-+Navy+Circle+Logo+(4).svg" width="80" height="80">                 
+                  </div>
+                  <div class="col-4">
+                     <h1 class="job-pdf__info-title">
+                        <p style="text-transform: uppercase;"><%= title %></p>
+                        <% if re_design? %>
+                        <span class="job-virtual-step">Re-Design</span>
+                        <% end %>
+                     </h1>
+                  </div>
+                  <div class="col-4">
+                     <h1 class="job-pdf__info-title" style="color:red;">DueDate: <%= due_date %></h1>
+                  </div>
+                  <% if order_number %>
+                  <div class="col-2">
+                     <h1 class="box__order">
+                     <%= order_type %># <%= order_number %>
+                     <h1>
+                  </div>
+                  <% end %>
+               </div>
+            </div>
+         </div>
+         <!-- RUSH -->
+         <% if job_rush %>
+         <div class="job-section job-section--mb-none">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <p class="job-rush"><%= job_rush_text %></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <!-- COMPANY -->
+         <div class="job-section job-pdf__company">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p><%= customer_header %>: <%= company_name %></p>
+                           <% if txn_title.present? %>
+                           <p><%= txn_title %></p>
+                           <% end %>
+                           <% if print_line_item_in_job_pdf %>
+                           <%= line_item_number_position %>
+                           <% end %>
+                        </div>
+                        <div class="box__content">
+                           <p>
+                              <%= contact_info %>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p> Shipping Info: </p>
+                        </div>
+                        <div class="box__content">
+                           <p>
+                             <%= shipping_method_header %>: <span style="color: #93D500"><%= shipping_method %></span>
+                           </p>
+                           <p><%= shipping_date_header %>: <%= shipping_date %></p>
+                        </div>
+                     </div>
+                     <div class="box box--default box--border">
+                        <div class="box__content">
+                           <p>
+                              <%= in_hand_date_header %>: <%= in_hand_date %>
+                           </p>
+                           <p><%= hard_due_header %>: <%= hard_due_date %></p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-2">
+                     <div class="box box--default box--border">
+                        <div class="box__content">
+                           <div class="qr qr--default">
+                              <div class="qr__code">
+                                 <%= qr_code.as_svg %>
+                              </div>
+                              <div class="qr__status">
+                                 <p>
+                                    <strong><%= status %></strong>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- SHIPPING -->
+         <div class="job-section job-pdf__shipping">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--default box--border">
+                        <div class="box__title">
+                           <p>Ship to:</p>
+                        </div>
+                        <div class="box__content">
+                           <address>
+                              <%= billing_information %>
+                           </address>
+                        </div>
+                     </div>
+                  </div>                  
+                <!-- BOM -->
+                  <% if has_pricing? %>
+                  <!-- BOM - OTHERS -->
+                  <div class="job-section--custom-fields">
+                     <div class="container">
+                        <div class="row">
+                           <% if (labor_table != "" || machine_table != "") && !combined_job? %>
+                           <div class="col-6 element--margin-bottom-md">
+                              <div class="box box--white box--no-padding">
+                                 <div class="box__content">
+                                    <table class="table table--striped">
+                                       <tbody>
+                                          <%= labor_table %>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                              <div class="box box--white box--no-padding">
+                                 <div class="box__content">
+                                    <table class="table table--striped">
+                                       <tbody>
+                                          <%= machine_table %>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+            </div>
+         </div>
+         <!-- DETAILS -->
+         <div class="job-section job-pdf__details">
+            <div class="container">
+               <div class="row">
+                  <div class="col-8">
+                     <div class="box box--grey box--border">
+                        <div class="box__content box__content-proof-img text--center">
+                           <div>
+                              <img src="<%= proof_image(500,300) %>">
+                           </div>
+                        </div>
+                        <div>
+                           <%= proof_local_file_path %>
+                        </div>
+                        <div class="box__title" style="background: #c2c2c2;color: #002856;">
+                           <%= proof_footer %>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="box box--grey box--border">
+                        <div class="box__title" style="background: #c2c2c2;color: #002856;">
+                           <div class="row">
+                              <div class="col-8">
+                                 <p><%= production_details_header %>:</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-6">
+                                 <p>
+                                    <%= production_details %>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="box box--grey box--border">
+                        <div class="box__title" style="background:#93D500;">
+                           <div class="row">
+                              <div class="col-8">
+                                 <p style="color: #002856;"><%= special_instruction_header %>:</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-4">
+                                 <p>
+                                    <%= special_instruction %>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <% if order_custom_field_items.size > 0 && order_custom_field_table.present? %>
+                     <div>
+                        <div class="box box--white box--border">
+                           <div class="box__title"><%= order_custom_fields_header %>:</div>
+                           <div class="box__content">
+                              <table class="table table--no-border table--no-padding">
+                                 <tbody>
+                                    <%= order_custom_field_table %>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                     <% end %>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- BOM -->
+         <% if has_pricing? %>
+         <% if !combined_job? %>
+         <div class="job-section job-pdf__bom" style="margin-left:-8pt;margin-right:-8pt">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__content">
+                           <% if apparel_ui? %>
+                           <%= apparel_item_table %>
+                           <% else %>
+                           <table class="table table--bom">
+                              <thead>
+                                 <th><%= bom_name_header %></th>
+                                 <th><%= bom_qty_header %></th>
+                                 <th><%= bom_attr1_header %></th>
+                                 <th><%= bom_attr2_header %></th>
+                              </thead>
+                              <tbody>
+                                 <%= materials_bom_table(true) %>
+                              </tbody>
+                           </table>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% if combined_job? %>
+         <!-- BOM Combine Job -->
+         <div class="job-section job-pdf__bom">
+            <div class="container">
+               <% if apparel_ui? %>
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__content">
+                           <%= apparel_item_table %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <% end %>
+               <div class="row <%= 'box--margin-top' if apparel_ui? %>">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <% if !apparel_ui? %>
+                        <div class="box__title"><%= bom_header %>:</div>
+                        <% end %>
+                        <div class="box__content">
+                           <%= bom_combine_job %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% end %>
+      </div>
+   </body>
+</html>
