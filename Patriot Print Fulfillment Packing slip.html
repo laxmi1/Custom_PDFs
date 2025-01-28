@@ -1,0 +1,114 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:6pt !important;
+         }
+         <%= body_font_family %>
+         @page { 
+         size: 4in 6in portrait; 
+         }
+
+         .address-logo {
+         padding: 10pt 10pt 10pt 10pt;
+         border-bottom: 2px solid #e3e3e3;
+         }
+
+         .summary {
+         margin: 0pt;
+         padding: 5pt 10pt;
+         border-bottom: 2px solid #e3e3e3;
+         background: #FFFFFF;
+         }
+
+         .line-items .first {
+         padding-left: 10pt;
+         }
+         
+         .line-items .last {
+         padding-right: 10pt;
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+       PRINTED ON <%= ::Formatters::DateTime.call(@object.account, Time.current, full_date_time: true).result %> BY <%= @object.try(:created_by).try(:initials).presence || @object.try(:created_by).try(:name) %>
+      </div>
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-address <%= "stamp-container" if is_paid? %>">
+               <h2 class="main-title">Attention To:</h2>
+                  <p><% if contact_name %><%= contact_name %><%end%></p>
+                  <p><%= billing_information %></p>
+                  <% if is_paid? %>
+                  <p class="stamp">
+                     <image src="https://cdn.filestackcontent.com/3Grjs4IfQ0mlA4LCRFJj" alt="Paid"/>
+                  </p>
+                  <% end %>
+               </td>
+               <td class="store-logo">
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="summary">
+         <table>
+            <tr>
+               <td class="summ left">
+                  <div class="summary-wrapper">
+                     <h1 class="main-title">INV/SO:# <%= txn_number_only %><br/>
+                        <small>Title: <%= name %></small><br/>
+                        <small><b>Line Items:</b></small>
+                     </h1>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr>
+                  <th class="position">
+                     <div class="first">#</div>
+                  </th>
+                  <th class="name"><%= item_header %></th>
+                  <th class="quantity">
+                     <div class="last"><%= qty_header %></div>
+                  </th>
+               </tr>
+            </thead>
+            <% items.each_with_index do |item, index| %>
+            <tbody class='no-page-break'>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity">
+                     <div class="last"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="description" colspan="1">
+                  </td>
+               </tr>
+            </tbody>
+            <% end %>
+            <tfoot class="no-page-break">
+            </tfoot>
+         </table>
+      </div>
+      <!-- Cover Note -->
+      <!-- Signature Note -->
+   </body>
+</html>
+`              

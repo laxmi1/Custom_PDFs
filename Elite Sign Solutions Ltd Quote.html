@@ -56,7 +56,7 @@
          font-size: 11px;
          padding-right: 100pt;
          padding-left: 100pt;
-         content: "Elite Sign Solutions Ltd, First Floor Morton Mill, Morton Street, Failsworth, Manchester, M35 0BN, United Kingdom Telephone : 0161 425 8455  Fax: 0161 850 0540  Web: www.elitesignsolutions.co.uk  Registration No: 06983765  VAT NO: 980 0703 32";
+         content: "Elite Sign Solutions Ltd, Unit 45 Stakehill Industrial Estate,Touchet Hall Road,Middleton, Manchester M24 2FL,United Kingdom Telephone : 0161 425 8455  Fax: 0161 850 0540  Web: www.elitesignsolutions.co.uk  Registration No: 06983765  VAT NO: 980 0703 32";
          } 
          }
          @page {
@@ -140,6 +140,10 @@
                   <th class="name" style="font-size:14px;color:white;text-align:center;text-align:left;"><strong>Description</strong></th>
                   <th class="quantity" style="font-size:14px;color:white;"><strong>Qty</strong></th>
                   <th class="money" style="font-size:14px;color:white;"><strong>Unit Price</strong></th>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                 <th class="quantity" style="font-size:14px;color:white;"><strong><%= discount_header %></strong></th>
+                 <th class="quantity" style="font-size:14px;color:white;"><strong><%= discount_price_header %> </strong></th>
+               <% end %>
                   <th class="money">
                      <div class="last" style="font-size:14px;color:white;margin-right:-20px;"><strong>Total</strong></div>
                   </th>
@@ -156,6 +160,10 @@
                   <td class="name"><%= item.name %></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="money"><%= item.unit_price %></td>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="quantity"><%= item.discount_percentage %> </td>
+              <td class="quantity"><%= item.unit_price_after_discount %></td>
+            <% end %>
                   <td class="money">
                      <div class="last" style="margin-right:-20px;">
                         <%= item.total_price %>

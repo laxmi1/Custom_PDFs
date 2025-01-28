@@ -44,6 +44,15 @@
          text-transform: capitalize;
          color: #999999;
          padding: 5pt 5pt;
+         white-space: nowrap;
+         }
+
+         .mainTable tr td {
+          border-right: 2px solid #e3e3e3;
+         }
+
+         .mainTable th {
+          background: #00AEEF;
          }
 
          .line-items .first {
@@ -54,8 +63,18 @@
          padding-right: 5pt;
          }
 
-         .line-items .quantity {
+        .line-items .quantity {
          text-align: center !important;
+         width: 12%;
+         white-space: nowrap;
+         color:white;
+         text-align:left;
+         font-size:12px;
+         font-weight: bold;
+         }
+         
+
+         .line-items .quantity1 {
          width: 1%;
          white-space: nowrap;
          color:white;
@@ -64,23 +83,18 @@
          font-weight: bold;
          }
 
-         .line-items .quantity1 {
-         width: 1%;
-         white-space: nowrap;
-         text-align:left;
-         font-size:12px;
-         }
-
          .line-items .name {
          text-align: left;
+         width: 35%;
          font-weight: bold;
          color:white;
          font-size:12px;
          }
 
          .line-items .name1 {
+         min-height: 40pt;
          text-align: left;
-         font-weight: bold;
+        
          font-size:12px;
          }
 
@@ -182,23 +196,20 @@
          <p style="padding-bottom:5px;font-size: 15px;"><b><%= name %></b></p>
       </div>
       <div class="line-items" style="border: 2px solid #e3e3e3;width: 89%;margin-left: 35pt;">
-         <!--<h2 class="title"><%= items_header %></h2>-->
-         <table>
+         <table class="mainTable">
             <thead>
-               <tr style="background: #00AEEF;">
+               <tr>
                   <th class="position">
                      <div class="firsts">Item</div>
                   </th>
                   <th class="name">Description</th>
-                  <th class="quantity"><%= qty_header %></th>
-                  <th class="quantity">Printed</strong></th>
+                  <th class="quantity1" style="color:white;"><%= qty_header %></th>
+                  <th class="quantity">Printed</th>
                   <th class="quantity">Laminated</th>
-                  <th class="quantity">Cut</strong></th>
+                  <th class="quantity">Cut</th>
                   <th class="quantity">Masked</th>
                   <th class="quantity">Packaged</th>
-                  <th class="quantity">
-                     <div class="last">Completed</div>
-                  </th>
+                  <th class="quantity">Completed</th>
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
@@ -210,23 +221,8 @@
                      </div>
                   </td>
                   <td class="name1">
-                     <%= item.name %><br>
-                  <td class="quantity1"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <div class="title-dates">
-                     <%= item.job_art_due_date %>
-                  </div>
-                  </td>
-                  <td class="quantity">&nbsp</td>
-                  <td class="quantity">&nbsp</td>
-                  <td class="quantity">&nbsp</td>
-                  <td class="quantity">&nbsp</td>
-                  <td class="quantity">&nbsp</td>
-                  <td class="quantity">
-                     <div class="last"></div>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="description">
+                     <p style=" font-weight: bold;"><%= item.name %></p>
+                  <div>
                      <div class="last">
                         <div class="text--pre-line li-desc-fixed-width">
                            <%= item.description %>
@@ -358,6 +354,19 @@
                      <img src="<%= item.product_image %>" class="line-item-description-image">
                      <% end %>
                   </td>
+                  <td class="quantity1"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <div class="title-dates">
+                     <%= item.job_art_due_date %>
+                  </div>
+                  </td>
+                  <td class="quantity">&nbsp</td>
+                  <td class="quantity">&nbsp</td>
+                  <td class="quantity">&nbsp</td>
+                  <td class="quantity">&nbsp</td>
+                  <td class="quantity">
+                     <div class="last"></div>
+                  </td>
+              
                   <td colspan="3">
                      <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
                      <% @proofs_job_ids << item.job.id %>
@@ -374,9 +383,7 @@
                      </div>
                      <% end %>
                   </td>
-               </tr>
                <% if item.job.present? and show_workflow_steps? %>
-               <tr>
                   <td colspan="5">
                      <div class="stages">
                         <% item.job.stages.each do |stage| %>
@@ -404,7 +411,7 @@
                         <% end %>
                      </div>
                   </td>
-               </tr>
+                </tr>
                <% end %>
             </tbody>
             <% end %>

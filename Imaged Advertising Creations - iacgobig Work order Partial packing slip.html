@@ -58,7 +58,7 @@
          font-weight: bold;
          }
 
-         @page { margin: 290pt 0  10px 0; }
+         @page { margin: 270pt 0  10px 0; }
          @page {  
          @top { content: flow(header); }  
          }
@@ -99,14 +99,14 @@
          font-size: 9px;
          }
 
-         .addresses .address {
-         vertical-align: top;
-         font-size: 9pt;
-         }
-
          .addresses .address.left {
          text-align: left;
          width: 50%;
+         }
+
+         .addresses .address {
+         vertical-align: top;
+         font-size: 9pt;
          }
 
          h1 small {
@@ -130,7 +130,7 @@
          }
 
          .line-items .last {
-         padding-right: 30pt;
+         padding-right: 10pt;
          }
 
          .line-items .quantity {
@@ -147,7 +147,7 @@
          .li-desc-fixed-width {
          max-width: 370pt;
          }
-
+         
       </style>
    </head>
    <body>
@@ -184,8 +184,8 @@
                   </td>
                   <td style="width: 20%;">&nbsp;</td>
                   <td class="store-logo1">
-                     <p class="title"><%= invoice_date_header %></p>
-                     <p ><%= invoice_date %></p>
+                    <p class="title"><%= work_order_date_header %></p>
+                     <p ><%= work_order_date %></p>
                      <% if po_number %>
                      <p class="title"><%= po_number_header %></p>
                      <p><%= po_number %></p>
@@ -199,7 +199,7 @@
                <tr>
                   <td class="summ left">
                      <div class="summary-wrapper">
-                        <h1 class="main-title">Packing Slip <%= txn_number_only %><br/>
+                        <h1 class="main-title">Partial Packing Slip <%= txn_number_only %><br/>
                            <small><%= name %></small>
                         </h1>
                      </div>
@@ -259,7 +259,7 @@
                      </div>
                   </td>
                   <td class="address left">
-                     <div class="address-wrapper" style="width: 50%;">
+                     <div class="address-wrapper">
                         <p class="title"><%= contact_information_header %></p>
                         <p><%= contact_information %></p>
                      </div>
@@ -271,11 +271,6 @@
       </div>
       <div class="line-items">
          <!--<h2 class="title"><%= items_header %></h2>-->
-         <% if show_multi_currecies %>
-         <p class="currency-note">
-            All prices in (default currency) except for the final price at the bottom showing in your local currency.
-         </p>
-         <% end %>
          <table>
             <thead>
                <tr>
@@ -283,55 +278,60 @@
                      <div class="first">#</div>
                   </th>
                   <th class="name"><%= item_header %></th>
+                  <th class="quantity-ordered"><%= quantity_ordered_header %></th>
                   <th class="quantity">
-                     <div class="last"><%= qty_header %></div>
+                     <div class="last">
+                        <%= qty_header %>
+                     </div>
                   </th>
                </tr>
             </thead>
-            <% items.each_with_index do |item, index| %>
+            <%index = 0%>
+            <% items.each_with_index do |item| %>
+            <%next unless line_item_ids_to_show.include?(item.line_item_id)%>
             <tbody class="no-page-break">
                <tr>
                   <td class="position" rowspan="2">
                      <div class="first">
-                        <%= index + 1 %>
+                        <%= index += 1 %>
                      </div>
                   </td>
-                  <td class="name" style="font-weight:bold"><%= item.name %></td>
+                  <td class="name">
+                     <%= item.name %><br>
+                  </td>
+                  <td class="quantity-ordered">
+                     <%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %>
+                  </td>
                   <td class="quantity">
-                     <div class="last"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></div>
+                     <div class="last">
+                        <%= number_with_precision(item_quantity(item.line_item_id), precision: 5, strip_insignificant_zeros: true) %>
+                     </div>
                   </td>
                </tr>
-               <tr style="border-bottom: 2px solid #e3e3e3;">
-                  <td class="description" colspan="5">
-                     <% if item.table_view %>
-                     <div class="shippers-invoice-pdf-grid-view">
-                        <div class="text--pre-line li-desc-fixed-width">
-                           <%= item.li_grid_html_view(hide_prices: true) %>
-                        </div>
-                     </div>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
                      <% else %>
-                     <div class="last text--pre-line li-desc-fixed-width">
-                        <%= item.description %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div class="last">
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(packing_slip: true, params: @params) %>
+                        </div>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
                      </div>
-                     <% end %>
-                     <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
-                     <hr class="custom-field-separator">
-                     <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
-                     <hr class="custom-field-separator">
-                     <% end %>
-                     <% if item.product_picture_assets.count > 0 %>
-                     <% item.product_picture_assets.each do |asset| %>
-                     <img src="<%= asset.file_url %>" class="line-item-description-image">
-                     <% end %>
-                     <% end %>
-                     <% if item.product_image %>
-                     <img src="<%= item.product_image %>" class="line-item-description-image">
-                     <% end %>
-                     <% if item.table_view %>
-                     <div class="text--pre-line li-desc-fixed-width">
-                        <%= item.li_grid_html_view(show_child_items: true) %>
-                     </div>
-                     <% end %>
                   </td>
                </tr>
             </tbody>
@@ -341,5 +341,6 @@
          </table>
       </div>
       <!-- Signature Note -->
+      </div>
    </body>
 </html>
