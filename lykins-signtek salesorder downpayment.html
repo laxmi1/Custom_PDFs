@@ -151,6 +151,7 @@
       <td class="summ left" style="width: 38%;">
         <div class="summary-wrapper">
           <h1 class="main-title">Deposit invoice </h1><br/>
+<p><%= company_name %></p>
 <p><%= billing_information %></p>
                    
         </div>
@@ -290,10 +291,16 @@
     </tr>
     <tr>
       <td colspan="3">
-        <b>TOTAL USD:</b>
+        <b>TOTAL USD:</b><br>
+<% if @object.downpayment_percent %>
+        <b>Down Payment %: </b>
+<% end %>
       </td>
       <td>
-        <b><%= final_price %></b>
+        <b><%= final_price %></b><br>
+<% if @object.downpayment_percent %>
+         <b><%= @object.downpayment_percent %></b><br>
+<% end %>
       </td>
     </tr>
     </tfoot>
@@ -327,10 +334,9 @@
                       <%end%>
                      </tr>
                      <tr style="line-height: 1.8;">
-                        <td><b>Amount Due</b></td>
+                        <td><b>Amount Due:</b></td>
                         <td><%= downpayment_total %></td>
                      </tr>
-         
                      
                      <tr style="line-height: 1.8;">
                         <td><b>Amount Enclosed</b></td>

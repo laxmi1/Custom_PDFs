@@ -34,15 +34,15 @@
          border-bottom: 0px solid #e3e3e3;
          }
          .box__content-proof-img {
-         height: 38em;
-         width: 100%;
-         display: table;
-         }
-         .job-pdf img {
-         max-width: 100%;
-         max-height: 38em;
-         vertical-align: middle;
-         }
+        height: 38em;
+        width: 100%;
+        display: table;
+        }
+        .job-pdf img {
+        max-width: 100%;
+        max-height: 38em;
+        vertical-align: middle;
+        }
          .table--list th,
          .table--list td {
          padding: 0.4em 0;
@@ -111,7 +111,7 @@
                <%if store_address_zip %> <%= store_address_zip%><%end%>
                <% if store_phone%>
                <p><%=store_phone%></p>
-               <%end%>
+               <%end%> 
                <% if store_email%>
                <p><%=store_email%></p>
                <%end%>
@@ -292,7 +292,7 @@
                            </address>
                         </div>
                      </div>
-                     <% end %>
+                     <% end %> 
                   </div>
             <div class="box box--grey box--border box--margin-top">
                   <div class="box__title" style="font-family: "Arial", sans-serif;">
@@ -440,9 +440,9 @@
                   <div class="box__content">
                      <div class="qr qr--default">
                         <div class="qr__code">
-                           <svg>
+                           
                               <%= qr_code.as_svg %>
-                           </svg>
+                        
                         </div>
                         <div class="qr__status">
                            <p style="font-family: 'futura', sans-serif;">

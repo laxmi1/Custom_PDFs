@@ -1,0 +1,349 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         <%= body_font_family %>
+         .terms-title *, .terms-text * {
+         font-size:9px;
+         }
+
+         .address-logo {
+         padding: 30pt 25pt 5pt 30pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+
+         .address-logo .store-logo .logo,
+         img.logo {
+         max-width: 400px;
+         max-height: 200px;
+         }
+
+         h1 {
+         font-size: 28px;
+         margin: 15pt 0;
+         font-weight: normal;
+         padding-left: 35px;
+         }
+
+         .summary .summ .title {
+         text-transform: uppercase;
+         margin-top: 5pt;
+         font-size: 12px;
+         color: #6d6a6a;
+         }
+
+         .summary {
+         margin: 0pt;
+         padding: 5pt 30pt;
+         border-bottom: 0px solid #e3e3e3;
+         background: #FFFFFF;
+         }
+
+         .summary .summ.right .summary-wrapper {
+         border-right: 0px solid #e3e3e3;
+         text-align: right;
+         padding-right: 0pt;
+         background: #f7f7f7;
+         }
+
+         .sumleft {
+         color:#FFFFFF;
+         background: #d00c2c;
+         padding:5pt;
+         display: flex;
+         justify-content:left;
+         max-width: 500px;
+         }
+
+         .line-items {
+         margin-top: 15pt;
+         }
+
+         .line-items tbody tr:first-child td {
+         border-top: 2px solid #d00c2c;
+         padding-top: 10pt;
+         }
+
+         .line-items .first {
+         padding-left: 30pt;
+         }
+
+         .line-items .last {
+         padding-right: 30pt;
+         }
+
+         .line-items thead th {
+         font-size: 12px;
+         text-transform: uppercase;
+         color: #999999;
+         padding: 5pt 5pt;
+         }
+
+         .li-desc-fixed-width {
+         max-width: 300pt;
+         }
+
+         .footer-bottom-left {
+         display:flex;
+         width: 95%;
+         float: left;
+         text-align: justify;
+         }
+
+         .section {
+         border-top: 2px solid #d00c2c;
+         border-bottom: 2px solid #d00c2c;
+         padding: 0 30pt;
+         padding-left: 0;
+         }
+
+         .sumTitle {
+         color:#808080;
+         text-transform: uppercase;
+         margin-top: 5pt;
+         font-size: 12px;
+         }
+
+         .termBar {
+         width:30pt;
+         height:130pt;
+         background:#d00c2c;
+         margin-top:10pt;
+         min-width:30pt;
+         }
+
+         @page {
+         margin: 0pt 0pt 60pt 0pt;
+         @bottom {
+         width: 100%;
+         content: url(https://assets.shopvox.com/accounts/41a6a0db-2d65-4cb1-bd7a-23ea006a65f1/custom_pdfs/quote-sv.svg);
+         } 
+         }
+
+         @page {
+         @bottom-left {
+         content: " ";
+         }
+         }
+
+         .footer-subtotal {
+         width: 50%;
+         text-align: right;
+         }
+
+         .footer-subtotal.labels {
+         text-align: left;
+         }
+
+         .footer-subtotal p {
+         margin-bottom: 3pt;
+         }
+
+         .footer-subtotal p:last-child {
+         margin-bottom: 0;
+         }
+         
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-address">
+                  <%if store_address_street%>
+                  <p>
+                     <%= store_address_street %><%end%>
+                     <%if store_address_city%><%= store_address_city %>,<%end%> 
+                     <%if store_address_state %> <%= store_address_state%> <%end%>
+                     <%if store_address_zip %> <%= store_address_zip%><%end%>
+                  </p>
+                  <% if store_email%>
+                  <p><%=store_email%></p>
+                  <%end%>
+                  <% if store_phone%>
+                  <p><%=store_phone%></p>
+                  <%end%>
+                  <% if @object.account.website %> 
+                  <p><%= @object.account.website %></p>
+                  <%end%>
+                  <%if @object.account and not @object.account.ein_number.blank?%>
+                  <p>ABN: <%= @object.account.ein_number %></p>
+                  <%end%>
+               </td>
+               <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div style='background:#f7f7f7' >
+         <table>
+            <tr>
+               <td class="summ left sumleft aa">
+                  <div >
+                     <h1 class="main-title"><%= quote_number %> <%= quote_version %><br/>
+                        <small><%= name %></small>
+                     </h1>
+                     <% if project_number %>
+                     <p class="title"><%= project_header %></p>
+                     <p><%= project_number %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <div class="summary">
+                  <td class="summ left">
+                     <div class="summary-wrapper" style='padding-left:10pt'>
+                        <p class="sumTitle">QUOTE FOR</p>
+                        <p style="padding-bottom:6pt;"><%= sold_to %></p>
+                        <p><%= contact_information %></p>
+                     </div>
+                  </td>
+                  <td class="summ right">
+                     <div class="summary-wrapper" style="text-align: right; padding-right:30pt">
+                        <p class="sumTitle"><%= quote_date_header %></p>
+                        <p><%= quote_date %></p>
+                        <% if quote_expiry_date %>
+                        <p class="sumTitle">QUOTE VALID UNTIL</p>
+                        <p><%= quote_expiry_date%></p>
+                        <% end %>
+                        <% if term_code %>
+                        <p class="sumTitle"><%= term_code_header %></p>
+                        <p><%= term_code %></p>
+                        <% end %>         
+                     </div>
+                  </td>
+               </div>
+            </tr>
+         </table>
+      </div>
+      <!-- Sold To, Contact Info and Shipping Address -->
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <% if show_multi_currecies %>
+         <p class="currency-note">
+            All prices in (default currency) except for the final price at the bottom showing in your local currency.
+         </p>
+         <% end %>
+         <table>
+            <thead>
+               <tr>
+                  <th class="position">
+                     <div class="first">#</div>
+                  </th>
+                  <th class="name"><%= item_header %></th>
+                  <th class="quantity" style="padding-right: 20pt;"><%= qty_header %></th>
+                  <th class="money" style="padding-right: 20pt;">UNIT</th>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <th class="quantity"><%= discount_header %> </th>
+                  <th class="quantity"><%= discount_price_header %> </th>
+                  <% end %>
+                  <th class="money">
+                     <div class="last">SUB TOTAL</div>
+                  </th>
+               <th class="money">
+                 <div class="last">GST</div>
+               </th>
+                <th class="money">
+                    <div class="last">TOTAL</div>
+               </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name"><%= item.name %></td>
+                  <td class="quantity" style="padding-right: 20pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money" style="padding-right: 20pt;"><%= item.show_hide_unit_price %></td>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="quantity"><%= item.discount_percentage %> </td>
+                  <td class="quantity"><%= item.show_hide_unit_price_after_discount %></td>
+                  <% end %>
+                  <td class="money">
+                     <div class="last"><%= item.total_price %></div>
+                  </td>
+             <td class="money">
+              <div class="last"><%= item.total_tax %></div>
+            </td>           
+             <td class="money">
+                  <div class="last"><%= item.total_with_tax %></div>
+                </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.description_hash[:custom_fields].any?  && item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="termBar"></div>
+               <div class="terms-text"style='margin-left:10pt'>
+                  <p style="font-size:16pt; font-weight: bolder;color:#d00c2c ;">What Happens Next?</p>
+                  <%= terms_conditions %>
+               </div>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+         <div>
+            <table>
+               <tbody>
+                  <tr>
+                     <td><img src="https://assets.shopvox.com/accounts/bd45f6f9-54af-41db-93af-6469f855f78f/custom_pdfs/Header+for+all+PDFs+(1).svg"></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>

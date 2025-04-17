@@ -99,6 +99,11 @@
          font-size: 9px;
          }
 
+         .addresses .address.left {
+         text-align: left;
+         width: 50%;
+         }
+
          .addresses .address {
          vertical-align: top;
          font-size: 9pt;
@@ -284,7 +289,7 @@
             <%index = 0%>
             <% items.each_with_index do |item| %>
             <%next unless line_item_ids_to_show.include?(item.line_item_id)%>
-            <tbody>
+            <tbody class="no-page-break">
                <tr>
                   <td class="position" rowspan="2">
                      <div class="first">
@@ -336,56 +341,6 @@
          </table>
       </div>
       <!-- Signature Note -->
-      <div class="footer-bottom">
-         <div class="section">
-            <div class="footer-bottom-left full-width">
-               <div class="terms-text">
-                  <%= terms_conditions %>
-               </div>
-            </div>
-            <div style="clear: both;"></div>
-         </div>
-         <div class="section section--border-bottom">
-            <div class="signature terms">
-               <table>
-                  <tbody>
-                     <tr>
-                        <td class="handwriting text--up text--bold"><%= signature_header %>:</td>
-                        <td class="date text--up text--bold"><%= date_header %>:</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-      </div>
-      <% if customer_note.present? %>
-      <div class="note">
-         <table class="no-page-break">
-            <thead>
-               <tr>
-                  <td><%= customer_note_header %></td>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td><%= customer_note %></td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-      <% end %>
-      <br/><br/>
-      <div class="note">
-         <table class="no-page-break">
-            <tbody>
-               <tr>
-                  <td>
-                     <%= received_header %>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
       </div>
    </body>
 </html>

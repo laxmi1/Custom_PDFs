@@ -30,7 +30,7 @@
        img.logo {
        max-width: 300px;
        max-height: 150px;
-       margin-top: -9pt
+       margin-top: -9pt;
        }
 
       .summary {
@@ -40,14 +40,9 @@
       background: #f7f7f7;
       }
 
-       h1 small {
+       small {
        font-size: 17px;
        }
-
-      .addresses {
-      padding: 5pt 35pt;
-      border-bottom: 0px solid #e3e3e3;
-      }
 
        .addresses .address .title {
        text-transform: uppercase;
@@ -63,7 +58,9 @@
        }
 
        .li-desc-fixed-width {
-       max-width: 370pt;
+       max-width: 350pt;
+       margin-top: -7pt;
+       margin-bottom: 6pt;
        }
 
        .line-items .description {
@@ -83,6 +80,21 @@
        text-align: justify;
        }
 
+       .footer-total {
+       font-size: 11pt;
+       padding-bottom: 6pt;
+       border-bottom: 1px solid #e3e3e3;
+       }
+
+       .footer-bottom-right {
+       float: right;
+       width: 30%;
+       border-left: solid 2px #e3e3e3;
+       background: white;
+       padding: 6pt 6pt 5pt 6pt;
+       margin: 10pt 0;
+       }
+
        .signature {
        margin: 10pt 0;
        min-height: 30pt;
@@ -90,7 +102,7 @@
 
        @page {
        margin: 30pt 0 35pt 0;
-       @top-left {
+       @top-left {style="padding-top:10px;"
        content: string(doc_header);
        padding-right: 35pt;
        font-size: 8px;
@@ -105,7 +117,7 @@
        @top-left { content: none }
        @top-left { content: normal }
        }
-         
+
       </style>
    </head>
    <body>
@@ -136,6 +148,7 @@
                   <p style="color: #1883b5"><%= @object.account.website %></p>
                   <%end%>
                </td>
+    
                <td class="store-logo">
                   <img class="logo" src="<%= logo %>">
                   <p style="margin-right:6pt;"><% if dir_number_text(@object.account) %>
@@ -156,9 +169,9 @@
             <tr>
                <td class="summ left">
                   <div class="summary-wrapper">
-                     <h1 class="main-title"><%= quote_number %> <%= quote_version %><br>
-                        <small><%= name %></small>
-                     </h1>
+                     <h1 class="main-title"><%= quote_number %> <%= quote_version %>
+                     </h1><br/>
+                    <small><%= name %></small>
                      <% if project_number %>
                      <p class="title"><%= project_header %></p>
                      <p><%= project_number %></p>
@@ -173,12 +186,8 @@
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
-                     <p class="title"><%= quote_date_header %></p>
-                     <p><%= quote_date %></p>
-                     <% if quote_expiry_date %>
-                     <p class="title"><%= quote_expiry_date_header %></p>
-                     <p><%= quote_expiry_date%></p>
-                     <% end %>
+                     <p class="title">DATE</p>
+                     <p><%= ::Formatters::DateTime.call(@object.account, Date.current, only_date: true).result %></p>
                      <% if quote_ship_date %>
                      <p class="title"><%= quote_ship_date_header %></p>
                      <p><%= quote_ship_date%></p>
@@ -196,7 +205,7 @@
       <div class="addresses">
          <table>
             <tr>
-              <td class="address left" style="width: 62%;">
+               <td class="address left" style="width: 64%;">
                   <div class="address-wrapper">
                      <p class="title"><%= ordered_by_header %></p>
                      <p>
@@ -216,6 +225,20 @@
             </tr>
          </table>
       </div>
+      <% if show_about_this_desc and description.present? %>
+      <div class="description_area">
+         <table>
+            <tr>
+               <td class="header">
+                  <%= about_this_quote_header %>:
+               </td>
+               <td class="description page-break-after">
+                  <strong style="font-size: 11pt;"><%= description %></strong>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <% end %>
       <div class="line-items">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <% if show_multi_currecies %>
@@ -233,23 +256,31 @@
                   <th class="quantity"><%= qty_header %></th>
                   <th class="quantity">UNITS</th>
                   <th class="money">PRICE</th>
+<% if show_discounts && total_discount_price != 0.0 %>
+        <th class="quantity"><%= discount_header %> </th>
+        <th class="quantity"><%= discount_price_header %> </th>
+      <% end %>
                   <th class="money">
                      <div class="last">TOTAL</div>
                   </th>
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
-            <tbody class='no-page-break'>
+            <tbody class="no-page-break">
                <tr>
                   <td class="position" rowspan="2">
-                     <div class="first">
+                     <div class="first" style="padding-top:5px;">
                         <%= index + 1 %>
                      </div>
                   </td>
-                  <td class="name"><%= item.name %></td>
+                  <td class="name"></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="quantity"><%= item.uom %></td>
-                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money"><%= item.show_hide_unit_price %></td>
+<% if show_discounts && total_discount_price != 0.0 %>
+              <td class="quantity"><%= item.discount_percentage %> </td>
+              <td class="quantity"><%= item.show_hide_unit_price_after_discount %></td>
+            <% end %>
                   <td class="money">
                      <div class="last">
                         <%= item.total_price %>
@@ -307,6 +338,7 @@
             </div>
             <div class="clearfix"></div>
          </div>
+
          <% if show_signature %>
          <div class="section section--border-bottom">
             <div class="signature terms">

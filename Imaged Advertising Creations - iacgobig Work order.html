@@ -57,21 +57,24 @@
          padding-left: -10pt;
          font-weight: bold;
          }
-@page { margin: 230pt 0  10px 0; }
+
+         @page { margin: 230pt 0  10px 0; }
          @page {  
          @top { content: flow(header); }  
          }
-@page {
-    @top-left {
-        content: " ";
-    }
-}
+          @page {
+          @top-left {
+          content: " ";
+          }
+          }
+
          #header {      
          position:relative;  
          padding: 10pt 0pt 0pt 0pt;
          flow: static(header);  
-         }
-@page {
+        }
+
+         @page {
          @top-left {
          content: string(doc_header);
          padding-left: 0pt;
@@ -80,6 +83,7 @@
          font-weight: normal;
          }
          }
+         
          .summary .summ.left .summary-wrapper {
          border-right: 0px solid #e3e3e3;
          text-align: left;
@@ -114,6 +118,13 @@
          padding-top: 4pt; 
          }
 
+          .line-items .state {
+          text-align: left;
+          width: 1%;
+          white-space: nowrap;
+          padding-right: 30pt;
+          }
+
          .line-items .last {
          padding-right: 30pt;
          }
@@ -124,9 +135,10 @@
          white-space: nowrap;
          padding-right: 10pt;
          }
-.li-desc-fixed-width {
-  max-width: 300pt;
-}
+
+        .li-desc-fixed-width {
+          max-width: 380pt;
+        }
       </style>
 </head>
 <body>
@@ -167,11 +179,10 @@
                <td class="store-logo1">
                   <p class="title"><%= work_order_date_header %></p>
                   <p><%= work_order_date %></p>
-                  <% if due_date %>
-                  <p class="title"><%= due_date_header %></p>
-                  <p><%= due_date %></p>
-                 <%end%>
-                
+                <% if shipping_method %>
+                <p class="title"><%= shipping_method_header %></p>
+                  <p><%= shipping_method %></p>
+                <%end%>
                </td>
             </tr>
          </table>
@@ -275,8 +286,9 @@
         <div class="first">#</div>
       </th>
       <th class="name"><%= item_header %></th>
+      <th class="state"><%= state_header %></th>
       <th class="quantity">
-        <div class="last"><%= qty_header %></div>
+        <div class="last">Qty</div>
       </th>
     </tr>
     </thead>
@@ -295,6 +307,7 @@
               <%= item.job_art_due_date %>
             </div>
           </td>
+         <td class="state"><%= item.state_wo_in %></td>
           <td class="quantity">
             <div class="last"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %><div>
           </td>
@@ -441,6 +454,8 @@
             <% if item.product_image %>
               <img src="<%= item.product_image %>" class="line-item-description-image">
             <% end %>
+
+
           </td>
           <td colspan="3">
             <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>

@@ -170,7 +170,7 @@
                      </div>
                   </td>
                   <td class="name"><%= item.name %></td>
-                  <td class="quantity" style="padding-right:130px;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity" style="padding-right:130px;"><%= number_with_precision(item_quantity(item.line_item_id), precision: 5, strip_insignificant_zeros: true) %>
                </tr>
                <tr>
                   <td class="description" colspan="1">

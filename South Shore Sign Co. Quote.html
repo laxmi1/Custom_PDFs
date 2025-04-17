@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          .terms-title *, .terms-text * {
-         font-size:10px;
+         font-size: 9.3px;
          }
 
          @page{
@@ -11,7 +11,7 @@
          }
 
          body {
-         font-size: 12px;
+         font-size: 11px;
          font-family: 'Arial', 'Helvetica', 'Lucida Grande', 'DejaVu Sans', sans-serif;
          color: #404040;
          }
@@ -41,14 +41,14 @@
          .summary .summ .title {
          text-transform: uppercase;
          margin-top: 12pt;
-         font-size: 12pt;
+         font-size: 10pt;
          color: #011E41;
          font-weight: bold;
          }
 
          .summary .summ.left .summary-wrapper {
          text-align: left;
-         font-size: 11pt;
+         font-size: 10pt;
          }
 
          .addresses {
@@ -60,7 +60,7 @@
          text-transform: uppercase;
          margin-top: 0pt;
          margin-bottom: 3pt;
-         font-size: 12pt;
+         font-size: 10pt;
          color: #011E41;
          font-weight: bold;
          }
@@ -69,7 +69,7 @@
          border-left: 0px solid #e3e3e3;
          text-align: left;
          padding-left: 0pt;
-         font-size: 11pt;
+         font-size: 10pt;
          }
 
          .line-items tbody tr:first-child td {
@@ -78,21 +78,21 @@
          }
 
          .line-items thead th {
-         font-size: 12px;
+         font-size: 11px;
          text-transform: uppercase;
          font-weight: bold;
          color: white;
          padding: 5pt 5pt;
-         background-color: #404040;
+         background-color: #939799;
          }
 
          .line-items .description {
-         font-size: 14px;
+         font-size: 12px;
          padding: 0 35pt 5pt 5pt;
          }
 
          .li-desc-fixed-width {
-          max-width: 320pt;
+          max-width: 270pt;
          }
 
          .section {
@@ -111,8 +111,8 @@
          border: solid 2px #404040;
          background: transparent;
          padding: 6pt 6pt 5pt 6pt;
-         margin-top: 65pt;
-         font-size: 11pt;
+         margin-top: 45pt;
+         font-size: 10pt;
          }
 
          .signature tfoot td {
@@ -120,7 +120,7 @@
          text-align: left;
          text-transform: uppercase;
          width: 33%;
-         font-size: 11pt;
+         font-size: 10pt;
          padding-top: 5pt;
          padding-left: 35pt;
          font-weight: bold;
@@ -225,6 +225,7 @@
                   <th class="name"><%= item_header %></th>
                   <th class="quantity"><%= qty_header %></th>
                   <th class="quantity"><%= uom_header %></th>
+                  <th class="money"><%= unit_price_header %></th>
                   <% if show_discounts && (quantities_total_discount_price != 0.0 || total_discount_price != 0.0) %>
                   <th class="quantity"><%= discount_header %> </th>
                   <th class="quantity"><%= discount_price_header %> </th>
@@ -251,7 +252,7 @@
                      </div>
                   </td>
                   <td rowspan="<%= 1 + item.quantities.size %>" >
-                     <span class="name" style="color: #011E41;font-size: 12pt;font-weight: normal;"><%= item.name %></span>
+                     <span class="name" style="color: #011E41;font-size: 10pt;font-weight: normal;"><%= item.name %></span>
                      <% if bold_main_quantity && item.quantities.size > 1 %>
                      <div>
                         <% if item.table_view %>
@@ -284,8 +285,9 @@
                      </div>
                      <% end %>
                   </td>
-                  <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 12pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 12pt;"><%= item.uom %></td>
+                  <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 11pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 11pt;"><%= item.uom %></td>
+                  <td class="money <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 11pt;"><%= item.show_hide_unit_price %></td>
                   <% if show_discounts && item.has_discount? %>
                   <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.discount_percentage %> </td>
                   <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.show_hide_unit_price_after_discount %></td>
@@ -294,7 +296,7 @@
                   <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"></td>
                   <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"></td>
                   <% end %>
-                  <td class="money <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 12pt;">
+                  <td class="money <%= bold_main_quantity ? "text--bold" : "" %>" style="font-size: 11pt;">
                      <%= item.total_price %>
                      <% if show_multi_currencies? %>
                      <br><%= item.total_price_in_custom_currency %>
@@ -312,13 +314,14 @@
                   </td>
                   <% end %>
                   <td class="quantity">
-                     <div class="last" style="font-size: 12pt;"><%= item.taxable %></div>
+                     <div class="last" style="font-size: 11pt;"><%= item.taxable %></div>
                   </td>
                </tr>
                <% item.quantities.each do |line_item_quantity| %>
                <tr>
-                  <td class="quantity line-item-quantity-row-padding"><%= number_with_precision(line_item_quantity[:quantity], precision: 5, strip_insignificant_zeros: true) %> style="font-size: 12pt;"</td>
-                  <td class="quantity line-item-quantity-row-padding"> style="font-size: 12pt;"<%= item.uom %></td>
+                  <td class="quantity line-item-quantity-row-padding"><%= number_with_precision(line_item_quantity[:quantity], precision: 5, strip_insignificant_zeros: true) %> style="font-size: 11pt;"</td>
+                  <td class="quantity line-item-quantity-row-padding"> style="font-size: 11pt;"<%= item.uom %></td>
+                  <td class="money line-item-quantity-row-padding" style="font-size: 11pt;"><%= line_item_quantity[:unit_price] %></td>
                   <% if show_discounts && line_item_quantity[:discount_in_cents] != 0.0 %>
                   <td class="quantity line-item-quantity-row-padding"><%= line_item_quantity[:discount_percentage] %></td>
                   <td class="quantity line-item-quantity-row-padding"><%=line_item_quantity[:unit_price_after_discount] %></td>
@@ -327,7 +330,7 @@
                   <td class="quantity line-item-quantity-row-padding"></td>
                   <td class="quantity line-item-quantity-row-padding"></td>
                   <% end %>
-                  <td class="money line-item-quantity-row-padding" style="font-size: 12pt;">
+                  <td class="money line-item-quantity-row-padding" style="font-size: 11pt;">
                      <%= line_item_quantity[:total_price] %>
                      <% if show_multi_currencies? %>
                      <br><%= line_item_quantity[:total_price_in_custom_currency] %>
@@ -345,7 +348,7 @@
                   </td>
                   <% end %>
                   <td class="quantity line-item-quantity-row-padding">
-                     <div class="last" style="font-size: 12pt;"><%= item.taxable %></div>
+                     <div class="last" style="font-size: 11pt;"><%= item.taxable %></div>
                   </td>
                </tr>
                <% end %>

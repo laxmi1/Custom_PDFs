@@ -1,15 +1,15 @@
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <style>
       .terms-title *, .terms-text * {
           font-size:6pt !important;
       }
-      <%= page_size %>
+       <%= page_size_portrait %>
       .main-titles {
             position: absolute;
             top: 10px;
-            right: 70px;
+            right: 65px;
             border-top: 2px solid;
             border-bottom: 2px solid;
             font-size: 20px;
@@ -20,84 +20,95 @@
          font-weight: bold;
         }
   </style>
+
+
 </head>
 <body>
+
 <div style="display:none" class="document-header">
   <%= header_text %>
 </div>
-<!-- Footer Text for Page footter-->
+
 <div style="display:none" class="document-footer">
   <%= footer_text %>
 </div>
 
-<!-- Store Address and Logo -->
-<div class="address-logo" style="background:#fff;  border-bottom:none; margin-right: 0px; width:98%">
+<div class="address-logo" style="border-bottom: none;">
   <table>
     <tr>
-      <td class="store-address">
-        <p class="logo" style="margin-top:-40px;"><img class="logo" src="<%= logo %>"  width = 240></p>
-        <p><b><%= store_name %></b></p>
-  <%if store_address_street%><p><%= store_address_street %></p><%end%>
-  <%if store_address_street1%><p><%= store_address_street1 %></p><%end%>
+      <td>
+      <p class="logo" style="margin-top:-80px;margin-left:27px;width:260px;"><img class="logo" src="<%= logo %>"></p>
+  <span style="text-align:center;margin-top:-5px;"><p style="margin-left:-60px;"><%if store_address_street%><%= store_address_street %><%end%>
+  <%if store_address_street1%><%= store_address_street1 %><%end%>-
   <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
-  <%if store_address_zip %> <%= store_address_zip%><%end%>
-  <% if store_email%><p><%=store_email%></p><%end%>
-  <% if store_phone%><p><%=store_phone%></p><%end%>  
-  <% if license_number_text(@object.account) %> <p><%= license_number_text(@object.account) %></p><%end%>
-  <% if @object.account.website %> <p><%= @object.account.website %></p><%end%>
-      </td>
-      <td class="summ left">
+  <%if store_address_zip %> <%= store_address_zip%><%end%></p>  
+  <% if store_phone%><p style="margin-left:-60px;"><%=store_phone%></p><%end%>  
+  <% if license_number_text(@object.account) %> <p style="margin-left:-60px;"><%= license_number_text(@object.account) %></p><%end%>
+  <% if @object.account.website %> <p style="margin-left:-60px;"><%= @object.account.website %></p><%end%></span>
+    </td>
+    <td class="summ left">
         <div class="summary-wrapper">
-            <h1 class="main-titles"><font color="#2989CC"><b>Purchase Order #<%= txn_number_only %></b></font> <br/>
+            <h1 class="main-titles"><font color="#2989CC"><b><%= credit_memo_number %></b></font> <br/>
             </h1>
-            <div class="summary" style="background:#fff; border-bottom: none; margin-right: 0px;">
+            <div class="summary" style="background:#fff; border-bottom: none; margin-right: -75px;">
   <table>
     <tr>
-      <td class="summ left">
+      <td class="summ right">
         <div class="summary-wrapper">
-          <h1 class="main-title">
-            <% if has_project? %>
-              <small><%= purchase_order_project_number%></small>
-              <br>
-            <% end %>
-          </h1>
+          <% if project_number %>
+            <p class="title"><%= project_header %></p>
+            <p><%= project_number %></p>
+          <% end %>
         </div>
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
-          <p class="title"><%= expected_delivery_date_header %></p>
-          <p><%= expected_delivery_date %></p>
+          <p class="title"><%= sales_rep_information_header %></p>
+          <p><%= sales_rep_information %></p>
         </div>
       </td>
+
       <td class="summ right">
         <div class="summary-wrapper">
-          <p class="title"><%= ship_date_header %></p>
-          <p><%= ship_date %></p>
+           <% if term_code %>
+              <p class="title"><%= term_code_header %></p>
+              <p><%= term_code %></p>
+          <% end %>
+          <% if po_number %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
+
           <% if shipping_method %>
               <p class="title"><%= shipping_method_header %></p>
               <p><%= shipping_method %></p>
           <% end %>
-          <br>
         </div>
       </td>
+
       <td class="summ right">
         <div class="summary-wrapper">
-          <p class="title"><%= po_date_header %></p>
-          <p><%= po_date %></p>
-          <% if term_code %>
-              <p class="title"><%= term_code_header %></p>
-              <p><%= term_code %></p>
-          <% end %>
-          <br>
-          </div>
+       
+          <p class="title"><%= credit_memo_date_header %></p>
+          <p><%= credit_memo_date %></p>
+
+          <p class="title"><%= due_date_header %></p>
+          <p><%= due_date %></p>
+
+        </div>
       </td>
     </tr>
-    <tr>
-     <td></td>
-     <td></td>
-      <td colspan ="2" style= "border:2px solid#ccc;">
-       <p class="footer-total"><strong>TOTAL OF PO: <%= final_price %></strong></p>
+    <tr><td><br></td></tr>
+    <tr style="padding-top:5px;">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td colspan ="1" style= "border:2px solid#ccc;">
+        <p class="footer-total" style="font-size: 13px;"><strong>TOTAL: <%= final_price %></strong></p>
       </td>
+   </tr>
+  </table>
+</div>
     </tr>
   </table>
 </div>
@@ -106,34 +117,38 @@
 </div>
 
 
-<div  style="padding:6px; border: solid 1.5px #000; background: #2989CC;width:93%; margin-left:3%;">
+<div  style="padding:6px; border: solid 1.5px #000; background: #009bdb;width:92.8%; margin-left:3%;">
   <small style="font-size:12px;"><b><%= name %></b></small>
 </div>
-<div class="addresses" style="border-bottom:none;margin-bottom:-12px; margin-top:-5px;">
-  <table style="background-color: #ccc; padding:3px; width:103.7%;margin-left:-3%;">
+
+
+<div class="addresses" style="border-bottom: none;margin-bottom:-12px; margin-top:-5.5px;margin-bottom:-13px;">
+  <table style="background-color: #bdbdbd; padding:3px; width:103.7%;margin-left:-3%;">
     <tr>
       <td class="address left">
-        <div class="address-wrapper">
-          <p class="title"><%= ordered_from_header %></p>
+        <div style="padding-top:8px;padding-left:80px;">
+          <p class="title" style="border-bottom:4px;"><span style="text-decoration:underline;">BILLING / INVOICE &nbsp;</span></p>
 
           <p><%= sold_to %></p>
-          <p><%= vendor_address %></p>
+          <p><%= billing_information %></p>
         </div>
       </td>
-      <td class="address left">
-        <div class="address-wrapper">
-          <p class="title"><%= shipping_information_header %></p>
-          <% if drop_ship_to.present? %>
-           <%= drop_ship_to %>
-          <% else %>
-          <p><%= store_name %></p>
+      
+      <td class="address left" style="padding-left:200px;">
+        <div class="address-wrapper" style="padding-top:8px;">
+         <p class="title"><span style="text-decoration:underline;"><%= shipping_information_header %></span></p>
+          <% if shipping_address_type != 'DropShip' %>
+            <%= sold_to %>
           <% end %>
-          <p><%= shipping_information %></p>
+          <%= shipping_information %></p>
+          <%if shipping_tracking %>
+    
+           <p class="title"><%= shipping_tracking_header%></p>
+           <%= shipping_tracking %>
+          <% end %>
         </div>
-      </td>
-      <td class="address left">
-        <div class="address-wrapper">
-          <p class="title"><%= contact_information_header %></p>
+        <div class="address-wrapper" style="padding-top:10px;">
+          <p class="title"><span style="text-decoration:underline;"><%= contact_information_header %></span></p>
 
           <p><%= contact_information %></p>
         </div>
@@ -143,7 +158,7 @@
       <tr>
         <td class="address left" colspan="3">
           <div class="address-wrapper" style="border-top:2px solid #01090F;margin-top:6px;">
-            <p class="title" style="padding-top:5px;padding-bottom:4px;"><%= about_this_po_header %></p>
+            <p class="title" style="padding-top:5px;padding-bottom:4px;"><%= about_this_credit_memo_header %></p>
             <p>
               <%= description %>
             </p>
@@ -154,13 +169,11 @@
   </table>
 </div>
 
-<!-- Items Table -->
-
 <div class="line-items">
   <!--<h2 class="title"><%= items_header %></h2>-->
-  <table style="width:97.6%; margin-left:3%;">
+  <table style="width:97.6%; margin-left:3.1%;">
     <thead>
-    <tr style="border: solid 1.5px #000; background: #2989CC;">
+    <tr style="border: solid 1.5px #000; background: #009bdb;">
       <th class="position" style="font-size: 12px;color:black;">
         <div class="first">#</div>
       </th>
@@ -168,125 +181,134 @@
       <th class="quantity" colspan="0" style="font-size: 12px;color:black;"><%= qty_header %></th>
       <th class="quantity" colspan="0" style="font-size: 12px;color:black;"><%= uom_header %></th>
       <th class="money" style="font-size: 12px;color:black;"><%= unit_price_header %></th>
-      <th class="money" style="font-size: 12px;color:black;">
+      <% if show_discounts && total_discount_price != 0.0 %>
+       <th class="quantity" style="font-size: 12px;color:black;"><%= discount_header %> </th>
+       <th class="quantity" style="font-size: 12px;color:black;"><%= discount_price_header %> </th>
+      <% end %>
+      <th class="money">
         <div class="last" style="font-size: 12px;color:black;"><%= total_excl_header %></div>
       </th>
+      <% if use_tax_codes? %>
+          <th class="money">
+            <div class="last" style="font-size: 12px;color:black;"><%= tax_header %></div>
+          </th>
+          <th class="money">
+            <div class="last" style="font-size: 12px;color:black;"><%= tax_rate_header %></div>
+          </th>
+      <% end %>
+
     </tr>
     </thead>
 
     <tbody class=''>
     <% items.each_with_index do |item, index| %>
-      <tr>
-        <td class="position" rowspan="2">
-          <div class="first">
-            <%= index + 1 %>
-          </div>
-        </td>
-        <td colspan="2">
-          <div class="name">
-            <%= item.name %>
-          </div>
-          <% unless item.part_number.blank? %>
-              <br/><strong>Part#:</strong> <%= item.part_number %>
+        <tr>
+          <td class="position" rowspan="2">
+            <div class="first">
+              <%= index + 1 %>
+            </div>
+          </td>
+          <td class="name" colspan="2"><%= item.name %></td>
+          <td class="quantity"><%= item.quantity %></td>
+          <td class="quantity"><%= item.uom %></td>
+          <td class="money"><%= item.unit_price %></td>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="quantity"><%= item.discount_percentage %> </td>
+              <td class="quantity"><%= item.unit_price_after_discount %></td>
+             <% end %>
+          <td class="money">
+            <div class="last">
+              <%= item.total_price %>
+            </div>
+          </td>
+          <% if use_tax_codes? %>
+              <td class="money">
+                <div class="last"><%= item.total_tax %></div>
+              </td>
+              <td class="money">
+                <div class="last"><%= item.tax_rate %></div>
+              </td>
           <% end %>
-          <% unless item.item_attr1.blank? %>
-              <strong><%= item.item_attr_name1 %>:</strong> <%= item.item_attr1 %>
+        </tr>
+        <tr>
+          <% if show_discounts && total_discount_price != 0.0 %>
+              <td class="description" colspan="7">
+          <% else %>
+              <td class="description" colspan="5">
           <% end %>
-          <% unless item.item_attr2.blank? %>
-              <strong><%= item.item_attr_name2 %>:</strong> <%= item.item_attr2 %>
-          <% end %>
-        </td>
-        <td class="quantity"><%= item.quantity %></td>
-        <td class="quantity"><%= item.uom %></td>
-        <td class="money"><%= item.unit_price %></td>
-        <td class="money">
-          <div class="last">
-            <%= item.total_price %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="description" colspan="6">
-          <div class="last text--pre-line li-desc-fixed-width">
-            <%= item.format_description(html: true) %>
-            <% if item.product_image %>
-              <img src="<%= item.product_image %>" class="line-item-description-image">
+            <% if item.table_view %>
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.li_grid_html_view %>
+              </div>
+            <% else %>
+              <div class="last text--pre-line li-desc-fixed-width">
+                <%= item.description %>
+              </div>
             <% end %>
-
-            <%= item.notes %>
-          </div>
-        </td>
-      </tr>
+            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+              <hr class="custom-field-separator">
+              <% item.description_hash[:custom_fields].each do |cfv| %>
+                    <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
+                      <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
+                      <% if cfv[:field_type] == 'color' %>
+                          <%= "#{cfv[:name]}: <br>" %>
+                          <%= [cfv[:value_hash]].flatten.map { |c| "<span style='position:relative;top:4px;width:20px;border-radius:5px;height:20px;display:inline-block;background:#{c['hex']}'></span> #{c['name']} <br>" }.join('') %>
+                      <% else %>
+                          <%= "#{cfv[:name]}:<br> #{cfv[:value]} <br>" %>
+                      <% end %>
+                    <% end %>
+              <% end %>
+              <hr class="custom-field-separator">
+            <% end %>
+            <img src="<%= item.product_image %>" class="line-item-description-image">
+          </td>
+        </tr>
     <% end %>
     </tbody>
-
-    <!--<tfoot class="no-page-break tfoot-one">-->
-    <!--<tr>-->
-      <!--<td colspan="6" class="labels first">-->
-        <!--<p><%= subtotal_header %></p>-->
-
-        <!--<% if show_tax  %>-->
-          <!--<p><%= total_tax_header %></p>-->
-        <!--<% end %>-->
-
-        <!--<p><%= final_price_header %></p>-->
-      <!--</td>-->
-      <!--<td class="money last">-->
-        <!--<p><%= sub_total %></p>-->
-
-        <!--<% if show_tax  %>-->
-          <!--<p><%= total_tax %></p>-->
-        <!--<% end %>-->
-       <!---->
-        <!--<p><%= final_price %></p>-->
-      <!--</td>-->
-    <!--</tr>-->
-    <!--</tfoot>-->
   </table>
 </div>
 
 
-<!-- Internal Note -->
-<% if internal_note.present? %>
-  <div class="note">
-    <table class="no-page-break">
-      <thead>
-      <tr>
-        <td><%= internal_note_header %></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><%= internal_note %></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td>Customer Note:</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 <% end %>
 
 <!-- Cover Note -->
 <% if cover_note.present? %>
-  <div class="note">
-    <table class="no-page-break">
-      <thead>
-      <tr>
-        <td><%= cover_note_header %></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><%= cover_note %></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <th><%= cover_note_header %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= cover_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 <% end %>
 
 <!-- Signature Note -->
 <div class="footer-bottom">
     <div class="section">
         <div class="footer-bottom-left">
-            <div class="terms-text" >
+            <div class="terms-text">
                 <%= terms_conditions %>
             </div>
         </div>
@@ -297,7 +319,11 @@
                     <td class="labels first footer-subtotal">
                         <p><strong><%= subtotal_header %>:</strong></p>
                         <% if show_tax  %>
-                            <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                          <% if use_tax_codes? %>
+                              <p><strong><%= total_tax_header %>:</strong></p>
+                          <% else %>
+                              <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                          <% end %>
                         <% end %>
                         <p class="footer-total"><strong><%= final_price_header %>:</strong></p>
                     </td>
@@ -307,6 +333,7 @@
                             <p><strong><%= total_tax %></strong></p>
                         <% end %>
                         <p class="footer-total"><strong><%= final_price %></strong></p>
+
                     </td>
                 </tr>
                 </tbody>
@@ -314,7 +341,56 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="section section--border-bottom">
+    <% if has_tax_split? and show_tax_split? %>
+        <div class="split-tax">
+          <h4>Split Taxes</h4>
+          <table class="split-tax-table">
+            <tbody>
+            <tr>
+              <% tax_split.each do |name, rate| %>
+                  <th><%= name %>(<%= rate %>%)</th>
+                  <td><%= tax_subtotal(rate.to_f) %></td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+    <% end %>
+ <% if show_discounts %>
+   <div>
+      <table class="split-tax-table">
+        <tbody>
+         <tr>
+          <% if show_range_volume_discounts %>
+             <% if total_range_discount >0 || total_volume_discount >0  %>
+                <th><b>Total Discount</b></th>
+                <td><%= total_discount %>(<%= total_discount_percentage %>%)</td>
+              <%end%>
+             <% if total_range_discount >0 %>
+                <th><b>Range Disc.</b></th>
+                <td><%= total_range_discount_in_dollars %></td>
+             <%end%>
+             <% if total_volume_discount >0 %>
+                <th><b>Volume Disc.</b></th>
+                <td><%= total_volume_discount_in_dollars %></td>
+             <%end%>
+             <% if total_discount_price != 0.0%>
+              <th><b>Customer Discount</b></th>
+              <td><%= total_discount_price_in_dollars %></td>
+             <%end%>
+           <%else%>
+             <% if total_discount_price != 0.0%>
+               <th><b>Customer Discount</b></th>
+               <td><%= total_discount_price_in_dollars %></td>
+             <%end%>
+           <%end%>
+         </tr>
+        </tbody>
+     </table>
+    </div>
+  <% end %>
+
+  <div class="section section--border-bottom">
         <div class="signature terms">
             <table>
                 <tbody>

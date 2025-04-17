@@ -151,7 +151,9 @@
       <td class="summ left" style="width: 38%;">
         <div class="summary-wrapper">
           <h1 class="main-title">INVOICE </h1><br/>
-            <p><%= billing_information %></p>                   
+<p><%= company_name %></p>
+<p><%= billing_information %></p>
+                   
         </div>
       </td>
       <td class="summ right" style="width: 30%;">
@@ -289,10 +291,24 @@
     </tr>
     <tr>
       <td colspan="3">
-        <b>TOTAL USD:</b>
+        <b>TOTAL USD:<br>
+<% if has_payments? || has_credits? %>
+        Less Amount Paid:<br>
+        <% if has_credits? %>
+        Credited: 
+<% end %>
+<% end %>
+        </b>
       </td>
       <td>
-        <b><%= final_price %></b>
+        <b><%= final_price %><br>
+        <% if has_payments? || has_credits? %>
+        <%= total_paid %>
+        <% if has_credits? %>
+        <%= total_credit %>
+        <% end %>
+        <% end %>     
+        </b>
       </td>
     </tr>
     </tfoot>

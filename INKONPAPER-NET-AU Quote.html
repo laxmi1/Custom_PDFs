@@ -4,10 +4,10 @@
   <style>
       <%= page_size %>
       <%= body_font_family %>
-      .line-items tbody tr td {
-      border-top: 1px solid #e3e3e3;
-      padding-top: 7pt;
-      }
+.line-items tbody tr:first-child td {
+  border-top:0px solid #e3e3e3;
+  padding-top: 5pt;
+}
   </style>
 </head>
 <body>
@@ -205,16 +205,15 @@
     <tbody class=''>
         <% items.each_with_index do |item, index| %>
           <% bold_main_quantity = item.quantities.present? %>
-          <tr>
-            <td class="position" rowspan="<%= 2 + item.quantities.size %>">
-              <div class="first">
+          <tr style="border: 2px solid #e3e3e3;">
+            <td class="position table-cell" style="padding: 8px; " rowspan="<%= 1 + item.quantities.size %>">
+             <div class="first" >
                 <!-- This is for the "outside" row border -->
-                <br style="position: absolute; width:  100%; border-bottom: 1px solid #e3e3e3; left: 0; box-sizing: border-box;"/>
                 <%= index + 1 %>
               </div>
             </td>
-            <td rowspan="<%= 1 + item.quantities.size %>" style="position: relative">
-              <span class="name"><%= item.name %></span>
+            <td rowspan="<%= 1 + item.quantities.size %>" style="padding: 8px">
+              <span class="name" style="padding: 8px;margin-left: -6pt;"><%= item.name %></span>
 
               <% if bold_main_quantity && item.quantities.size > 1 %>
                 <div>
@@ -252,25 +251,25 @@
                 </div>
               <% end %>
               <!-- This is for the "middle" vertical border -->
-              <br style="position: absolute; width: 100%; border-right: 1px solid #e3e3e3; right: 0"/>
+
             </td>
-            <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-            <td class="money <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.show_hide_unit_price %></td>
+            <td class="quantity  <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px; border-left: 2px solid #e3e3e3;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+            <td class="money <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px"><%= item.show_hide_unit_price %></td>
             <% if show_discounts && item.has_discount? %>
-              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.discount_percentage %> </td>
-              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.show_hide_unit_price_after_discount %></td>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px"><%= item.discount_percentage %> </td>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px"><%= item.show_hide_unit_price_after_discount %></td>
             <% end %>
             <% if show_discounts && (total_discount_price != 0.0 || quantities_total_discount_price != 0.0 ) && !item.has_discount? %>
-              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"></td>
-              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"></td>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px"></td>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px"></td>
             <% end %>
-            <td class="money <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.total_price %></td>
+            <td class="money <%= bold_main_quantity ? "text--bold" : "" %>" style="padding: 8px"><%= item.total_price %></td>
             
-              <td class="money"><%= item.total_tax %></td>
-           
-            <td class="quantity">
-        <div class="last"><%= item.total_with_tax %></div>
-      </td>
+              <td class="money" style="padding: 8px"><%= item.total_tax %></td>
+                
+                  <td class="quantity" style="padding: 8px">
+              <div class="last"><%= item.total_with_tax %></div>
+            </td>
             
           </tr>
           <% item.quantities.each do |line_item_quantity| %>
@@ -296,10 +295,11 @@
             </tr>
           <% end %>
           <tr>
+          <td></td>
             <% if show_discounts && total_discount_price != 0.0 %>
                 <td class="description" colspan="7">
             <% else %>
-                <td class="description" colspan="5">
+                <td class="description" colspan="5" >
             <% end %>
 
             <% if item.quantities.blank? %>

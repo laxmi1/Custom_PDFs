@@ -6,14 +6,6 @@
   <style>
     <%= page_size %>
     <%= body_font_family %>
-.li-desc-fixed-width {
-  max-width: 480pt;
-}
-.box__content-proof-img {
-         height: 78em;
-         width: 100%;
-         display: table;
-         }
   </style>
 </head>
 <body>
@@ -36,18 +28,15 @@
           <p><%= due_header %>: <strong><%= due_date %></strong></p>
         </div>
         <% if order_number %>
-          <div class="col-2">
-            <p>
-              <strong><%= order_type %># <%= order_number %></strong><br>
+          <div class="col-3">
+            <p style="margin-top:-5pt;">
+              <strong style="font-size: 21pt;"><%= order_type %># <%= order_number %></strong><br>
               <% if related_quotes.present? %>
-                <strong><%= related_quotes %></strong>
+                <strong style="font-size: 21pt;"><%= related_quotes %></strong>
               <% end %>
             </p>
           </div>
         <% end %>
-        <!--<div class="col-1">-->
-          <!--<p class="text&#45;&#45;right">1 of <strong>2</strong></p>-->
-        <!--</div>-->
       </div>
     </div>
   </div>
@@ -70,10 +59,11 @@
   <div class="job-section job-pdf__company">
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-5" style="width: 42%;">
           <div class="box box--default box--border">
             <div class="box__title">
               <p><%= customer_header %>: <strong><%= company_name %></strong></p>
+
               <% if txn_title.present? %>
                 <p><%= txn_title %></p>
               <% end %>
@@ -88,7 +78,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-4" style="width: 27%;">
           <div class="box box--default box--border box--sm">
             <div class="box__content">
               <table class="table table--list text--sm">
@@ -99,44 +89,50 @@
                 </tr>
                 <tr>
                   <td><%= sales_rep_header %>:</td>
-                  <td><strong><%= sales_rep_name %></strong></td>
+                  <td><strong><%= @object.try(:sales_rep)&.first_name %></strong></td>
                 </tr>
                 <tr>
                   <td><%= project_manager_header %>:</td>
-                  <td><strong><%= project_manager_name %></strong></td>
+                  <td><strong><%= @object.try(:project_manager)&.first_name %></strong></td>
                 </tr>
                 <tr>
                   <td><%= product_manager_header %>:</td>
-                  <td><strong><%= pm_name %></strong></td>
+                  <td><strong><%= @object.try(:production_manager)&.first_name %></strong></td>
                 </tr>
                 <tr>
                   <td><%= designer_header %>:</td>
-                  <td><strong><%= designer_name %></strong></td>
+                  <td><strong><%= @object.try(:designer)&.first_name %></strong></td>
                 </tr>
+                <% if is_division_enabled? %>
+                <tr>
+                  <td><%= division_name_header %></td>
+                  <td><strong><%= division_name %></strong></td>
+                </tr>
+                <% end %>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-4" style="width: 31%;">
           <div class="box box--default box--border box--sm">
             <div class="box__content">
               <table class="table table--list text--sm">
                 <tbody>
-               <% if account.is_pro? %>
-                  <tr>
-                    <td><%= in_hand_date_header %>:</td>
-                    <td><strong><%= in_hand_date %></strong></td>
-                  </tr>
-                  <tr>
-                    <td><%= install_date_header %>:</td>
-                    <td><strong><%= install_date %></strong></td>
-                  </tr>
-                  <tr>
-                    <td><%= hard_due_header %>:</td>
-                    <td><strong><%= hard_due_date %></strong></td>
-                  </tr>
-              <% end %>
+                 <% if account.current_plan.pro? || account.current_plan.new_pro? %>
+                    <tr>
+                      <td><%= in_hand_date_header %>:</td>
+                      <td><strong><%= in_hand_date %></strong></td>
+                    </tr>
+                    <tr>
+                      <td><%= install_date_header %>:</td>
+                      <td><strong><%= install_date %></strong></td>
+                    </tr>
+                    <tr>
+                      <td><%= hard_due_header %>:</td>
+                      <td><strong><%= hard_due_date %></strong></td>
+                    </tr>
+                <% end %>
                 <tr>
                   <td><%= art_due_date_header %>:</td>
                   <td><strong><%= art_due_date %></strong></td>
@@ -159,7 +155,7 @@
   <div class="job-section job-pdf__shipping">
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-10">
           <div class="box box--default box--border">
             <div class="box__title">
               <p><%= shipping_to_header %>:</p>
@@ -189,18 +185,6 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
-          <div class="box box--default box--border">
-            <div class="box__title">
-              <p><%= billing_to_header %>:</p>
-            </div>
-            <div class="box__content">
-              <address>
-                <%= billing_information %>
-              </address>
-            </div>
-          </div>
-        </div>
         <div class="col-2">
           <div class="box box--default box--border">
             <div class="box__content">
@@ -217,16 +201,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- DETAILS -->
-  <div class="job-section job-pdf__details">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
+        <div class="col-10" style="margin-top: -6pt;">
           <% if ui_field_visibility('job/installing_address_id') and installing_information.present? %>
             <div class="box box--default box--border">
               <div class="box__title">
@@ -239,6 +214,17 @@
               </div>
             </div>
           <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- DETAILS -->
+  <div class="job-section job-pdf__details">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
           <div class="box box--grey box--border box--margin-top">
             <div class="box__title">
               <div class="row">
@@ -291,7 +277,16 @@
               </div>
             </div>
           </div>
-          <div class="box box--grey box--border">
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- DETAILS -->
+  <div class="job-section job-pdf__details">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="box box--grey box--border box--margin-top">
             <div class="box__title">
               <div class="row">
                 <div class="col-12">
@@ -309,31 +304,265 @@
               </div>
             </div>
           </div>
+
+          <div class="box box--white box--border box--margin-top">
+            <div class="box__title"><%= job_description_header %>:</div>
+            <div class="box__content">
+              <p>
+                <%= description %>
+              </p>
+
+              <%= job_panel_items_table %>
+            </div>
+          </div>
         </div>
+        <div class="col-6">
+        <% if pa_items.size > 0 %>
+            <div class="box box--white box--border box--margin-top">
+              <div class="box__title"><%= item_attributes_header %></div>
+              <div class="box__content">
+                <table class="table table--no-border table--no-padding">
+                  <tbody>
+                    <%= pa_table %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="box box--white box--border box--margin-top">
+            <div class="box__title"><%= other_details_header %>:</div>
+            <div class="box__content">
+              <div class="row">
+                <div class="col-4">
+                  <p><%= qty_header %>:</p>
+                </div>
+                <div class="col-8">
+                  <p><strong><%= quantity %></strong></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p><%= local_file_header %>:</p>
+                </div>
+                <div class="col-8">
+                  <p><strong><%= local_file_path %></strong></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p><%= customer_local_file_header %>:</p>
+                </div>
+                <div class="col-8">
+                  <p><strong><%= customer_local_file_path %></strong></p>
+                </div>
+              </div>
+              <% if @object.color %>
+                <div class="row">
+                  <div class="col-4">
+                    <p><%= color %>:</p>
+                  </div>
+                  <div class="col-8">
+                    <div style="background-color: <%= @object.color %>; width: 8px; height: 8px; border-radius: 8px"></div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
       </div>
+       </div>
     </div>
   </div>
 
 
   <!-- BOM -->
+  <% if has_pricing? %>
+    <% if !combined_job? %>
+      <div class="job-section job-pdf__bom">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="box box--white box--no-padding">
+                <div class="box__title"><%= bom_header %>:</div>
+                <div class="box__content">
+                  <% if apparel_ui? %>
+                    <%= apparel_item_table %>
+                  <% else %>
+                    <table class="table table--bom">
+                      <thead>
+                      <th><%= bom_name_header %></th>
+                      <th><%= bom_qty_header %></th>
+                      <th><%= bom_attr1_header %></th>
+                      <th><%= bom_attr2_header %></th>
+                      </thead>
+                      <tbody>
+                        <%= materials_bom_table(true) %>
+                      </tbody>
+                    </table>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if combined_job? %>
+      <!-- BOM Combine Job -->
+      <div class="job-section job-pdf__bom">
+        <div class="container">
+          <% if apparel_ui? %>
+            <div class="row">
+              <div class="col-12">
+                <div class="box box--white box--no-padding">
+                  <div class="box__title"><%= bom_header %>:</div>
+                  <div class="box__content">
+                    <%= apparel_item_table %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="row <%= 'box--margin-top' if apparel_ui? %>">
+            <div class="col-12">
+              <div class="box box--white box--no-padding">
+                <% if !apparel_ui? %>
+                  <div class="box__title"><%= bom_header %>:</div>
+                <% end %>
+                <div class="box__content">
+                  <%= bom_combine_job %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- BOM - OTHERS -->
+    <div class="job-section job-section--custom-fields">
+      <div class="container">
+        <div class="row">
+          <% if (labor_table != "" || machine_table != "") && !combined_job? %>
+            <div class="col-12 element--margin-bottom-md">
+              <div class="box box--white box--no-padding">
+                <div class="box__content">
+                  <table class="table table--striped">
+                    <tbody>
+                    <%= labor_table %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            <div class="box box--white box--no-padding">
+              <div class="box__content">
+                <table class="table table--striped">
+                  <tbody>
+                  <%= machine_table %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <% end %>
+
+          <% if custom_field_items.size > 0 %>
+            <div class="col-12">
+              <div class="box box--white box--border">
+                <div class="box__title"><%= custom_fields_header %>:</div>
+                <div class="box__content">
+                  <table class="table table--no-border table--no-padding">
+                    <tbody>
+                      <%= custom_field_table %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if order_custom_field_items.size > 0 && order_custom_field_table.present? %>
+            <div class="col-12">
+              <div class="box box--white box--border">
+                <div class="box__title"><%= order_custom_fields_header %>:</div>
+                <div class="box__content">
+                  <table class="table table--no-border table--no-padding">
+                    <tbody>
+                    <%= order_custom_field_table %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <% if custom_field_items.size > 0 %>
+      <div class="job-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="box box--white box--border">
+                <div class="box__title"><%= custom_fields_header %>:</div>
+                <div class="box__content">
+                  <table class="table table--no-border table--no-padding table--th-text-right">
+                    <tbody>
+                    <%= custom_field_table %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="job-section job-pdf__details">
+   <div class="container">
+      <div class="row">
+<% unless proof_image(500,500).blank?%>
+        <div class="col-6">
+          <div class="box box--grey box--border">
+            <div class="box__content box__content-proof-img text--center">
+              <div>
+                <img src="<%= proof_image(500,500) %>">
+              </div>
+            </div>
+            <div>
+              <%= proof_local_file_path %>
+            </div>
+            <div class="box__title">
+              <%= proof_footer %>
+            </div>
+          </div>
+          </div>
+<% end %>
+        </div>
+        </div>
+        </div>
 
 
   <!-- LINE ITEMS - DESCRIPTION -->
- 
-  <div class="job-section">
+  <% if combined_job? %>
+    <div class="job-section">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="box box--grey box--border box--avoid-page-break-inside">
               <div class="box__title">
-                <p>Job Description:</p>
+                <p><%= job_description_header %>:</p>
               </div>
               <div class="box__content box__content--no-padding">
                 <table class="table table--line-items table--line-items-no-border">
                   <thead>
                     <tr>
-                     <th class="text--left td--shrink">#</th>
-                      <th class="text--left"><%= item_header %></th>                    
+                      <th class="text--left td--shrink"><%= job_item_header %></th>
+                      <th></th>
+                      <th><%= qty_header %></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -341,7 +570,7 @@
                       <tr>
                         <td class="td--shrink"><%= index+1 %></td>
                         <td><%= li.name %></td>
-                        
+                        <td class="text--center"><%= number_with_precision(li.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                       </tr>
                     <% end %>
                   </tbody>
@@ -368,7 +597,7 @@
                     <tr>
                       <th class="text--left td--shrink">#</th>
                       <th class="text--left"><%= item_header %></th>
-                      
+                      <th><%= qty_header %></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -475,6 +704,7 @@
                               <img src="<%= item.product_image %>" class="line-item-description-image">
                           <% end %>
                         </td>
+                        <td class="text--center"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true).to_s %></td>
                       </tr>
                     <% end %>
                   </tbody>
@@ -485,30 +715,7 @@
         </div>
       </div>
     </div>
-
-<% unless   proof_image(500,300).blank?%>
-  <div class="job-section job-pdf__company">
-    <div class="container">
-      <div class="row">
-          <div class="col-12">
-            <div class="box box--grey box--border">
-               <div class="box__content box__content-proof-img text--center">
-                  <div>
-                     <img src="<%= proof_image(500,300) %>">
-                  </div>
-               </div>
-               <div>
-                  <%= proof_local_file_path %>
-               </div>
-               <div class="box__title">
-                  <%= proof_footer %>
-               </div>
-            </div>
-          </div>
-      </div>
-  </div>
-<% end %>
-</div>
+  <% end %>
 
 
   <!-- WORKFLOW -->
@@ -536,7 +743,7 @@
                             </span>
                             <span class="element--right">
                               <em><%= step.assigned_to_user_initials %></em>
-                              <time><%= step.date %></time>
+                              <time><%= step.due_date %></time>
                               <i></i>
                             </span>
                           </span>

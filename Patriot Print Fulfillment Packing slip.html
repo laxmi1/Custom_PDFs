@@ -36,7 +36,7 @@
          <%= header_text %>
       </div>
       <div style="display:none" class="document-footer">
-       PRINTED ON <%= ::Formatters::DateTime.call(@object.account, Time.current, full_date_time: true).result %> BY <%= @object.try(:created_by).try(:initials).presence || @object.try(:created_by).try(:name) %>
+       PRINTED ON <%= ::Formatters::DateTime.call(@object.account, Time.current, full_date_time: true).result %>
       </div>
       <div class="address-logo">
          <table>
@@ -44,7 +44,6 @@
                <td class="store-address <%= "stamp-container" if is_paid? %>">
                <h2 class="main-title">Attention To:</h2>
                   <p><% if contact_name %><%= contact_name %><%end%></p>
-                  <p><%= billing_information %></p>
                   <% if is_paid? %>
                   <p class="stamp">
                      <image src="https://cdn.filestackcontent.com/3Grjs4IfQ0mlA4LCRFJj" alt="Paid"/>
@@ -111,4 +110,3 @@
       <!-- Signature Note -->
    </body>
 </html>
-`              

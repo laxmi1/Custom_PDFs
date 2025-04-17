@@ -4,6 +4,7 @@
   <style>
     <%= page_size %>
     <%= body_font_family %>
+
     .address-logo {
     padding: 50pt 35pt 5pt 35pt;
     border-bottom: 0px solid #e3e3e3;
@@ -29,6 +30,23 @@ h1 {
     margin-top: 1pt;
     font-size: 13px;
     color: #6D6A6A;
+}
+.text--pre-line {
+font-size: 11pt;
+}
+.job_local_file_path {
+font-size: 11pt;
+}
+.proof .head {
+    padding: 10px;
+font-size: 11pt;
+}
+.bom_report_detail {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    font-size: 11pt;;
 }
   </style>
 </head>
@@ -65,7 +83,7 @@ h1 {
         <td>
           <h1 style="text-align: right;">WO # <%= txn_number_only %></h1>
           <% if @object.primary_sales_rep%>
-            <p style="text-align: right;font-weight: normal;"><%=@object.primary_sales_rep.try(:name)%></p>
+            <p style="text-align: right;font-weight: normal;font-size:12pt;"><%=@object.primary_sales_rep.try(:name)%></p>
           <%end%>
 
         </td>
@@ -87,14 +105,26 @@ h1 {
         <div class="summary-wrapper">
 
           <p class="title">Proof Date</p>
-          
+           <br>
+        </div>
+<div class="summary-wrapper">
+          <% if po_number %>
+              <p class="title"><%= po_number_header %></p>
+              <p><%= po_number %></p>
+          <% end %>
         </div>
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
 
           <p class="title">Approval Date</p>
-          
+          <br>
+        </div>
+ <div class="summary-wrapper">
+<% if term_code %>
+          <p class="title"><%= term_code_header %></p>
+          <p><%= term_code %></p>
+<% end %>
         </div>
       </td>
       <td class="summ right">
@@ -103,6 +133,7 @@ h1 {
           <p class="title"><%= work_order_date_header %></p>
           <p><%= work_order_date %></p>
         </div>
+
       </td>
       <td class="summ right">
         <div class="summary-wrapper">
@@ -111,6 +142,7 @@ h1 {
             <p><%= due_date %></p>
           <% end %>
         </div>
+
       </td>
     </tr>
   </table>
@@ -173,6 +205,8 @@ h1 {
                   </div>
                 </div>
               <% end %>
+<div class='job_qty'>
+              
               <% if item.design_details %>
                 <div class='design_details'>
                   <div class="text--pre-line">
@@ -204,7 +238,7 @@ h1 {
             </div>
             <div class="job_local_file_path">
               <strong>Job File Location:</strong>
-              <%= item.local_file_path %>
+              <span style="font-size:11pt;"><%= item.local_file_path %></span>
             </div>
 
             <% if item.product_picture_assets.count > 0 %>
@@ -217,7 +251,7 @@ h1 {
               <img src="<%= item.product_image %>" class="line-item-description-image">
             <% end %>
             <div class="job_created_by_and_at not-important">
-              <small><%= item.job_created_by_and_at %></small>
+              <small style="font-size:11pt;"><%= item.job_created_by_and_at %></small>
             </div>
           
             <div>
@@ -376,6 +410,7 @@ h1 {
         <% end %>
         </tbody>
     <% end %>
+
     <tfoot class="no-page-break">
     </tfoot>
   </table>

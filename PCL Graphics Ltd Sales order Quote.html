@@ -57,8 +57,10 @@
        border-top: 1px solid #e3e3e3;
        }
 
-       .li-desc-fixed-width {
-       max-width: 370pt;
+      .li-desc-fixed-width {
+       max-width: 350pt;
+       margin-top: -7pt;
+       margin-bottom: 6pt;
        }
 
        .line-items .description {
@@ -81,7 +83,6 @@
        .footer-total {
        font-size: 11pt;
        padding-bottom: 6pt;
-       border-bottom: 1px solid #e3e3e3;
        }
 
        .footer-bottom-right {
@@ -271,11 +272,11 @@
             <tbody class='no-page-break'>
                <tr>
                   <td class="position" rowspan="2">
-                     <div class="first">
+                     <div class="first" style="padding-top:5px;">
                         <%= index + 1 %>
                      </div>
                   </td>
-                  <td class="name"><%= item.name %></td>
+                  <td class="name"></td>
                   <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
                   <td class="quantity"><%= item.uom %></td>
                   <td class="money"><%= item.unit_price %></td>
@@ -335,7 +336,7 @@
                <table>
                   <tbody>
                      <tr>
-                        <td class="labels first footer-subtotal">
+                       <td class="labels first footer-subtotal" style="border-bottom: 2px solid #e3e3e3;padding-bottom:5pt;">
                            <% if has_setup_charges? %>
                            <p><strong><%= setup_charges_header %>:</strong></p>
                            <% end %>
@@ -363,14 +364,9 @@
                            <% if show_multi_currecies %>
                            <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
                            <% end %>
-                           <% if use_tax_codes? %>
-                           <% tax_totals_table.each do |k, value| %>
-                           <p style="color: #5e5d5d;"><%= value[:name] %>(<%= value[:rate] %>%)</p>
-                           <% end %>
-                           <% end %>
-                           <span><%= description %></span>
+                           
                         </td>
-                        <td class="money last footer-subtotal">
+                        <td class="money last footer-subtotal" style="border-bottom: 2px solid #e3e3e3;padding-bottom:5pt;">
                            <% if has_setup_charges? %>
                            <p><strong><%= setup_charges %></strong></p>
                            <% end %>
@@ -383,36 +379,40 @@
                            <% if has_misc_charges? %>
                            <p><strong><%= misc_charges %></strong></p>
                            <% end %>
-                           <p><strong><%= sub_total %></strong></p>
+                           <p><strong><%= sub_total.gsub('$', '') %></strong></p>
                            <% if show_tax  %>
-                           <p><strong><%= total_tax %></strong></p>
+                           <p><strong><%= total_tax.gsub('$', '') %></strong></p>
                            <% end %>
                            <% if coupon_code_discount %>
                            <p class="footer-discount"><strong><%= coupon_code_discount %></strong></p>
                            <% end %>
-                           <p class="footer-total"><strong><%= final_price %></strong></p>
+                           <p class="footer-total"><strong><%= final_price.gsub('$', '') %></strong></p>
                            <% if show_multi_currecies %>
                            <p class="footer-total"><strong><%= final_price_exchange %></strong></p>
                            <% end %>
-                           <p>&nbsp;</p>
-                           <span>&nbsp;</span>
-                       
-            
+                           
                         </td>
                      </tr>
                   </tbody>
                </table>
+               <tr>
+                  <p style ="font-size: 14pt; font-weight:bold;text-align: right;width: auto;padding-top:10pt;"><%= @object.company&.background_info if @object.company %></p>
+                 <p style ="font-size: 9pt;text-align: right;width: auto;color: #6d6a6a;padding-top:10pt;border-bottom: 2px solid #e3e3e3;padding-bottom:5pt;">
+                <% if use_tax_codes? %>        
+                  <% tax_totals_table.each do |k, value| %>
+                  <%= value[:name] %>              
+                  <% end %>
+                <% end %></p>
+               </tr>
             </div>
-            <div class="clearfix"></div>
-         </div>
-         <div class="section">
-            <div class="footer-bottom-left">
+         <div class="footer-bottom-left">
                <div class="terms-text">
                   <%= terms_conditions %>
                </div>
             </div>
             <div class="clearfix"></div>
          </div>
+     
          <% if show_discounts %>
          <div>
             <table class="discount-table">
@@ -478,6 +478,7 @@
          </div>
          <% end %>
       </div>
+ </div>
    </body>
 </html>
 

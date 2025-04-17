@@ -52,8 +52,10 @@
                      <div class="box box--default box--border">
                         <div class="box__title">
                            <p><%= company_name %></p>
-                           <% if print_line_item_in_job_pdf %>
-                           <%= line_item_number_position %>
+                           <% if order_number %>
+                             <p>
+                               <strong><%= order_type %># <%= order_number %></strong><br>
+                               </p>
                            <% end %>
                         </div>
                         <div class="box__content">
@@ -340,7 +342,7 @@
             </div>
          </div>
          <div class="col-16">                  
-            <img src="https://assets.shopvox.com/accounts/41a6a0db-2d65-4cb1-bd7a-23ea006a65f1/custom_pdfs/jobticket_sv.svg">                 
+            <img src="https://assets.shopvox.com/accounts/41a6a0db-2d65-4cb1-bd7a-23ea006a65f1/custom_pdfs/jobticket_sv.svg">               
          </div>
       </div>
    </body>

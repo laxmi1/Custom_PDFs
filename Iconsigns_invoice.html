@@ -154,20 +154,23 @@
 </div>
 
 <table class="invoice">
-  <tr><td align="left">
+  <tr>
+<td align="left">
    <h2 class="black-bar">Invoice</h2>
    </td>
    <td class="store-address <%= "stamp-container" if is_paid? %>" valign="top">
       <% if is_paid? %>
           <p class="stamp">
-            <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
+            <image src="https://cdn.filestackcontent.com/3Grjs4IfQ0mlA4LCRFJj" alt="Paid"/>
           </p>
         <% end %>
    </td>
-   <td align="right">
+<td><h1><small><%= name %></small></h1></td>
+   <td align="right" style="padding-right: 70pt;">
      <h3>#<%=txn_number_only%></h3>
      <h4><%= invoice_date %></h4>
-   </td></tr>
+   </td>
+  </tr>
 </table>
 
 <div class="address-logo">
@@ -554,9 +557,9 @@
     </div>
   <% end %>
 <table class="thanku">
-  <tr><td class="appreciate"><h3>Thank you! We appreciate your business.</h3></td><td class="company" align="right"><h3>www.iconsign.company</h3></td></tr>
+  <tr><td class="appreciate"><h3>Thank you! We appreciate your business.</h3></td><td class="company" align="center"><h3>www.iconsigncompany.com</h3></td></tr>
 </table>
- 
+
 </div>
 </body>
 </html>

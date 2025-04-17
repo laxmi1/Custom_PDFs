@@ -7,6 +7,9 @@
          }
          <%= page_size %>
          <%= body_font_family %>
+         h1 small {
+         font-size: 15px;
+         }
          .address-logo {
          padding: 10pt 35pt 5pt 35pt;
          border-bottom: 2px solid #e3e3e3;
@@ -20,6 +23,7 @@
          .addresses .address.left .title {
          text-align: left;
          padding-top: 5pt;
+         font-weight: bold;
          }
          .section {
          border-top: 1px solid #e3e3e3;
@@ -37,6 +41,7 @@
          width: 100%;
          float: left;
          text-align: justify;
+         padding-top: 20pt;
          }
          .terms{
          text-align:left;
@@ -69,12 +74,15 @@
          <table>
             <tr>
                <td class="store-address">
-                  <p><%= store_name %></p>
-        <%if store_address_street%><p><%= store_address_street %><%end%>
-        <%if store_address_street1%><%= store_address_street1 %><%end%>
-        <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <p><%= store_address_state%><%end%>
-        <%if store_address_zip %> <%= store_address_zip%></p><%end%>
-<% if store_phone%><p><%=store_phone%></p><%end%>
+                <p><%= store_name %></p>
+                <%if store_address_street%><p><%= store_address_street %><%end%>
+                <%if store_address_street1%><%= store_address_street1 %><%end%>
+                <%if store_address_city%><%= store_address_city %>,<%end%> <%if store_address_state %> <p><%= store_address_state%><%end%>
+                <%if store_address_zip %> <%= store_address_zip%></p><%end%>
+                <% if store_phone%><p><%=store_phone%></p><%end%>
+                 <% if @object.account.website %> 
+                     <p><%= @object.account.website %></p>
+                     <%end%>
                </td>
                <td class="store-logo">
                   <img class="logo" src="<%= logo %>">
@@ -87,16 +95,15 @@
             <tr>
                <td class="summ left">
                   <div class="summary-wrapper">
-                     <h1 class="main-title">PURCHASE ORDER <br/>
-                        <small><%= @object.prev_related_transactions.filter { _1.sink_type == 'WorkOrder' }.map { "SO##{_1.sink&.txn_number}" }.join(', ') %> | <%= name %></small>
-                     </h1>
+                     <h1 class="main-title">PURCHASE ORDER</h1><br/>
+                         <h1 class="main-title"><%= purchase_order_number %> | <small><%= name %></small> <h1/>
                   </div>
                </td>
                <td class="summ right">
                   <div class="summary-wrapper">
                      <p style="padding-top: 5pt;">HST/GST #: R-104288634</p>
-                     <h1 class="main-title" style="padding-top: 15pt;">
-                     <%= purchase_order_number %> 
+                     <h1 class="main-title" style="padding-top: 5pt;">                    
+                      <small><%= @object.prev_related_transactions.filter { _1.sink_type == 'WorkOrder' }.map { "SO##{_1.sink&.txn_number}" }.join(', ') %> </small>
                      <h1/>
                   </div>
                </td>
@@ -109,29 +116,20 @@
                <td class="address left">
                   <div class="address-wrapper">
                      <p class="title">VENDOR</p>
+                    <p><strong><%= sold_to %></strong></p>
+                    <% unless vendor_address.blank?%>
                      <p><b><%= vendor_address %><b></p>
+                     <% end %>
+                     <% unless contact_information.blank?%>
                      <p class="title">VENDOR CONTACT INFO</p>
                      <p><%= contact_information %></p>
+                     <% end %>                     
                      <p class="title">BILLING ADDRESS</p>
-                     <p><%= vendor_address %></p>
-                     <p class="title"><%= contact_information_header %></p>
-                     <p><%= contact_information %></p>
-                  </div>
-               </td>
-               <td class="address left">
-                  <div class="address-wrapper">
-                     <% if term_code %>
-                     <p class="title"><%= term_code_header %></p>
-                     <p><%= term_code %></p>
-                     <% end %>
-                     <% if payment_method %>
-                     <p class="title"><%= payment_method_header %></p>
-                     <p><%= payment_method %></p>
-                     <% end %>
-                     <%if @object.special_notes and not @object.special_notes.blank?%>
-                     <p class="title">Special notes</p>
-                     <p><%= @object.special_notes %></p>
-                     <% end %>
+                     <p><%= @object.vendor.billing_address&.street %>
+                     <%= @object.vendor.billing_address&.street1 %></p>
+                     <p><%= @object.vendor.billing_address&.city %>,
+                     <%= @object.vendor.billing_address&.state %> 
+                     <%= @object.vendor.billing_address&.zip %> </p>                     
                   </div>
                </td>
                <td class="address left">
@@ -140,15 +138,31 @@
                      <p><%= po_date %></p>
                      <p class="title">PO CREATED BY</p>
                      <p><%= created_by_information[:all] %></p>
+                     <% unless expected_delivery_date.blank?%>
                      <p class="title"><%= expected_delivery_date_header %></p>
                      <p><%= expected_delivery_date %></p>
+                     <% end %>
+                     <% if term_code %>
+                     <p class="title"><%= term_code_header %></p>
+                     <p><%= term_code %></p>
+                     <% end %>
+                     <% if payment_method %>
+                     <p class="title"><%= payment_method_header %></p>
+                     <p><%= payment_method %></p>
+                     <% end %>
+                     <% unless contact_information.blank?%>
+                     <p class="title"><%= contact_information_header %></p>
+                     <p><%= contact_information %></p>
+                     <% end %>
                   </div>
                </td>
                <td class="address left">
                   <div class="address-wrapper">
                      <% if account.current_plan.new_pro? || account.current_plan.pro? %>
+                     <% unless ship_date.blank?%>
                      <p class="title"><%= ship_date_header %></p>
                      <p><%= ship_date %></p>
+                     <% end %>
                      <% end %>
                      <% if drop_ship_to.present? || shipping_information.present?  %>
                      <p class="title"><%= shipping_information_header %></p>
@@ -159,6 +173,10 @@
                      <% end %>
                      <p><%= shipping_information %></p>
                      <% end %>
+                     <%if @object.special_notes and not @object.special_notes.blank?%>
+                     <p class="title">Special notes</p>
+                     <p><%= @object.special_notes %></p>
+                     <% end %>
                   </div>
                </td>
             </tr>
@@ -168,12 +186,14 @@
       <div class="description_area">
          <table>
             <tr>
+               <% unless description.blank?%>
                <td class="header">
                   <%= about_this_po_header %>:
                </td>
                <td class="description">
                   <%= description %>
                </td>
+                <% end %>
             </tr>
          </table>
       </div>
@@ -197,7 +217,7 @@
                   <th class="quantity" colspan="0">UNITS</th>
                   <th class="money">UNIT PRICE</th>
                   <th class="money">
-                  <div class="last"><%= total_excl_header %></div>
+                  <div class="last">TOTAL</div>
                   </th>
                </tr>
             </thead>

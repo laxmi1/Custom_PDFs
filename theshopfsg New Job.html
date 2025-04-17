@@ -68,11 +68,10 @@
           <div class="box box--default box--border box--sm">
             <div class="box__content">
               <table class="table table--list text--sm">
-                <tbody>
-               
+                <tbody>               
                   <tr>
-                    <td>Due:</td>
-                    <td><strong style="font-size:12pt;"><%= due_date %></strong></td>
+                    <td><strong style="font-size:10pt; color:red;">Production Date:</strong></td>
+                    <td><strong style="font-size:12pt; color:red;"><%= production_due_date %></strong></td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>
@@ -84,15 +83,10 @@
                         <strong style="font-size:12pt;"><%= related_quotes %></strong>
                       <% end %>
                     </td>
-                  </tr>
-             
+                  </tr>             
                 <tr>
                   <td><%= sales_rep_header %>:</td>
                   <td><strong><%= sales_rep_name %></strong></td>
-                </tr>
-                <tr>
-                  <td>Production Date:</td>
-                  <td><strong><%= production_due_date %></strong></td>
                 </tr>
                 </tbody>
               </table>
@@ -115,6 +109,7 @@
               <p>
                 <%= description %>
               </p>
+<%= job_panel_items_table %>
             </div>
           </div>
         </div>
