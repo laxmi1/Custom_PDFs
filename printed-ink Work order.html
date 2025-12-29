@@ -3,165 +3,158 @@
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
          <%= body_font_family %>
-         <%= page_size %>
-         .address-logo {
-         padding: 5pt 35pt 2pt 35pt;
-         border-bottom: 2px solid #e3e3e3;
-         }
-
-         .address-logo .store-address {
-         text-align: left;
-         vertical-align: top;
-         font-size: 10pt;
-         }
-         .address-logo .store-logo .logo,
-         img.logo {
-           max-width: 300px;
-           max-height: 150px;
-           margin-top: -23pt;
-         }
-
-         @page {
-         margin: 260pt 0  10px 0;
-         @top { content: flow(header); 
-         }
-         @top-left {
-         content: " ";
-         }
-         }
-
-         #header {      
-         position:relative;  
-         padding: 10pt 0pt 0pt 0pt;
-         flow: static(header);  
-         }
-
-         @page{
+         @page { size: A4 landscape }
+         @page :first {
          @top-left { content: none }
          }
-
+         @page {
+         margin: 165pt 0 5pt 0;
+         }
+         @page {
+         @top {
+         content: flow(header);
+         }
+         }
+         #header {
+         position: relative;
+         flow: static(header);
+         }
+         @page {
+         @top-left {
+         content: string(doc_header);
+         padding: 10pt 0pt 10pt 0pt;
+         }
+         @bottom-right {
+         content: counter(page) '/' counter(pages);
+         font-size: 9pt;
+         font-weight: bold;
+         padding-right: 10pt;
+         padding-bottom: 4pt;
+         }
+         }
+         h1 {
+         font-size: 31pt;
+         margin: 5pt 0;
+         font-weight: normal;
+         }
+         h1 small {
+         font-size: 20pt;
+         }
+         .address-logo {
+         padding: 10pt 25pt 2pt 25pt;
+         border-bottom: 0px solid #A9A9A9;
+         }
          .summary {
          margin: 0pt;
-         padding: 5pt 35pt;
-         border-bottom: 0px solid #e3e3e3;
+         padding: 2pt 25pt 5pt 35pt;
+         border-bottom: 2px solid #A9A9A9;
          background: transparent;
-         font-size: 10pt;
          }
-
-         .summary .summ.right .summary-wrapper {
-         border-right: 0px solid #e3e3e3;
-         text-align: right;
-         padding-right: 5pt;
+         .addresses {
+         padding: 3pt 25pt;
+         border-bottom: 2px solid #A9A9A9;
          }
-
-         .summary .summ .title {
-         text-transform: uppercase;
-         margin-top: 4pt;
-         font-size: 10pt;
-         color: #6d6a6a;
-         }
-
-         addresses {
-         padding: 6pt 35pt;
-         border-bottom: 0px solid #e3e3e3;
-         }
-
-
-         .addresses .address {
-         vertical-align: top;
-         font-size: 10pt;
-         }
-
          .addresses .address .title {
          text-transform: uppercase;
-         margin-top: 0pt;
-         font-size: 10pt;
-         color: #6d6a6a;
+         font-weight: bold;
+         margin-top: 5pt;
+         font-size: 14px;
+         color: #000080;
          }
-
          .addresses .address.left .address-wrapper {
-         border-left: 0px solid #e3e3e3;
+         border-left: 0px solid #A9A9A9;
          text-align: left;
-         padding-left: 0pt;
+         padding-left: 10pt;
+         font-size: 10pt;
          }
-
          .addresses .address.right .address-wrapper {
-         border-right: 0px solid #e3e3e3;
+         border-right: 0px solid #A9A9A9;
          text-align: right;
-         padding-right: 0pt;
+         padding-right: 1pt;
+         font-size: 10pt;
          }
-
-         .line-items {
-         margin-top: 2pt;
+         .line-items .name {
+         text-align: left;
+         font-size: 14pt;
+         font-weight: bold;
          }
-
          .line-items thead th {
-         font-size: 9pt;
+         font-size: 12pt;
          text-transform: uppercase;
-         color: #999999;
+         color: #000080;
+         font-weight: bold;
          padding: 5pt 5pt;
          }
-
          .line-items .description {
-         font-size: 10.9pt;
-         padding: 0 6pt 1pt 5pt;
+         font-size: 10pt;
+         padding: 0 35pt 5pt 5pt;
          }
-
+         .li-desc-fixed-width {
+         max-width: 250pt;
+         }
+         .line-items .first {
+         padding-left: 35pt;
+         font-size: 12pt;
+         }
+         .line-items .last {
+         padding-right: 35pt;
+         font-size: 12pt;
+         }
+         .line-items tbody tr:first-child td {
+         border-top: 2px solid #A9A9A9;
+         padding-top: 5pt;
+         }
          .bom_report_detail {
          list-style-type: none;
          margin: 0;
          padding: 0;
-         font-weight: none;
-         font-size: 10.9pt;
+         font-weight: normal;
+         font-size: 12pt;
+         }
+         .job-attributes {
+         float: left;
+         width: 95%;
+         padding 10pt 0pt;
+         }
+         .proof {
+          width: 100%;
+         max-width: 600px;
+         margin: 0;
+         margin-bottom: 4pt;
+         border: none;
+       
          }
 
-         .bom_report_detail > li.bom_report_first {
-         font-size:10.9pt;
+         .proof-img-wrapper {
+        border: 2px solid #A9A9A9;
+         padding: 30px  30px;
+         display: flex;
+         justify-content: center;
          }
 
-         .line-items .position{
-         font-size: 10.8pt;
+         .proof img {
+         max-width: 100%;
+         }
+         .proof .head {
+         padding: 10px;
+         font-size: 12pt;
          }
 
-         .line-items .quantity{
-         font-size: 10.8pt;
-         }
-
-         .line-items .name{
-         font-size: 10.8pt;  
-         }
-
-         .line-items .state{
-         font-size: 10.8pt;      
-         }
-
-         .line-items .first {
-         padding-left: 36pt;
-         }
-
-         .line-items .last {
-         padding-right: 36pt;
-         }
-         
       </style>
    </head>
    <body>
-      <div style="display:none" class="document-header">
-         <%= header_text %>
-      </div>
-      <div style="display:none" class="document-footer">
-         <%= footer_text %>
-      </div>
       <div id="header">
+         <div style="display:none" class="document-header">
+         </div>
+         <div style="display:none" class="document-footer">
+         </div>
          <div class="address-logo">
             <% if show_address_logo_on_work_order %>
             <table>
                <tr>
                   <td class="store-address">
-                     <%= store_address(show_tax_id: false) %>
                   </td>
                   <td class="store-logo">
-                     <img class="logo" src="<%= logo %>">
                   </td>
                </tr>
             </table>
@@ -172,9 +165,10 @@
                <tr>
                   <td class="summ left">
                      <div class="summary-wrapper">
-                        <h1 class="main-title"><%= work_order_number %> <br/>
-                           <small><%= name %></small>
+                        <h1 class="main-title"><%= name %> <br/>
+                           <small style="color: #000080;"><%= sold_to %></small> 
                         </h1>
+                        <p style="font-size: 10pt;"><span style="color: #000080;font-size: 10pt;">Customer PO# </span><%= po_number %></p>
                         <% if project_number %>
                         <p class="title"><%= project_header %></p>
                         <p><%= project_number %></p>
@@ -182,68 +176,12 @@
                      </div>
                   </td>
                   <td class="summ right">
-                     <div class="summary-wrapper">
-                        <p class="title"><%= sales_rep_information_header %></p>
-                        <p><%= sales_rep_information %></p>
-                     </div>
-                     <% if quote_information %>
-                     <div class="summary-wrapper">
-                        <p class="title"><%= quote_information_header %></p>
-                        <p><%= quote_information %></p>
-                     </div>
-                     <% end %>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <p class="title"><%= work_order_date_header %></p>
-                        <p><%= work_order_date %></p>
+                     <div class="summary-wrapper" style="border-right: 0px solid #A9A9A9; padding-right: -30pt;">
                         <% if due_date %>
-                        <p class="title"><%= due_date_header %></p>
-                        <p><%= due_date %></p>
+                        <p style="font-size: 24pt;"><%= due_date %></p>
+                        <p class="title" style="font-size: 15pt;color: #000080;"><%= due_date_header %></p>
                         <% end %>
                      </div>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <% if term_code %>
-                        <p class="title"><%= term_code_header %></p>
-                        <p><%= term_code %></p>
-                        <% end %>
-                        <% if ship_date %>
-                        <p class="title"><%= shipping_date_header %></p>
-                        <p><%= ship_date %></p>
-                        <% end %>
-                        <% if hard_due_date %>
-                        <p class="title"><%= hard_due_date_header %></p>
-                        <p><%= hard_due_date %></p>
-                        <% end %>
-                        <% if install_date %>
-                        <p class="title"><%= install_date_header %></p>
-                        <p><%= install_date %></p>
-                        <% end %>
-                        <% if shipping_method %>
-                        <p class="title"><%= shipping_method_header %></p>
-                        <p><%= shipping_method %></p>
-                        <% end %>
-                        <% if has_rush_job? %>
-                  <td class="title" >
-                  <span style="size:13px;color:red;"><b>Rush</b></span>
-                  </td>
-                  <% end %>
-                  </div>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <% if po_number %>
-                        <p class="title"><%= customer_po_header %></p>
-                        <p><%= po_number %></p>
-                        <% end %>
-                        <% if po_date %>
-                        <p class="title"><%= po_date_header %></p>
-                        <p><%= po_date %></p>
-                        <% end %>
-                     </div>
-                     <br/>
                   </td>
                </tr>
             </table>
@@ -252,10 +190,17 @@
             <table>
                <tr>
                   <td class="address left">
+                     <div class="address-wrapper" style="border-left: 0px solid #A9A9A9;padding-left: -10pt;">
+                        <p class="title"><%= contact_information_header %></p>
+                        <p><%= contact_information %></p>
+                     </div>
+                  </td>
+                  <td class="address left">
                      <div class="address-wrapper">
-                        <p class="title"><%= ordered_by_header %></p>
-                        <p><%= sold_to %></p>
-                        <%= billing_information %>
+                        <% if shipping_method %>
+                        <p class="title" ><%= shipping_method_header %></p>
+                        <p><%= shipping_method %></p>
+                        <% end %>
                      </div>
                   </td>
                   <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? || (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
@@ -273,8 +218,17 @@
                         <%= shipping_tracking %>
                         <% end %>
                      </div>
-                     <% end %>
-                     <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+                  </td>
+                  <% end %>
+                  <td class="address left">
+                     <div class="address-wrapper">
+                        <% if ship_date %>
+                        <p class="title" style="color: #32CD32;"><%= shipping_date_header %></p>
+                        <p style="color: #32CD32;"><%= ship_date %></p>
+                        <% end %>
+                     </div>
+                  </td>
+                  <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
                   <td class="address left">
                      <div class="address-wrapper">
                         <p class="title"><%= installing_information_header %></p>
@@ -282,57 +236,23 @@
                      </div>
                   </td>
                   <% end %>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= contact_information_header %></p>
-                        <p><%= contact_information %></p>
-                     </div>
-                  </td>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= production_manager_header %></p>
-                        <p><%= production_manager_name %></p>
-                     </div>
-                  </td>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= project_manager_header %></p>
-                        <p><%= project_manager_name %></p>
-                     </div>
-                  </td>
                </tr>
             </table>
          </div>
-         <% if show_about_this_desc and description.present? %>
-         <div class="description_area">
-            <table>
-               <tr>
-                  <td class="header">
-                     <%= about_this_wo_header %>:
-                  </td>
-                  <td class="description">
-                     <%= description %>
-                  </td>
-               </tr>
-            </table>
-         </div>
-         <% end %>
       </div>
       <div class="line-items">
-         <!--<h2 class="title"><%= items_header %></h2>-->
+         <!--<h2 class="title" ><%= items_header %></h2>-->
          <table>
             <thead>
                <tr>
                   <th class="position">
                      <div class="first">#</div>
                   </th>
-                  <th class="name"><%= item_header %></th>
-                  <th class="state"><%= state_header %></th>
-                  <th class="quantity"><%= qty_header %></th>
-                  <th class="quantity"><%= uom_header %></th>
-                  <th class="quantity">
-                     <div class="last"><%= taxable_header %></div>
-                  </th>
+                  <th class="name" style="font-size: 12pt;"><%= item_header %></th>
+                  <th class="state"></th>
+        <th class="quantity">
+          <div class="last" style="font-size: 12pt;"><%= qty_header %></div>
+        </th>
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
@@ -343,18 +263,16 @@
                         <%= index + 1 %>
                      </div>
                   </td>
-                  <td class="name">
+                  <td class="name" style="font-size: 14pt;">
                      <%= item.name %><br>
                      <div class="title-dates">
                         <%= item.job_art_due_date %>
                      </div>
                   </td>
-                  <td class="state"><%= item.state_wo_in %></td>
-                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity"><%= item.uom %></td>
-                  <td class="quantity">
-                     <div class="last"><%= item.taxable %></div>
-                  </td>
+                  <td class="state"></td>
+<td class="quantity">
+              <div class="last"><strong style="font-size: 12pt;"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></strong></div>
+            </td>
                </tr>
                <tr>
                   <td class="description">
@@ -404,11 +322,10 @@
                                        %>
                                     <%
                                        apparel_processed_items[''] ||= []
-                                       apparel_processed_items[''] += nonapparel_processed_items
                                        %>
                                     <% apparel_processed_items.each do |_, lis| %>
                                     <% next if lis.empty? %>
-                                    <% show_box = lis.first.is_a?(Hash) && lis.first[:item_type] == 'Material' && lis.first[:sub_items].present? %>
+                                    <% show_box = lis.first.is_a?(Hash) && lis.first[:item_type] == 'Material' && lis.first[:sub_items].present? && !lis.first[:as_dropdown]  %>
                                     <% if show_box %>
                                     <div class="bom_report pricing-items-block">
                                        <% end %>
@@ -421,6 +338,17 @@
                                           <% if li[:name] != current_name %>
                                           <%= "#{li[:name]} #{li[:quantity].to_f.round(2)} #{li[:units]}<br>" %>
                                           <% end %>
+                                          <% if li[:as_dropdown] &&  li[:sub_items].present? %>
+                                          <% li[:sub_items].each do |sub_item| %>
+                                          <% if sub_item[:item_attr_name1].present? %>
+                                          <%= "&nbsp;&nbsp;#{sub_item[:quantity]} #{sub_item[:item_attr_name1]}: #{sub_item[:item_attr1]}" %>
+                                          <% end %>
+                                          <% if sub_item[:item_attr_name2].present? %>
+                                          <%= "&nbsp;&nbsp;#{sub_item[:item_attr_name2]}: #{sub_item[:item_attr2]} <br>" %>
+                                          <% end %>
+                                          <%end%>
+                                          <%end%>
+                                          <% if !li[:as_dropdown]%>
                                           <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
                                           <% if li[:item_attr_name1].present? %>
                                           <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %>
@@ -428,7 +356,9 @@
                                           <% if li[:item_attr_name2].present? %>
                                           <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %>
                                           <% end %>
+                                          <% end %>
                                           <% if li[:sub_items] %>
+                                          <% next if li[:as_dropdown]%>
                                           <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
                                           <table class='li-table-view-container'>
                                              <tr>
@@ -460,6 +390,67 @@
                                        <% end %>
                                        <% if show_box %>
                                     </div>
+                                    <% end %>
+                                    <% end %>
+                                    <% if nonapparel_processed_items.present? %>
+                                    <% nonapparel_processed_items.each do |lis| %>
+                                    <% lis = Array.wrap(lis) %>
+                                    <% lis.each do |li| %>
+                                    <div class="padding">
+                                       <% if li.is_a?(Hash) %>
+                                       <% if li[:item_type] != "Material" %>
+                                       <%= li[:category] if li[:category] %>
+                                       <% end %>
+                                       <%= "#{li[:name]} #{li[:quantity].to_f.round(2)} #{li[:units]}<br>" %>
+                                       <% if li[:as_dropdown] &&  li[:sub_items].present? %>
+                                       <% li[:sub_items].each do |sub_item| %>
+                                       <% if sub_item[:item_attr_name1].present? %>
+                                       <%= "&nbsp;&nbsp;#{sub_item[:quantity]} #{sub_item[:item_attr_name1]}: #{sub_item[:item_attr1]}" %>
+                                       <% end %>
+                                       <% if sub_item[:item_attr_name2].present? %>
+                                       <%= "&nbsp;&nbsp;#{sub_item[:item_attr_name2]}: #{sub_item[:item_attr2]} <br>" %>
+                                       <% end %>
+                                       <%end%>
+                                       <%end%>
+                                       <% if !li[:as_dropdown]%>
+                                       <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
+                                       <% if li[:item_attr_name1].present? %>
+                                       <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %>
+                                       <% end %>
+                                       <% if li[:item_attr_name2].present? %>
+                                       <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %>
+                                       <% end %>
+                                       <% end %>
+                                       <% if li[:sub_items] %>
+                                       <% next if li[:as_dropdown]%>
+                                       <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                       <table class='li-table-view-container'>
+                                          <tr>
+                                             <td class='li-table-view-name'>
+                                                <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                             </td>
+                                             <td>
+                                                <table class='li-table-view'>
+                                                   <tr>
+                                                      <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                   </tr>
+                                                   <tr>
+                                                      <%= sub_item[1].map{|col| "<td>#{col[:quantity].to_i}</td>"}.join %>
+                                                   </tr>
+                                                </table>
+                                             </td>
+                                          </tr>
+                                       </table>
+                                       <% end %>
+                                       <% end %>
+                                       <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                       <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image">
+                                       <% end %>
+                                       <% else %>
+                                       <%= li %>
+                                       <% end %>
+                                    </div>
+                                    <% end %>
                                     <% end %>
                                     <% end %>
                                  </div>
@@ -501,7 +492,6 @@
                         </ul>
                         <% end %>
                         <% end %>
-                        
                      </div>
                      <% if item.panel_description_enabled? %>
                      <div>
@@ -539,61 +529,31 @@
                      <img src="<%= item.product_image %>" class="line-item-description-image">
                      <% end %>
                   </td>
-
-<td colspan="4" style="vertical-align: bottom; transform: scale(1.4); padding-bottom: 9%;"><img src="http://assets.shopvox.com/accounts/f9b84aff-9d0a-4984-882a-ce2926666137/custom_pdfs/pre_production_checklist.svg" width="360"; height="auto";></td>
-                  <td colspan="3">
+                  <td colspan="4">
                      <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
                      <% @proofs_job_ids << item.job.id %>
                      <div class="job-attributes">
                         <div class="proof">
-                           <div class="head">
-                              <%= item.job.proof_head %><br>
-                              <%= "#{due_date_header}: #{item.job.due_date}" %>
-                           </div>
-                           <div class="image">
-                              <img class="proof small" src="<%= item.job.proof_image(300) %>">
-                           </div>
+<div class="proof-img-wrapper">
+                              <img src="<%= item.job.proof_image(600) %>"  height="330">
+</div>
+                       
+                        <div class="head">
+                           <%= item.job.proof_head %><br>
+                           <%= "#{due_date_header}: #{item.job.due_date}" %></br>
+                           <p style="padding-top: 8px;"><%= work_order_number %>  &nbsp;&nbsp;&nbsp;<span style="color: #000080;"><%= work_order_date_header %></span>: <%= work_order_date %></p>
                         </div>
                      </div>
-                     <% end %>                     
-                  </td>
-               </tr>
-               <% if item.job.present? and show_workflow_steps? %>
-               <tr>
-                  <td colspan="5">
-                     <div class="stages">
-                        <% item.job.stages.each do |stage| %>
-                        <div class="stage">
-                           <div class="stage-title"><%= "#{translate_word(stage.header, 'pdfs.job.stages')}"  %></div>
-                           <div class="stage-wrapper clearfix">
-                              <% stage.steps.each do |step| %>
-                              <% if !step.skip %>
-                              <div class="step <%= step.state %>">
-                                 <div class="step-info clearfix">
-                                    <div class="name"><%= "#{translate_word(step.name, 'pdfs.job.steps')}"  %></div>
-                                    <div class="number"><%= step.num_iterations %></div>
-                                 </div>
-                                 <% unless step.assigned_to_user_initials.blank? %>
-                                 <div class="estimated-time"><%= step.assigned_to_user_initials %> <strong><%= step.estimated_user_time %>min</strong></div>
-                                 <% end %>
-                                 <% unless step.scheduled_machine_name.blank? %>
-                                 <div class="estimated-time"><%= step.scheduled_machine_name %> <strong><%= step.estimated_machine_time %>min</strong></div>
-                                 <% end %>
-                              </div>
-                              <% end %>
-                              <% end %>
-                           </div>
-                        </div>
-                        <% end %>
-                     </div>
-                  </td>
-               </tr>
-               <% end %>
-            </tbody>
-            <% end %>
-            <tfoot class="no-page-break">
-            </tfoot>
-         </table>
+ </div>
+      </div>
+      <% end %>
+      </td>
+      </tr>
+      </tbody>
+      <% end %>
+      <tfoot class="no-page-break">
+      </tfoot>
+      </table>
       </div>
       <% if customer_note.present? %>
       <div class="note">
@@ -611,5 +571,37 @@
          </table>
       </div>
       <% end %>
+      <% if internal_note.present? %>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <td><%= internal_note_header %></td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><%= internal_note %></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
+      <% if cover_note.present? %>
+      <div class="note">
+         <table class="no-page-break">
+            <thead>
+               <tr>
+                  <th><%= cover_note_header %></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><%= cover_note %></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <% end %>
    </body>
-</html>
+   </html>

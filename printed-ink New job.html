@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Job PDF</title>
+      <style>
+         @page {
+         size: 8.5in 11in;
+         }
+         .job-section {
+          margin: 0.7em 0;
+          }
+
+         .job-pdf__info{
+         padding-bottom: 10pt;
+         border-bottom: 2px solid #c2c2c2;
+         }
+         
+         .job-pdf__info-title {
+         line-height: 1.2;
+         margin: 0;
+         font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="job-pdf" id="page-job-new">
+         <!-- INFO -->
+         <div class="job-section job-pdf__info">
+            <div class="container">
+               <div class="row">
+                  <div class="col-8">
+                     <h1 class="job-pdf__info-title">
+                        <%= title %><br>
+                        <% if re_design? %>
+                        <span class="job-virtual-step">Re-Design</span>
+                        <% end %>
+                     </h1>
+                  </div>
+                  <div class="col-4">
+                     <h1 class="job-pdf__info-title" style="text-align: right;"><%= due_header %>: <strong><%= due_date %></strong></h1>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- RUSH -->
+         <% if job_rush %>
+         <div class="job-section job-section--mb-none">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <p class="job-rush"><%= job_rush_text %></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <div class="job-section job-pdf__info" style="border-bottom: 0px solid #c2c2c2;">
+            <div class="container">
+               <div class="row">
+                  <div class="col-8">
+                     <h1 class="job-pdf__info-title">
+                        <%= company_name %><br/>
+                        <%if @object.contact.name %><%= @object.contact.name %><%end%>
+                     </h1>
+                  </div>
+                  <div class="col-4">
+                     <h1 class="job-pdf__info-title" style="text-align: right;"><% if print_line_item_in_job_pdf %>
+                        <%= line_item_number_position %>
+                        <% end %><br/>
+                        <% if order_number %><%= order_type %># <%= order_number %><% end %>               
+                     </h1>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- COMPANY -->
+         <div class="job-section job-pdf__company">
+            <div class="container">
+               <div class="row">
+                  <div class="col-6">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= job_description_header %>:</div>
+                        <div class="box__content">
+                           <p>
+                              <%= description %>
+                           </p>
+                           <%= job_panel_items_table %>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <% if pa_items.size > 0 %>
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= item_attributes_header %></div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= pa_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <% end %></br>
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= other_details_header %>:</div>
+                        <div class="box__content">
+                           <div class="row">
+                              <div class="col-4">
+                                 <p><%= qty_header %>:</p>
+                              </div>
+                              <div class="col-8">
+                                 <p><strong><%= quantity %></strong></p>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-4">
+                                 <p><%= local_file_header %>:</p>
+                              </div>
+                              <div class="col-8">
+                                 <p><strong><%= local_file_path %></strong></p>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-4">
+                                 <p><%= customer_local_file_header %>:</p>
+                              </div>
+                              <div class="col-8">
+                                 <p><strong><%= customer_local_file_path %></strong></p>
+                              </div>
+                           </div>
+                           <% if @object.color %>
+                           <div class="row">
+                              <div class="col-4">
+                                 <p><%= color %>:</p>
+                              </div>
+                              <div class="col-8">
+                                 <div style="background-color: <%= @object.color %>; width: 8px; height: 8px; border-radius: 8px"></div>
+                              </div>
+                           </div>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-2">
+                     <div class="box box--default box--border">
+                        <div class="box__content">
+                           <div class="qr qr--default">
+                              <div class="qr__code">
+                                 <%= qr_code.as_svg %>
+                              </div>
+                              <div class="qr__status">
+                                 <p>
+                                    <strong><%= status %></strong>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- SHIPPING -->
+         <div class="job-section job-pdf__shipping">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--grey box--border">
+                        <div class="box__content box__content-proof-img text--center">
+                           <div>
+                              <img src="<%= proof_image(500,300) %>">
+                           </div>
+                        </div>
+                        <div>
+                           <%= proof_local_file_path %>
+                        </div>
+                        <div class="box__title">
+                           <%= proof_footer %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- DETAILS -->
+         <!-- BOM -->
+         <% if has_pricing? %>
+         <% if !combined_job? && (vehicle_wrap_html.present? || materials_bom_table(true).present?) %>
+         <div class="job-section job-pdf__bom">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                       
+                        <div class="box__content">
+                           <% if apparel_ui? %>
+                           <%= apparel_item_table %>
+                           <% else %>
+                           <table class="table table--bom">
+                              
+                              <tbody>
+                                 <%= materials_bom_table(true) %>
+                              </tbody>
+                           </table>
+                           <%= vehicle_wrap_html %>
+                           <% end %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% if combined_job? %>
+         <!-- BOM Combine Job -->
+         <div class="job-section job-pdf__bom">
+            <div class="container">
+               <% if apparel_ui? %>
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__title"><%= bom_header %>:</div>
+                        <div class="box__content">
+                           <%= apparel_item_table %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <% end %>
+               <div class="row <%= 'box--margin-top' if apparel_ui? %>">
+                  <div class="col-12">
+                     <div class="box box--white box--no-padding">
+                        <% if !apparel_ui? %>
+                        <div class="box__title"><%= bom_header %>:</div>
+                        <% end %>
+                        <div class="box__content">
+                           <%= bom_combine_job %>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <!-- BOM - OTHERS -->
+         <div class="job-section job-section--custom-fields">
+            <div class="container">
+               <div class="row">
+                  <% if (labor_table != "" || machine_table != "") && !combined_job? %>
+                  <div class="col-12 element--margin-bottom-md">
+                     <div class="box box--white box--no-padding">
+                        <div class="box__content">
+                           <table class="table table--striped">
+                              <tbody>
+                                 <%= labor_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <div class="box box--white box--no-padding">
+                        <div class="box__content">
+                           <table class="table table--striped">
+                              <tbody>
+                                 <%= machine_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <% if custom_field_items.size > 0 %>
+                  <div class="col-12">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <% if order_custom_field_items.size > 0 && order_custom_field_table.present? %>
+                  <div class="col-12">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= order_custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding">
+                              <tbody>
+                                 <%= order_custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+                  <% if master_job_custom_field_items.size > 0 %>
+                  <div class="col-12">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= order_custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border">
+                              <thead>
+                                 <th style='text-align: left;'>LI#</th>
+                                 <th style='text-align: left;'>CO#</th>
+                                 <th style='text-align: left;'>Primary Contact</th>
+                                 <th style='text-align: center;'>Custom fields</th>
+                              </thead>
+                              <tbody>
+                                 <% master_job_custom_field_items.each do |field_item| %>
+                                 <tr>
+                                    <td style='text-align: left;width: 10%'>
+                                       LI#<%= field_item[:line_item].position %>
+                                    </td>
+                                    <td style='text-align: left;width: 20%'>
+                                       <%= field_item[:line_item].transaction.short_name %>
+                                    </td>
+                                    <td style='text-align: left;width: 20%'>
+                                       <%= field_item[:contact].name %>
+                                    </td>
+                                    <td style="text-align: left; width: 50%">
+                                       <table class="table table--list">
+                                          <tbody>
+                                             <% field_item[:custom_fields].each do |custom_field| %>
+                                             <tr>
+                                                <td class="text--nowrap"><%= custom_field[:name] %>:</td>
+                                                <td>
+                                                   <% if custom_field[:type] == 'color' %>
+                                                   <% custom_field[:colors].each do |color| %>
+                                                   <span class="color clearfix">
+                                                   <%= color['name'] %> <span style="background:<%= color['hex'] %>"></span>
+                                                   </span>
+                                                   <% end %>
+                                                   <% else %>
+                                                   <%= custom_field[:values] %>
+                                                   <% end %>
+                                                </td>
+                                             </tr>
+                                             <% end %>
+                                          </tbody>
+                                       </table>
+                                    </td>
+                                 </tr>
+                                 <% end %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+                  <% end %>
+               </div>
+            </div>
+         </div>
+         <% else %>
+         <% if custom_field_items.size > 0 %>
+         <div class="job-section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="box box--white box--border">
+                        <div class="box__title"><%= custom_fields_header %>:</div>
+                        <div class="box__content">
+                           <table class="table table--no-border table--no-padding table--th-text-right">
+                              <tbody>
+                                 <%= custom_field_table %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <% end %>
+         <% end %>
+         <!-- LINE ITEMS - DESCRIPTION -->
+         <!-- LINE ITEMS - LIST -->         
+         <!-- Master job -->      
+         <!-- WORKFLOW -->
+      </div>
+   </body>
+</html>

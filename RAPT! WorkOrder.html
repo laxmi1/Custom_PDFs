@@ -2,145 +2,92 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
       <style>
+         .terms-title *, .terms-text * {
+         font-size:12pt !important;
+         }
+
          <%= body_font_family %>
          <%= page_size %>
+         @page {
+         margin: 15pt 0 35pt 0;
+         }
+
+         @page :first {
+         margin: 0 0 35pt 0;
+         @top-left { content: none }
+         }
+
          .address-logo {
-         padding: 5pt 35pt 2pt 35pt;
+         padding: 30pt 35pt 20pt 35pt;
          border-bottom: 2px solid #e3e3e3;
          }
 
          .address-logo .store-address {
          text-align: left;
          vertical-align: top;
-         font-size: 10pt;
-         }
-         .address-logo .store-logo .logo,
-         img.logo {
-           max-width: 300px;
-           max-height: 150px;
-           margin-top: -23pt;
+         font-size: 17pt;
+         width: 70%;
          }
 
-         @page {
-         margin: 260pt 0  10px 0;
-         @top { content: flow(header); 
-         }
-         @top-left {
-         content: " ";
-         }
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
          }
 
-         #header {      
-         position:relative;  
-         padding: 10pt 0pt 0pt 0pt;
-         flow: static(header);  
+         .description_area {
+         padding: 8pt 5pt 5pt 35pt;
+         border-bottom: 2px solid #e3e3e3;
          }
 
-         @page{
-         @top-left { content: none }
-         }
-
-         .summary {
-         margin: 0pt;
-         padding: 5pt 35pt;
-         border-bottom: 0px solid #e3e3e3;
-         background: transparent;
-         font-size: 10pt;
-         }
-
-         .summary .summ.right .summary-wrapper {
-         border-right: 0px solid #e3e3e3;
-         text-align: right;
-         padding-right: 5pt;
-         }
-
-         .summary .summ .title {
-         text-transform: uppercase;
-         margin-top: 4pt;
-         font-size: 10pt;
+         .stitle{
          color: #6d6a6a;
-         }
-
-         addresses {
-         padding: 6pt 35pt;
-         border-bottom: 0px solid #e3e3e3;
-         }
-
-
-         .addresses .address {
-         vertical-align: top;
-         font-size: 10pt;
-         }
-
-         .addresses .address .title {
-         text-transform: uppercase;
-         margin-top: 0pt;
-         font-size: 10pt;
-         color: #6d6a6a;
-         }
-
-         .addresses .address.left .address-wrapper {
-         border-left: 0px solid #e3e3e3;
          text-align: left;
-         padding-left: 0pt;
+         padding-bottom: 5px;
          }
 
-         .addresses .address.right .address-wrapper {
-         border-right: 0px solid #e3e3e3;
-         text-align: right;
-         padding-right: 0pt;
+         .address.left {
+         text-align: left;
+         width: 60%;
          }
 
          .line-items {
-         margin-top: 2pt;
+         margin-top: 6pt;
+         }
+
+         .line-items .title {
+         color: #999999;
+         margin-top: 7pt;
+         margin-bottom: 0;
          }
 
          .line-items thead th {
-         font-size: 9pt;
+         font-size: 10px;
          text-transform: uppercase;
          color: #999999;
-         padding: 5pt 5pt;
+         padding: 7pt 5pt;
+         }
+
+         .line-items tbody tr td {
+         vertical-align: top;
+         padding: 0 5pt;
+         }
+
+         .line-items tbody tr:first-child td {
+         border-top: 1px solid #e3e3e3;
+         padding-top: 7pt;
+         }
+
+         .line-items tfoot td {
+         border-bottom: 2px solid #e3e3e3;
+         border-top: 2px solid #e3e3e3;
+         background: #f7f7f7;
+         text-align: right;
+         padding: 7pt 5pt;
          }
 
          .line-items .description {
-         font-size: 10.9pt;
-         padding: 0 6pt 1pt 5pt;
-         }
-
-         .bom_report_detail {
-         list-style-type: none;
-         margin: 0;
-         padding: 0;
-         font-weight: none;
-         font-size: 10.9pt;
-         }
-
-         .bom_report_detail > li.bom_report_first {
-         font-size:10.9pt;
-         }
-
-         .line-items .position{
-         font-size: 10.8pt;
-         }
-
-         .line-items .quantity{
-         font-size: 10.8pt;
-         }
-
-         .line-items .name{
-         font-size: 10.8pt;  
-         }
-
-         .line-items .state{
-         font-size: 10.8pt;      
-         }
-
-         .line-items .first {
-         padding-left: 36pt;
-         }
-
-         .line-items .last {
-         padding-right: 36pt;
+         font-size: 12px;
+         padding: 3pt 35pt 6pt 5pt;
          }
          
       </style>
@@ -150,174 +97,112 @@
          <%= header_text %>
       </div>
       <div style="display:none" class="document-footer">
-         <%= footer_text %>
       </div>
-      <div id="header">
-         <div class="address-logo">
-            <% if show_address_logo_on_work_order %>
-            <table>
-               <tr>
-                  <td class="store-address">
-                     <%= store_address(show_tax_id: false) %>
-                  </td>
-                  <td class="store-logo">
-                     <img class="logo" src="<%= logo %>">
-                  </td>
-               </tr>
-            </table>
-            <% end %>
-         </div>
-         <div class="summary">
-            <table>
-               <tr>
-                  <td class="summ left">
-                     <div class="summary-wrapper">
-                        <h1 class="main-title"><%= work_order_number %> <br/>
-                           <small><%= name %></small>
-                        </h1>
-                        <% if project_number %>
-                        <p class="title"><%= project_header %></p>
-                        <p><%= project_number %></p>
-                        <% end %>
-                     </div>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <p class="title"><%= sales_rep_information_header %></p>
-                        <p><%= sales_rep_information %></p>
-                     </div>
-                     <% if quote_information %>
-                     <div class="summary-wrapper">
-                        <p class="title"><%= quote_information_header %></p>
-                        <p><%= quote_information %></p>
-                     </div>
-                     <% end %>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <p class="title"><%= work_order_date_header %></p>
-                        <p><%= work_order_date %></p>
-                        <% if due_date %>
-                        <p class="title"><%= due_date_header %></p>
-                        <p><%= due_date %></p>
-                        <% end %>
-                     </div>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <% if term_code %>
-                        <p class="title"><%= term_code_header %></p>
-                        <p><%= term_code %></p>
-                        <% end %>
-                        <% if ship_date %>
-                        <p class="title"><%= shipping_date_header %></p>
-                        <p><%= ship_date %></p>
-                        <% end %>
-                        <% if hard_due_date %>
-                        <p class="title"><%= hard_due_date_header %></p>
-                        <p><%= hard_due_date %></p>
-                        <% end %>
-                        <% if install_date %>
-                        <p class="title"><%= install_date_header %></p>
-                        <p><%= install_date %></p>
-                        <% end %>
-                        <% if shipping_method %>
-                        <p class="title"><%= shipping_method_header %></p>
-                        <p><%= shipping_method %></p>
-                        <% end %>
-                        <% if has_rush_job? %>
-                  <td class="title" >
-                  <span style="size:13px;color:red;"><b>Rush</b></span>
-                  </td>
-                  <% end %>
-                  </div>
-                  </td>
-                  <td class="summ right">
-                     <div class="summary-wrapper">
-                        <% if po_number %>
-                        <p class="title"><%= customer_po_header %></p>
-                        <p><%= po_number %></p>
-                        <% end %>
-                        <% if po_date %>
-                        <p class="title"><%= po_date_header %></p>
-                        <p><%= po_date %></p>
-                        <% end %>
-                     </div>
-                     <br/>
-                  </td>
-               </tr>
-            </table>
-         </div>
-         <div class="addresses">
-            <table>
-               <tr>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= ordered_by_header %></p>
-                        <p><%= sold_to %></p>
-                        <%= billing_information %>
-                     </div>
-                  </td>
-                  <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? || (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= shipping_information_header %></p>
-                        <% if shipping_address_type != 'DropShip' %>
-                        <%= sold_to(show_company_name = false) %>
-                        <% end %>
-                        <%= shipping_information %>
-                        </p>
-                        <%if shipping_tracking.present? %>
-                        <br/>
-                        <p class="title"><%= shipping_tracking_header%></p>
-                        <%= shipping_tracking %>
-                        <% end %>
-                     </div>
-                     <% end %>
-                     <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= installing_information_header %></p>
-                        <%= installing_information %></p>
-                     </div>
-                  </td>
-                  <% end %>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= contact_information_header %></p>
-                        <p><%= contact_information %></p>
-                     </div>
-                  </td>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= production_manager_header %></p>
-                        <p><%= production_manager_name %></p>
-                     </div>
-                  </td>
-                  <td class="address left">
-                     <div class="address-wrapper">
-                        <p class="title"><%= project_manager_header %></p>
-                        <p><%= project_manager_name %></p>
-                     </div>
-                  </td>
-               </tr>
-            </table>
-         </div>
-         <% if show_about_this_desc and description.present? %>
-         <div class="description_area">
-            <table>
-               <tr>
-                  <td class="header">
-                     <%= about_this_wo_header %>:
-                  </td>
-                  <td class="description">
-                     <%= description %>
-                  </td>
-               </tr>
-            </table>
-         </div>
+      <div class="address-logo">
+         <% if show_address_logo_on_work_order %>
+         <table>
+            <tr>
+               <td class="store-address">
+                  <p class="stitle"> ORDERED BY</p>
+                  <p><%= sold_to %></p>
+               </td>
+               <td class="store-address">
+                  <p class="stitle">CONTACT INFO</p>
+                  <p style="font-size: 16px;"><%= contact_information %></p>
+               </td>
+            </tr>
+         </table>
          <% end %>
       </div>
+      <div class="summary">
+         <table>
+            <tr>
+               <td class="summ left">
+                  <div class="summary-wrapper">
+                     <h1 class="main-title"><%= work_order_number %> <br/>
+                        <small><%= name %></small>
+                     </h1>
+                     <% if project_number %>
+                     <p class="title"><%= project_header %></p>
+                     <p><%= project_number %></p>
+                     <% end %>
+                  </div>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <p class="title"><%= sales_rep_information_header %></p>
+                     <p><%= sales_rep_information %></p>
+                  </div>
+                  <% if quote_information %>
+                  <div class="summary-wrapper">
+                     <p class="title"><%= quote_information_header %></p>
+                     <p><%= quote_information %></p>
+                  </div>
+                  <% end %>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <p class="title"><%= work_order_date_header %></p>
+                     <p><%= work_order_date %></p>
+                  </div>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <% if ship_date %>
+                     <p class="title"><%= shipping_date_header %></p>
+                     <p><%= ship_date %></p>
+                     <% end %>
+                     <% if due_date %>
+                     <p class="title"><%= due_date_header %></p>
+                     <p><%= due_date %></p>
+                     <% end %>
+                     <% if hard_due_date %>
+                     <p class="title"><%= hard_due_date_header %></p>
+                     <p><%= hard_due_date %></p>
+                     <% end %>
+                     <% if install_date %>
+                     <p class="title"><%= install_date_header %></p>
+                     <p><%= install_date %></p>
+                     <% end %>
+                     <% if shipping_method %>
+                     <p class="title"><%= shipping_method_header %></p>
+                     <p><%= shipping_method %></p>
+                     <% end %>
+                     <% if has_rush_job? %>
+               <td class="title" >
+               <span style="size:13px;color:red;"><b>Rush</b></span>
+               </td>
+               <% end %>
+               </div>
+               </td>
+               <td class="summ right">
+                  <div class="summary-wrapper">
+                     <% if po_number %>
+                     <p class="title"><%= customer_po_header %></p>
+                     <p><%= po_number %></p>
+                     <% end %>
+                     <% if po_date %>
+                     <p class="title"><%= po_date_header %></p>
+                     <p><%= po_date %></p>
+                     <% end %>
+                  </div>
+                  <br/>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <% if description.present? %>
+      <div class="description_area">
+         <table>
+            <tr>
+               <p style= "color: #6d6a6a; padding-bottom: 6pt;"><%= about_this_wo_header %>: </p>
+               <td class="description">
+                  <p><%= description %></p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <% end %>
       <div class="line-items">
          <!--<h2 class="title"><%= items_header %></h2>-->
          <table>
@@ -327,16 +212,13 @@
                      <div class="first">#</div>
                   </th>
                   <th class="name"><%= item_header %></th>
-                  <th class="state"><%= state_header %></th>
-                  <th class="quantity"><%= qty_header %></th>
-                  <th class="quantity"><%= uom_header %></th>
                   <th class="quantity">
-                     <div class="last"><%= taxable_header %></div>
+                     <div class="last"><%= qty_header %></div>
                   </th>
                </tr>
             </thead>
             <% items.each_with_index do |item, index| %>
-            <tbody class="no-page-break">
+            <tbody>
                <tr>
                   <td class="position" rowspan="2">
                      <div class="first">
@@ -349,11 +231,8 @@
                         <%= item.job_art_due_date %>
                      </div>
                   </td>
-                  <td class="state"><%= item.state_wo_in %></td>
-                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
-                  <td class="quantity"><%= item.uom %></td>
                   <td class="quantity">
-                     <div class="last"><%= item.taxable %></div>
+                     <div class="last"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></div>
                   </td>
                </tr>
                <tr>
@@ -404,11 +283,10 @@
                                        %>
                                     <%
                                        apparel_processed_items[''] ||= []
-                                       apparel_processed_items[''] += nonapparel_processed_items
                                        %>
                                     <% apparel_processed_items.each do |_, lis| %>
                                     <% next if lis.empty? %>
-                                    <% show_box = lis.first.is_a?(Hash) && lis.first[:item_type] == 'Material' && lis.first[:sub_items].present? %>
+                                    <% show_box = lis.first.is_a?(Hash) && lis.first[:item_type] == 'Material' && lis.first[:sub_items].present? && !lis.first[:as_dropdown]  %>
                                     <% if show_box %>
                                     <div class="bom_report pricing-items-block">
                                        <% end %>
@@ -421,6 +299,17 @@
                                           <% if li[:name] != current_name %>
                                           <%= "#{li[:name]} #{li[:quantity].to_f.round(2)} #{li[:units]}<br>" %>
                                           <% end %>
+                                          <% if li[:as_dropdown] &&  li[:sub_items].present? %>
+                                          <% li[:sub_items].each do |sub_item| %>
+                                          <% if sub_item[:item_attr_name1].present? %>
+                                          <%= "&nbsp;&nbsp;#{sub_item[:quantity]} #{sub_item[:item_attr_name1]}: #{sub_item[:item_attr1]}" %>
+                                          <% end %>
+                                          <% if sub_item[:item_attr_name2].present? %>
+                                          <%= "&nbsp;&nbsp;#{sub_item[:item_attr_name2]}: #{sub_item[:item_attr2]} <br>" %>
+                                          <% end %>
+                                          <%end%>
+                                          <%end%>
+                                          <% if !li[:as_dropdown]%>
                                           <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
                                           <% if li[:item_attr_name1].present? %>
                                           <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %>
@@ -428,7 +317,9 @@
                                           <% if li[:item_attr_name2].present? %>
                                           <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %>
                                           <% end %>
+                                          <% end %>
                                           <% if li[:sub_items] %>
+                                          <% next if li[:as_dropdown]%>
                                           <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
                                           <table class='li-table-view-container'>
                                              <tr>
@@ -460,6 +351,67 @@
                                        <% end %>
                                        <% if show_box %>
                                     </div>
+                                    <% end %>
+                                    <% end %>
+                                    <% if nonapparel_processed_items.present? %>
+                                    <% nonapparel_processed_items.each do |lis| %>
+                                    <% lis = Array.wrap(lis) %>
+                                    <% lis.each do |li| %>
+                                    <div class="padding">
+                                       <% if li.is_a?(Hash) %>
+                                       <% if li[:item_type] != "Material" %>
+                                       <%= li[:category] if li[:category] %>
+                                       <% end %>
+                                       <%= "#{li[:name]} #{li[:quantity].to_f.round(2)} #{li[:units]}<br>" %>
+                                       <% if li[:as_dropdown] &&  li[:sub_items].present? %>
+                                       <% li[:sub_items].each do |sub_item| %>
+                                       <% if sub_item[:item_attr_name1].present? %>
+                                       <%= "&nbsp;&nbsp;#{sub_item[:quantity]} #{sub_item[:item_attr_name1]}: #{sub_item[:item_attr1]}" %>
+                                       <% end %>
+                                       <% if sub_item[:item_attr_name2].present? %>
+                                       <%= "&nbsp;&nbsp;#{sub_item[:item_attr_name2]}: #{sub_item[:item_attr2]} <br>" %>
+                                       <% end %>
+                                       <%end%>
+                                       <%end%>
+                                       <% if !li[:as_dropdown]%>
+                                       <%= "Part ##{li[:part_number]}<br>" if li[:part_number].present? && show_part_number(@account) %>
+                                       <% if li[:item_attr_name1].present? %>
+                                       <%= "&nbsp;&nbsp;#{li[:item_attr_name1]}: #{li[:item_attr1]}" %>
+                                       <% end %>
+                                       <% if li[:item_attr_name2].present? %>
+                                       <%= "&nbsp;&nbsp;#{li[:item_attr_name2]}: #{li[:item_attr2]}" %>
+                                       <% end %>
+                                       <% end %>
+                                       <% if li[:sub_items] %>
+                                       <% next if li[:as_dropdown]%>
+                                       <% li[:sub_items].group_by{ |i| i[:item_attr2]}.each do |sub_item| %>
+                                       <table class='li-table-view-container'>
+                                          <tr>
+                                             <td class='li-table-view-name'>
+                                                <%= "#{sub_item[1][0][:item_attr_name2]}: #{sub_item[0]}" %>
+                                             </td>
+                                             <td>
+                                                <table class='li-table-view'>
+                                                   <tr>
+                                                      <%= sub_item[1].map{|col| "<th>#{col[:item_attr1]}</th>"}.join %>
+                                                   </tr>
+                                                   <tr>
+                                                      <%= sub_item[1].map{|col| "<td>#{col[:quantity].to_i}</td>"}.join %>
+                                                   </tr>
+                                                </table>
+                                             </td>
+                                          </tr>
+                                       </table>
+                                       <% end %>
+                                       <% end %>
+                                       <% if item.material_image( li[:image_url], li[:print_image_on_pdf]) %>
+                                       <img src="<%= item.material_image( li[:image_url], li[:print_image_on_pdf]) %>" class="line-item-description-image">
+                                       <% end %>
+                                       <% else %>
+                                       <%= li %>
+                                       <% end %>
+                                    </div>
+                                    <% end %>
                                     <% end %>
                                     <% end %>
                                  </div>
@@ -501,7 +453,6 @@
                         </ul>
                         <% end %>
                         <% end %>
-                        
                      </div>
                      <% if item.panel_description_enabled? %>
                      <div>
@@ -539,8 +490,6 @@
                      <img src="<%= item.product_image %>" class="line-item-description-image">
                      <% end %>
                   </td>
-
-<td colspan="4" style="vertical-align: bottom; transform: scale(1.4); padding-bottom: 9%;"><img src="http://assets.shopvox.com/accounts/f9b84aff-9d0a-4984-882a-ce2926666137/custom_pdfs/pre_production_checklist.svg" width="360"; height="auto";></td>
                   <td colspan="3">
                      <% if item.job.present? && item.job.is_proof_approved? && !@proofs_job_ids.include?(item.job.id)%>
                      <% @proofs_job_ids << item.job.id %>
@@ -555,7 +504,7 @@
                            </div>
                         </div>
                      </div>
-                     <% end %>                     
+                     <% end %>
                   </td>
                </tr>
                <% if item.job.present? and show_workflow_steps? %>
@@ -595,21 +544,44 @@
             </tfoot>
          </table>
       </div>
-      <% if customer_note.present? %>
-      <div class="note">
-         <table class="no-page-break">
-            <thead>
-               <tr>
-                  <td><%= customer_note_header %></td>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td><%= customer_note %></td>
-               </tr>
-            </tbody>
-         </table>
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left full-width">
+               <table>
+                  <tr>
+                     <div class="terms-text">
+                        <% if ui_field_visibility('sales_order/installing_address_id') and installing_information.present? %>
+                        <td class="address left">
+                           <div class="address-wrapper">
+                              <p class="stitle"><%= installing_information_header %></p>
+                              <%= installing_information %></p>
+                           </div>
+                        </td>
+                        <% end %>
+                        <% if (shipping_address_type != 'DropShip' && sold_to(show_company_name = false).present?) || shipping_tracking.present? || (shipping_information.present? && ui_field_visibility('sales_order/shipping_address_id') ) %>
+                        <td class="address right">
+                           <div class="address-wrapper">
+                              <p class="stitle"><%= shipping_information_header %></p>
+                              <% if shipping_address_type != 'DropShip' %>
+                              <%= sold_to(show_company_name = false) %>
+                              <% end %>
+                              <%= shipping_information %>
+                              </p>
+                              <%if shipping_tracking.present? %>
+                              <br/>
+                              <p class="stitle"><%= shipping_tracking_header%></p>
+                              <%= shipping_tracking %>
+                              <% end %>
+                           </div>
+                        </td>
+                        <% end %>
+                  </tr>
+               </table>
+               </div>
+            </div>
+            <div style="clear: both;"></div>
+         </div>
       </div>
-      <% end %>
    </body>
 </html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Job PDF</title>
+    <style>
+      <%= page_size %>
+      <%= body_font_family %>
+
+      /* Rotate ONLY the first page to landscape (90°) */
+      @page :first { size: Letter landscape; } /* 11in x 8.5in */
+
+      /* Rotate any page that starts with the Main Item section */
+      @page mainitem { size: Letter landscape; }
+
+      /* Never let SO# wrap */
+      .so-line { white-space: nowrap; }
+      .left-rail__so { white-space: nowrap; }
+      .left-rail__company { white-space: nowrap; }
+.main-item-section {
+        page: mainitem;           /* uses @page mainitem (landscape) */
+      }
+   
+
+      .box__title { padding: 0.9em 0.7em; line-height: 1.2; }
+
+      /* --- FIRST PAGE ONLY --- */
+      .first-page {
+        position: relative;
+        padding-left: 60px; /* rail width (48) + gutter */
+        page-break-after: always;
+      }
+
+      .first-page .left-rail {
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .first-page .left-rail__company,
+      .first-page .left-rail__so {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        text-align: left;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);  /* read bottom→top */
+        border: 1px solid #2b2b30;
+      }
+
+      .first-page .left-rail__company {
+        background: #000080; /* navy */
+        flex: 1;
+        font-size: 12.5pt;
+        padding: 10px 6px;
+      }
+
+      .first-page .left-rail__so {
+        background: #000;
+        height: 185px;
+        font-size: 12pt;
+        padding: 10px 6px;
+      }
+
+      /* existing styles */
+      .box--default .box__title { background: #000080; color: #fff; }
+      .block{ padding:6px 0 2px; }
+      .labelg{ font-weight:700; color:#008000; margin-bottom:2px; font-size:12pt; }
+      .labelb{ font-weight:700; color:#0000ff; margin-bottom:2px; font-size:12pt; }
+      .labelr{ font-weight:700; color:#FF0000; margin-bottom:2px; font-size:12pt; }
+      .labeln{ font-weight:700; color:#2b2b30; margin-bottom:2px; font-size:12pt; }
+      .date{ font-size:22px; font-weight:800; margin-top:3px; }
+      .date.green{ color:#008000; }
+      .date.blue{ color:#0000ff; }
+      .date.red{ color:#FF0000; }
+      .box-check{ border:1px black solid; height:15pt; width:15pt; float:left; }
+      .text{ float:left; margin:5px; padding-right:20pt; font-size:10pt; font-weight:bold; }
+    </style>
+  </head>
+  <body>
+    <div class="job-pdf" id="page-job-new">
+
+      <!-- ============== FIRST PAGE ONLY (now landscape) ============== -->
+      <section class="first-page">
+        <!-- Left vertical rail -->
+        <div class="left-rail">
+          <div class="left-rail__company"><%= company_name %></div>
+          <div class="left-rail__so">SO# <%= order_number %></div>
+        </div>
+
+        <!-- TOP BARS (blue stays across the top) -->
+        <div class="job-section job-pdf__company">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="box box--default box--border">
+                  <div class="box__title">
+                    <p class="so-line">
+                      <strong>SO# <%= order_number %>
+                        <span style="padding-left: 100pt;"><%= customer_header %>: <%= company_name %></span>
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="job-section job-pdf__details">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <div class="block">
+                  <div class="labelg">Install date:</div>
+                  <div class="date green"><%= install_date %></div>
+                </div>
+                <div class="block">
+                  <div class="labelb">Hard Due Date:</div>
+                  <div class="date blue"><%= hard_due_date %></div>
+                </div>
+                <div class="block">
+                  <div class="labelr">Due:</div>
+                  <div class="date red"><%= due_date %></div>
+                </div>
+                <div class="block">
+                  <div class="labeln">Project Mgr:</div>
+                  <div class="name"><%= project_manager_name %></div>
+                </div>
+                <div class="job-section">
+                  <div class="box-check"></div>
+                  <div class="text">BADGES</div>
+                  <br /><br />
+                  <div class="box-check"></div>
+                  <div class="text">PG BUG</div>
+                  <div class="box-check"></div>
+                  <div class="text">REPEAT</div>
+                  <br /><br />
+                  <div class="box-check"></div>
+                  <div class="text">MULTI-VEHICLE PACKET</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="box box--grey box--border">
+                  <div class="box__content box__content-proof-img text--center">
+                    <div>
+                      <img src="<%= proof_image(500,500) %>" />
+                    </div>
+                  </div>
+                  <div><%= proof_local_file_path %></div>
+                  <div class="box__title"><%= proof_footer %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHIPPING -->
+        <div class="job-section job-pdf__shipping">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <div class="box box--grey box--border">
+                  <div class="box__title"><p><%= install_details_header %>:</p></div>
+                  <div class="box__content">
+                    <div class="row"><div class="col-4"><address><%= install_details %></address></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="box box--grey box--border">
+                  <div class="box__title"><p><%= special_instruction_header %>:</p></div>
+                  <div class="box__content"><address><%= special_instruction %></address></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN ITEM (always begins on a new, landscape page) -->
+<div class="no-page-break">
+        <div class="job-section job-pdf__shipping main-item-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="box box--grey box--border">
+                  <div class="box__title"><p>Main Item:</p></div>
+                  <div class="box__content"><address><%= description %></address></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+      </section>
+
+      <!-- ============== PAGE 2+ (unchanged) ============== -->
+      <div class="col-12">
+        <img src="https://assets.shopvox.com/accounts/c53ab5fd-3181-4af4-a361-6f5adf3eee80/custom_pdfs/install+sheet+[Converted].svg" />
+      </div>
+      <div class="col-12">
+        <img src="https://assets.shopvox.com/accounts/c53ab5fd-3181-4af4-a361-6f5adf3eee80/custom_pdfs/removal+sheet+[Converted].svg" />
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<html class="box_label-full-height">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+    <style>
+
+      @page {
+        padding-bottom: 0;
+        margin: 0;
+
+        @bottom-right {
+          content: "";
+        }
+
+        <%= paper_size_and_orientation %>
+      }
+
+      <%= body_font_family %>
+
+    </style>
+  </head>
+  <body class="box_label-full-height">
+    <div class="<% if (paper_size_and_orientation =~ /in/) ==''  %> box_container <% end %> ">
+
+      <% number_of_boxes.to_i.times do |box|%>
+      <div class="<%= label_size_css_class %>">
+        <div class="box_label">
+          <% unless hide_company_logo %>
+            <div class="box_label-logo">
+              <img class="logo" src="<%= logo %>">
+            </div>
+          <% end %>
+          <div class="box_label-contact">
+            <h2>A/A:</h2>
+            <% if contact_name %>
+              <p><%= contact_name %></p>
+            <% end %>
+            <% if customer_name %>
+              <p><%= customer_name %></p>
+            <% end %>
+            <% if address %>
+              <p><%= address %></p>
+            <% end %>
+          </div>
+          <div class="box_label-details">
+            <h2>DETALLES:</h2>
+            <p><strong>BULTO <%= "#{box+1}/#{number_of_boxes} - ##{starting_number + box}"%></strong></p>
+            <table class="box_label-details-table">
+              <tr>
+                <% if txn_number %>
+                  <td>PED.<span style='font-size:15pt;'><b><%= "##{object_txn_number}" %></b></span></td>
+                <% end %>
+                <% if items_per_box %>
+                  <td>Qty: <%= items_per_box %></td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if show_customer_po_number? && customer_po_number.present? %>
+                  <td>PED. CLIENTE Nº<b><%= "##{customer_po_number}" %></b></td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if txn_title %>
+                  <td>REF: <%= object_txn_title %></td>
+                <% end %>
+                <% if txn_about %>
+                  <td>About: <%= object_txn_about %></td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if estimated_weight %>
+                  <td>Weight: <%= estimated_weight %></td>
+                <% end %>
+                <% if date_to_print %>
+                  <td>Due/Ship date: <%= date_to_print %></td>
+                <% end %>
+              </tr>
+            </table>
+          </div>
+
+          <% if line_items %>
+            <div class="box_label-details">
+              <h2>Line Items:</h2>
+              <table class="box_label-details-table box_label-details-table--line-items">
+                <tr>
+                  <th>LI#</th>
+                  <th>Name</th>
+                  <th>Qty</th>
+                </tr>
+                <% line_items.each do |li| %>
+                  <tr>
+                    <td><%= li[:position] %></td>
+                    <td><%= li[:name] %></td>
+                    <td><%= number_with_precision(li[:quantity], precision: 5, strip_insignificant_zeros: true) %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </body>
+</html>

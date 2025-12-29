@@ -1,0 +1,360 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         <%= page_size %>
+         .terms-title *, .terms-text * {
+         font-size:12pt !important;
+         }
+
+         @page {
+         font-family: "DejaVu Sans", sans-serif;
+         prince-shrink-to-fit: auto;
+         }
+
+         .address-logo {
+         padding: 0pt 35pt 15pt 35pt;
+         border-bottom: 0px solid #e3e3e3;
+         }
+
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
+         font-weight: bold;
+         font-size: 13px;
+         }
+
+         .address-logo {
+         text-align: left;
+         vertical-align: top;
+         }
+
+         .address-logo .store-address {
+         text-align: right;
+         vertical-align: top;
+         font-size: 13px;
+         font-weight: bold;
+         }
+
+         h1 {
+         font-size: 28px;
+         margin-top: 15pt 0;
+         font-weight: bolder;
+         }
+
+         .addresses {
+         padding: 10pt 10pt;
+         border-bottom: 0px solid #e3e3e3;
+         background-color: red;
+         margin: 0pt 35pt;
+         color: white;
+         font-size: 12px;
+         font-family: "DejaVu Sans", sans-serif;
+         prince-shrink-to-fit: auto;
+         font-weight: bold;
+         }
+
+         .addresses .address.left .address-wrapper {
+         border-left: 0px solid #e3e3e3;
+         text-align: left;
+         padding-left: 0pt;
+         }
+
+         .addresses .address.right .address-wrapper {
+         border-right: 0px solid #e3e3e3;
+         text-align: right;
+         padding-right: 0pt;
+         }
+
+         .addresses .address .title {
+         text-transform: uppercase;
+         margin: 3pt 0;
+         font-size: 12px;
+         color: white;
+         font-family: "DejaVu Sans", sans-serif;
+         }
+
+         .line-items {
+         margin-top: 20pt;
+         }
+
+         .line-items thead th {
+         font-size: 12px;
+         padding: 6pt 0pt;
+         text-transform: uppercase;
+         color: white;
+         font-family: "DejaVu Sans", sans-serif;
+         }
+
+         .line-items tbody tr:first-child td {
+         border-top: 0px solid #e3e3e3;
+         padding-top: 5pt;
+         }
+
+         .li-desc-fixed-width {
+         max-width: 250pt;
+         }
+
+         .totals {
+         width: 40%;
+         float: right;
+         border-collapse: collapse;
+         margin-top: 20px;
+         margin-right: 35pt;
+         }
+
+         .totals td {
+         border: 1px solid black;
+         background-color: red;
+         color: black;
+         font-weight: bold;
+         padding: 10px;
+         }
+
+         .totals td:last-child {
+         text-align: right;
+         }
+
+         .header-bar {
+         background-color: red;
+         height: 20px;
+         width: 88.7%;
+         margin-top: 1px;
+         margin-left: 35pt;
+         }
+
+         .footer-bar {
+         background-color: red;
+         height: 20px;
+         width: 88.7%;
+         margin-left: 35pt;
+         }
+
+         .section {
+         border-top: 0px solid #e3e3e3;
+         padding: 0 35pt;
+         }
+
+         .footer-bottom-left {
+         width: 50%;
+         float: left;
+         text-align: justify;
+         }
+
+         .terms-text {
+         font-size: 6pt !important;
+         padding: 1pt 0;
+         /*padding: 5pt 35pt;*/
+         }
+         
+         .termsheader {
+         font-weight: bold; 
+         font-size: 18pt;"
+         }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <!-- Footer Text for Page footter-->
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="header-bar"></div>
+      <!-- Store Address and Logo -->
+      <div class="address-logo">
+         <table>
+            <tr>
+               <td class="store-logo">
+                  <img class="logo" src="<%= logo %>">
+               </td>
+               <td class="store-address">
+                  <h1 class="main-title">FACTURE<br/>
+                     <small><%= name %></small>
+                  </h1>
+               </td>
+            </tr>
+            <tr>
+               <td class="store-logo">
+                  <p><b><%= store_name %></b></p>
+                  <p> <%if store_address_street%>
+                     <%= store_address_street %><%end%>
+                     <%if store_address_street1%><%= store_address_street1 %>
+                  </p>
+                  <%end%>
+                  <%if store_address_city%>
+                  <p><%= store_address_city %>,<%end%> <%if store_address_state %> <%= store_address_state%><%end%>
+                     <%if store_address_zip %> <%= store_address_zip%>
+                  </p>
+                  <%end%>
+                  <% if store_email%>
+                  <p><%=store_email%></p>
+                  <%end%>
+                  <% if store_phone%>
+                  <p><%=store_phone%></p>
+                  <%end%>
+               </td>
+               <td class="store-address">
+                  <p>Numéro de facture : <%= txn_number_only %></p>
+                  <p>DEMANDÉ PAR</p>
+                  <p><%= sold_to %></p>
+                  <%= billing_information %>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <!-- Sold To, Contact Info and Shipping Address -->
+      <div class="addresses">
+         <table>
+            <tr>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title">Contact</p>
+                     <p><%= contact_information %></p>
+                  </div>
+               </td>
+               <% if ui_field_visibility('quote/installing_address_id') and installing_information.present? %>
+               <td class="address left">
+                  <div class="address-wrapper">
+                     <p class="title">ADRESSE INSTALLATION</p>
+                     <%= installing_information %></p>
+                  </div>
+               </td>
+               <% end %>
+               <td class="address right">
+                  <div class="address-wrapper">
+                     <p class="title">Date de la facture</p>
+                     <p style="padding-bottom: 10pt;"><%= invoice_date %></p>
+                     <% if term_code %>
+                     <p class="title">Termes</p>
+                     <p style="padding-bottom: 10pt;"><%= term_code %></p>
+                     <% end %>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="line-items" style="border: 2px solid black;width: 88%;margin-left: 35pt;">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr style="background: red;">
+                  <th class="position">
+                     <div class="first" style="margin-left: -25pt">#</div>
+                  </th>
+                  <th class="name" style="padding-left: 7pt">Description</th>
+                  <th class="quantity" style="padding-right: 35pt">Qté</th>
+                  <th class="money" style="padding-right: 35pt;">PU</th>
+                  <th class="quantity">
+                     <div class="last" style="margin-right: -35pt;">Total</div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="2">
+                     <div class="first" style="margin-left: -30pt">
+                        <%= index + 1 %>
+                     </div>
+                  </td>
+                  <td class="name" colspan="1"><%= item.name %></td>
+                  <td class="quantity"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+                  <td class="money"><%= item.show_hide_unit_price %></td>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="quantity"><%= item.discount_percentage %> </td>
+                  <td class="quantity"><%= item.show_hide_unit_price_after_discount %></td>
+                  <% end %>
+                  <td class="quantity">
+                     <div class="last" style="margin-right: -25pt;"><%= item.total_price %></div>
+                  </td>
+               </tr>
+               <tr>
+                  <% if show_discounts && total_discount_price != 0.0 %>
+                  <td class="description" colspan="7">
+                     <% else %>
+                  <td class="description" colspan="5">
+                     <% end %>
+                     <div class="last">
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view %>
+                        </div>
+                        <% else %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.description %>
+                        </div>
+                        <% end %>
+                        <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+                        <hr class="custom-field-separator">
+                        <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                        <hr class="custom-field-separator">
+                        <% end %>
+                        <!--<div class='shipping_details'>-->
+                        <!--<div class="text&#45;&#45;pre-line">-->
+                        <!--<%= simple_format(item.shipping_details) %>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <% if item.product_picture_assets.count > 0 %>
+                        <% item.product_picture_assets.each do |asset| %>
+                        <img src="<%= asset.file_url %>" class="line-item-description-image">
+                        <% end %>
+                        <% end %>
+                        <% if item.product_image %>
+                        <img src="<%= item.product_image %>" class="line-item-description-image">
+                        <% end %>
+                        <% if item.table_view %>
+                        <div class="text--pre-line li-desc-fixed-width">
+                           <%= item.li_grid_html_view(show_child_items: true) %>
+                        </div>
+                        <% end %>
+                     </div>
+                  </td>
+               </tr>
+               <% end %>
+            </tbody>
+         </table>
+      </div>
+      <!-- Totals Section -->
+      <table class="totals">
+         <tr>
+            <td style="text-align: left;">Sous-Total</td>
+            <td><%= sub_total %></td>
+         </tr>
+         <tr>
+            <td style="text-align: left;">
+               <% if use_tax_codes? %>
+               <% tax_totals_table.each do |k, value| %>
+               <p><%= value[:name] %>(<%= value[:rate] %>%): </p>
+               <% end %>
+               <% end %>
+            </td>
+            <td>
+               <% if use_tax_codes? %>
+               <% tax_totals_table.each do |k, value| %>
+               <p><%= to_pdf_dollars(value[:total]) %></p>
+               <% end %>
+               <% end %>
+            </td>
+         </tr>
+         <tr>
+            <td style="text-align: left;">Total</td>
+            <td><%= final_price %></td>
+         </tr>
+      </table>
+      <!-- Footer -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="terms-text">
+                  <p class="termsheader">Terme et conditions</p>
+                  <%= terms_conditions %>
+               </div>
+            </div>
+            <div style="clear: both;"></div>
+         </div>
+         <div class="footer-bar"></div>
+      </div>
+   </body>
+</html>

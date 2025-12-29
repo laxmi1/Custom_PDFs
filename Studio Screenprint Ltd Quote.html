@@ -1,0 +1,528 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:8pt !important;
+         }
+
+         <%= page_size %>
+         <%= body_font_family %>
+         @page {
+         margin: 120pt 0pt 50pt 0pt;
+         @top {
+         content: url(http://assets.shopvox.com/accounts/a9ad6293-1abd-47bf-9a8c-ff1572273cea/custom_pdfs/Invoice+Header+Rebrand.svg);
+         }
+         
+         @bottom {
+         width: 100%;
+         content: url(http://assets.shopvox.com/accounts/a9ad6293-1abd-47bf-9a8c-ff1572273cea/custom_pdfs/Quote+Footer+Rebrand.svg);
+         }
+
+         @bottom-left {
+         content: " ";
+         }
+
+         @bottom-right {
+         content: " ";
+         }
+         }
+
+         .clearfix:before,
+         .clearfix:after {
+         content: " ";
+         display: table;
+         }
+
+         .clearfix:after {
+         clear: both;
+         }
+
+         .address-logo {
+         padding: 0pt 35pt 5pt 35pt;
+         border-bottom: 2px solid #0152E1;
+         }
+
+         .address-logo .store-address {
+         text-align: left;
+         vertical-align: top;
+         font-size: 13px;
+         padding-top: 3pt;
+         }
+
+          h2 {
+          font-size: 16px;
+          margin: 4pt 0;
+          font-weight: normal;
+          }
+
+          .line-items .first {
+          padding-left: 30pt;
+          }
+
+          .line-items .last {
+          padding-right: 30pt;
+          }
+
+         .line-items tbody tr:first-child td {
+         border-top: 2px solid #0152E1;
+         padding-top: 6pt;
+         }
+
+         .line-items tbody tr td {
+         padding-top: 6pt;
+         }
+         
+         .line-items thead th {
+         font-size: 12px;
+         text-transform: uppercase;
+         color: #0152E1;
+         padding: 5pt 5pt;
+         }
+
+         .footer-bottom-left {
+         width: 60%;
+         float: left;
+         text-align: justify;
+         }
+
+         .footer-bottom-right {
+         float: right;
+         width: 35%;
+         color: white;
+         border-left: solid 0px #0152E1;
+         background-color: #0152E1;
+         padding: 10pt 10pt 10pt 10pt;
+         margin: 10pt 0;
+         }
+
+         .footer-total {
+         font-size: 13pt;
+         }
+
+         .section {
+         border-top: 2px solid #0152E1;
+         padding: 0 35pt;
+         }
+
+         .section--border-bottom {
+         border-bottom: 0px solid #e3e3e3;
+         }
+
+         .line-items .first {
+         padding-left: 35pt;
+         }
+
+        .note thead td {
+        text-transform: uppercase;
+        color: 999999;
+        font-size: 10px;
+        border-bottom: 1px solid #0152E1;
+        padding-top: 0pt;
+        padding-bottom: 2pt;
+        }
+      </style>
+   </head>
+   <body>
+      <div style="display:none" class="document-header">
+         <%= header_text %>
+      </div>
+      <div style="display:none" class="document-footer">
+         <%= footer_text %>
+      </div>
+      <div class="address-logo">
+         <table>
+            <tr>
+                <td class="store-address">
+                    <p style="color: #198AF0;">Company Address</p>
+                    <% if billing_address_attention_to %>
+                     <p><%= billing_address_attention_to.gsub('Attn:', '') %></p>
+                     <%end%>
+                    <% if @company.name? %>
+                     <p><%= @company.name %></p>
+                    <%end%>
+                     <% if billing_address_street %>
+                     <p><%= billing_address_street %></p>
+                     <%end%>
+                     <% if billing_address_street1 %>
+                     <p><%= billing_address_street1 %></p>
+                     <%end%>
+                     <p><% if billing_address_city %><%= billing_address_city %>,
+                     <%end%>
+                     <% if billing_address_state %>
+                     <%= billing_address_state %>,
+                     <%end%>
+                     <% if billing_address_zip %>
+                     <%= billing_address_zip %><%end%></p>
+                     <p><% if billing_address_country %>
+                     <%= billing_address_country %>
+                     <%end%></p>
+                         
+                </td>
+                <td class="store-address">
+                    <p style="color: #198AF0;">Shipping Address</p>
+                    <% if billing_address_attention_to %>
+                     <p><%= billing_address_attention_to.gsub('Attn:', '') %></p>
+                     <%end%>
+                    <% if @company.name? %>
+                     <p><%= @company.name %></p>
+                    <%end%>
+                     <span>
+              <% if shipping_address_type != 'DropShip' %>
+                <%= sold_to(show_company_name = false) %>
+              <% end %>
+              <%= shipping_information %>
+            </span>
+            <%if shipping_tracking %>
+              <br/>
+              <p class="title"><%= shipping_tracking_header%></p>
+              <%= shipping_tracking %>
+            <% end %>
+                         
+                </td>
+                <td class="store-logo">
+                  <h1 style="color: #0152E1; margin-top: -10pt;">QUOTE / <%= txn_number_only %></h1>
+                  <h2 style="color: #198AF0; margin-top: -10pt;"><%= name %></h2>
+                  <p style="padding-bottom: 3pt;font-size: 10pt;"><span style="color: #999999;">Provided by: </span><%=@object.primary_sales_rep.try(:name)%></p>
+                  <% if @object.primary_contact %>
+                  <p style="padding-bottom: 3pt;font-size: 10pt;"><span style="color: #999999;">On behalf of: </span><%= @object.primary_contact.try(:name) %></p>
+                  <% end %>                  
+                  <p style="padding-bottom: 3pt;font-size: 10pt;"><span style="color: #999999;">Quote date: </span><%= quote_date %></p>
+                  <% if quote_ship_date %>
+                  <p style="padding-bottom: 3pt;font-size: 10pt;"><span style="color: #999999;">Est due date: </span><%= quote_ship_date%></p>
+                  <% end %>
+                  <% if shipping_method %>
+                  <p style="padding-bottom: 3pt;font-size: 10pt;"><span style="color: #999999;"> Shipment method: </span><%= shipping_method %></p>
+                  <% end %>
+                 <% if term_code %>
+                  <p style="padding-bottom: 3pt;font-size: 10pt;"><span style="color: #999999;">Terms: </span><%= term_code %></p>
+                 <% end %>
+               </td>
+            </tr>
+         </table>
+      </div>
+<div class="line-items">
+  <!--<h2 class="title"><%= items_header %></h2>-->
+  <table>
+    <thead>
+    <tr>
+      <th class="position">
+        <div class="first" style="margin-left: -5pt;">#</div>
+      </th>
+      <th class="name"><%= item_header %></th>
+      <th class="quantity"><%= qty_header %></th>
+      <th class="quantity"><%= uom_header %></th>
+      <th class="money"><%= unit_price_header %></th>
+      <% if show_discounts && (quantities_total_discount_price != 0.0 || total_discount_price != 0.0) %>
+        <th class="quantity"><%= discount_header %> </th>
+        <th class="quantity"><%= discount_price_header %> </th>
+      <% end %>
+      <th class="quantity">
+      <div class="last">TOTAL (EX.VAT)</div>
+      </th>
+      
+      <% if show_li_total_with_tax? %>
+        <th class="money"><%= total_with_tax_header %></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody class=''>
+        <% items.each_with_index do |item, index| %>
+          <% bold_main_quantity = item.quantities.present? %>
+          <tr>
+            <td class="position" rowspan="<%= 2 + item.quantities.size %>">
+              <div class="first" style="margin-left: -5pt;">
+                <%= index + 1 %>
+              </div>
+            </td>
+            <td rowspan="<%= 1 + item.quantities.size %>" >
+              <span class="name"><%= item.name %></span>
+
+              <% if bold_main_quantity && item.quantities.size >= 1 %>
+                <div>
+                  <% if item.table_view %>
+                    <div class="text--pre-line li-desc-fixed-width">
+                      <%= item.li_grid_html_view %>
+                    </div>
+                  <% else %>
+                    <div class="text--pre-line li-desc-fixed-width">
+                      <%= item.description %>
+                    </div>
+                  <% end %>
+
+                  <% if item.show_custom_fields(item.description_hash[:custom_fields]) && item.description_hash[:custom_fields].any? && item.table_view %>
+                    <hr class="custom-field-separator">
+                    <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                    <hr class="custom-field-separator">
+                  <% end %>
+
+                  <% if item.product_picture_assets.count > 0 %>
+                    <% item.product_picture_assets.each do |asset| %>
+                      <img src="<%= asset.file_url %>" class="line-item-description-image">
+                    <% end %>
+                  <% end %>
+
+                  <% if item.product_image %>
+                    <img src="<%= item.product_image %>" class="line-item-description-image">
+                  <% end %>
+
+                  <% if item.table_view %>
+                    <div class="text--pre-line li-desc-fixed-width">
+                      <%= item.li_grid_html_view(show_child_items: true) %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </td>
+            <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= number_with_precision(item.quantity, precision: 5, strip_insignificant_zeros: true) %></td>
+            <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.uom %></td>
+            <td class="money <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.show_hide_unit_price %></td>
+            <% if show_discounts && item.has_discount? %>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.discount_percentage %> </td>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"><%= item.show_hide_unit_price_after_discount %></td>
+            <% end %>
+            <% if show_discounts && (total_discount_price != 0.0 || quantities_total_discount_price != 0.0 ) && !item.has_discount? %>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"></td>
+              <td class="quantity <%= bold_main_quantity ? "text--bold" : "" %>"></td>
+            <% end %>
+            <td class="money <%= bold_main_quantity ? "text--bold" : "" %>">
+               <div class="last">
+              <%= item.total_price %>
+              <% if show_multi_currencies? %>
+                <br><%= item.total_price_in_custom_currency %>
+              <% end %>
+              </div>
+            </td>
+            
+            <% if show_li_total_with_tax? %>
+              <td class="money">
+                <%= item.total_with_tax %>
+
+                <% if show_multi_currencies? %>
+                  <br><%= item.final_price_in_custom_currency %>
+                <% end %>
+              </td>
+            <% end %>
+            
+          </tr>
+          <% item.quantities.each do |line_item_quantity| %>
+            <tr>
+              <td class="quantity line-item-quantity-row-padding"><%= number_with_precision(line_item_quantity[:quantity], precision: 5, strip_insignificant_zeros: true) %></td>
+              <td class="quantity line-item-quantity-row-padding"><%= item.uom %></td>
+              <td class="money line-item-quantity-row-padding"><%= line_item_quantity[:unit_price] %></td>
+              <% if show_discounts && line_item_quantity[:discount_in_cents] != 0.0 %>
+                <td class="quantity line-item-quantity-row-padding"><%= line_item_quantity[:discount_percentage] %></td>
+                <td class="quantity line-item-quantity-row-padding"><%=line_item_quantity[:unit_price_after_discount] %></td>
+              <% end %>
+              <% if show_discounts && (total_discount_price != 0.0 || quantities_total_discount_price != 0.0 ) && line_item_quantity[:discount_in_cents] == 0.0 %>
+                <td class="quantity line-item-quantity-row-padding"></td>
+                <td class="quantity line-item-quantity-row-padding"></td>
+              <% end %>
+              <td class="money line-item-quantity-row-padding">
+                <div class="last"><%= line_item_quantity[:total_price] %>
+                <% if show_multi_currencies? %>
+                  <br><%= line_item_quantity[:total_price_in_custom_currency] %>
+                <% end %>
+                </div>
+              </td>
+              
+              <% if show_li_total_with_tax? %>
+                <td class="money line-item-quantity-row-padding">
+                  <%= line_item_quantity[:total_price_with_tax] %>
+                  <% if show_multi_currencies? %>
+                    <br><%= line_item_quantity[:final_price_in_custom_currency] %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+          <tr>
+            <% if show_discounts && total_discount_price != 0.0 %>
+                <td class="description" colspan="7">
+            <% else %>
+                <td class="description" colspan="5">
+            <% end %>
+
+            <% if item.quantities.blank? %>
+              <div>
+                <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view %>
+                  </div>
+                <% else %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.description %>
+                  </div>
+                <% end %>
+
+                <% if item.show_custom_fields(item.description_hash[:custom_fields]) && item.description_hash[:custom_fields].any? && item.table_view %>
+                  <hr class="custom-field-separator">
+                  <%= item.generate_custom_field_values(item.description_hash[:custom_fields]) %>
+                  <hr class="custom-field-separator">
+                <% end %>
+
+                <% if item.product_picture_assets.count > 0 %>
+                  <% item.product_picture_assets.each do |asset| %>
+                    <img src="<%= asset.file_url %>" class="line-item-description-image">
+                  <% end %>
+                <% end %>
+
+                <% if item.product_image %>
+                  <img src="<%= item.product_image %>" class="line-item-description-image">
+                <% end %>
+
+                <% if item.table_view %>
+                  <div class="text--pre-line li-desc-fixed-width">
+                    <%= item.li_grid_html_view(show_child_items: true) %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>
+
+<% if customer_note.present? %>
+    <div class="note">
+      <table class="no-page-break">
+        <thead>
+        <tr>
+          <td style="color: #FFA616;font-weight: bold;"><%= customer_note_header %></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= customer_note %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<!-- Internal Note -->
+<% if internal_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <td><%= internal_note_header %></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= internal_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Cover Note -->
+<% if cover_note.present? %>
+  <div class="note">
+    <table class="no-page-break">
+      <thead>
+      <tr>
+        <th><%= cover_note_header %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= cover_note %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+
+
+
+<!-- Signature Note -->
+<div class="footer-bottom">
+    <div class="section">
+        <div class="footer-bottom-left">
+            <div class="terms-text">
+                <%= terms_conditions %>
+            </div>
+        </div>
+
+        <% unless existing_line_item_quantities? %>
+          <div class="footer-bottom-right">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="labels first footer-subtotal">
+                        <% if has_setup_charges? %>
+                          <p><strong><%= setup_charges_header %>:</strong></p>
+                        <% end %>
+                        <% if has_shipping_charges? %>
+                          <p><strong><%= shipping_charges_header %>:</strong></p>
+                        <% end %>
+                        <% if has_finance_charges? %>
+                          <p><strong><%= finance_charges_header %>:</strong></p>
+                        <% end %>
+                        <% if has_misc_charges? %>
+                          <p><strong><%= misc_charges_header %>:</strong></p>
+                        <% end %>
+                        <p><strong><%= subtotal_header %>:</strong></p>
+                        <% if show_tax  %>
+                            <% if use_tax_codes? %>
+                              <p><strong>Total VAT (<%= tax_rate %>):</strong></p>
+                            <% else %>
+                              <p><strong>Total VAT (<%= tax_rate %>):</strong></p>
+                            <% end %>
+                        <% end %>
+                        <% if coupon_code_discount_header %>
+                            <p class="footer-discount"><strong><%= coupon_code_discount_header %>:</strong></p>
+                        <% end %>
+                      <p class="footer-total"><strong>Final price: </strong></p>
+                      <% if show_multi_currencies? %>
+                        <p class="footer-total"><strong><%= final_price_header_exchange %></strong></p>
+                      <% end %>
+                    </td>
+                    <td class="money last footer-subtotal">
+                      <% if has_setup_charges? %>
+                        <p><strong><%= setup_charges %></strong></p>
+                      <% end %>
+                      <% if has_shipping_charges? %>
+                          <p><strong><%= shipping_charges %></strong></p>
+                      <% end %>
+                      <% if has_finance_charges? %>
+                        <p><strong><%= finance_charges %></strong></p>
+                      <% end %>
+                      <% if has_misc_charges? %>
+                          <p><strong><%= misc_charges %></strong></p>
+                      <% end %>
+                      <p><strong><%= sub_total %></strong></p>
+                        <% if show_tax  %>
+                            <p><strong><%= total_tax %></strong></p>
+                        <% end %>
+
+                        <% if coupon_code_discount %>
+                            <p class="footer-discount"><strong><%= coupon_code_discount %></strong></p>
+                        <% end %>
+                      <p class="footer-total"><strong><%= final_price %></strong></p>
+                      <% if show_multi_currencies? %>
+                        <p class="footer-total"><strong><%= final_price_exchange %></strong></p>
+                      <% end %>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+          </div>
+        <% end %>
+        <div class="clearfix"></div>
+    </div>
+    <div class="section section--border-bottom">
+        <div class="signature terms">
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>
