@@ -1,374 +1,380 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <style>
-      .terms-title *, .terms-text * {
-          font-size:6pt !important;
-      }
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <style>
+         .terms-title *, .terms-text * {
+         font-size:6pt !important;
+         }
 
-      .store-logo {
-    text-align: left;
-    vertical-align: top;
-}
-.address-logo .store-logo .logo {
-    max-height: 100px;
-}
-.address-logo {
-    padding: 30pt 20pt 30pt 25pt;
-    border-bottom: 0px;
-}
+         .store-logo {
+         text-align: left;
+         vertical-align: top;
+         }
 
-.padding-left{
-   padding: 10px 0px 10px 120px;
-}
-.position1 {
-    text-align: left;
-    width: 1%;
-    border-collapse: collapse;
-    border: 1px solid black;
-}
-.position {
-    text-align: center;
-    width: 1%;
-}
-.line-items {
-    padding: 0px 20px 0px 20px;
-}
-.line-items .name1 {
-    text-align: left;
-    font-weight: bold;
-    border-collapse: collapse;
-    border: 1px solid black;
-}
-.line-items .money1 {
-    text-align: right;
-    width: 1%;
-    white-space: nowrap;
-    border-collapse: collapse;
-    border: 1px solid black;
-}
-.line-items .money {
-    text-align: center;
-    width: 1%;
-    white-space: nowrap;
-}
+         .address-logo .store-logo .logo {
+         max-height: 100px;
+         }
 
-.line-items .description {
-    font-size: 12px;
-    padding: 0 30pt 0pt 5pt;
-}
-.line-items thead th {
-    font-size: 10px;
-    text-transform: uppercase;
-    color: #000000;
-    padding: 5pt 5pt;
-}
-.line-items tbody tr td {
-    vertical-align: top;
-    font-size: 14px;
-    padding: 0pt;
-}
+         .address-logo {
+         padding: 30pt 20pt 30pt 25pt;
+         border-bottom: 0px;
+         }
 
-.footer-bottom-left {
-    width: 55%;
-    float: left;
-    text-align: justify;
-}
+         .padding-left{
+         padding: 10px 0px 10px 120px;
+         }
 
-.footer-bottom-right {
-    float: right;
-    width: 40%;
-    border-left: solid 2px #e3e3e3;
-    background: #f7f7f7;
-    padding: 6pt 6pt 5pt 6pt;
-    margin: 10pt 0;
-}
+         .position1 {
+         text-align: left;
+         width: 1%;
+         border-collapse: collapse;
+         border: 1px solid black;
+         }
 
-.table-padding{
-  padding: 0px 20px 0px 20px;
-}
-.border{
-    border-collapse: collapse;
-    border: 1px solid black;
-}
-.tc{
-   padding: 15pt 15pt 30pt 15pt;
-   font-size: 12px;
-}
-.chk{
-  font-size: 12px;
-  text-align: center;
-  padding-bottom: 2px;
-}
-.pageno{
-      content: counter(page);
-    }
+         .position {
+         text-align: center;
+         width: 1%;
+         }
 
-@page {
-    @bottom-right {
-        content: " ";
-    }
-}
+         .line-items {
+         padding: 0px 20px 0px 20px;
+         }
 
+         .line-items .name1 {
+         text-align: left;
+         font-weight: bold;
+         border-collapse: collapse;
+         border: 1px solid black;
+         }
 
-      <%= page_size %>
-  </style>
-</head>
-<body>
+         .line-items .money1 {
+         text-align: right;
+         width: 1%;
+         white-space: nowrap;
+         border-collapse: collapse;
+         border: 1px solid black;
+         }
 
-<div class="address-logo">
-  <table>
-    <tr>
-     <td class="store-logo" width="20%">
-        <img class="logo" src="<%= logo %>">
-      </td>
-      <td class="store-address <%= "stamp-container" if is_paid? %>" align="left">
-        <b><%= store_name %></b><br>
-        <% if store_address_street %><%= store_address_street %><br> <%end%>
-        <% if store_address_city %><%= store_address_city %>, <%end%>
-        <% if store_address_state %><%= store_address_state %>, <%end%>
-        <% if store_address_zip %><%= store_address_zip %> <br><%end%>
-        <% if store_email %>Email: <%= store_email %><br> <%end%>
-        <% if store_phone %>Phone: <%= store_phone %><% end %>
-        <% if is_paid? %>
-          <p class="stamp">
-            <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
-          </p>
-        <% end %>
-      </td>
-      <td width="15%"></td>
-      <td align="left" width="25%">
-        Invoice Number : <%= txn_number_only %>
-        <br><br>
-        Invoice Date : <%= invoice_date %>
-        <br><br> 
-        <table><tr> <td width="5%">Page:</td><td class="pageno" align="left"></td></tr></table>
-      </td>
-    </tr>
-  </table>
-</div>
+         .line-items .money {
+         text-align: center;
+         width: 1%;
+         white-space: nowrap;
+         }
 
+         .line-items .description {
+         font-size: 12px;
+         padding: 0 30pt 0pt 5pt;
+         }
 
-  <table width="100%">
-    <tr>
-      <td width="50%" class="padding-left">
-          <table>
+         .line-items thead th {
+         font-size: 10px;
+         text-transform: uppercase;
+         color: #000000;
+         padding: 5pt 5pt;
+         }
+
+         .line-items tbody tr td {
+         vertical-align: top;
+         font-size: 14px;
+         padding: 0pt;
+         }
+
+         .footer-bottom-left {
+         width: 55%;
+         float: left;
+         text-align: justify;
+         }
+
+         .footer-bottom-right {
+         float: right;
+         width: 40%;
+         border-left: solid 2px #e3e3e3;
+         background: #f7f7f7;
+         padding: 6pt 6pt 5pt 6pt;
+         margin: 10pt 0;
+         }
+
+         .table-padding{
+         padding: 0px 20px 0px 20px;
+         }
+
+         .border{
+         border-collapse: collapse;
+         border: 1px solid black;
+         }
+
+         .tc{
+         padding: 15pt 15pt 30pt 15pt;
+         font-size: 12px;
+         }
+
+         .chk{
+         font-size: 12px;
+         text-align: center;
+         padding-bottom: 2px;
+         }
+
+         .pageno{
+         content: counter(page);
+         }
+         
+         @page {
+         @bottom-right {
+         content: " ";
+         }
+         }
+         <%= page_size %>
+      </style>
+   </head>
+   <body>
+      <div class="address-logo">
+         <table>
             <tr>
-                <td><p><b> SOLD TO:</p><br>
-                </td>
+               <td class="store-logo" width="20%">
+                  <img class="logo" src="<%= logo %>">
+               </td>
+               <td class="store-address <%= "stamp-container" if is_paid? %>" align="left">
+                  <b><%= store_name %></b><br>
+                  <% if store_address_street %><%= store_address_street %><br> <%end%>
+                  <% if store_address_city %><%= store_address_city %>, <%end%>
+                  <% if store_address_state %><%= store_address_state %>, <%end%>
+                  <% if store_address_zip %><%= store_address_zip %> <br><%end%>
+                  <% if store_email %>Email: <%= store_email %><br> <%end%>
+                  <% if store_phone %>Phone: <%= store_phone %><% end %>
+                  <% if is_paid? %>
+                  <p class="stamp">
+                     <image src="<%= "#{Rails.root}/app/assets/images/pages/stamp-paid-big.png" %>" alt="Paid"/>
+                  </p>
+                  <% end %>
+               </td>
+               <td width="15%"></td>
+               <td align="left" width="25%">
+                  Invoice Number : <%= txn_number_only %>
+                  <br><br>
+                  Invoice Date : <%= invoice_date %>
+                  <br><br> 
+                  <table>
+                     <tr>
+                        <td width="5%">Page:</td>
+                        <td class="pageno" align="left"></td>
+                     </tr>
+                  </table>
+               </td>
             </tr>
-            <tr>
-                <td><p><%= sold_to %></p>
-                <p><%= billing_information %></p>
-                <br>
-                </td>
+         </table>
+      </div>
+      <table width="100%">
+         <tr>
+            <td width="50%" class="padding-left">
+               <table>
+                  <tr>
+                     <td>
+                        <p><b> SOLD TO:</p>
+                        <br>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <p><%= sold_to %></p>
+                        <p><%= billing_information %></p>
+                        <br>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td width="50%" class="padding-left" >
+               <table >
+                  <tr>
+                     <td class="to">
+                        <p><b> SHIP TO:</p>
+                        <br>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class = "orderby">
+                        <p><%= sold_to %></p>
+                        <p><%= contact_information %></p>
+                        <p><%= shipping_information %></p>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+      <div class="table-padding">
+         <table class = "border" width = "100%"  cellpadding="3">
+            <tr class= "border" bgcolor="lightgray" align = "center">
+               <td class= "border">CUSTOMER ID</td>
+               <td class= "border">CUSTOMER PO</td>
+               <td class= "border" colspan="2">PAYMENT TERMS</td>
             </tr>
-          </table>
-      </td>
-      <td width="50%" class="padding-left" >
-          <table >
-            <tr>
-                <td class="to"><p><b> SHIP TO:</p><br>
-                </td>
+            <tr class= "border" align = "center">
+               <td class= "border"><%= sold_to %></td>
+               <td class= "border"><% if po_number %> <%= po_number %> <% end %></td>
+               <td class= "border" colspan="2"><% if term_code %> <%= term_code %> <% end %></td>
             </tr>
-            <tr>
-                <td class = "orderby"><p><%= sold_to %></p>
-                <p><%= contact_information %></p>
-                <p><%= shipping_information %></p>
-                </td>
+            <tr class= "border" bgcolor="lightgray" align = "center">
+               <td class= "border">SALES REP ID</td>
+               <td class= "border">SHIPPING METHOD</td>
+               <td class= "border">SHIP DATE</td>
+               <td class= "border">DUE DATE</td>
             </tr>
-          </table>
-      </td>
-    </tr>
-  </table>
-
-<div class="table-padding">
-<table class = "border" width = "100%"  cellpadding="3">
-<tr class= "border" bgcolor="lightgray" align = "center">
-  <td class= "border">CUSTOMER ID</td>
-  <td class= "border">CUSTOMER PO</td>
-  <td class= "border" colspan="2">PAYMENT TERMS</td>
-</tr>
-<tr class= "border" align = "center">
-  <td class= "border"><%= sold_to %></td>
-  <td class= "border"><% if po_number %> <%= po_number %> <% end %></td>
-  <td class= "border" colspan="2"><% if term_code %> <%= term_code %> <% end %></td>
-</tr>
-<tr class= "border" bgcolor="lightgray" align = "center">
-  <td class= "border">SALES REP ID</td>
-  <td class= "border">SHIPPING METHOD</td>
-  <td class= "border">SHIP DATE</td>
-  <td class= "border">DUE DATE</td>
-</tr>
-<tr class= "border" align = "center">
-  <td class= "border"> <%= sales_rep %></td>
-  <td class= "border"> <% if shipping_method %> <%= shipping_method %> <% end %></td>
-  <td class= "border"><%= shipping_date %></td>
-  <td class= "border"> <%= due_date %></td>
-</tr>
-</table>
-</div>
-
-
-<div class="line-items">
-  <!--<h2 class="title"><%= items_header %></h2>-->
-  <table>
-    <thead>
-    <tr  bgcolor="lightgray" class= "border">
-      <th class="position1">QUANTITY</th>
-      <th class="name1" colspan="1"><%= item_header %></th>
-      <th class="name1" colspan="2">Description</th>
-      <th class="money1"><%= unit_price_header %></th>
-      <th class="money">
-        <div class="last">EXTENSION</div>
-      </th>
-    </tr>
-    </thead>
-    <tbody class=''>
-    <% items.each_with_index do |item, index| %>
-        <tr>
-          <td class="position" rowspan="1" align="center">
-              <%= item.quantity %>
-          </td>
-          <td colspan="1"><%= item.name %></td>
-          <td class="description" colspan="2">
-            <% if item.table_view %>
-              <div class="last text--pre-line li-desc-fixed-width">
-                <%= item.li_grid_html_view %>
-              </div>
-            <% else %>
-              <div class="last text--pre-line li-desc-fixed-width">
-                <%= item.description %>
-              </div>
-            <% end %>
-            <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
-              <hr class="custom-field-separator">
-              <% item.description_hash[:custom_fields].each do |cfv| %>
-                    <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
-                      <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
-                      <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
-                    <% end %>
-              <% end %>
-              <hr class="custom-field-separator">
-            <% end %>
-            <img src="<%= item.product_image %>" class="line-item-description-image">
-          </td>
-          <td class="money"><%= item.unit_price %></td>
-          <td class="money">
-            <div class="last">
-              <%= item.total_price %>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          
-        </tr>
-    <% end %>
-    </tbody>
-
-    <!--<tfoot class="no-page-break tfoot-one">-->
-    <!--<tr>-->
-      <!--<td colspan="6" class="labels first">-->
-        <!--<p><%= subtotal_header %></p>-->
-        <!--<% if show_tax  %>-->
-          <!--<p><%= total_tax_header %></p>-->
-        <!--<% end %>-->
-        <!--<p><%= final_price_header %></p>-->
-
-        <!--<p><%= credits_header %></p>-->
-
-        <!--<p><%= paid_header %></p>-->
-
-        <!--<p><%= net_due_header %></p>-->
-      <!--</td>-->
-      <!--<td class="money last">-->
-        <!--<p><%= sub_total %></p>-->
-        <!--<% if show_tax  %>-->
-          <!--<p><%= total_tax %></p>-->
-        <!--<% end %>-->
-        <!--<p><%= final_price %></p>-->
-        <!--<p><%= credits %></p>-->
-        <!--<p><%= paid %></p>-->
-        <!--<p><%= net_due %></p>-->
-
-      <!--</td>-->
-    <!--</tr>-->
-    <!--</tfoot>-->
-  </table>
-</div>
-
-
-<!-- Cover Note -->
-
-<!-- Signature Note -->
-<div class="footer-bottom">
-    <div class="section">
-        <div class="footer-bottom-left">
-            <div class="tc">
-
-               CREDIT CARD PAYMENTS ARE ACCEPTED WITH NO ADDITIONAL
-               FEE FOR 2 BUSINESS DAYS. AFTER 2 DAYS A 3% CONVIENENCE
-               FEE WILL BE ASSESSED ON CREDIT CARD PAYMENTS.
-               INTEREST WILL BE CHARGED ON ALL INVOICES OVER 30 DAYS.
-            </div>
-            <div class="chk">Check/Credit Memo No:
-            <% payments.each_with_index do |payment| %>
-            <%= payment.payment_details %> ,
-            <% end %>
-            </div>
-        </div>
-        <div class="footer-bottom-right">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="labels first footer-subtotal">
-                        <p><strong><%= subtotal_header %>:</strong></p>
-                        <% if show_tax  %>
-                            <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
-                        <% end %>
-                        <p ><strong>Total Invoice Amount:</strong></p>
-                        <% if has_payments? %>
-                            <p>&nbsp;</p>
-                            <p><strong>Payment/Credut Applied:</strong></p>
-                            <p><strong>TOTAL DUE:</strong></p>
-                        <% end %>
-                    </td>
-                    <td class="money last footer-subtotal">
-                        <p><strong><%= sub_total %></strong></p>
-                        <% if show_tax  %>
-                            <p><strong><%= total_tax %></strong></p>
-                        <% end %>
-                        <p class="footer-total"><strong><%= final_price %></strong></p>
-                        <% if has_payments? %>
-                            <p>&nbsp;</p>
-                            <p><strong><%= total_paid %></strong></p>
-                            <p class="footer-total"><strong><%= balance %></strong></p>
-                        <% end %>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <% if has_tax_split? and show_tax_split? %>
-        <div class="split-tax">
-          <h4>Split Taxes</h4>
-          <table class="split-tax-table">
-            <tbody>
-            <tr>
-              <% tax_split.each do |name, rate| %>
-                  <th><%= name %>(<%= rate %>%)</th>
-                  <td><%= tax_subtotal(rate.to_f) %></td>
-              <% end %>
+            <tr class= "border" align = "center">
+               <td class= "border"> <%= sales_rep %></td>
+               <td class= "border"> <% if shipping_method %> <%= shipping_method %> <% end %></td>
+               <td class= "border"><%= shipping_date %></td>
+               <td class= "border"> <%= due_date %></td>
             </tr>
+         </table>
+      </div>
+      <div class="line-items">
+         <!--<h2 class="title"><%= items_header %></h2>-->
+         <table>
+            <thead>
+               <tr  bgcolor="lightgray" class= "border">
+                  <th class="position1">QUANTITY</th>
+                  <th class="name1" colspan="1"><%= item_header %></th>
+                  <th class="name1" colspan="2">Description</th>
+                  <th class="money1"><%= unit_price_header %></th>
+                  <th class="money">
+                     <div class="last">EXTENSION</div>
+                  </th>
+               </tr>
+            </thead>
+            <tbody class=''>
+               <% items.each_with_index do |item, index| %>
+               <tr>
+                  <td class="position" rowspan="1" align="center">
+                     <%= item.quantity %>
+                  </td>
+                  <td colspan="1"><%= item.name %></td>
+                  <td class="description" colspan="2">
+                     <% if item.table_view %>
+                     <div class="last text--pre-line li-desc-fixed-width">
+                        <%= item.li_grid_html_view %>
+                     </div>
+                     <% else %>
+                     <div class="last text--pre-line li-desc-fixed-width">
+                        <%= item.description %>
+                     </div>
+                     <% end %>
+                     <% if item.show_custom_fields(item.description_hash[:custom_fields])&& item.table_view %>
+                     <hr class="custom-field-separator">
+                     <% item.description_hash[:custom_fields].each do |cfv| %>
+                     <% if (cfv[:value] != nil && cfv[:value] != '' && cfv[:show_custom_fields_on_customer_pdf] != false) || cfv[:field_type] == 'separator' %>
+                     <%= "<strong>#{cfv[:category]}</strong><br>" if cfv[:category] != "" %>
+                     <%= "#{cfv[:name]}: #{cfv[:value]} <br>" %>
+                     <% end %>
+                     <% end %>
+                     <hr class="custom-field-separator">
+                     <% end %>
+                     <img src="<%= item.product_image %>" class="line-item-description-image">
+                  </td>
+                  <td class="money"><%= item.unit_price %></td>
+                  <td class="money">
+                     <div class="last">
+                        <%= item.total_price %>
+                     </div>
+                  </td>
+               </tr>
+               <tr>
+               </tr>
+               <% end %>
             </tbody>
-          </table>
-        </div>
-    <% end %>
-
-  <div class="section section--border-bottom">
-    </div>
-</div>
-</body>
+            <!--<tfoot class="no-page-break tfoot-one">-->
+            <!--<tr>-->
+            <!--<td colspan="6" class="labels first">-->
+            <!--<p><%= subtotal_header %></p>-->
+            <!--<% if show_tax  %>-->
+            <!--<p><%= total_tax_header %></p>-->
+            <!--<% end %>-->
+            <!--<p><%= final_price_header %></p>-->
+            <!--<p><%= credits_header %></p>-->
+            <!--<p><%= paid_header %></p>-->
+            <!--<p><%= net_due_header %></p>-->
+            <!--</td>-->
+            <!--<td class="money last">-->
+            <!--<p><%= sub_total %></p>-->
+            <!--<% if show_tax  %>-->
+            <!--<p><%= total_tax %></p>-->
+            <!--<% end %>-->
+            <!--<p><%= final_price %></p>-->
+            <!--<p><%= credits %></p>-->
+            <!--<p><%= paid %></p>-->
+            <!--<p><%= net_due %></p>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--</tfoot>-->
+         </table>
+      </div>
+      <!-- Cover Note -->
+      <!-- Signature Note -->
+      <div class="footer-bottom">
+         <div class="section">
+            <div class="footer-bottom-left">
+               <div class="tc">
+                  CREDIT CARD PAYMENTS ARE ACCEPTED WITH NO ADDITIONAL
+                  FEE FOR 2 BUSINESS DAYS. AFTER 2 DAYS A 3% CONVIENENCE
+                  FEE WILL BE ASSESSED ON CREDIT CARD PAYMENTS.
+                  INTEREST WILL BE CHARGED ON ALL INVOICES OVER 30 DAYS.
+               </div>
+               <div class="chk">Check/Credit Memo No:
+                  <% payments.each_with_index do |payment| %>
+                  <%= payment.payment_details %> ,
+                  <% end %>
+               </div>
+            </div>
+            <div class="footer-bottom-right">
+               <table>
+                  <tbody>
+                     <tr>
+                        <td class="labels first footer-subtotal">
+                           <p><strong><%= subtotal_header %>:</strong></p>
+                           <% if show_tax  %>
+                           <p><strong><%= total_tax_header %> (<%= tax_rate %>):</strong></p>
+                           <% end %>
+                           <p ><strong>Total Invoice Amount:</strong></p>
+                           <% if has_payments? %>
+                           <p>&nbsp;</p>
+                           <p><strong>Payment/Credut Applied:</strong></p>
+                           <p><strong>TOTAL DUE:</strong></p>
+                           <% end %>
+                        </td>
+                        <td class="money last footer-subtotal">
+                           <p><strong><%= sub_total %></strong></p>
+                           <% if show_tax  %>
+                           <p><strong><%= total_tax %></strong></p>
+                           <% end %>
+                           <p class="footer-total"><strong><%= final_price %></strong></p>
+                           <% if has_payments? %>
+                           <p>&nbsp;</p>
+                           <p><strong><%= total_paid %></strong></p>
+                           <p class="footer-total"><strong><%= balance %></strong></p>
+                           <% end %>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="clearfix"></div>
+         </div>
+         <% if has_tax_split? and show_tax_split? %>
+         <div class="split-tax">
+            <h4>Split Taxes</h4>
+            <table class="split-tax-table">
+               <tbody>
+                  <tr>
+                     <% tax_split.each do |name, rate| %>
+                     <th><%= name %>(<%= rate %>%)</th>
+                     <td><%= tax_subtotal(rate.to_f) %></td>
+                     <% end %>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <% end %>
+         <div class="section section--border-bottom">
+         </div>
+      </div>
+   </body>
 </html>
